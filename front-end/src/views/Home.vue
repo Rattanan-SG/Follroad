@@ -1,16 +1,13 @@
 <template>
-  <div class="home">
-    <google-map/>
-  </div>
+  <HelloWorld />
 </template>
 
 <script>
-import GoogleMap from "@/components/GoogleMap";
+  import HelloWorld from '../components/HelloWorld'
 
-export default {
-  name: 'home',
-  components: {
-    GoogleMap
+  export default {
+    components: {
+      HelloWorld
+    }
   }
-}
 </script>
