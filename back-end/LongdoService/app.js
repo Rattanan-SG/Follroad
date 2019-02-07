@@ -35,7 +35,7 @@ app.post("/stop", (req, res) => {
   res.send(200);
 });
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}...`);
 });
