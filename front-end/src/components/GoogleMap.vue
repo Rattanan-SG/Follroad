@@ -44,7 +44,7 @@
       <br>
     </div>
     <br>
-    <gmap-map ref="gmap" :center="center" :zoom="15" style="width:100%;  height: 500px;">
+    <gmap-map ref="gmap" :center="center" :zoom="12" style="width:100%;  height: 500px;">
       <gmap-info-window
         :options="infoOptions"
         :position="infoWindowPos"
@@ -65,6 +65,7 @@
 
 <script>
 import { gmapApi } from "vue2-google-maps";
+import axios from "axios";
 
 export default {
   name: "GoogleMap",
@@ -104,6 +105,7 @@ export default {
       var trafficLayer = new this.google.maps.TrafficLayer();
       trafficLayer.setMap(this.$refs.gmap.$mapObject);
     });
+    this.getEvent();
   },
 
   methods: {
@@ -181,6 +183,18 @@ export default {
           }
         }
       );
+    },
+    getEvent: function() {
+      axios.get("http://localhost:8000/event").then(response => {
+        let events = response.data;
+        events.map(event => {
+          this.pushMarker(
+            Number(event.latitude),
+            Number(event.longitude),
+            event.description
+          );
+        });
+      });
     }
   }
 };
