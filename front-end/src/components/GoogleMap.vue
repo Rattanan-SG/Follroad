@@ -1,12 +1,46 @@
 <template>
   <div>
     <div>
-      <h2>Get Route</h2>
-      <label>Start:
-        <gmap-autocomplete @place_changed="setStartPlace"></gmap-autocomplete>End:
-        <gmap-autocomplete @place_changed="setEndPlace"></gmap-autocomplete>
-        <button @click="getRoute">Get Route</button>
-      </label>
+      <!-- <h2>Get Route</h2> -->
+      <v-form>
+        <v-container>
+          <v-layout row wrap>
+            <v-flex xs2>
+              <v-card-text>
+                <p class="text-xs-right">Start</p>
+              </v-card-text>
+            </v-flex>
+              <v-flex xs10>
+                <v-card dark color="primary">
+                    <gmap-autocomplete @place_changed="setStartPlace"></gmap-autocomplete>
+                </v-card>
+              </v-flex>
+
+            <v-flex xs2>
+              <v-card-text>
+                <p class="text-xs-right">Stop</p>
+              </v-card-text>
+            </v-flex>
+            <v-flex xs10>
+              <v-card dark color="primary">
+                <gmap-autocomplete @place_changed="setEndPlace"></gmap-autocomplete>
+              </v-card>
+            </v-flex>
+            <div class="text-xs-right">
+               <v-btn round color="primary" v-on:click="getRoute">Get Route</v-btn>
+            </div>
+
+              <!----<label>จุดเริ่มต้น:
+                <gmap-autocomplete @place_changed="setStartPlace"></gmap-autocomplete>
+                
+                ปลายทาง:
+                <gmap-autocomplete @place_changed="setEndPlace"></gmap-autocomplete>
+                <button @click="getRoute">Get Route</button>
+              </label>---->
+            
+          </v-layout>  
+        </v-container>
+      </v-form>
       <br>
     </div>
     <br>
@@ -54,7 +88,9 @@ export default {
       coords: null,
       destination: null,
       directionsService: null,
-      directionsRenderer: null
+      directionsRenderer: null,
+      startDirection: "",
+      endDirection: ""
     };
   },
 
