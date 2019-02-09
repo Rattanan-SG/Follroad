@@ -1,34 +1,42 @@
 <template>
-  <div>
+  <div class="teal accent-3">
     <div>
       <!-- <h2>Get Route</h2> -->
       <v-form>
         <v-container>
           <v-layout row wrap>
-            <v-flex xs2>
-              <v-card-text>
+            <v-flex xs2 md1>
+             <v-icon>my_location</v-icon>
+              <!-- <v-card-text>
                 <p class="text-xs-right">Start</p>
-              </v-card-text>
+              </v-card-text> -->
             </v-flex>
-              <v-flex xs10>
-                <v-card dark color="primary">
+              <v-flex xs9 md10>
+                <v-card dark color="white black--text" >
                     <gmap-autocomplete @place_changed="setStartPlace"></gmap-autocomplete>
                 </v-card>
               </v-flex>
-
-            <v-flex xs2>
-              <v-card-text>
+          </v-layout>
+          <v-layout row wrap>  
+            <v-flex xs2 md1>
+              <v-icon>place</v-icon>
+              <!-- <v-card-text>
                 <p class="text-xs-right">Stop</p>
-              </v-card-text>
+              </v-card-text> -->
             </v-flex>
-            <v-flex xs10>
-              <v-card dark color="primary">
+            <v-flex xs9 md10>
+              <v-card dark color="white black--text">
                 <gmap-autocomplete @place_changed="setEndPlace"></gmap-autocomplete>
               </v-card>
             </v-flex>
-            <div class="text-xs-right">
-               <v-btn round color="primary" v-on:click="getRoute">Get Route</v-btn>
+             <v-flex xs12 md12>
+               <div class="text-xs-right" >
+              
+               <v-btn round color="light-blue accent-4 white--text" v-on:click="getRoute" >Get Route</v-btn>
+               
             </div>
+            </v-flex>
+           
 
               <!----<label>จุดเริ่มต้น:
                 <gmap-autocomplete @place_changed="setStartPlace"></gmap-autocomplete>
