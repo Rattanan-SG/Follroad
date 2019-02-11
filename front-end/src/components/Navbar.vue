@@ -1,7 +1,5 @@
 <template>
-  <v-app>
-    <Navbar/>
-    <!-- <v-toolbar app>
+    <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <span class="group pa-2">
         <v-icon>home</v-icon>
@@ -16,30 +14,11 @@
         
       </v-btn>
     </v-toolbar>
-
-    <v-content>
-      <GoogleMap/>
-    </v-content> -->
-    <v-content>
-      <GoogleMap/>
-    </v-content>
-  </v-app>
 </template>
 
+
 <script>
-import GoogleMap from './components/GoogleMap'
-import Navbar from './components/Navbar'
-
 export default {
-  name: 'App',
-  components: {
-    GoogleMap,Navbar
-
-  },
-  data () {
-    return {
-      //
-    }
-  }
+ name: "Navbar"
 }
 </script>

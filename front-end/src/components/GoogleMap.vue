@@ -13,7 +13,7 @@
             </v-flex>
               <v-flex xs9 md10>
                 <v-card dark color="white black--text" >
-                    <gmap-autocomplete @place_changed="setStartPlace"></gmap-autocomplete>
+                    <gmap-autocomplete @place_changed="setStartPlace" ></gmap-autocomplete>
                 </v-card>
               </v-flex>
           </v-layout>
@@ -52,7 +52,7 @@
       <br>
     </div>
     <br>
-    <gmap-map ref="gmap" :center="center" :zoom="12" style="width:100%;  height: 500px;">
+    <gmap-map ref="gmap" :center="center" :zoom="12" style="width:100%;  height: 550px;">
       <gmap-info-window
         :options="infoOptions"
         :position="infoWindowPos"
