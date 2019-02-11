@@ -6,15 +6,10 @@
         <v-container>
           <v-layout row wrap>
             <v-flex xs2 md1>
-             <v-icon>my_location</v-icon>
-              <!-- <v-card-text>
-                <p class="text-xs-right">Start</p>
-              </v-card-text> -->
+              <v-icon>my_location</v-icon>
             </v-flex>
               <v-flex xs9 md10>
-                <v-card dark color="white black--text" >
-                    <gmap-autocomplete @place_changed="setStartPlace" ></gmap-autocomplete>
-                </v-card>
+                    <gmap-autocomplete id="auto" @place_changed="setStartPlace" ></gmap-autocomplete>
               </v-flex>
           </v-layout>
           <v-layout row wrap>  
@@ -25,9 +20,8 @@
               </v-card-text> -->
             </v-flex>
             <v-flex xs9 md10>
-              <v-card dark color="white black--text">
-                <gmap-autocomplete @place_changed="setEndPlace"></gmap-autocomplete>
-              </v-card>
+                <gmap-autocomplete id="auto" @place_changed="setEndPlace"></gmap-autocomplete>
+              
             </v-flex>
              <v-flex xs12 md12>
                <div class="text-xs-right" >
@@ -207,3 +201,12 @@ export default {
   }
 };
 </script>
+<style>
+#auto {
+  
+  width: 100%;
+  background-color: #fff;
+
+}
+
+</style>
