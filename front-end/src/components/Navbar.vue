@@ -1,8 +1,11 @@
-<template>
+ <!--<template>
     <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
+      <v-toolbar-title class="headline text">
         <span class="group pa-2">
-        <v-icon>home</v-icon>
+        <v-icon margin- = "200px">menu</v-icon>
+        
+        <span>FollRoad </span>
+
       </span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -14,6 +17,16 @@
         
       </v-btn>
     </v-toolbar>
+</template> -->
+<template>
+  <v-toolbar dark color="primary">
+    <v-toolbar-side-icon></v-toolbar-side-icon>
+    <v-toolbar-title class="white--text">FollRoad</v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-btn icon>
+      <v-icon>more_vert</v-icon>
+    </v-btn>
+  </v-toolbar>
 </template>
 
 
