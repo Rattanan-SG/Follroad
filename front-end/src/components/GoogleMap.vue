@@ -46,14 +46,14 @@
       <br>
     </div>
     <br>
-    <gmap-map ref="gmap" :center="center" :zoom="12" style="width:100%;  height: 630px;">
+    <gmap-map ref="gmap" :center="center" :zoom="15" style="width:100%;  height: 630px;">
       <gmap-info-window
         :options="infoOptions"
         :position="infoWindowPos"
         :opened="infoWinOpen"
         @closeclick="infoWinOpen=false"
       >{{infoContent}}</gmap-info-window>
-      <!-- <gmap-marker :position="myLocation.position"></gmap-marker> -->
+      <gmap-marker :position="myLocation.position"></gmap-marker>
       <gmap-marker
         :key="index"
         v-for="(m, index) in markers"

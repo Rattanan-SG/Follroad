@@ -19,19 +19,155 @@
     </v-toolbar>
 </template> -->
 <template>
-  <v-toolbar dark color="primary">
-    <v-toolbar-side-icon></v-toolbar-side-icon>
-    <v-toolbar-title class="white--text">FollRoad</v-toolbar-title>
-    <v-spacer></v-spacer>
-    <v-btn icon>
-      <v-icon>more_vert</v-icon>
-    </v-btn>
-  </v-toolbar>
+      <!-- <v-toolbar dark color="primary">
+          <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+          <v-toolbar-title class="white--text">FollRoad</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn icon>
+            <v-icon>more_vert</v-icon>
+          </v-btn>
+      </v-toolbar> -->
+
+    <!-- <div id="app">
+    <v-navigation-drawer
+      fixed
+      v-model="drawer"
+      app
+    >
+      <v-list dense>
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <v-icon>home</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Home</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <i class="material-icons">today</i>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>News</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <i class="material-icons">notifications</i>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Notification</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <i class="material-icons">save</i>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>SaveRoute</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <i class="material-icons">history</i>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>History</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <i class="material-icons">lock</i>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Logout</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+    <v-toolbar color="indigo" dark fixed app>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title>Follroad</v-toolbar-title>
+    </v-toolbar>
+</div> -->
+
+  <div id="app">
+    <v-navigation-drawer app v-model="drawer">
+      <v-list dense>
+        <v-list-tile to="/">
+          <v-list-tile-action>
+            <v-icon>home</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Home</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile to="/news">
+          <v-list-tile-action>
+            <i class="material-icons">today</i>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>News</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <i class="material-icons">notifications</i>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Notification</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <i class="material-icons">save</i>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>SaveRoute</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <i class="material-icons">history</i>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>History</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <i class="material-icons">lock</i>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Logout</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+    <v-toolbar color="indigo" dark fixed app>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title>Follroad</v-toolbar-title>
+    </v-toolbar>
+    </div>
+    
 </template>
 
 
 <script>
+// export default {
+//     data: () => ({
+//       name: 'Navbar',
+//       drawer: null
+//     }),
+//     props: {
+//       source: String
+//     }
+//   }
 export default {
- name: "Navbar"
+  data(){
+    return{
+      drawer : false
+    }
+  }
 }
 </script>

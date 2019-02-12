@@ -1,13 +1,15 @@
 <template>
-  <HelloWorld />
+  <v-content>
+      <GoogleMap/>
+    </v-content>
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
+  import GoogleMap from '../components/GoogleMap'
 
   export default {
     components: {
-      HelloWorld
+      GoogleMap
     }
   }
 </script>

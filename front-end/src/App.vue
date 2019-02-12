@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <div>
     <Navbar/>
     <!-- <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
@@ -15,25 +15,25 @@
       >
         
       </v-btn>
-    </v-toolbar>
+    </v-toolbar> -->
 
-    <v-content>
+    <!-- <v-content>
       <GoogleMap/>
     </v-content> -->
-    <v-content>
-      <GoogleMap/>
-    </v-content>
-  </v-app>
+    
+    <router-view></router-view>
+    <router-link to='/about'></router-link>
+  </div>
 </template>
 
 <script>
-import GoogleMap from './components/GoogleMap'
+
 import Navbar from './components/Navbar'
 
 export default {
   name: 'App',
   components: {
-    GoogleMap,Navbar
+    Navbar
 
   },
   data () {
