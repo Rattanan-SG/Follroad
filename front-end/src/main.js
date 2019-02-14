@@ -1,5 +1,5 @@
 import Vue from "vue";
-import './plugins/vuetify'
+import "./plugins/vuetify";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
@@ -10,8 +10,8 @@ Vue.config.productionTip = false;
 
 Vue.use(VueGoogleMaps, {
   load: {
+    libraries: "places,geometry,directions",
     key: process.env.VUE_APP_GOOGLE_KEY,
-    libraries: "places, directions",
     region: "TH",
     language: "th"
   }

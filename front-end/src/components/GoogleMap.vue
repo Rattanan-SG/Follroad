@@ -8,45 +8,46 @@
             <v-flex xs2 md1>
               <v-icon>my_location</v-icon>
             </v-flex>
-              <v-flex xs9 md10>
-                    <gmap-autocomplete id="auto" @place_changed="setStartPlace" ></gmap-autocomplete>
-              </v-flex>
+            <v-flex xs9 md10>
+              <gmap-autocomplete id="auto" @place_changed="setStartPlace"></gmap-autocomplete>
+            </v-flex>
           </v-layout>
-          <v-layout row wrap>  
+          <v-layout row wrap>
             <v-flex xs2 md1>
               <v-icon>place</v-icon>
               <!-- <v-card-text>
                 <p class="text-xs-right">Stop</p>
-              </v-card-text> -->
+              </v-card-text>-->
             </v-flex>
             <v-flex xs9 md10>
-                <gmap-autocomplete id="auto" @place_changed="setEndPlace"></gmap-autocomplete>
-              
+              <gmap-autocomplete id="auto" @place_changed="setEndPlace"></gmap-autocomplete>
             </v-flex>
-             <v-flex xs12 md12>
-               <div class="text-xs-right" >
-              
-               <v-btn round color="light-blue accent-4 white--text" v-on:click="getRoute" >Get Route</v-btn>
-               
-            </div>
+            <v-flex xs12 md12>
+              <div class="text-xs-right">
+                <v-btn round color="light-blue accent-4 white--text" v-on:click="getRoute">Get Route</v-btn>
+              </div>
             </v-flex>
-           
 
-              <!----<label>จุดเริ่มต้น:
+            <!----<label>จุดเริ่มต้น:
                 <gmap-autocomplete @place_changed="setStartPlace"></gmap-autocomplete>
                 
                 ปลายทาง:
                 <gmap-autocomplete @place_changed="setEndPlace"></gmap-autocomplete>
                 <button @click="getRoute">Get Route</button>
-              </label>---->
-            
-          </v-layout>  
+            </label>---->
+          </v-layout>
         </v-container>
       </v-form>
       <br>
     </div>
     <br>
-    <gmap-map ref="gmap" :center="center" :zoom="15" style="width:100%;  height: 630px;">
+    <gmap-map
+      ref="gmap"
+      :center="center"
+      :zoom="15"
+      @click="test"
+      style="width:100%;  height: 500px;"
+    >
       <gmap-info-window
         :options="infoOptions"
         :position="infoWindowPos"
@@ -93,7 +94,9 @@ export default {
       directionsService: null,
       directionsRenderer: null,
       startDirection: "",
-      endDirection: ""
+      endDirection: "",
+      path: [],
+      polyline: null
     };
   },
 
@@ -111,6 +114,19 @@ export default {
   },
 
   methods: {
+    test(event) {
+      // console.log(event);
+      if (this.polyline) {
+        let se = this.google.maps.geometry.poly.isLocationOnEdge(
+          event.latLng,
+          this.polyline,
+          0.0005
+        );
+        console.log(this.polyline.getPath());
+
+        console.log(se);
+      }
+    },
     setStartPlace(place) {
       this.coords = {
         lat: place.geometry.location.lat(),
@@ -173,12 +189,17 @@ export default {
         (response, status) => {
           if (status === "OK") {
             console.log(response);
-            // response.routes[0].overview_path.map(x => {
-            //   this.pushMarker(x.lat(),
-            //     x.lng(),"dd"
-            //   );
-            // });
+            // this.path = this.google.maps.geometry.encoding.decodePath(
+            //   response.routes[0].overview_polyline
+            // );
+            this.polyline = new google.maps.Polyline({
+              path: response.routes[0].overview_path
+            });
+            console.log(this.polyline);
 
+            response.routes[0].overview_path.map(x => {
+              this.pushMarker(x.lat(), x.lng(), "dd");
+            });
             this.directionsRenderer.setDirections(response);
           } else {
             console.log("Directions request failed due to " + status);
@@ -187,7 +208,7 @@ export default {
       );
     },
     getEvent: function() {
-      axios.get("http://localhost:8000/event").then(response => {
+      axios.get("http://localhost:3000/event").then(response => {
         let events = response.data;
         events.map(event => {
           this.pushMarker(
@@ -203,10 +224,7 @@ export default {
 </script>
 <style>
 #auto {
-  
   width: 100%;
   background-color: #fff;
-
 }
-
 </style>
