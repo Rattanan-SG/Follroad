@@ -1,7 +1,6 @@
 <template>
   <div class="teal accent-3">
     <div>
-      <!-- <h2>Get Route</h2> -->
       <v-form>
         <v-container>
           <v-layout row wrap>
@@ -15,9 +14,6 @@
           <v-layout row wrap>
             <v-flex xs2 md1>
               <v-icon>place</v-icon>
-              <!-- <v-card-text>
-                <p class="text-xs-right">Stop</p>
-              </v-card-text>-->
             </v-flex>
             <v-flex xs9 md10>
               <gmap-autocomplete id="auto" @place_changed="setEndPlace"></gmap-autocomplete>
@@ -27,14 +23,6 @@
                 <v-btn round color="light-blue accent-4 white--text" v-on:click="getRoute">Get Route</v-btn>
               </div>
             </v-flex>
-
-            <!----<label>จุดเริ่มต้น:
-                <gmap-autocomplete @place_changed="setStartPlace"></gmap-autocomplete>
-                
-                ปลายทาง:
-                <gmap-autocomplete @place_changed="setEndPlace"></gmap-autocomplete>
-                <button @click="getRoute">Get Route</button>
-            </label>---->
           </v-layout>
         </v-container>
       </v-form>
@@ -45,8 +33,13 @@
       ref="gmap"
       :center="center"
       :zoom="15"
+      :options="{
+        mapTypeControl: false,
+        fullscreenControl: false,
+        gestureHandling: 'greedy'
+      }"
       @click="test"
-      style="width:100%;  height: 500px;"
+      style="width:100%; height: 500px"
     >
       <gmap-info-window
         :options="infoOptions"
@@ -120,9 +113,9 @@ export default {
         let se = this.google.maps.geometry.poly.isLocationOnEdge(
           event.latLng,
           this.polyline,
-          0.0005
+          0.0003
         );
-        console.log(this.polyline.getPath());
+        console.log(event.latLng.lat(), event.latLng.lng());
 
         console.log(se);
       }
@@ -192,7 +185,7 @@ export default {
             // this.path = this.google.maps.geometry.encoding.decodePath(
             //   response.routes[0].overview_polyline
             // );
-            this.polyline = new google.maps.Polyline({
+            this.polyline = new this.google.maps.Polyline({
               path: response.routes[0].overview_path
             });
             console.log(this.polyline);
