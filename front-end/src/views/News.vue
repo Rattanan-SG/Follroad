@@ -3,9 +3,9 @@
       <br><br><br>
       
         <v-container fluid grid-list-lg>
-            <v-layout row wrap>
+            <v-layout row wrap align-start justify-center  fill-height>
                 
-                    <v-card  color="cyan darken-2" class="white--text">
+                    <v-card  color="cyan darken-2 white--text" class="mb-4 mt-4 ">
                         <v-layout>
                           
                     
