@@ -110,14 +110,14 @@
             <v-list-tile-title>News</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click="">
+        <!-- <v-list-tile @click="">
           <v-list-tile-action>
             <i class="material-icons">notifications</i>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Notification</v-list-tile-title>
           </v-list-tile-content>
-        </v-list-tile>
+        </v-list-tile> -->
         <v-list-tile @click="">
           <v-list-tile-action>
             <i class="material-icons">save</i>
@@ -147,6 +147,14 @@
     <v-toolbar color="indigo" dark fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Follroad</v-toolbar-title>
+      <v-spacer></v-spacer>
+        <v-list-tile to="/news">
+          
+          <v-toolbar-items class="hidden-sm-and-down">
+            <i class="material-icons">notifications</i>
+            
+          </v-toolbar-items>
+        </v-list-tile>
     </v-toolbar>
     </div>
     
