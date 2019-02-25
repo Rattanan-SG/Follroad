@@ -4,44 +4,44 @@
       
         <v-container fluid grid-list-lg>
             <v-layout row wrap>
-                <v-flex xs12>
-                    <v-card color="cyan darken-2" class="white--text">
+                
+                    <v-card  color="cyan darken-2" class="white--text">
                         <v-layout>
                           
-                    <v-flex xs1>
-                 
-                  </v-flex>
+                    
                   
                   <v-flex xs2 md1>
                     <br> <br>
-                    <v-icon size="50px">account_circle</v-icon>
+                    <v-icon size="50px" class="ml-4">account_circle</v-icon>
                    
                   </v-flex>
                   <v-flex xs7>
                     <v-card-title primary-title>
                       <div>
-                        <div class="headline">The Nun</div>
-                        <div>3 นาที</div>
+                        <div class="headline , ml-4"  >The Nun</div>
+                        <div id="abc" class="ml-4">3 นาที</div>
                         
                       </div>
                     </v-card-title>
-                    <div>ถนนประชาอุทิศ ซอยประชาอุทิศ 37  
-                            รถจยย. ชนกับ รถปิคอัพ ขวางช่องทางซ้าย 
-                              บาดเจ็บ 2 คน การจราจรเคลื่อนตัวช้า</div>
+                   
                   </v-flex>
                   
                 </v-layout>
+                <v-flex xs12>
+                 <div>ถนนประชาอุทิศ ซอยประชาอุทิศ 37  
+                            รถจยย. ชนกับ รถปิคอัพ ขวางช่องทางซ้าย 
+                              บาดเจ็บ 2 คน การจราจรเคลื่อนตัวช้า
+                 </div>
+                </v-flex>
                 <v-divider light></v-divider>
                 
                 <v-card-actions class="pa-3">
-                  <v-flex xs1>
                   
-                  </v-flex>
                    <v-flex xs2 md1    >
                   <v-icon size="30px">account_circle</v-icon>
                   </v-flex>
                   
-                  <v-flex xs10>
+                  <v-flex xs11>
                    
                         <v-card dark color="white black--text">
                         <v-card-text>รถติดมาก
@@ -56,13 +56,21 @@
                   
                 </v-card-actions>
                     </v-card>
-                </v-flex>
+                
             </v-layout>
         </v-container>
     </v-card>
     
     
 </template>
+
+<style>
+  .abc{
+    margin-top: 2px;
+    
+  }
+</style>
+
 <script>
 export default {
     
