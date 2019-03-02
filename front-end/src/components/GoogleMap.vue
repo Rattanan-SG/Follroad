@@ -89,12 +89,18 @@ export default {
       startDirection: "",
       endDirection: "",
       path: [],
-      polyline: null
+      polyline: null,
+      timer: null
     };
   },
 
   computed: {
     google: gmapApi
+  },
+
+  created() {
+    this.getEvent();
+    // this.timer = setInterval(this.getEvent, 3000)
   },
 
   mounted() {
@@ -103,7 +109,6 @@ export default {
       var trafficLayer = new this.google.maps.TrafficLayer();
       trafficLayer.setMap(this.$refs.gmap.$mapObject);
     });
-    this.getEvent();
   },
 
   methods: {
@@ -203,6 +208,7 @@ export default {
     getEvent: function() {
       axios.get("http://localhost:3000/event").then(response => {
         let events = response.data;
+        // this.markers = [];
         events.map(event => {
           this.pushMarker(
             Number(event.latitude),
@@ -212,7 +218,12 @@ export default {
         });
       });
     }
-  }
+  },
+
+  // beforeDestroy() {
+  //   clearInterval(this.timer)
+  // }
+
 };
 </script>
 <style>
