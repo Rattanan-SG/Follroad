@@ -1,6 +1,6 @@
 <template>
-  <div class="teal accent-3">
-    <div>
+  <div>
+    <div class="teal accent-3">
       <v-form>
         <v-container>
           <v-layout row wrap>
@@ -36,8 +36,8 @@
         fullscreenControl: false,
         gestureHandling: 'greedy'
       }"
-      @click="test"
-      style="width:100%; height: 500px"
+      @click="isOnEdge"
+      style="width:100%; height: 600px"
     >
       <gmap-info-window
         :options="infoOptions"
@@ -54,7 +54,9 @@
         @click="toggleInfoWindow(m,index)"
       ></gmap-marker>
     </gmap-map>
+    <div id="directionsPanel" style="width:50%;height 100%"></div>
   </div>
+  
 </template>
 
 <script>
@@ -104,23 +106,24 @@ export default {
   mounted() {
     this.geolocate();
     this.$gmapApiPromiseLazy().then(() => {
-      var trafficLayer = new this.google.maps.TrafficLayer();
+      let trafficLayer = new this.google.maps.TrafficLayer();
       trafficLayer.setMap(this.$refs.gmap.$mapObject);
+      this.directionsService = new this.google.maps.DirectionsService();
+      this.directionsRenderer = new this.google.maps.DirectionsRenderer();
     });
   },
 
   methods: {
-    test(event) {
+    isOnEdge(event) {
       // console.log(event);
       if (this.polyline) {
-        let se = this.google.maps.geometry.poly.isLocationOnEdge(
+        let onEdge = this.google.maps.geometry.poly.isLocationOnEdge(
           event.latLng,
           this.polyline,
           0.0003
         );
         console.log(event.latLng.lat(), event.latLng.lng());
-
-        console.log(se);
+        console.log(onEdge);
       }
     },
     setStartPlace(place) {
@@ -169,18 +172,18 @@ export default {
       }
     },
     getRoute: function() {
-      if (this.directionsRenderer != null) {
+      if (this.directionsRenderer!= null) {
         this.directionsRenderer.setMap(null);
-        this.directionsRenderer = null;
+        this.directionsRenderer.setPanel(null)
       }
-      this.directionsService = new this.google.maps.DirectionsService();
-      this.directionsRenderer = new this.google.maps.DirectionsRenderer();
       this.directionsRenderer.setMap(this.$refs.gmap.$mapObject);
+      this.directionsRenderer.setPanel(document.getElementById('directionsPanel'));
       this.directionsService.route(
         {
           origin: this.coords,
           destination: this.destination,
-          travelMode: "DRIVING"
+          travelMode: "DRIVING",
+          provideRouteAlternatives : true
         },
         (response, status) => {
           if (status === "OK") {
@@ -192,7 +195,6 @@ export default {
             this.polyline = new this.google.maps.Polyline({
               path: response.routes[0].overview_path
             });
-            console.log(this.polyline);
 
             // response.routes[0].overview_path.map(x => {
             //   this.pushMarker(x.lat(), x.lng(), "dd");
@@ -209,13 +211,15 @@ export default {
       axios.get("http://localhost:3000/event").then(response => {
         let events = response.data;
         // this.markers = [];
-        events.map(event => {
+        events.map(event => {    
           this.pushMarker(
             Number(event.latitude),
             Number(event.longitude),
             event.description
           );
         });
+      }).catch(err => {
+        console.log(err);
       });
     }
   },
