@@ -26,9 +26,7 @@
           </v-layout>
         </v-container>
       </v-form>
-      <br>
     </div>
-    <br>
     <gmap-map
       ref="gmap"
       :center="center"
@@ -190,14 +188,16 @@ export default {
             // this.path = this.google.maps.geometry.encoding.decodePath(
             //   response.routes[0].overview_polyline
             // );
+
             this.polyline = new this.google.maps.Polyline({
               path: response.routes[0].overview_path
             });
             console.log(this.polyline);
 
-            response.routes[0].overview_path.map(x => {
-              this.pushMarker(x.lat(), x.lng(), "dd");
-            });
+            // response.routes[0].overview_path.map(x => {
+            //   this.pushMarker(x.lat(), x.lng(), "dd");
+            // });
+
             this.directionsRenderer.setDirections(response);
           } else {
             console.log("Directions request failed due to " + status);
