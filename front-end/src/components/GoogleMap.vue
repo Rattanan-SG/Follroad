@@ -56,7 +56,6 @@
     </gmap-map>
     <div id="directionsPanel" style="width:50%;height 100%"></div>
   </div>
-  
 </template>
 
 <script>
@@ -172,18 +171,20 @@ export default {
       }
     },
     getRoute: function() {
-      if (this.directionsRenderer!= null) {
+      if (this.directionsRenderer != null) {
         this.directionsRenderer.setMap(null);
-        this.directionsRenderer.setPanel(null)
+        this.directionsRenderer.setPanel(null);
       }
       this.directionsRenderer.setMap(this.$refs.gmap.$mapObject);
-      this.directionsRenderer.setPanel(document.getElementById('directionsPanel'));
+      this.directionsRenderer.setPanel(
+        document.getElementById("directionsPanel")
+      );
       this.directionsService.route(
         {
           origin: this.coords,
           destination: this.destination,
           travelMode: "DRIVING",
-          provideRouteAlternatives : true
+          provideRouteAlternatives: true
         },
         (response, status) => {
           if (status === "OK") {
@@ -208,26 +209,28 @@ export default {
       );
     },
     getEvent: function() {
-      axios.get("http://localhost:3000/event").then(response => {
-        let events = response.data;
-        // this.markers = [];
-        events.map(event => {    
-          this.pushMarker(
-            Number(event.latitude),
-            Number(event.longitude),
-            event.description
-          );
+      axios
+        .get("http://localhost:3000/event")
+        .then(response => {
+          let events = response.data;
+          // this.markers = [];
+          events.map(event => {
+            this.pushMarker(
+              Number(event.latitude),
+              Number(event.longitude),
+              event.description
+            );
+          });
+        })
+        .catch(err => {
+          console.log(err);
         });
-      }).catch(err => {
-        console.log(err);
-      });
     }
-  },
+  }
 
   // beforeDestroy() {
   //   clearInterval(this.timer)
   // }
-
 };
 </script>
 <style>
