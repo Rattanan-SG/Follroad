@@ -1,10 +1,10 @@
 const mariadb = require("mariadb");
 
-const dbpool = mariadb.createPool({
+const pool = mariadb.createPool({
   host: process.env.DATABASE_HOST,
   user: process.env.DATABASE_USER,
   password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE_DATABASE,
+  database: process.env.DATABASE_DATABASE
 });
 
 // const connection = mariadb.createPool({
@@ -16,5 +16,5 @@ const dbpool = mariadb.createPool({
 // });
 
 module.exports = {
-  dbpool
+  pool
 };

@@ -4,77 +4,68 @@ const cors = require("cors");
 const CronJob = require("cron").CronJob;
 const app = express();
 
-const api = require("./utility/api");
+const api = require("./controller/iticApi");
 const db = require("./database/controller");
 
 app.use(cors());
 app.use(bodyParser.json());
 
-const job = new CronJob("*/1 * * * *", () => {
-  api.getEvents().then(events => {
-    console.log();
-  });
+const job = new CronJob("*/3 * * * *", () => {
+  updateEventToDatabase();
 });
+job.start();
 
 app.get("/events", (req, res) => {
   db.getEvents().then(events => {
-    console.log(events.length);
     res.send(events);
   });
 });
 
-app.get("/test", async (req, res) => {
-  const externalEventsEid = await db.getEvents().then(event =>
-    event.map(x => {
-      return x.eid;
-    })
-  );
-
-  api.getEvents().then(events => {
-    let summaryEvent = [];
-    let eventFilter = events.filter(
-      event => !externalEventsEid.includes(parseInt(event.eid))
-    );
-    eventFilter.map(event => {
-      let row = [];
-      for (key in event) {
-        switch (key) {
-          case "eid":
-            event[key] = parseInt(event[key]);
-            break;
-          case "latitude":
-            event[key] = parseFloat(event[key]);
-            break;
-          case "longitude":
-            event[key] = parseFloat(event[key]);
-            break;
-          case "start":
-            event[key] = new Date(event[key]);
-            break;
-          case "stop":
-            event[key] = new Date(event[key]);
-            break;
-        }
-        row.push(event[key]);
-      }
-      summaryEvent.push(row);
-    });
-    db.insertEvents(summaryEvent);
+app.post("/update", (req, res) => {
+  updateEventToDatabase().then(out => {
+    res.send({ count: out });
   });
 });
 
-app.post("/start", (req, res) => {
+app.post("/job/start", (req, res) => {
   job.start();
-  res.send(200);
+  console.log("Update data job has start");
+  res.sendStatus(200);
 });
 
-app.post("/stop", (req, res) => {
+app.post("/job/stop", (req, res) => {
   job.stop();
-  res.send(200);
+  console.log("Update data job has stop");
+  res.sendStatus(200);
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  // job.start();
   console.log(`Server listening on port ${PORT}...`);
 });
+
+function updateEventToDatabase() {
+  return Promise.all([db.getEventId(), api.getEvents()])
+    .then(response => {
+      let databaseEventsEid = response[0].map(x => x.eid);
+      let eventFilter = response[1].filter(
+        event => !databaseEventsEid.includes(parseInt(event.eid))
+      );
+      if (eventFilter.length != 0) {
+        db.insertEvents(eventFilter);
+        console.log(
+          `Update data complete '${eventFilter.length}' row : ` +
+            new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" })
+        );
+      } else {
+        console.log(
+          `Not hava event to update : ` +
+            new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" })
+        );
+      }
+      return eventFilter.length;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}

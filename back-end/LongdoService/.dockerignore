@@ -2,6 +2,8 @@ node_modules
 setup_database
 .git
 .gitignore
-Dockerfile
+Dockerfile*
+docker-compose*
+.dockerignore
 README.md
 .DS_Store

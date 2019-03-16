@@ -6,11 +6,15 @@ services:
       - "3000:3000"
     links:
       - longdo-db
-    environment: 
+    volumes:
+      - ./back-end/LongdoService:/app
+      - /app/node_modules
+    environment:
       DATABASE_HOST: longdo-db
       DATABASE_USER: admin
       DATABASE_PASSWORD: test
       DATABASE_DATABASE: database
+      TZ: Asia/Bangkok
   longdo-db:
     image: mariadb
     restart: always
@@ -24,3 +28,4 @@ services:
       MYSQL_USER: admin
       MYSQL_PASSWORD: test
       MYSQL_DATABASE: database
+      TZ: Asia/Bangkok
