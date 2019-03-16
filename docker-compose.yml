@@ -6,11 +6,19 @@ services:
       - "3000:3000"
     links:
       - longdo-db
+    environment: 
+      DATABASE_HOST: longdo-db
+      DATABASE_USER: admin
+      DATABASE_PASSWORD: test
+      DATABASE_DATABASE: database
   longdo-db:
-    build: ./back-end/LongdoService/setup_database
+    image: mariadb
     restart: always
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ports:
       - "3306:3306"
+    volumes:
+      - ./back-end/LongdoService/setup_database/init:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: admin
