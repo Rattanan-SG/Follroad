@@ -1,5 +1,5 @@
 {
-  "name": "longdoservice",
+  "name": "external_event_service",
   "version": "1.0.0",
   "description": "Get data from longdo api",
   "main": "app.js",

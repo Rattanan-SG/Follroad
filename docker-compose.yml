@@ -1,31 +1,31 @@
 version: "3"
 services:
-  longdo-service:
-    build: ./back-end/LongdoService
+  external-event-service:
+    build: ./back-end/ExternalEventService
     ports:
       - "3000:3000"
     links:
-      - longdo-db
+      - external-event-db:database
     volumes:
-      - ./back-end/LongdoService:/app
+      - ./back-end/ExternalEventService:/app
       - /app/node_modules
     environment:
-      DATABASE_HOST: longdo-db
+      DATABASE_HOST: database
       DATABASE_USER: admin
       DATABASE_PASSWORD: test
-      DATABASE_DATABASE: database
+      DATABASE_DATABASE: event
       TZ: Asia/Bangkok
-  longdo-db:
+  external-event-db:
     image: mariadb
     restart: always
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ports:
       - "3306:3306"
     volumes:
-      - ./back-end/LongdoService/setup_database/init:/docker-entrypoint-initdb.d
+      - ./back-end/ExternalEventService/setup_database/init:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: admin
       MYSQL_PASSWORD: test
-      MYSQL_DATABASE: database
+      MYSQL_DATABASE: event
       TZ: Asia/Bangkok
