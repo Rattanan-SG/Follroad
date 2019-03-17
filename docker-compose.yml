@@ -2,6 +2,7 @@ version: "3"
 services:
   external-event-service:
     build: ./back-end/ExternalEventService
+    command: ["npm", "run", "dev"]
     ports:
       - "3000:3000"
     links:
@@ -10,10 +11,6 @@ services:
       - ./back-end/ExternalEventService:/app
       - /app/node_modules
     environment:
-      DATABASE_HOST: database
-      DATABASE_USER: admin
-      DATABASE_PASSWORD: test
-      DATABASE_DATABASE: event
       TZ: Asia/Bangkok
   external-event-db:
     image: mariadb

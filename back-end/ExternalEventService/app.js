@@ -4,6 +4,11 @@ const cors = require("cors");
 const CronJob = require("cron").CronJob;
 const app = express();
 
+const config = require("./config.json");
+const environment = process.env.NODE_ENV || "development";
+const environmentConfig = config[environment];
+global.gConfig = environmentConfig;
+
 const db = require("./database/controller");
 const service = require("./controller/appService");
 
@@ -40,7 +45,7 @@ app.post("/job/stop", (req, res) => {
   res.sendStatus(200);
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = global.gConfig.node_port || 3000;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}...`);
 });
