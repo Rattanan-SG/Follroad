@@ -60,7 +60,7 @@
 
 <script>
 import { gmapApi } from "vue2-google-maps";
-import axios from "axios";
+import axios from "@/utilitys/axios";
 
 export default {
   name: "GoogleMap",
@@ -210,7 +210,7 @@ export default {
     },
     getEvent: function() {
       axios
-        .get("http://localhost:3000/event")
+        .get("/events")
         .then(response => {
           let events = response.data;
           // this.markers = [];

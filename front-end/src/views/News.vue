@@ -8,7 +8,8 @@
 
 <script>
 import FeedList from "../components/FeedList";
-import axios from "axios";
+import axios from "@/utilitys/axios";
+
 export default {
   components: {
     FeedList
@@ -24,7 +25,7 @@ export default {
   methods: {
     getEvent: function() {
       axios
-        .get("http://localhost:3000/event")
+        .get("/events")
         .then(response => {
           this.events = response.data;
           console.log("====================================");
