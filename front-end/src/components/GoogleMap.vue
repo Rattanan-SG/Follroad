@@ -121,8 +121,9 @@ export default {
           this.polyline,
           0.0003
         );
-        console.log(event.latLng.lat(), event.latLng.lng());
-        console.log(onEdge);
+        // console.log(event.latLng.lat(), event.latLng.lng());
+        // console.log(onEdge);
+        onEdge;
       }
     },
     setStartPlace(place) {
@@ -160,12 +161,9 @@ export default {
     toggleInfoWindow: function(marker, idx) {
       this.infoWindowPos = marker.position;
       this.infoContent = marker.infoText;
-      //check if its the same marker that was selected if yes toggle
       if (this.currentMidx == idx) {
         this.infoWinOpen = !this.infoWinOpen;
-      }
-      //if different marker set infowindow to open and reset current marker index
-      else {
+      } else {
         this.infoWinOpen = true;
         this.currentMidx = idx;
       }
@@ -202,29 +200,22 @@ export default {
             // });
 
             this.directionsRenderer.setDirections(response);
-          } else {
-            console.log("Directions request failed due to " + status);
           }
         }
       );
     },
     getEvent: function() {
-      axios
-        .get("/events")
-        .then(response => {
-          let events = response.data;
-          // this.markers = [];
-          events.map(event => {
-            this.pushMarker(
-              Number(event.latitude),
-              Number(event.longitude),
-              event.description
-            );
-          });
-        })
-        .catch(err => {
-          console.log(err);
+      axios.get("/events").then(response => {
+        let events = response.data;
+        // this.markers = [];
+        events.map(event => {
+          this.pushMarker(
+            Number(event.latitude),
+            Number(event.longitude),
+            event.description
+          );
         });
+      });
     }
   }
   // beforeDestroy() {
