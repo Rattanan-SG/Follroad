@@ -11,12 +11,12 @@ function updateEventToDatabase() {
       if (eventFilter.length != 0) {
         db.insertEvents(eventFilter);
         console.log(
-          `Update data complete '${eventFilter.length}' row : ` +
+          `Update events complete '${eventFilter.length}' row : ` +
             new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" })
         );
       } else {
         console.log(
-          `Not hava event to update : ` +
+          `Not have events to update : ` +
             new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" })
         );
       }

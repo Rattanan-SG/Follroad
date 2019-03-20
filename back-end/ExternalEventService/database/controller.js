@@ -56,12 +56,11 @@ async function insertEvents(events) {
       return response;
     })
     .catch(err => {
-      throw new Error("Higher-level error. " + err.message);
-    })
-    .catch(err => {
       conn.end();
-      console.log(err);
-    });
+      throw new Error("Higher-level error. : " + new Date().toLocaleString("en-US", {timeZone: "Asia/Bangkok"}) + " " + err.message );
+    }).catch(err => 
+      console.log(err)
+    )
 }
 
 function formatDataToInsert(events) {

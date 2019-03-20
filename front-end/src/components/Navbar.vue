@@ -118,7 +118,7 @@
             <v-list-tile-title>Notification</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile> -->
-        <v-list-tile @click="">
+        <v-list-tile>
           <v-list-tile-action>
             <i class="material-icons">save</i>
           </v-list-tile-action>
@@ -126,7 +126,7 @@
             <v-list-tile-title>SaveRoute</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click="">
+        <v-list-tile>
           <v-list-tile-action>
             <i class="material-icons">history</i>
           </v-list-tile-action>
@@ -134,7 +134,7 @@
             <v-list-tile-title>History</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click="">
+        <v-list-tile>
           <v-list-tile-action>
             <i class="material-icons">lock</i>
           </v-list-tile-action>

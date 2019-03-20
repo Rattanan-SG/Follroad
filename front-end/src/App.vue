@@ -1,8 +1,8 @@
 <template>
   <div class="App">
     <Navbar/>
-    <router-view></router-view>
     <div @click="installer()" :style="{'display' : installBtn}">install</div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -52,7 +52,6 @@ body {
   width: 100%;
   margin: 0px;
   padding: 0px;
-  overflow-y: hidden;
 }
 .App {
   width: 100%;
