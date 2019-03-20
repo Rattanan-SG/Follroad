@@ -1,8 +1,10 @@
 <template>
-  <div class="App">
+  <v-app>
     <Navbar/>
-    <router-view></router-view>
-  </div>
+    <v-content>
+      <router-view></router-view>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
@@ -14,9 +16,8 @@ export default {
     Navbar
   },
   data() {
-    return {
-    };
-  },
+    return {};
+  }
 };
 </script>
 

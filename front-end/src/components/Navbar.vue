@@ -44,7 +44,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar color="indigo" dark fixed app>
+    <v-toolbar color="indigo" dark app>
       <v-toolbar-side-icon @click.close="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Follroad</v-toolbar-title>
       <v-spacer></v-spacer>
