@@ -148,11 +148,12 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Follroad</v-toolbar-title>
       <v-spacer></v-spacer>
+       <v-btn icon @click="installer()" :style="{'display' : installBtn}">
+        <v-icon>mobile_friendly</v-icon>
+       </v-btn>
         <v-list-tile to="/news">
-          
           <v-toolbar-items class="hidden-sm-and-down">
             <i class="material-icons">notifications</i>
-            
           </v-toolbar-items>
         </v-list-tile>
     </v-toolbar>
@@ -162,20 +163,30 @@
 
 
 <script>
-// export default {
-//     data: () => ({
-//       name: 'Navbar',
-//       drawer: null
-//     }),
-//     props: {
-//       source: String
-//     }
-//   }
 export default {
   data(){
     return{
-      drawer : false
+      drawer : false,
+      installBtn: "none",
+      installer: null
     }
+  },
+  created() {
+    let installPrompt;
+
+    window.addEventListener("beforeinstallprompt", e => {
+      e.preventDefault();
+      installPrompt = e;
+      this.installBtn = "block";
+    });
+
+    this.installer = () => {
+      installPrompt.prompt();
+      installPrompt.userChoice.then(result => {
+        installPrompt = null;
+        this.installBtn = "none";
+      });
+    };
   }
 }
 </script>

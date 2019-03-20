@@ -1,7 +1,6 @@
 <template>
   <div class="App">
     <Navbar/>
-    <div @click="installer()" :style="{'display' : installBtn}">install</div>
     <router-view></router-view>
   </div>
 </template>
@@ -16,32 +15,8 @@ export default {
   },
   data() {
     return {
-      installBtn: "none",
-      installer: null
     };
   },
-  created() {
-    let installPrompt;
-
-    window.addEventListener("beforeinstallprompt", e => {
-      e.preventDefault();
-      installPrompt = e;
-      this.installBtn = "block";
-    });
-
-    this.installer = () => {
-      this.installBtn = "none";
-      installPrompt.prompt();
-      installPrompt.userChoice.then(result => {
-        if (result.outcome === "accepted") {
-          console.log("User accepted");
-        } else {
-          console.log("User denied");
-        }
-        installPrompt = null;
-      });
-    };
-  }
 };
 </script>
 
