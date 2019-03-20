@@ -1,28 +1,24 @@
 <template>
-  <div>
+  <div class="App">
     <Navbar/>
     <router-view></router-view>
-    <!-- <router-link to='/about'>about</router-link> -->
-    <div @click="installer()" :style="{'display' : installBtn}">
-      install
-    </div>
+    <div @click="installer()" :style="{'display' : installBtn}">install</div>
   </div>
 </template>
 
 <script>
-
-import Navbar from './components/Navbar'
+import Navbar from "./components/Navbar";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Navbar
   },
-  data () {
+  data() {
     return {
       installBtn: "none",
       installer: null
-    }
+    };
   },
   created() {
     let installPrompt;
@@ -30,21 +26,42 @@ export default {
     window.addEventListener("beforeinstallprompt", e => {
       e.preventDefault();
       installPrompt = e;
-      this.installBtn = "block"
-    })
-    
+      this.installBtn = "block";
+    });
+
     this.installer = () => {
-      this.installBtn = "none"
-      installPrompt.prompt()
+      this.installBtn = "none";
+      installPrompt.prompt();
       installPrompt.userChoice.then(result => {
-        if(result.outcome === "accepted"){
+        if (result.outcome === "accepted") {
           console.log("User accepted");
-        }else{
+        } else {
           console.log("User denied");
         }
-        installPrompt = null
-      })
-    }
-  },
-}
+        installPrompt = null;
+      });
+    };
+  }
+};
 </script>
+
+<style>
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  overflow-y: hidden;
+}
+.App {
+  width: 100%;
+  height: 100%;
+}
+.v-content,
+.vue-map-container,
+.vue-map {
+  width: 100%;
+  height: 100%;
+}
+</style>

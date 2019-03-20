@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <!-- <div>
     <div class="teal accent-3">
       <v-form>
         <v-container>
@@ -26,36 +26,36 @@
           </v-layout>
         </v-container>
       </v-form>
-    </div>
-    <gmap-map
-      ref="gmap"
-      :center="center"
-      :zoom="15"
-      :options="{
+  </div>-->
+  <gmap-map
+    ref="gmap"
+    :center="center"
+    :zoom="15"
+    :options="{
         mapTypeControl: false,
         fullscreenControl: false,
-        gestureHandling: 'greedy'
+        gestureHandling: 'greedy',
+        scaleControl: true, 
       }"
-      @click="isOnEdge"
-      style="width:100%; height: 600px"
-    >
-      <gmap-info-window
-        :options="infoOptions"
-        :position="infoWindowPos"
-        :opened="infoWinOpen"
-        @closeclick="infoWinOpen=false"
-      >{{infoContent}}</gmap-info-window>
-      <gmap-marker :position="myLocation.position"></gmap-marker>
-      <gmap-marker
-        :key="index"
-        v-for="(m, index) in markers"
-        :position="m.position"
-        :title="m.infoText"
-        @click="toggleInfoWindow(m,index)"
-      ></gmap-marker>
-    </gmap-map>
-    <div id="directionsPanel" style="width:50%;height 100%"></div>
-  </div>
+    @click="isOnEdge"
+  >
+    <gmap-info-window
+      :options="infoOptions"
+      :position="infoWindowPos"
+      :opened="infoWinOpen"
+      @closeclick="infoWinOpen=false"
+    >{{infoContent}}</gmap-info-window>
+    <gmap-marker :position="myLocation.position"></gmap-marker>
+    <gmap-marker
+      :key="index"
+      v-for="(m, index) in markers"
+      :position="m.position"
+      :title="m.infoText"
+      @click="toggleInfoWindow(m,index)"
+    ></gmap-marker>
+  </gmap-map>
+  <!-- <div id="directionsPanel" style="width:50%;height 100%"></div>
+  </div>-->
 </template>
 
 <script>
@@ -227,15 +227,15 @@ export default {
         });
     }
   }
-
   // beforeDestroy() {
   //   clearInterval(this.timer)
   // }
 };
 </script>
-<style>
+<style scoped>
 #auto {
   width: 100%;
+  height: 100%;
   background-color: #fff;
 }
 </style>
