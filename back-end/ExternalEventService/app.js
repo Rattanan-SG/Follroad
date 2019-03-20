@@ -10,13 +10,13 @@ const environmentConfig = config[environment];
 global.gConfig = environmentConfig;
 
 const db = require("./database/controller");
-const service = require("./controller/appService");
+const services = require("./services/appService");
 
 app.use(cors());
 app.use(bodyParser.json());
 
 const job = new CronJob("*/3 * * * *", () => {
-  service.updateEventToDatabase();
+  services.updateEventToDatabase();
 });
 
 job.start();
@@ -28,7 +28,7 @@ app.get("/events", (req, res) => {
 });
 
 app.post("/update", (req, res) => {
-  service.updateEventToDatabase().then(out => {
+  services.updateEventToDatabase().then(out => {
     res.send({ count: out });
   });
 });
