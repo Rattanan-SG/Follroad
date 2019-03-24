@@ -14,11 +14,16 @@ function getEvents() {
         })
         .catch(err => {
           conn.end();
-          console.log(err);
+          throw new Error(err.message);
         });
     })
     .catch(err => {
-      console.log(err);
+      throw new Error(
+        "Higher-level error. : " +
+          new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" }) +
+          " " +
+          err.message
+      );
     });
 }
 
@@ -36,11 +41,16 @@ function getEventId() {
         })
         .catch(err => {
           conn.end();
-          console.log(err);
+          throw new Error(err.message);
         });
     })
     .catch(err => {
-      console.log(err);
+      throw new Error(
+        "Higher-level error. : " +
+          new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" }) +
+          " " +
+          err.message
+      );
     });
 }
 
@@ -66,8 +76,7 @@ async function insertEvents(events) {
           " " +
           err.message
       );
-    })
-    .catch(err => console.log(err));
+    });
 }
 
 function formatDataToInsert(events) {

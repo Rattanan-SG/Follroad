@@ -1,7 +1,6 @@
 create table if not exists external_events
 (
-  eid            int          not null
-    primary key,
+  eid            int          not null,
   title          varchar(256) not null,
   title_en       varchar(256) null,
   description    text         not null,
@@ -12,5 +11,7 @@ create table if not exists external_events
   start          datetime     not null,
   stop           datetime     not null,
   contributor    varchar(256) null,
-  icon           varchar(256) null
+  icon           varchar(256) null,
+  PRIMARY KEY (eid),
+  UNIQUE (eid)
 );
