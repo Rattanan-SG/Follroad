@@ -13,13 +13,17 @@ function updateEventToDatabase() {
       // console.log("filter : " + eventFilter.length);
       // console.log("unique : " + uniqueValues.length);
       if (eventFilter.length != 0) {
-        db.insertEvents(eventFilter);
-        console.log(
-          `Update events complete ${eventFilter.length} row : ` +
-            new Date().toLocaleString("en-US", {
-              timeZone: "Asia/Bangkok"
-            })
-        );
+        return db.insertEvents(eventFilter).then(response => {
+          console.log(
+            "Update events complete " +
+              JSON.stringify(response) +
+              " : " +
+              new Date().toLocaleString("en-US", {
+                timeZone: "Asia/Bangkok"
+              })
+          );
+          return response.affectedRows;
+        });
       } else {
         console.log(
           `Not have events to update : ` +
@@ -27,8 +31,8 @@ function updateEventToDatabase() {
               timeZone: "Asia/Bangkok"
             })
         );
+        return 0;
       }
-      return eventFilter.length;
     })
     .catch(err => {
       throw err;

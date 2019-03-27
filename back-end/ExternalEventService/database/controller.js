@@ -57,9 +57,9 @@ function getEventId() {
 async function insertEvents(events) {
   const conn = await connection.pool.getConnection();
   conn.beginTransaction();
-  conn
+  return conn
     .batch(
-      "INSERT INTO external_events(eid, title, title_en, description, description_en, latitude, longitude, type, start, stop, contributor, icon) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT IGNORE INTO external_events(eid, title, title_en, description, description_en, latitude, longitude, type, start, stop, contributor, icon) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       formatDataToInsert(events)
     )
     .then(response => {
