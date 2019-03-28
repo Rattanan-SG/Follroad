@@ -51,6 +51,7 @@
         v-for="(m, index) in markers"
         :position="m.position"
         :title="m.infoText"
+        :icon="m.icon"
         @click="toggleInfoWindow(m,index)"
       ></gmap-marker>
     </gmap-map>
@@ -137,13 +138,14 @@ export default {
         lng: place.geometry.location.lng()
       };
     },
-    pushMarker(lat, lng, infoText) {
+    pushMarker(lat, lng, infoText, icon) {
       this.markers.push({
         position: {
           lat: lat,
           lng: lng
         },
-        infoText: infoText
+        infoText: infoText,
+        icon: { url: icon }
       });
     },
     geolocate: function() {
@@ -210,15 +212,51 @@ export default {
     },
     getEvent: function() {
       axios
-        .get("http://localhost:3000/event")
+        .get("http://192.168.99.100:3000/events")
         .then(response => {
           let events = response.data;
           // this.markers = [];
           events.map(event => {
+            let icon = "";
+            switch (event.icon) {
+              case "carbreakdown":
+                icon =
+                  "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/carbreakdown.png";
+                break;
+              case "construction":
+                icon =
+                  "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/construction.png";
+                break;
+              case "accident":
+                icon =
+                  "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/accident.png";
+                break;
+              case "information":
+                icon =
+                  "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/information.png";
+                break;
+              case "trafficjam":
+                icon =
+                  "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/motorcade.png";
+                break;
+              case "warning":
+                icon =
+                  "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/warning.png";
+                break;
+              case "event":
+                icon =
+                  "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/event.png";
+                break;
+              case "construction":
+                icon =
+                  "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/construction.png";
+                break;
+            }
             this.pushMarker(
               Number(event.latitude),
               Number(event.longitude),
-              event.description
+              event.description,
+              icon
             );
           });
         })
