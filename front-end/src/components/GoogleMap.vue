@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <!-- <div>
     <div class="teal accent-3">
       <v-form>
         <v-container>
@@ -26,42 +26,42 @@
           </v-layout>
         </v-container>
       </v-form>
-    </div>
-    <gmap-map
-      ref="gmap"
-      :center="center"
-      :zoom="15"
-      :options="{
+  </div>-->
+  <gmap-map
+    ref="gmap"
+    :center="center"
+    :zoom="15"
+    :options="{
         mapTypeControl: false,
         fullscreenControl: false,
-        gestureHandling: 'greedy'
+        gestureHandling: 'greedy',
+        scaleControl: true, 
       }"
-      @click="isOnEdge"
-      style="width:100%; height: 600px"
-    >
-      <gmap-info-window
-        :options="infoOptions"
-        :position="infoWindowPos"
-        :opened="infoWinOpen"
-        @closeclick="infoWinOpen=false"
-      >{{infoContent}}</gmap-info-window>
-      <gmap-marker :position="myLocation.position"></gmap-marker>
-      <gmap-marker
-        :key="index"
-        v-for="(m, index) in markers"
-        :position="m.position"
-        :title="m.infoText"
-        :icon="m.icon"
-        @click="toggleInfoWindow(m,index)"
-      ></gmap-marker>
-    </gmap-map>
-    <div id="directionsPanel" style="width:50%;height 100%"></div>
-  </div>
+    @click="isOnEdge"
+  >
+    <gmap-info-window
+      :options="infoOptions"
+      :position="infoWindowPos"
+      :opened="infoWinOpen"
+      @closeclick="infoWinOpen=false"
+    >{{infoContent}}</gmap-info-window>
+    <gmap-marker :position="myLocation.position"></gmap-marker>
+    <gmap-marker
+      :key="index"
+      v-for="(m, index) in markers"
+      :position="m.position"
+      :title="m.infoText"
+      :icon="m.icon"
+      @click="toggleInfoWindow(m,index)"
+    ></gmap-marker>
+  </gmap-map>
+  <!-- <div id="directionsPanel" style="width:50%;height 100%"></div>
+  </div>-->
 </template>
 
 <script>
 import { gmapApi } from "vue2-google-maps";
-import axios from "axios";
+import axios from "@/utilitys/axios";
 
 export default {
   name: "GoogleMap",
@@ -122,8 +122,9 @@ export default {
           this.polyline,
           0.0003
         );
-        console.log(event.latLng.lat(), event.latLng.lng());
-        console.log(onEdge);
+        // console.log(event.latLng.lat(), event.latLng.lng());
+        // console.log(onEdge);
+        onEdge;
       }
     },
     setStartPlace(place) {
@@ -162,12 +163,9 @@ export default {
     toggleInfoWindow: function(marker, idx) {
       this.infoWindowPos = marker.position;
       this.infoContent = marker.infoText;
-      //check if its the same marker that was selected if yes toggle
       if (this.currentMidx == idx) {
         this.infoWinOpen = !this.infoWinOpen;
-      }
-      //if different marker set infowindow to open and reset current marker index
-      else {
+      } else {
         this.infoWinOpen = true;
         this.currentMidx = idx;
       }
@@ -204,20 +202,16 @@ export default {
             // });
 
             this.directionsRenderer.setDirections(response);
-          } else {
-            console.log("Directions request failed due to " + status);
           }
         }
       );
     },
     getEvent: function() {
-      axios
-        .get("http://192.168.99.100:3000/events")
-        .then(response => {
-          let events = response.data;
-          // this.markers = [];
-          events.map(event => {
-            let icon = "";
+      axios.get("/events").then(response => {
+        let events = response.data;
+        // this.markers = [];
+        events.map(event => {
+          let icon = "";
             switch (event.icon) {
               case "carbreakdown":
                 icon =
@@ -252,28 +246,25 @@ export default {
                   "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/construction.png";
                 break;
             }
-            this.pushMarker(
-              Number(event.latitude),
-              Number(event.longitude),
-              event.description,
-              icon
-            );
-          });
-        })
-        .catch(err => {
-          console.log(err);
+          this.pushMarker(
+            Number(event.latitude),
+            Number(event.longitude),
+            event.description,
+            icon
+          );
         });
+      });
     }
   }
-
   // beforeDestroy() {
   //   clearInterval(this.timer)
   // }
 };
 </script>
-<style>
+<style scoped>
 #auto {
   width: 100%;
+  height: 100%;
   background-color: #fff;
 }
 </style>

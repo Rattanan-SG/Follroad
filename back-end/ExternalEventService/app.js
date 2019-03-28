@@ -10,27 +10,36 @@ const environmentConfig = config[environment];
 global.gConfig = environmentConfig;
 
 const db = require("./database/controller");
-const service = require("./controller/appService");
+const services = require("./services/appService");
 
 app.use(cors());
 app.use(bodyParser.json());
 
 const job = new CronJob("*/3 * * * *", () => {
-  service.updateEventToDatabase();
+  services.updateEventToDatabase().catch(err => console.log(err));
 });
 
 job.start();
 
 app.get("/events", (req, res) => {
-  db.getEvents().then(events => {
-    res.send(events);
-  });
+  db.getEvents()
+    .then(events => {
+      res.send(events);
+    })
+    .catch(err => {
+      res.status(500).send({ error: `${err}` });
+    });
 });
 
 app.post("/update", (req, res) => {
-  service.updateEventToDatabase().then(out => {
-    res.send({ count: out });
-  });
+  services
+    .updateEventToDatabase()
+    .then(out => {
+      res.status(201).send({ count: out });
+    })
+    .catch(err => {
+      res.status(500).send({ error: `${err}` });
+    });
 });
 
 app.post("/job/start", (req, res) => {

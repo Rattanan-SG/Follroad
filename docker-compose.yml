@@ -4,7 +4,7 @@ services:
     build: ./back-end/ExternalEventService
     command: ["npm", "run", "dev"]
     ports:
-      - "3000:3000"
+      - "4000:3000"
     links:
       - external-event-db:database
     volumes:
@@ -17,12 +17,12 @@ services:
     restart: always
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - ./back-end/ExternalEventService/setup_database/init:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: admin
       MYSQL_PASSWORD: test
-      MYSQL_DATABASE: event
+      MYSQL_DATABASE: events
       TZ: Asia/Bangkok

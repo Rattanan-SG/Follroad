@@ -1,98 +1,6 @@
- <!--<template>
-    <v-toolbar app>
-      <v-toolbar-title class="headline text">
-        <span class="group pa-2">
-        <v-icon margin- = "200px">menu</v-icon>
-        
-        <span>FollRoad </span>
-
-      </span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        
-      </v-btn>
-    </v-toolbar>
-</template> -->
 <template>
-      <!-- <v-toolbar dark color="primary">
-          <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-          <v-toolbar-title class="white--text">FollRoad</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-btn icon>
-            <v-icon>more_vert</v-icon>
-          </v-btn>
-      </v-toolbar> -->
-
-    <!-- <div id="app">
-    <v-navigation-drawer
-      fixed
-      v-model="drawer"
-      app
-    >
-      <v-list dense>
-        <v-list-tile @click="">
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Home</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile @click="">
-          <v-list-tile-action>
-            <i class="material-icons">today</i>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>News</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile @click="">
-          <v-list-tile-action>
-            <i class="material-icons">notifications</i>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Notification</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile @click="">
-          <v-list-tile-action>
-            <i class="material-icons">save</i>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>SaveRoute</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile @click="">
-          <v-list-tile-action>
-            <i class="material-icons">history</i>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>History</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile @click="">
-          <v-list-tile-action>
-            <i class="material-icons">lock</i>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Logout</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-    <v-toolbar color="indigo" dark fixed app>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>Follroad</v-toolbar-title>
-    </v-toolbar>
-</div> -->
-
   <div id="app">
-    <v-navigation-drawer app v-model="drawer">
+    <v-navigation-drawer app temporary v-model="drawer">
       <v-list dense>
         <v-list-tile to="/">
           <v-list-tile-action>
@@ -110,15 +18,7 @@
             <v-list-tile-title>News</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <!-- <v-list-tile @click="">
-          <v-list-tile-action>
-            <i class="material-icons">notifications</i>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Notification</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile> -->
-        <v-list-tile @click="">
+        <v-list-tile>
           <v-list-tile-action>
             <i class="material-icons">save</i>
           </v-list-tile-action>
@@ -126,7 +26,7 @@
             <v-list-tile-title>SaveRoute</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click="">
+        <v-list-tile>
           <v-list-tile-action>
             <i class="material-icons">history</i>
           </v-list-tile-action>
@@ -134,7 +34,7 @@
             <v-list-tile-title>History</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click="">
+        <v-list-tile>
           <v-list-tile-action>
             <i class="material-icons">lock</i>
           </v-list-tile-action>
@@ -144,70 +44,61 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar color="indigo" dark fixed app>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+    <v-toolbar color="indigo" dark app>
+      <v-toolbar-side-icon @click.close="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Follroad</v-toolbar-title>
-      
-      <v-spacer></v-spacer>
-      <router-link to="/search">
-      
-        <v-text-field 
-          flat
-          solo-inverted
-          prepend-icon="search"
-          label="Search"
-          class="hidden-sm-and-down"
-        > 
-      
-      </v-text-field>
-      </router-link>
 
-        <v-list-tile to="/news">
-          
-          <v-toolbar-items class="hidden-sm-and-down">
-            <i class="material-icons">notifications</i>
-            
-          </v-toolbar-items>
-        </v-list-tile>
+      <v-spacer></v-spacer>
+      <v-btn icon @click="installer()" :style="{'display' : installBtn}">
+        <v-icon>mobile_friendly</v-icon>
+      </v-btn>
+      <v-btn icon to="/news" class="hidden-sm-and-down">
+        <v-icon>notifications</v-icon>
+      </v-btn>
     </v-toolbar>
-    </div>
-    
+  </div>
 </template>
 
 
 <script>
-// export default {
-//     data: () => ({
-//       name: 'Navbar',
-//       drawer: null
-//     }),
-//     props: {
-//       source: String
-//     }
-//   }
-
-
 export default {
-  data(){
-    return{
-      drawer : false
-    }
+  data() {
+    return {
+      drawer: false,
+      installBtn: "none",
+      installer: null
+    };
+  },
+  created() {
+    let installPrompt;
+
+    window.addEventListener("beforeinstallprompt", e => {
+      e.preventDefault();
+      installPrompt = e;
+      this.installBtn = "block";
+    });
+
+    this.installer = () => {
+      installPrompt.prompt();
+      installPrompt.userChoice.then(() => {
+        installPrompt = null;
+        this.installBtn = "none";
+      });
+    };
   }
-}
-
-
+};
 </script>
 <style>
-  .modal-mask {
+.modal-mask {
   position: fixed;
   z-index: 9998;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: table;
-  transition: opacity .3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .modal-wrapper {
@@ -221,8 +112,8 @@ export default {
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-  transition: all .3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
 }
 

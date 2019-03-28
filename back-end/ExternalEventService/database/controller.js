@@ -6,7 +6,7 @@ function getEvents() {
     .then(conn => {
       return conn
         .query(
-          "SELECT eid, title, title_en, description, description_en, latitude, longitude, type, DATE_FORMAT(start, '%Y-%m-%d %T') as start, DATE_FORMAT(stop, '%Y-%m-%d %T') as stop, contributor, icon from external_events WHERE stop >= NOW() ORDER BY start DESC"
+          "SELECT eid, title, title_en, description, description_en, latitude, longitude, type, DATE_FORMAT(start, '%Y-%m-%d %T') as start, DATE_FORMAT(stop, '%Y-%m-%d %T') as stop, contributor, icon from external_events WHERE stop > NOW() ORDER BY start DESC"
         )
         .then(rows => {
           conn.end();
@@ -14,11 +14,16 @@ function getEvents() {
         })
         .catch(err => {
           conn.end();
-          console.log(err);
+          throw new Error(err.message);
         });
     })
     .catch(err => {
-      console.log(err);
+      throw new Error(
+        "Higher-level error. : " +
+          new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" }) +
+          " " +
+          err.message
+      );
     });
 }
 
@@ -28,7 +33,7 @@ function getEventId() {
     .then(conn => {
       return conn
         .query(
-          "SELECT eid from external_events WHERE stop >= NOW() ORDER BY start DESC"
+          "SELECT eid from external_events WHERE stop > NOW() ORDER BY start DESC"
         )
         .then(rows => {
           conn.end();
@@ -36,31 +41,41 @@ function getEventId() {
         })
         .catch(err => {
           conn.end();
-          console.log(err);
+          throw new Error(err.message);
         });
     })
     .catch(err => {
-      console.log(err);
+      throw new Error(
+        "Higher-level error. : " +
+          new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" }) +
+          " " +
+          err.message
+      );
     });
 }
 
 async function insertEvents(events) {
   const conn = await connection.pool.getConnection();
-  conn
+  conn.beginTransaction();
+  return conn
     .batch(
-      "INSERT INTO external_events(eid, title, title_en, description, description_en, latitude, longitude, type, start, stop, contributor, icon) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT IGNORE INTO external_events(eid, title, title_en, description, description_en, latitude, longitude, type, start, stop, contributor, icon) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       formatDataToInsert(events)
     )
     .then(response => {
+      conn.commit();
       conn.end();
       return response;
     })
     .catch(err => {
-      throw new Error("Higher-level error. " + err.message);
-    })
-    .catch(err => {
+      conn.rollback();
       conn.end();
-      console.log(err);
+      throw new Error(
+        "Higher-level error. : " +
+          new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" }) +
+          " " +
+          err.message
+      );
     });
 }
 
