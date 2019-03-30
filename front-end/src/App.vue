@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Navbar/>
+    <Navbar v-on:search="log"/>
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -17,6 +17,11 @@ export default {
   },
   data() {
     return {};
+  },
+  methods: {
+    log(event) {
+      console.log(event);
+    }
   }
 };
 </script>
