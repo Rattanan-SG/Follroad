@@ -53,19 +53,13 @@ function getEventByType(type) {
     });
 }
 
-async function insertEvents(events) {
-  const conn = await connection.pool.getConnection();
-  conn.beginTransaction();
-  return conn
+function insertEvents(events) {
+  return connection.pool
     .batch(sql.insertEvents, formatDataToInsert(events))
     .then(response => {
-      conn.commit();
-      conn.end();
       return response;
     })
     .catch(err => {
-      conn.rollback();
-      conn.end();
       catchError(err);
     });
 }
