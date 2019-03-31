@@ -78,6 +78,7 @@
 
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -106,12 +107,19 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      setCenter: "setCenter"
+    }),
     setPlace(place) {
       this.place = place;
       this.search();
     },
     search() {
-      this.$emit("search", this.place);
+      let coords = {
+        lat: this.place.geometry.location.lat(),
+        lng: this.place.geometry.location.lng()
+      };
+      this.setCenter(coords);
       this.$router.push("/");
     },
     clear() {
