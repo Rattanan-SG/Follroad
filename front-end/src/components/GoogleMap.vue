@@ -122,7 +122,7 @@ export default {
       setMyLocation: "setMyLocation"
     }),
 
-    isOnEdge(event) {
+    isOnEdge: function(event) {
       // console.log(event);
       if (this.polyline) {
         let onEdge = this.google.maps.geometry.poly.isLocationOnEdge(
@@ -135,19 +135,19 @@ export default {
         onEdge;
       }
     },
-    setStartPlace(place) {
+    setStartPlace: function(place) {
       this.coords = {
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng()
       };
     },
-    setEndPlace(place) {
+    setEndPlace: function(place) {
       this.destination = {
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng()
       };
     },
-    pushMarker(lat, lng, infoText, icon) {
+    pushMarker: function(lat, lng, infoText, icon) {
       this.markers.push({
         position: {
           lat: lat,

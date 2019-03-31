@@ -110,11 +110,11 @@ export default {
     ...mapActions({
       setCenter: "setCenter"
     }),
-    setPlace(place) {
+    setPlace: function(place) {
       this.place = place;
       this.search();
     },
-    search() {
+    search: function() {
       let coords = {
         lat: this.place.geometry.location.lat(),
         lng: this.place.geometry.location.lng()
@@ -122,7 +122,7 @@ export default {
       this.setCenter(coords);
       this.$router.push("/");
     },
-    clear() {
+    clear: function() {
       this.$refs.autocomplete.$el.value = null;
       this.place = null;
     }
