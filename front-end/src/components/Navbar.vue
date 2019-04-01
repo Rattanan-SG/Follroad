@@ -44,7 +44,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar color="indigo" dark>
+    <v-toolbar color="indigo" dark flat>
       <v-toolbar-side-icon @click.close="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title class="hidden-sm-and-down">Follroad</v-toolbar-title>
       <gmap-autocomplete

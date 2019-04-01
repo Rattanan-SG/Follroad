@@ -1,21 +1,15 @@
 <template>
-  <div>
-    <v-card>
-      <v-layout row wrap>
-        <v-flex lg3>
-            <v-container
-              id="scroll-target"
-              style="max-height: 580px"
-              class="scroll-y"
-            >       
-                <HomeFeedList :events="events"></HomeFeedList>
-            </v-container>
-        </v-flex>
-        <v-flex lg9>
-          <GoogleMap/>
-        </v-flex>
-      </v-layout>
-    </v-card>
+  <div style="height:100%">
+    <v-layout row wrap style="height:100%">
+      <v-flex lg3 class="scroll-y hidden-sm-and-down">
+        <v-container id="scroll-target" style="max-height: 100px">
+          <HomeFeedList :events="events"></HomeFeedList>
+        </v-container>
+      </v-flex>
+      <v-flex lg9>
+        <GoogleMap/>
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 
@@ -44,9 +38,6 @@ export default {
         .get("/events")
         .then(response => {
           this.events = response.data;
-          console.log("====================================");
-          console.log(this.events[0]);
-          console.log("====================================");
         })
         .catch(err => {
           console.log(err);
