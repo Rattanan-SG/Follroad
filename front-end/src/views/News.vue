@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <FeedList :events="events"></FeedList>
-  </div>
+  <FeedList :events="events"></FeedList>
 </template>
 
 

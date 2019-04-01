@@ -45,7 +45,7 @@
       :opened="infoWinOpen"
       @closeclick="infoWinOpen=false"
     >{{infoContent}}</gmap-info-window>
-    <gmap-marker :position="myLocation.position"></gmap-marker>
+    <gmap-marker :position="myLocation"></gmap-marker>
     <gmap-marker
       :key="index"
       v-for="(m, index) in markers"
@@ -60,6 +60,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 import { gmapApi } from "vue2-google-maps";
 import axios from "@/utilitys/axios";
 
@@ -67,8 +68,6 @@ export default {
   name: "GoogleMap",
   data() {
     return {
-      center: { lat: 13.7563, lng: 100.5018 },
-      myLocation: {},
       markers: [],
       places: [],
       currentPlace: null,
@@ -95,6 +94,10 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      center: "getCenter",
+      myLocation: "getMyLocation"
+    }),
     google: gmapApi
   },
 
@@ -114,7 +117,12 @@ export default {
   },
 
   methods: {
-    isOnEdge(event) {
+    ...mapActions({
+      setCenter: "setCenter",
+      setMyLocation: "setMyLocation"
+    }),
+
+    isOnEdge: function(event) {
       // console.log(event);
       if (this.polyline) {
         let onEdge = this.google.maps.geometry.poly.isLocationOnEdge(
@@ -127,19 +135,19 @@ export default {
         onEdge;
       }
     },
-    setStartPlace(place) {
+    setStartPlace: function(place) {
       this.coords = {
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng()
       };
     },
-    setEndPlace(place) {
+    setEndPlace: function(place) {
       this.destination = {
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng()
       };
     },
-    pushMarker(lat, lng, infoText, icon) {
+    pushMarker: function(lat, lng, infoText, icon) {
       this.markers.push({
         position: {
           lat: lat,
@@ -151,13 +159,10 @@ export default {
     },
     geolocate: function() {
       navigator.geolocation.getCurrentPosition(position => {
-        let lat = position.coords.latitude;
-        let lng = position.coords.longitude;
-        this.center = {
-          lat: lat,
-          lng: lng
-        };
-        this.myLocation = { position: { lat, lng } };
+        let lat = parseFloat(position.coords.latitude);
+        let lng = parseFloat(position.coords.longitude);
+        this.setCenter({ lat: lat, lng: lng });
+        this.setMyLocation({ lat: lat, lng: lng });
       });
     },
     toggleInfoWindow: function(marker, idx) {

@@ -1169,11 +1169,6 @@ ajv@^6.1.0, ajv@^6.5.5, ajv@^6.9.1:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-alertifyjs@^1.11.2:
-  version "1.11.2"
-  resolved "https://registry.yarnpkg.com/alertifyjs/-/alertifyjs-1.11.2.tgz#ffe6d1054855b7685203794f993e00513e1ba885"
-  integrity sha512-WhNCHCz5WycRJ34/gDAQQU4hqiOc6VyvDPi/eiPUJf3HIYm0U0L23zDGXR1cSXdYCzvZVxlHdQH7asXVjHBHqA==
-
 alphanum-sort@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
