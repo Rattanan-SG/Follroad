@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <nav>
     <v-navigation-drawer app temporary v-model="drawer">
       <v-list dense>
         <v-list-tile to="/">
@@ -44,7 +44,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar color="indigo" dark app>
+    <v-toolbar color="indigo" dark>
       <v-toolbar-side-icon @click.close="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Follroad</v-toolbar-title>
 
@@ -56,7 +56,7 @@
         <v-icon>notifications</v-icon>
       </v-btn>
     </v-toolbar>
-  </div>
+  </nav>
 </template>
 
 

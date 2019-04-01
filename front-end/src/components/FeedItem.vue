@@ -22,7 +22,7 @@
           </v-flex>
           <v-divider light></v-divider>
 
-          <v-card-actions class="pa-3">
+          <!-- <v-card-actions class="pa-3">
             <v-flex xs2 md1>
               <v-icon size="30px">account_circle</v-icon>
             </v-flex>
@@ -39,7 +39,7 @@
                 </v-card-text>
               </v-card>
             </v-flex>
-          </v-card-actions>
+          </v-card-actions> -->
         </v-card>
       </v-layout>
     </v-container>
