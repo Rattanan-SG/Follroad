@@ -26,3 +26,10 @@ services:
       MYSQL_PASSWORD: test
       MYSQL_DATABASE: events
       TZ: Asia/Bangkok
+  # web:
+  #   build: ./front-end
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - ./front-end:/app
+  #     - /app/node_modules
