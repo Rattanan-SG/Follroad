@@ -1,81 +1,66 @@
 const connection = require("./connection");
+const sql = require("./sql.json");
 
 function getEvents() {
   return connection.pool
-    .getConnection()
-    .then(conn => {
-      return conn
-        .query(
-          "SELECT eid, title, title_en, description, description_en, latitude, longitude, type, DATE_FORMAT(start, '%Y-%m-%d %T') as start, DATE_FORMAT(stop, '%Y-%m-%d %T') as stop, contributor, icon from external_events WHERE stop > NOW() ORDER BY start DESC"
-        )
-        .then(rows => {
-          conn.end();
-          return rows;
-        })
-        .catch(err => {
-          conn.end();
-          throw new Error(err.message);
-        });
+    .query(sql.getEvents)
+    .then(rows => {
+      return rows;
     })
     .catch(err => {
-      throw new Error(
-        "Higher-level error. : " +
-          new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" }) +
-          " " +
-          err.message
-      );
+      catchError(err);
     });
+}
+
+async function getEventsHaveLimit(startAt, limit) {
+  try {
+    let result;
+    if (startAt === "now") {
+      result = await connection.pool.query(sql.getEventsHaveLimitFirstTime, [
+        limit
+      ]);
+    } else {
+      result = await connection.pool.query(sql.getEventsHaveLimit, [
+        startAt,
+        limit
+      ]);
+    }
+    return result;
+  } catch (err) {
+    catchError(err);
+  }
 }
 
 function getEventId() {
   return connection.pool
-    .getConnection()
-    .then(conn => {
-      return conn
-        .query(
-          "SELECT eid from external_events WHERE stop > NOW() ORDER BY start DESC"
-        )
-        .then(rows => {
-          conn.end();
-          return rows;
-        })
-        .catch(err => {
-          conn.end();
-          throw new Error(err.message);
-        });
+    .query(sql.getEventId)
+    .then(rows => {
+      return rows;
     })
     .catch(err => {
-      throw new Error(
-        "Higher-level error. : " +
-          new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" }) +
-          " " +
-          err.message
-      );
+      catchError(err);
     });
 }
 
-async function insertEvents(events) {
-  const conn = await connection.pool.getConnection();
-  conn.beginTransaction();
-  return conn
-    .batch(
-      "INSERT IGNORE INTO external_events(eid, title, title_en, description, description_en, latitude, longitude, type, start, stop, contributor, icon) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-      formatDataToInsert(events)
-    )
+function getEventByType(type) {
+  return connection.pool
+    .query(sql.getEventByType, type)
+    .then(rows => {
+      return rows;
+    })
+    .catch(err => {
+      catchError(err);
+    });
+}
+
+function insertEvents(events) {
+  return connection.pool
+    .batch(sql.insertEvents, formatDataToInsert(events))
     .then(response => {
-      conn.commit();
-      conn.end();
       return response;
     })
     .catch(err => {
-      conn.rollback();
-      conn.end();
-      throw new Error(
-        "Higher-level error. : " +
-          new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" }) +
-          " " +
-          err.message
-      );
+      catchError(err);
     });
 }
 
@@ -108,8 +93,19 @@ function formatDataToInsert(events) {
   return result;
 }
 
+function catchError(error) {
+  throw new Error(
+    "Higher-level error. : " +
+      new Date().toLocaleString("en-US", { timeZone: "Asia/Bangkok" }) +
+      " " +
+      error.message
+  );
+}
+
 module.exports = {
   getEvents,
+  getEventsHaveLimit,
   getEventId,
+  getEventByType,
   insertEvents
 };

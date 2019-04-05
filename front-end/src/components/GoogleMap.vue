@@ -45,7 +45,7 @@
       :opened="infoWinOpen"
       @closeclick="infoWinOpen=false"
     >{{infoContent}}</gmap-info-window>
-    <gmap-marker :position="myLocation.position"></gmap-marker>
+    <gmap-marker :position="myLocation"></gmap-marker>
     <gmap-marker
       :key="index"
       v-for="(m, index) in markers"
@@ -60,6 +60,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 import { gmapApi } from "vue2-google-maps";
 import axios from "@/utilitys/axios";
 
@@ -67,8 +68,6 @@ export default {
   name: "GoogleMap",
   data() {
     return {
-      center: { lat: 13.7563, lng: 100.5018 },
-      myLocation: {},
       markers: [],
       places: [],
       currentPlace: null,
@@ -95,6 +94,10 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      center: "getCenter",
+      myLocation: "getMyLocation"
+    }),
     google: gmapApi
   },
 
@@ -114,7 +117,12 @@ export default {
   },
 
   methods: {
-    isOnEdge(event) {
+    ...mapActions({
+      setCenter: "setCenter",
+      setMyLocation: "setMyLocation"
+    }),
+
+    isOnEdge: function(event) {
       // console.log(event);
       if (this.polyline) {
         let onEdge = this.google.maps.geometry.poly.isLocationOnEdge(
@@ -127,37 +135,34 @@ export default {
         onEdge;
       }
     },
-    setStartPlace(place) {
+    setStartPlace: function(place) {
       this.coords = {
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng()
       };
     },
-    setEndPlace(place) {
+    setEndPlace: function(place) {
       this.destination = {
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng()
       };
     },
-    pushMarker(lat, lng, infoText, icon) {
+    pushMarker: function(lat, lng, infoText, icon) {
       this.markers.push({
         position: {
           lat: lat,
           lng: lng
         },
         infoText: infoText,
-        icon: { url: icon }
+        icon: icon
       });
     },
     geolocate: function() {
       navigator.geolocation.getCurrentPosition(position => {
-        let lat = position.coords.latitude;
-        let lng = position.coords.longitude;
-        this.center = {
-          lat: lat,
-          lng: lng
-        };
-        this.myLocation = { position: { lat, lng } };
+        let lat = parseFloat(position.coords.latitude);
+        let lng = parseFloat(position.coords.longitude);
+        this.setCenter({ lat: lat, lng: lng });
+        this.setMyLocation({ lat: lat, lng: lng });
       });
     },
     toggleInfoWindow: function(marker, idx) {
@@ -212,40 +217,36 @@ export default {
         // this.markers = [];
         events.map(event => {
           let icon = "";
-            switch (event.icon) {
-              case "carbreakdown":
-                icon =
-                  "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/carbreakdown.png";
-                break;
-              case "construction":
-                icon =
-                  "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/construction.png";
-                break;
-              case "accident":
-                icon =
-                  "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/accident.png";
-                break;
-              case "information":
-                icon =
-                  "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/information.png";
-                break;
-              case "trafficjam":
-                icon =
-                  "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/motorcade.png";
-                break;
-              case "warning":
-                icon =
-                  "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/warning.png";
-                break;
-              case "event":
-                icon =
-                  "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/event.png";
-                break;
-              case "construction":
-                icon =
-                  "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/construction.png";
-                break;
-            }
+          switch (event.icon) {
+            case "carbreakdown":
+              icon =
+                "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/carbreakdown.png";
+              break;
+            case "construction":
+              icon =
+                "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/construction.png";
+              break;
+            case "accident":
+              icon =
+                "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/accident.png";
+              break;
+            case "information":
+              icon =
+                "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/information.png";
+              break;
+            case "trafficjam":
+              icon =
+                "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/motorcade.png";
+              break;
+            case "warning":
+              icon =
+                "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/warning.png";
+              break;
+            case "event":
+              icon =
+                "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/event.png";
+              break;
+          }
           this.pushMarker(
             Number(event.latitude),
             Number(event.longitude),
@@ -262,9 +263,10 @@ export default {
 };
 </script>
 <style scoped>
-#auto {
+.v-content,
+.vue-map-container,
+.vue-map {
   width: 100%;
   height: 100%;
-  background-color: #fff;
 }
 </style>

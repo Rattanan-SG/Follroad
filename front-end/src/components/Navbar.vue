@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <nav>
     <v-navigation-drawer app temporary v-model="drawer">
       <v-list dense>
         <v-list-tile to="/">
@@ -44,10 +44,27 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar color="indigo" dark app>
+    <v-toolbar color="indigo" dark flat>
       <v-toolbar-side-icon @click.close="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>Follroad</v-toolbar-title>
-
+      <v-toolbar-title class="hidden-sm-and-down">Follroad</v-toolbar-title>
+      <gmap-autocomplete
+        @place_changed="setPlace"
+        @keyup.enter="search"
+        style="width:60%"
+        class="pa-2 ml-4 subheading"
+        ref="autocomplete"
+        placeholder="ค้นหาสถานที่"
+        :select-first-on-enter="true"
+      ></gmap-autocomplete>
+      <v-btn v-if="!place" icon @click="search">
+        <v-icon>search</v-icon>
+      </v-btn>
+      <v-btn v-else icon @click="clear">
+        <v-icon>close</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>directions</v-icon>
+      </v-btn>
       <v-spacer></v-spacer>
       <v-btn icon @click="installer()" :style="{'display' : installBtn}">
         <v-icon>mobile_friendly</v-icon>
@@ -56,14 +73,16 @@
         <v-icon>notifications</v-icon>
       </v-btn>
     </v-toolbar>
-  </div>
+  </nav>
 </template>
 
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
+      place: null,
       drawer: false,
       installBtn: "none",
       installer: null
@@ -85,10 +104,35 @@ export default {
         this.installBtn = "none";
       });
     };
+  },
+
+  methods: {
+    ...mapActions({
+      setCenter: "setCenter"
+    }),
+    setPlace: function(place) {
+      this.place = place;
+      this.search();
+    },
+    search: function() {
+      let coords = {
+        lat: this.place.geometry.location.lat(),
+        lng: this.place.geometry.location.lng()
+      };
+      this.setCenter(coords);
+      this.$router.push("/");
+    },
+    clear: function() {
+      this.$refs.autocomplete.$el.value = null;
+      this.place = null;
+    }
   }
 };
 </script>
-<style>
+<style scoped>
+::placeholder {
+  color: white;
+}
 .modal-mask {
   position: fixed;
   z-index: 9998;

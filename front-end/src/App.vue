@@ -15,28 +15,8 @@ export default {
   components: {
     Navbar
   },
-  data() {
-    return {};
-  }
 };
 </script>
 
 <style>
-html,
-body {
-  height: 100%;
-  width: 100%;
-  margin: 0px;
-  padding: 0px;
-}
-.App {
-  width: 100%;
-  height: 100%;
-}
-.v-content,
-.vue-map-container,
-.vue-map {
-  width: 100%;
-  height: 100%;
-}
 </style>
