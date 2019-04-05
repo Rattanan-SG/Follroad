@@ -36,6 +36,7 @@
         fullscreenControl: false,
         gestureHandling: 'greedy',
         scaleControl: true, 
+        zoomControl: false
       }"
     @click="isOnEdge"
   >
