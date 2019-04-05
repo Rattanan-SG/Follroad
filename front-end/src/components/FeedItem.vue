@@ -2,7 +2,7 @@
   <v-card>
     <v-container align-center>
       <v-layout row wrap align-start justify-center fill-height>
-        <v-card color="cyan darken-2 white--text" class="mb-4 mt-4" width="800px">
+        <v-card color="deep-orange lighten-1  black--text " class="mb-4 mt-4" width="800px">
           <v-layout>
             <v-flex xs2 md1>
               <br>
@@ -11,14 +11,18 @@
             <v-flex xs7>
               <v-card-title primary-title>
                 <div>
-                  <div class="headline , ml-4">{{event.contributor}}</div>
-                  <div id="abc" class="ml-4">3 นาที</div>
+                  <div class="headline , ml-4">{{event.title}}</div>
+                  <div id="abc" class="ml-4">{{event.start}} to {{event.stop}}</div>
                 </div>
               </v-card-title>
             </v-flex>
           </v-layout>
           <v-flex xs12>
-            <div id="description">{{event.description}}</div>
+            <div id="description">
+              {{event.description}}
+              <br>
+              by {{event.contributor}}
+            </div>
           </v-flex>
           <v-divider light></v-divider>
 
