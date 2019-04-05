@@ -1,12 +1,9 @@
 FROM node:lts-alpine
-RUN npm install -g serve
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
+COPY package.json ./
+RUN npm install --quiet
 COPY . .
-RUN npm run build
-EXPOSE 5000
-CMD [ "serve", "dist" ]
+CMD [ "npm", "run", "serve" ]
 
 # build stage
 # FROM node:lts-alpine as build-stage
