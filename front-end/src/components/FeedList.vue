@@ -1,8 +1,6 @@
 <template>
   <div>
-    <template v-for="event in events">
-      <FeedItem :key="event.eid" :event="event"></FeedItem>
-    </template>
+    <FeedItem v-for="event in events" :key="event.eid" :event="event"></FeedItem>
   </div>
 </template>
 
