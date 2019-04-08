@@ -36,9 +36,17 @@
         fullscreenControl: false,
         gestureHandling: 'greedy',
         scaleControl: true, 
+        zoomControl: false
       }"
     @click="isOnEdge"
   >
+    <v-btn
+      icon
+      style="top: 80%;right: 0; background-color: #4169E1	; color: white; position: absolute; z-index: 100"
+      slot="visible"
+    >
+      <v-icon>gps_fixed</v-icon>
+    </v-btn>
     <gmap-info-window
       :options="infoOptions"
       :position="infoWindowPos"
@@ -220,31 +228,55 @@ export default {
           switch (event.icon) {
             case "carbreakdown":
               icon =
-                "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/carbreakdown.png";
+                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/carbreakdown.png";
               break;
             case "construction":
               icon =
-                "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/construction.png";
+                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/construction.png";
               break;
             case "accident":
               icon =
-                "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/accident.png";
+                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/accident.png";
               break;
             case "information":
               icon =
-                "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/information.png";
+                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/information.png";
               break;
             case "trafficjam":
               icon =
-                "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/motorcade.png";
+                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/traffic+jam.png";
               break;
             case "warning":
               icon =
-                "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/warning.png";
+                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/warning.png";
               break;
             case "event":
               icon =
-                "https://s3-ap-southeast-1.amazonaws.com/iconevent-bucket/event.png";
+                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/event.png";
+              break;
+            case "demonstration":
+              icon =
+                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/demonstration.png";
+              break;
+            case "fire":
+              icon =
+                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/fire.png";
+              break;
+            case "flood":
+              icon =
+                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/flood.png";
+              break;
+            case "rain":
+              icon =
+                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/rain.png";
+              break;
+            case "sale":
+              icon =
+                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/sale.png";
+              break;
+            case "checkpoint":
+              icon =
+                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/checkpoint.png";
               break;
           }
           this.pushMarker(
