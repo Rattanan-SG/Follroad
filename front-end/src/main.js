@@ -5,9 +5,11 @@ import store from "./store/store";
 import "./plugins/vuetify";
 import "./registerServiceWorker";
 import * as VueGoogleMaps from "vue2-google-maps";
+import InfiniteLoading from "vue-infinite-loading";
 
 Vue.config.productionTip = false;
 
+Vue.use(InfiniteLoading);
 Vue.use(VueGoogleMaps, {
   load: {
     libraries: "places,geometry,directions",
