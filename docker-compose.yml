@@ -33,3 +33,8 @@ services:
   #   volumes:
   #     - ./front-end:/app
   #     - /app/node_modules
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - '5672:5672'
+      - '15672:15672'
