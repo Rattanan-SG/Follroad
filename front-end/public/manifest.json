@@ -1,6 +1,6 @@
 {
-  "name": "follroad",
-  "short_name": "follroad",
+  "name": "Follroad",
+  "short_name": "Follroad",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
@@ -16,5 +16,5 @@
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#ffffff"
+  "theme_color": "#4DBA87"
 }
