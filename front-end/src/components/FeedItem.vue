@@ -43,7 +43,7 @@
                 </v-card-text>
               </v-card>
             </v-flex>
-          </v-card-actions> -->
+          </v-card-actions>-->
         </v-card>
       </v-layout>
     </v-container>
