@@ -1,10 +1,10 @@
-<template>
-  <div>
+<template >
+  <v-list two-line>
     <template v-for="(event, index) in events">
-      <HomeFeedItem :key="event.eid" :event="event"></HomeFeedItem>
       <v-divider v-if="index + 1 < event.length" :key="`divider-${index}`"></v-divider>
+      <HomeFeedItem :key="event.eid" :event="event"></HomeFeedItem>
     </template>
-  </div>
+  </v-list>
 </template>
 
 <script>
@@ -20,4 +20,8 @@ export default {
 </script>
 
 <style scoped>
+.v-list {
+  height: 300px;
+  overflow-y: auto;
+}
 </style>

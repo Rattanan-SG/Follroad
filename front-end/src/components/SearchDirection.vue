@@ -7,7 +7,7 @@
             <v-icon>my_location</v-icon>
           </v-flex>
           <v-flex xs9 md10>
-            <gmap-autocomplete id="auto" @place_changed="setStartPlace"></gmap-autocomplete>
+            <gmap-autocomplete></gmap-autocomplete>
           </v-flex>
         </v-layout>
         <v-layout row wrap>
@@ -15,11 +15,11 @@
             <v-icon>place</v-icon>
           </v-flex>
           <v-flex xs9 md10>
-            <gmap-autocomplete id="auto" @place_changed="setEndPlace"></gmap-autocomplete>
+            <gmap-autocomplete></gmap-autocomplete>
           </v-flex>
           <v-flex xs10 md10>
             <div class="text-xs-right">
-              <v-btn flat small color="primary" v-on:click="getRoute">SEARCH</v-btn>
+              <v-btn flat small color="primary">SEARCH</v-btn>
             </div>
           </v-flex>
         </v-layout>

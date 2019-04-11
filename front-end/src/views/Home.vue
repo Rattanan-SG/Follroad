@@ -1,44 +1,22 @@
 <template>
-  <div>
-    <div>
-      <v-layout row wrap style="height:100%">
-        <v-flex lg3 class="scroll-y hidden-sm-and-down">
-          <v-card lg3 height="590px">
-            <v-tabs v-model="active" color="cyan" dark-side-color="yellow">
-              <v-tab ripple>News</v-tab>
-              <v-tab ripple>Search</v-tab>
-              <v-tab-item>
-                <v-card flat>
-                  <HomeFeedList :events="events"></HomeFeedList>
-                </v-card>
-                <!-- <v-card></v-card> -->
-              </v-tab-item>
-              <v-tab-item>
-                <v-card flat>
-                  <SearchDirection/>
-                </v-card>
-              </v-tab-item>
-            </v-tabs>
-          </v-card>
-        </v-flex>
-        <v-flex lg9>
-          <v-card width="100%" height="590px">
-            <GoogleMap/>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </div>
-    <!-- <v-layout row wrap style="height:100%">
-      <v-flex lg3 class="scroll-y hidden-sm-and-down">
-        <v-container id="scroll-target" style="max-height: 100px">
-          <HomeMenuTab></HomeMenuTab>
-          <HomeFeedList :events="events"></HomeFeedList>
-        </v-container>
+  <div style="height:100%">
+    <v-layout row wrap style="height:100%">
+      <v-flex xl3 lg3 md3 class="hidden-sm-and-down">
+        <v-tabs color="cyan" dark-side-color="yellow">
+          <v-tab ripple>News</v-tab>
+          <v-tab ripple>Search</v-tab>
+          <v-tab-item>
+            <HomeFeedList :events="events"></HomeFeedList>
+          </v-tab-item>
+          <v-tab-item>
+            <SearchDirection/>>
+          </v-tab-item>
+        </v-tabs>
       </v-flex>
-      <v-flex lg9>
+      <v-flex xl9 lg9 md9>
         <GoogleMap/>
       </v-flex>
-    </v-layout>-->
+    </v-layout>
   </div>
 </template>
 
