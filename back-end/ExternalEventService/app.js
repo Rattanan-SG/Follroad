@@ -4,11 +4,8 @@ const cors = require("cors");
 const CronJob = require("cron").CronJob;
 const app = express();
 
-const config = require("./config.json");
-const environment = process.env.NODE_ENV || "development";
-const environmentConfig = config[environment];
-global.gConfig = environmentConfig;
-
+const config = require("./config.js");
+global.gConfig = config;
 const db = require("./database/controller");
 const services = require("./services/appService");
 
