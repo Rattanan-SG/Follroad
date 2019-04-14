@@ -9,6 +9,6 @@ script:
   - docker run sanguo/follroad-externalEvent npm test
 
 after_success:
-  - docker build -t sanguo/follroad-externalEvent ./back-end/ExternalEventService
+  - docker build -t sanguo/follroad-external-event ./back-end/ExternalEventService
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push sanguo/follroad-externalEvent
+  - docker push sanguo/follroad-external-event
