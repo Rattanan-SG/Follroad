@@ -64,7 +64,6 @@
       <v-btn icon>
         <v-icon>directions</v-icon>
       </v-btn>
-      <v-spacer></v-spacer>
       <v-btn icon @click="installer()" :style="{'display' : installBtn}">
         <v-icon>mobile_friendly</v-icon>
       </v-btn>
@@ -115,9 +114,11 @@ export default {
     }),
     setPlace: function(place) {
       if (place) {
-        this.setSearchPlace(place);
-        console.log(this.searchPlace);
-        this.search();
+        if (place.geometry) {
+          this.setSearchPlace(place);
+          console.log(this.searchPlace);
+          this.search();
+        }
       }
     },
     search: function() {

@@ -1,7 +1,7 @@
 const api = require("./iticApi");
 const db = require("../database/controller");
 
-function updateEventToDatabase() {
+async function updateEventToDatabase() {
   return Promise.all([db.getEventId(), api.getEvents()])
     .then(response => {
       const databaseEventsEid = response[0].map(x => x.eid);

@@ -201,7 +201,7 @@ export default {
         }
       );
     },
-    getEvent: function() {
+    getEvent: async function() {
       axios.get("/events").then(response => {
         let events = response.data;
         // this.markers = [];
