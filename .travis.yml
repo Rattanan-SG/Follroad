@@ -1,9 +1,14 @@
 sudo: required
-language: node_js
 services:
   - docker
 
+before_install:
+  - docker build -t sanguo/follroad-externalEvent ./back-end/ExternalEventService
+
+script:
+  - docker run sanguo/follroad-externalEvent npm test
+
 after_success:
-  - docker build - sanguo/follroad-externalEvent ./back-end/ExternalEventService
-  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+  - docker build -t sanguo/follroad-externalEvent ./back-end/ExternalEventService
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push sanguo/follroad-externalEvent
