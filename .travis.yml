@@ -1,0 +1,8 @@
+sudo: required
+services:
+  - docker
+
+build:
+  - docker build - sanguo/follroad-externalEvent ./back-end/ExternalEventService
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+  - docker push sanguo/follroad-externalEvent
