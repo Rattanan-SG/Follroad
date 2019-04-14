@@ -8,7 +8,8 @@ const state = {
     lat: 13.7563,
     lng: 100.5018
   },
-  myLocation: {},
+  myLocation: null,
+  searchPlace: null
 };
 
 const getters = {
@@ -17,6 +18,9 @@ const getters = {
   },
   getMyLocation(state) {
     return state.myLocation;
+  },
+  getSearchPlace(state) {
+    return state.searchPlace;
   }
 };
 
@@ -26,6 +30,9 @@ const actions = {
   },
   setMyLocation({ commit }, myLocation) {
     commit("SET_MYLOCATION", myLocation);
+  },
+  setSearchPlace({ commit }, searchPlace) {
+    commit("SET_SEARCHPLACE", searchPlace);
   }
 };
 
@@ -35,6 +42,9 @@ const mutations = {
   },
   SET_MYLOCATION(state, myLocation) {
     state.myLocation = myLocation;
+  },
+  SET_SEARCHPLACE(state, searchPlace) {
+    state.searchPlace = searchPlace;
   }
 };
 

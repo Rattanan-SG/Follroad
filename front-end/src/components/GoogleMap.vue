@@ -1,32 +1,4 @@
 <template>
-  <!-- <div>
-    <div class="teal accent-3">
-      <v-form>
-        <v-container>
-          <v-layout row wrap>
-            <v-flex xs2 md1>
-              <v-icon>my_location</v-icon>
-            </v-flex>
-            <v-flex xs9 md10>
-              <gmap-autocomplete id="auto" @place_changed="setStartPlace"></gmap-autocomplete>
-            </v-flex>
-          </v-layout>
-          <v-layout row wrap>
-            <v-flex xs2 md1>
-              <v-icon>place</v-icon>
-            </v-flex>
-            <v-flex xs9 md10>
-              <gmap-autocomplete id="auto" @place_changed="setEndPlace"></gmap-autocomplete>
-            </v-flex>
-            <v-flex xs12 md12>
-              <div class="text-xs-right">
-                <v-btn round color="light-blue accent-4 white--text" v-on:click="getRoute">Get Route</v-btn>
-              </div>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-form>
-  </div>-->
   <gmap-map
     ref="gmap"
     :center="center"
@@ -42,8 +14,9 @@
   >
     <v-btn
       icon
-      style="top: 80%;right: 0; background-color: #4169E1	; color: white; position: absolute; z-index: 100"
+      style="top: 80%; right: 0.5%; background-color: #4169E1; color: white; position: absolute; z-index: 100"
       slot="visible"
+      @click="resetCenterToMyLocation"
     >
       <v-icon>gps_fixed</v-icon>
     </v-btn>
@@ -55,10 +28,16 @@
     >{{infoContent}}</gmap-info-window>
     <gmap-marker :position="myLocation"></gmap-marker>
     <gmap-marker
+      v-if="searchPlace"
+      :position="searchPlaceMarker.position"
+      :title="searchPlaceMarker.title"
+      @click="toggleInfoWindow(searchPlaceMarker,searchPlace.id)"
+    ></gmap-marker>
+    <gmap-marker
       :key="index"
       v-for="(m, index) in markers"
       :position="m.position"
-      :title="m.infoText"
+      :title="m.title"
       :icon="m.icon"
       @click="toggleInfoWindow(m,index)"
     ></gmap-marker>
@@ -104,8 +83,19 @@ export default {
   computed: {
     ...mapGetters({
       center: "getCenter",
-      myLocation: "getMyLocation"
+      myLocation: "getMyLocation",
+      searchPlace: "getSearchPlace"
     }),
+    searchPlaceMarker: function() {
+      return {
+        position: this.searchPlace.geometry.location,
+        infoText: `
+            ${this.searchPlace.name}\n
+            ${this.searchPlace.formatted_address}
+        `,
+        title: this.searchPlace.name
+      };
+    },
     google: gmapApi
   },
 
@@ -143,25 +133,14 @@ export default {
         onEdge;
       }
     },
-    setStartPlace: function(place) {
-      this.coords = {
-        lat: place.geometry.location.lat(),
-        lng: place.geometry.location.lng()
-      };
-    },
-    setEndPlace: function(place) {
-      this.destination = {
-        lat: place.geometry.location.lat(),
-        lng: place.geometry.location.lng()
-      };
-    },
-    pushMarker: function(lat, lng, infoText, icon) {
+    pushMarker: function(lat, lng, infoText, title, icon) {
       this.markers.push({
         position: {
           lat: lat,
           lng: lng
         },
         infoText: infoText,
+        title: title,
         icon: icon
       });
     },
@@ -182,6 +161,9 @@ export default {
         this.infoWinOpen = true;
         this.currentMidx = idx;
       }
+    },
+    resetCenterToMyLocation: function() {
+      this.$refs.gmap.$mapObject.setCenter(this.myLocation);
     },
     getRoute: function() {
       if (this.directionsRenderer != null) {
@@ -283,6 +265,7 @@ export default {
             Number(event.latitude),
             Number(event.longitude),
             event.description,
+            event.title,
             icon
           );
         });
