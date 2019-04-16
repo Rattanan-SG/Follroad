@@ -21,7 +21,7 @@ export default {
 
 <style scoped>
 .v-list {
-  height: 300px;
+  height: 550px;
   overflow-y: auto;
 }
 </style>

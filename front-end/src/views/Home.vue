@@ -5,6 +5,9 @@
         <v-tabs color="cyan" dark-side-color="yellow">
           <v-tab ripple>News</v-tab>
           <v-tab ripple>Search</v-tab>
+          <v-tav ripple>
+            <ScrollableDialog/>
+          </v-tav>
           <v-tab-item>
             <HomeFeedList :events="events"></HomeFeedList>
           </v-tab-item>
@@ -24,13 +27,15 @@
 import GoogleMap from "../components/GoogleMap";
 import HomeFeedList from "../components/HomeFeedList";
 import SearchDirection from "../components/SearchDirection";
+import ScrollableDialog from "../components/ScrollableDialog";
 import axios from "@/utilitys/axios";
 
 export default {
   components: {
     GoogleMap,
     HomeFeedList,
-    SearchDirection
+    SearchDirection,
+    ScrollableDialog
   },
   data() {
     return {
