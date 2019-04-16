@@ -1,7 +1,7 @@
 const connection = require("./connection");
 const sql = require("./sql.json");
 
-async function getEvents() {
+function getEvents() {
   return connection.pool
     .query(sql.getEvents)
     .then(rows => {
@@ -31,7 +31,7 @@ async function getEventsHaveLimit(startAt, limit) {
   }
 }
 
-async function getEventId() {
+function getEventId() {
   return connection.pool
     .query(sql.getEventId)
     .then(rows => {
@@ -42,7 +42,7 @@ async function getEventId() {
     });
 }
 
-async function getEventByType(type) {
+function getEventByType(type) {
   return connection.pool
     .query(sql.getEventByType, type)
     .then(rows => {
@@ -53,7 +53,7 @@ async function getEventByType(type) {
     });
 }
 
-async function insertEvents(events) {
+function insertEvents(events) {
   return connection.pool
     .batch(sql.insertEvents, formatDataToInsert(events))
     .then(response => {
@@ -64,7 +64,7 @@ async function insertEvents(events) {
     });
 }
 
-async function formatDataToInsert(events) {
+function formatDataToInsert(events) {
   let result = [];
   events.map(event => {
     let row = [];
