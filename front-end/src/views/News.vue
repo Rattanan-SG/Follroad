@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 500px; overflow: auto">
     <FeedList :events="events"></FeedList>
     <infinite-loading @infinite="getEvent"></infinite-loading>
   </div>
@@ -7,7 +7,7 @@
 
 <script>
 import FeedList from "../components/FeedList";
-import axios from "axios";
+import axios from "@/utilitys/axios";
 
 export default {
   components: {
@@ -22,7 +22,7 @@ export default {
   methods: {
     getEvent: function($state) {
       axios
-        .get("http://localhost:4000/events", {
+        .get("/events", {
           params: {
             startAt: this.startAt,
             limit: 10

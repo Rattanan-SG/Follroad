@@ -1,5 +1,5 @@
 <template>
-  <v-tabs color="cyan" dark-side-color="yellow" >
+  <v-tabs color="cyan" dark-side-color="yellow">
     <v-tab ripple>News</v-tab>
     <v-tab ripple>Search</v-tab>
     <v-tab ripple>
@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import GoogleMap from "../components/GoogleMap";
 import HomeFeedList from "../components/HomeFeedList";
 import SearchDirection from "../components/SearchDirection";
 import ScrollableDialog from "../components/ScrollableDialog";
@@ -23,7 +22,6 @@ import axios from "@/utilitys/axios";
 
 export default {
   components: {
-    GoogleMap,
     HomeFeedList,
     SearchDirection,
     ScrollableDialog
@@ -37,4 +35,19 @@ export default {
   created() {
     this.getEvent();
   },
-  methods: 
+  methods: {
+    getEvent: async function() {
+      axios
+        .get("/events")
+        .then(response => {
+          this.events = response.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }
+};
+</script>
+<style>
+</style>
