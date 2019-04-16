@@ -1,12 +1,15 @@
 <template>
-  <FeedList :events="events"></FeedList>
+  <div>
+    <FeedList :events="events"></FeedList>
+    <infinite-loading @infinite="getEvent"></infinite-loading>
+  </div>
 </template>
 
 
 
 <script>
 import FeedList from "../components/FeedList";
-import axios from "@/utilitys/axios";
+import axios from "axios";
 
 export default {
   components: {
@@ -14,24 +17,27 @@ export default {
   },
   data() {
     return {
-      events: []
+      events: [],
+      startAt: "now"
     };
   },
-  created() {
-    this.getEvent();
-  },
   methods: {
-    getEvent: function() {
+    getEvent: function($state) {
       axios
-        .get("/events")
-        .then(response => {
-          this.events = response.data;
-          console.log("====================================");
-          console.log(this.events[0]);
-          console.log("====================================");
+        .get("http://localhost:4000/events", {
+          params: {
+            startAt: this.startAt,
+            limit: 10
+          }
         })
-        .catch(err => {
-          console.log(err);
+        .then(({ data }) => {
+          if (data.length) {
+            this.startAt = data[data.length - 1].start;
+            this.events.push(...data);
+            $state.loaded();
+          } else {
+            $state.complete();
+          }
         });
     }
   }

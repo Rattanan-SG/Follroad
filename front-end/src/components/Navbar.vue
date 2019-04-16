@@ -49,14 +49,13 @@
       <v-toolbar-title class="hidden-sm-and-down">Follroad</v-toolbar-title>
       <gmap-autocomplete
         @place_changed="setPlace"
-        @keyup.enter="search"
-        style="width:60%"
-        class="pa-2 ml-4 subheading"
+        style="width:100%"
+        class="pa-2 ml-2 subheading"
         ref="autocomplete"
         placeholder="ค้นหาสถานที่"
         :select-first-on-enter="true"
       ></gmap-autocomplete>
-      <v-btn v-if="!place" icon @click="search">
+      <v-btn v-if="!searchPlace" icon @click="search">
         <v-icon>search</v-icon>
       </v-btn>
       <v-btn v-else icon @click="clear">
@@ -65,7 +64,6 @@
       <v-btn icon>
         <v-icon>directions</v-icon>
       </v-btn>
-      <v-spacer></v-spacer>
       <v-btn icon @click="installer()" :style="{'display' : installBtn}">
         <v-icon>mobile_friendly</v-icon>
       </v-btn>
@@ -82,11 +80,15 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
-      place: null,
       drawer: false,
       installBtn: "none",
       installer: null
     };
+  },
+  computed: {
+    ...mapGetters({
+      searchPlace: "getSearchPlace"
+    })
   },
   created() {
     let installPrompt;
@@ -105,26 +107,29 @@ export default {
       });
     };
   },
-
   methods: {
     ...mapActions({
-      setCenter: "setCenter"
+      setCenter: "setCenter",
+      setSearchPlace: "setSearchPlace"
     }),
     setPlace: function(place) {
-      this.place = place;
-      this.search();
+      if (place) {
+        if (place.geometry) {
+          this.setSearchPlace(place);
+          console.log(this.searchPlace);
+          this.search();
+        }
+      }
     },
     search: function() {
-      let coords = {
-        lat: this.place.geometry.location.lat(),
-        lng: this.place.geometry.location.lng()
-      };
-      this.setCenter(coords);
-      this.$router.push("/");
+      if (this.searchPlace) {
+        this.setCenter(this.searchPlace.geometry.location);
+        this.$router.push("/");
+      }
     },
     clear: function() {
       this.$refs.autocomplete.$el.value = null;
-      this.place = null;
+      this.setSearchPlace(null);
     }
   }
 };

@@ -1,7 +1,6 @@
 .DS_Store
 node_modules
 .env
-config.json
 # Log files
 npm-debug.log*
 yarn-debug.log*

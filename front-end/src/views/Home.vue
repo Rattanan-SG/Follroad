@@ -12,7 +12,7 @@
             <HomeFeedList :events="events"></HomeFeedList>
           </v-tab-item>
           <v-tab-item>
-            <SearchDirection/>>
+            <SearchDirection/>
           </v-tab-item>
         </v-tabs>
       </v-flex>
@@ -47,7 +47,7 @@ export default {
     this.getEvent();
   },
   methods: {
-    getEvent: function() {
+    getEvent: async function() {
       axios
         .get("/events")
         .then(response => {
