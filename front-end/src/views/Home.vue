@@ -5,9 +5,9 @@
         <v-tabs color="cyan" dark-side-color="yellow">
           <v-tab ripple>News</v-tab>
           <v-tab ripple>Search</v-tab>
-          <v-tav ripple>
+          <v-tab ripple>
             <ScrollableDialog/>
-          </v-tav>
+          </v-tab>
           <v-tab-item>
             <HomeFeedList :events="events"></HomeFeedList>
           </v-tab-item>
