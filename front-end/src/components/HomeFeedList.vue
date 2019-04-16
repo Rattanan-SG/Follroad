@@ -1,5 +1,5 @@
 <template >
-  <v-list two-line>
+  <v-list two-line style="height: 500px; overflow: auto">
     <template v-for="(event, index) in events">
       <v-divider v-if="index + 1 < event.length" :key="`divider-${index}`"></v-divider>
       <HomeFeedItem :key="event.eid" :event="event"></HomeFeedItem>

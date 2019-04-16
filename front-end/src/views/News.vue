@@ -5,8 +5,6 @@
   </div>
 </template>
 
-
-
 <script>
 import FeedList from "../components/FeedList";
 import axios from "axios";
