@@ -12,14 +12,6 @@
       }"
     @click="isOnEdge"
   >
-    <v-btn
-      icon
-      style="top: 80%; right: 0.5%; background-color: #4169E1; color: white; position: absolute; z-index: 100"
-      slot="visible"
-      @click="resetCenterToMyLocation"
-    >
-      <v-icon>gps_fixed</v-icon>
-    </v-btn>
     <gmap-info-window
       :options="infoOptions"
       :position="infoWindowPos"
@@ -41,7 +33,11 @@
       :icon="m.icon"
       @click="toggleInfoWindow(m,index)"
     ></gmap-marker>
+    <v-btn icon @click="resetCenterToMyLocation" slot="visible">
+      <v-icon>gps_fixed</v-icon>
+    </v-btn>
   </gmap-map>
+
   <!-- <div id="directionsPanel" style="width:50%;height 100%"></div>
   </div>-->
 </template>
@@ -283,5 +279,13 @@ export default {
 .vue-map {
   width: 100%;
   height: 100%;
+}
+.v-btn {
+  bottom: 10%;
+  right: 0.5%;
+  background-color: #4169e1;
+  color: white;
+  position: absolute;
+  z-index: 1;
 }
 </style>

@@ -1,49 +1,5 @@
 <template>
   <nav>
-    <v-navigation-drawer app temporary v-model="drawer">
-      <v-list dense>
-        <v-list-tile to="/">
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Home</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile to="/news">
-          <v-list-tile-action>
-            <i class="material-icons">today</i>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>News</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile>
-          <v-list-tile-action>
-            <i class="material-icons">save</i>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>SaveRoute</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile>
-          <v-list-tile-action>
-            <i class="material-icons">history</i>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>History</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile>
-          <v-list-tile-action>
-            <i class="material-icons">lock</i>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Logout</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
     <v-toolbar color="indigo" dark flat>
       <v-toolbar-side-icon @click.close="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title class="hidden-sm-and-down">Follroad</v-toolbar-title>
@@ -71,6 +27,16 @@
         <v-icon>notifications</v-icon>
       </v-btn>
     </v-toolbar>
+    <v-navigation-drawer app temporary v-model="drawer">
+      <v-list>
+        <v-list-tile v-for="list in lists" :key="list.text" router :to="list.route">
+          <v-list-tile-action>
+            <v-icon>{{list.icon}}</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>{{list.text}}</v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
   </nav>
 </template>
 
@@ -81,6 +47,10 @@ export default {
   data() {
     return {
       drawer: false,
+      lists: [
+        { text: "Home", icon: "home", route: "/" },
+        { text: "Feed", icon: "today", route: "/news" }
+      ],
       installBtn: "none",
       installer: null
     };
