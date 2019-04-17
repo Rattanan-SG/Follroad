@@ -1,5 +1,5 @@
 <template>
-  <v-tabs color="cyan" dark-side-color="yellow">
+  <!-- <v-tabs color="cyan" dark-side-color="yellow">
     <v-tab ripple>News</v-tab>
     <v-tab ripple>Search</v-tab>
     <v-tab ripple>
@@ -11,20 +11,21 @@
     <v-tab-item>
       <SearchDirection/>
     </v-tab-item>
-  </v-tabs>
-</template>
+  </v-tabs>-->
+  <div></div>
+</template> 
 
 <script>
-import HomeFeedList from "../components/HomeFeedList";
-import SearchDirection from "../components/SearchDirection";
-import ScrollableDialog from "../components/ScrollableDialog";
-import axios from "../utilitys/axios";
+// import HomeFeedList from "../components/HomeFeedList";
+// import SearchDirection from "../components/SearchDirection";
+// import ScrollableDialog from "../components/ScrollableDialog";
+import axios from "@/utilitys/axios";
 
 export default {
   components: {
-    HomeFeedList,
-    SearchDirection,
-    ScrollableDialog
+    // HomeFeedList,
+    // SearchDirection,
+    // ScrollableDialog
   },
   data() {
     return {
