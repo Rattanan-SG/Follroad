@@ -1,7 +1,18 @@
 <template>
-  <nav>
-    <v-toolbar color="indigo" dark flat>
-      <v-toolbar-side-icon @click.close="drawer = !drawer"></v-toolbar-side-icon>
+  <div>
+    <v-navigation-drawer fixed :clipped="$vuetify.breakpoint.mdAndUp" app v-model="drawer">
+      <v-list>
+        <v-list-tile v-for="list in lists" :key="list.text" router :to="list.route">
+          <v-list-tile-action>
+            <v-icon>{{list.icon}}</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>{{list.text}}</v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-toolbar color="blue darken-3" dark app :clipped-left="$vuetify.breakpoint.mdAndUp" fixed>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title class="hidden-sm-and-down">Follroad</v-toolbar-title>
       <gmap-autocomplete
         @place_changed="setPlace"
@@ -27,17 +38,7 @@
         <v-icon>notifications</v-icon>
       </v-btn>
     </v-toolbar>
-    <v-navigation-drawer app temporary v-model="drawer">
-      <v-list>
-        <v-list-tile v-for="list in lists" :key="list.text" router :to="list.route">
-          <v-list-tile-action>
-            <v-icon>{{list.icon}}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>{{list.text}}</v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-  </nav>
+  </div>
 </template>
 
 
@@ -46,9 +47,10 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
-      drawer: false,
+      drawer: null,
       lists: [
         { text: "Home", icon: "home", route: "/" },
+        { text: "Search", icon: "directions", route: "/search" },
         { text: "Feed", icon: "today", route: "/news" }
       ],
       installBtn: "none",
@@ -108,7 +110,7 @@ export default {
 ::placeholder {
   color: white;
 }
-.modal-mask {
+/* .modal-mask {
   position: fixed;
   z-index: 9998;
   top: 0;
@@ -161,5 +163,5 @@ export default {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
-}
+} */
 </style>
