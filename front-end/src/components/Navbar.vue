@@ -17,7 +17,7 @@
       <v-btn v-else icon @click="clear">
         <v-icon>close</v-icon>
       </v-btn>
-      <v-btn icon>
+      <v-btn icon @click="startDirections">
         <v-icon>directions</v-icon>
       </v-btn>
       <v-btn icon @click="installer()" :style="{'display' : installBtn}">
@@ -43,7 +43,9 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { eventBus } from "../main";
 export default {
+  name: "Navbar",
   data() {
     return {
       drawer: false,
@@ -56,9 +58,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({
-      searchPlace: "getSearchPlace"
-    })
+    ...mapGetters(["myLocation", "searchPlace"])
   },
   created() {
     let installPrompt;
@@ -78,15 +78,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions({
-      setCenter: "setCenter",
-      setSearchPlace: "setSearchPlace"
-    }),
+    ...mapActions(["setCenter", "setSearchPlace", "setDirection"]),
     setPlace: function(place) {
       if (place) {
         if (place.geometry) {
           this.setSearchPlace(place);
-          console.log(this.searchPlace);
           this.search();
         }
       }
@@ -100,6 +96,16 @@ export default {
     clear: function() {
       this.$refs.autocomplete.$el.value = null;
       this.setSearchPlace(null);
+      this.setDirection(null);
+      eventBus.stopDirections();
+    },
+    startDirections: function() {
+      if (this.searchPlace && this.myLocation) {
+        eventBus.startDirections(
+          this.myLocation,
+          this.searchPlace.geometry.location
+        );
+      }
     }
   }
 };

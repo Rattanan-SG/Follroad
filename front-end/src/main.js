@@ -19,6 +19,17 @@ Vue.use(VueGoogleMaps, {
   }
 });
 
+export const eventBus = new Vue({
+  methods: {
+    startDirections: function(startLocation, stopLocation) {
+      this.$emit("startDirections", { startLocation, stopLocation });
+    },
+    stopDirections: function() {
+      this.$emit("stopDirections");
+    }
+  }
+});
+
 new Vue({
   router,
   store,

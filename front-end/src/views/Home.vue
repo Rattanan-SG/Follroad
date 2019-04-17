@@ -18,7 +18,7 @@
 import HomeFeedList from "../components/HomeFeedList";
 import SearchDirection from "../components/SearchDirection";
 import ScrollableDialog from "../components/ScrollableDialog";
-import axios from "@/utilitys/axios";
+import axios from "../utilitys/axios";
 
 export default {
   components: {

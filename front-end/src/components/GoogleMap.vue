@@ -45,15 +45,14 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { gmapApi } from "vue2-google-maps";
-import axios from "@/utilitys/axios";
+import { eventBus } from "../main";
+import axios from "../utilitys/axios";
 
 export default {
   name: "GoogleMap",
   data() {
     return {
       markers: [],
-      places: [],
-      currentPlace: null,
       currentMidx: null,
       infoContent: "",
       infoWindowPos: null,
@@ -64,12 +63,8 @@ export default {
           height: -35
         }
       },
-      coords: null,
-      destination: null,
       directionsService: null,
       directionsRenderer: null,
-      startDirection: "",
-      endDirection: "",
       path: [],
       polyline: null,
       timer: null
@@ -77,11 +72,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      center: "getCenter",
-      myLocation: "getMyLocation",
-      searchPlace: "getSearchPlace"
-    }),
+    ...mapGetters(["center", "myLocation", "searchPlace", "events"]),
     searchPlaceMarker: function() {
       return {
         position: this.searchPlace.geometry.location,
@@ -97,11 +88,16 @@ export default {
 
   created() {
     this.getEvent();
+    eventBus.$on("startDirections", ({ startLocation, stopLocation }) => {
+      this.getRoute(startLocation, stopLocation);
+    });
+    eventBus.$on("stopDirections", () => {
+      this.cleanRoute();
+    });
     // this.timer = setInterval(this.getEvent, 3000)
   },
 
   mounted() {
-    this.geolocate();
     this.$gmapApiPromiseLazy().then(() => {
       let trafficLayer = new this.google.maps.TrafficLayer();
       trafficLayer.setMap(this.$refs.gmap.$mapObject);
@@ -111,11 +107,7 @@ export default {
   },
 
   methods: {
-    ...mapActions({
-      setCenter: "setCenter",
-      setMyLocation: "setMyLocation"
-    }),
-
+    ...mapActions(["setCenter", "setMyLocation", "setDirection"]),
     isOnEdge: function(event) {
       // console.log(event);
       if (this.polyline) {
@@ -140,14 +132,6 @@ export default {
         icon: icon
       });
     },
-    geolocate: function() {
-      navigator.geolocation.getCurrentPosition(position => {
-        let lat = parseFloat(position.coords.latitude);
-        let lng = parseFloat(position.coords.longitude);
-        this.setCenter({ lat: lat, lng: lng });
-        this.setMyLocation({ lat: lat, lng: lng });
-      });
-    },
     toggleInfoWindow: function(marker, idx) {
       this.infoWindowPos = marker.position;
       this.infoContent = marker.infoText;
@@ -161,46 +145,46 @@ export default {
     resetCenterToMyLocation: function() {
       this.$refs.gmap.$mapObject.setCenter(this.myLocation);
     },
-    getRoute: function() {
-      if (this.directionsRenderer != null) {
-        this.directionsRenderer.setMap(null);
-        this.directionsRenderer.setPanel(null);
+    getRoute: function(startLocation, stopLocation) {
+      if (this.directionsRenderer.getMap() != null) {
+        this.cleanRoute();
       }
-      this.directionsRenderer.setMap(this.$refs.gmap.$mapObject);
-      this.directionsRenderer.setPanel(
-        document.getElementById("directionsPanel")
-      );
       this.directionsService.route(
         {
-          origin: this.coords,
-          destination: this.destination,
+          origin: startLocation,
+          destination: stopLocation,
           travelMode: "DRIVING",
           provideRouteAlternatives: true
         },
         (response, status) => {
           if (status === "OK") {
-            console.log(response);
+            this.setDirection(response);
             // this.path = this.google.maps.geometry.encoding.decodePath(
             //   response.routes[0].overview_polyline
             // );
-
             this.polyline = new this.google.maps.Polyline({
               path: response.routes[0].overview_path
             });
-
+            // แสดงจุดบนเส้นทาง
             // response.routes[0].overview_path.map(x => {
             //   this.pushMarker(x.lat(), x.lng(), "dd");
             // });
-
+            this.directionsRenderer.setMap(this.$refs.gmap.$mapObject);
             this.directionsRenderer.setDirections(response);
+            // this.directionsRenderer.setPanel(
+            //   document.getElementById("directionsPanel")
+            // );
           }
         }
       );
     },
+    cleanRoute: function() {
+      this.directionsRenderer.setPanel(null);
+      this.directionsRenderer.setMap(null);
+    },
     getEvent: async function() {
       axios.get("/events").then(response => {
         let events = response.data;
-        // this.markers = [];
         events.map(event => {
           let icon = "";
           switch (event.icon) {

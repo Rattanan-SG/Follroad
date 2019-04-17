@@ -9,27 +9,8 @@
       <v-card-text>
         <v-container fluid>
           <v-layout row wrap>
-            <v-flex xs12 sm6 md6>
-              <v-radio-group column>
-                <v-checkbox value="Brokencar" label="BrokenCar"></v-checkbox>
-                <v-checkbox value="Construction" label="Construction"></v-checkbox>
-                <v-checkbox value="Accident" label="Accident"></v-checkbox>
-                <v-checkbox value="Rain" label="Rain"></v-checkbox>
-                <v-checkbox value="Flood" label="Flood"></v-checkbox>
-                <v-checkbox value="Demonstration" label="Demonstration"></v-checkbox>
-                <v-checkbox value="Information" label="Information"></v-checkbox>
-              </v-radio-group>
-            </v-flex>
-            <v-flex xs12 sm6 md6>
-              <v-radio-group column>
-                <v-checkbox value="Checkpoint" label="Checkpoint"></v-checkbox>
-                <v-checkbox value="Trafficjam" label="Trafficjam"></v-checkbox>
-                <v-checkbox value="Miscellaneous" label="Miscellaneous"></v-checkbox>
-                <v-checkbox value="Warning" label="Warning"></v-checkbox>
-                <v-checkbox value="Event" label="Event"></v-checkbox>
-                <v-checkbox value="Sale" label="Sale"></v-checkbox>
-                <v-checkbox value="Fire" label="Fire"></v-checkbox>
-              </v-radio-group>
+            <v-flex xs6 v-for="item in checkbox" :key="item.type">
+              <v-checkbox v-model="selected" :value="item.value" :label="item.value"></v-checkbox>
             </v-flex>
           </v-layout>
         </v-container>
@@ -47,8 +28,34 @@ export default {
   name: "ScrollableDialog",
   data() {
     return {
-      dialog: false
+      dialog: false,
+      checkbox: [
+        { value: "brokencar", type: "1" },
+        { value: "construction", type: "2" },
+        { value: "accident", type: "3" },
+        { value: "rain", type: "5" },
+        { value: "flood", type: "6" },
+        { value: "demonstration", type: "7" },
+        { value: "information", type: "8" },
+        { value: "checkpoint", type: "9" },
+        { value: "trafficjam", type: "10" },
+        { value: "miscellaneous", type: "11" },
+        { value: "warning", type: "12" },
+        { value: "event", type: "13" },
+        { value: "sale", type: "14" },
+        { value: "fire", type: "15" }
+      ]
     };
+  },
+  computed: {
+    selected: {
+      get() {
+        return this.$store.state.eventCategorySelected;
+      },
+      set(value) {
+        this.$store.commit("SET_EVENTCATEGORYSELECTED", value);
+      }
+    }
   }
 };
 </script>

@@ -15,13 +15,32 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import Navbar from "./components/Navbar";
 import GoogleMap from "./components/GoogleMap";
+
 export default {
   name: "App",
   components: {
     Navbar,
     GoogleMap
+  },
+  created() {
+    this.fetchEvents();
+  },
+  mounted() {
+    this.getGeolocateFromUser();
+  },
+  methods: {
+    ...mapActions(["setCenter", "setMyLocation", "fetchEvents"]),
+    getGeolocateFromUser: function() {
+      navigator.geolocation.getCurrentPosition(position => {
+        let lat = parseFloat(position.coords.latitude);
+        let lng = parseFloat(position.coords.longitude);
+        this.setCenter({ lat: lat, lng: lng });
+        this.setMyLocation({ lat: lat, lng: lng });
+      });
+    }
   }
 };
 </script>
