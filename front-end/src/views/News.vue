@@ -9,6 +9,7 @@
 import FeedList from "../components/FeedList";
 import axios from "@/utilitys/axios";
 export default {
+  name: "News",
   components: {
     FeedList
   },

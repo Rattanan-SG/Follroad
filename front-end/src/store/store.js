@@ -1,25 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import eventService from "../utilitys/eventService";
 import axios from "../utilitys/axios";
 
 Vue.use(Vuex);
-
-const EVENTCATEGORY = [
-  "brokencar",
-  "construction",
-  "accident",
-  "rain",
-  "flood",
-  "demonstration",
-  "information",
-  "checkpoint",
-  "trafficjam",
-  "miscellaneous",
-  "warning",
-  "event",
-  "sale",
-  "fire"
-];
 
 const state = {
   center: {
@@ -30,8 +14,8 @@ const state = {
   startPlace: null,
   searchPlace: null,
   direction: null,
-  events: null,
-  eventCategorySelected: EVENTCATEGORY,
+  events: [],
+  eventCategorySelected: eventService.EVENT_CATEGORY,
   showRouterView: false
 };
 
@@ -52,13 +36,31 @@ const getters = {
     return state.direction;
   },
   events: state => {
-    if (state.eventCategorySelected.length != EVENTCATEGORY.length) {
+    if (
+      state.eventCategorySelected.length != eventService.EVENT_CATEGORY.length
+    ) {
       return state.events.filter(event =>
         state.eventCategorySelected.includes(event.icon)
       );
     } else {
       return state.events;
     }
+  },
+  markers: (state, getters) => {
+    return getters.events.map(event => {
+      return {
+        position: {
+          lat: event.latitude,
+          lng: event.longitude
+        },
+        infoText: event.description,
+        title: event.title,
+        icon: eventService.selectIcon(event)
+      };
+    });
+  },
+  pagingEvents: (state, getters) => (pageSize, pageNumber) => {
+    return eventService.eventPaginate(getters.events, pageSize, pageNumber);
   },
   eventCategorySelected: state => {
     return state.eventCategorySelected;

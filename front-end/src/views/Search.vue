@@ -5,10 +5,8 @@
   </v-tabs>
 </template>
 <script>
-import GoogleMap from "../components/GoogleMap";
 export default {
-  components: {
-    GoogleMap
-  }
+  name: "Search",
+  components: {}
 };
 </script>

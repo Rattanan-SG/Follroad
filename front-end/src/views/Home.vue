@@ -6,7 +6,7 @@
       <ScrollableDialog/>
     </v-tab>
     <v-tab-item>
-      <HomeFeedList :events="events"></HomeFeedList>
+      <HomeFeedList></HomeFeedList>
     </v-tab-item>
     <v-tab-item>
       <SearchDirection/>
@@ -18,33 +18,12 @@
 import HomeFeedList from "../components/HomeFeedList";
 import SearchDirection from "../components/SearchDirection";
 import ScrollableDialog from "../components/ScrollableDialog";
-import axios from "@/utilitys/axios";
 export default {
+  name: "Home",
   components: {
     HomeFeedList,
     SearchDirection,
     ScrollableDialog
-  },
-  data() {
-    return {
-      events: [],
-      offsetTop: 0
-    };
-  },
-  created() {
-    this.getEvent();
-  },
-  methods: {
-    getEvent: async function() {
-      axios
-        .get("/events")
-        .then(response => {
-          this.events = response.data;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
   }
 };
 </script>
