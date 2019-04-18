@@ -1,7 +1,9 @@
 <template>
   <v-dialog v-model="dialog" scrollable max-width="40%" max-height="100%">
     <template v-slot:activator="{ on }">
-      <v-btn flat color="black" dark v-on="on">Category</v-btn>
+      <div id="category-btn">
+        <v-btn color="blue-grey" class="white--text" v-on="on">Category</v-btn>
+      </div>
     </template>
     <v-card flat>
       <!-- <v-card-title>EventCategory</v-card-title>
@@ -59,3 +61,8 @@ export default {
   }
 };
 </script>
+<style>
+#category-btn {
+  margin-top: 2%;
+}
+</style>

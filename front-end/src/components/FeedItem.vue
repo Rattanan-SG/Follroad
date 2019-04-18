@@ -4,15 +4,23 @@
       <v-layout row wrap align-start justify-center fill-height>
         <v-card color="deep-orange lighten-1  black--text " class="mb-4 mt-4" width="800px">
           <v-layout>
-            <v-flex xs2 md1>
+            <!-- <v-flex xs2 md1>
               <br>
               <v-icon size="50px" class="ml-4">account_circle</v-icon>
-            </v-flex>
-            <v-flex xs7>
+            </v-flex>-->
+            <v-flex>
               <v-card-title primary-title>
                 <div>
-                  <div class="headline , ml-4">{{event.title}}</div>
-                  <div id="abc" class="ml-4">{{event.start}} to {{event.stop}}</div>
+                  <div id="title" class="ml-1">
+                    <h3>{{event.title}}</h3>
+                  </div>
+                  <div id="abc" class="ml-1">
+                    เริ่ม
+                    : {{event.start}}
+                    <br>
+                    สิ้นสุด
+                    : {{event.stop}}
+                  </div>
                 </div>
               </v-card-title>
             </v-flex>
@@ -21,6 +29,7 @@
             <div id="description">
               {{event.description}}
               <br>
+              <v-icon size="40px">account_circle</v-icon>
               by {{event.contributor}}
             </div>
           </v-flex>
@@ -50,6 +59,8 @@
   </v-card>
 </template>
 <style>
+.title {
+}
 .abc {
   margin-top: 2px;
 }

@@ -19,7 +19,7 @@
           </v-flex>
           <v-flex xs10 md10>
             <div class="text-xs-right">
-              <v-btn color="blue darken-1" flat>SEARCH</v-btn>
+              <v-btn color="success">SEARCH</v-btn>
             </div>
           </v-flex>
         </v-layout>

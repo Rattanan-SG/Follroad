@@ -1,14 +1,17 @@
 <template>
-  <v-tabs color="cyan" dark-side-color="yellow">
-    <v-tab ripple>News</v-tab>
-    <v-tab ripple>Search</v-tab>
+  <!-- <v-tabs color="cyan" dark-side-color="yellow"> -->
+  <v-tabs>
+    <v-tab-item>
+      <SearchDirection/>
+    </v-tab-item>
   </v-tabs>
+  <!-- </v-tabs> -->
 </template>
 <script>
-import GoogleMap from "../components/GoogleMap";
+import SearchDirection from "../components/SearchDirection";
 export default {
   components: {
-    GoogleMap
+    SearchDirection
   }
 };
 </script>
