@@ -31,7 +31,8 @@ const state = {
   searchPlace: null,
   direction: null,
   events: null,
-  eventCategorySelected: EVENTCATEGORY
+  eventCategorySelected: EVENTCATEGORY,
+  showRouterView: false
 };
 
 const getters = {
@@ -61,6 +62,9 @@ const getters = {
   },
   eventCategorySelected: state => {
     return state.eventCategorySelected;
+  },
+  showRouterView: state => {
+    return state.showRouterView;
   }
 };
 
@@ -84,6 +88,9 @@ const actions = {
     axios.get("/events").then(response => {
       commit("SET_EVENTS", response.data);
     });
+  },
+  setShowRouterView: ({ commit }, showRouterView) => {
+    commit("SET_SHOWROUTERVIEW", showRouterView);
   }
 };
 
@@ -108,6 +115,9 @@ const mutations = {
   },
   SET_EVENTCATEGORYSELECTED: (state, eventCategorySelected) => {
     state.eventCategorySelected = eventCategorySelected;
+  },
+  SET_SHOWROUTERVIEW: (state, showRouterView) => {
+    state.showRouterView = showRouterView;
   }
 };
 

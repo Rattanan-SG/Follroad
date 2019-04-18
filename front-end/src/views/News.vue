@@ -8,7 +8,6 @@
 <script>
 import FeedList from "../components/FeedList";
 import axios from "@/utilitys/axios";
-
 export default {
   components: {
     FeedList

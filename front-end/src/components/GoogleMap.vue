@@ -37,7 +37,6 @@
       <v-icon>gps_fixed</v-icon>
     </v-btn>
   </gmap-map>
-
   <!-- <div id="directionsPanel" style="width:50%;height 100%"></div>
   </div>-->
 </template>
@@ -70,7 +69,6 @@ export default {
       timer: null
     };
   },
-
   computed: {
     ...mapGetters(["center", "myLocation", "searchPlace", "events"]),
     searchPlaceMarker: function() {
@@ -85,7 +83,6 @@ export default {
     },
     google: gmapApi
   },
-
   created() {
     this.getEvent();
     eventBus.$on("startDirections", ({ startLocation, stopLocation }) => {
@@ -96,7 +93,6 @@ export default {
     });
     // this.timer = setInterval(this.getEvent, 3000)
   },
-
   mounted() {
     this.$gmapApiPromiseLazy().then(() => {
       let trafficLayer = new this.google.maps.TrafficLayer();
@@ -105,7 +101,6 @@ export default {
       this.directionsRenderer = new this.google.maps.DirectionsRenderer();
     });
   },
-
   methods: {
     ...mapActions(["setCenter", "setMyLocation", "setDirection"]),
     isOnEdge: function(event) {

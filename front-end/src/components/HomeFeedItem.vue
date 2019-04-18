@@ -9,7 +9,6 @@
 
 <style>
 </style>
-
 <script>
 export default {
   name: "HomeFeedItem",

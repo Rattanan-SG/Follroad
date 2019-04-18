@@ -1,19 +1,96 @@
 <template>
   <div>
-    <v-navigation-drawer fixed :clipped="$vuetify.breakpoint.mdAndUp" app v-model="drawer">
-      <v-list>
+    <!-- <v-navigation-drawer fixed :clipped="$vuetify.breakpoint.mdAndUp" app v-model="drawer"> -->
+    <v-navigation-drawer
+      :clipped="drawer.clipped"
+      :fixed="drawer.fixed"
+      :permanent="drawer.permanent"
+      :mini-variant="drawer.mini"
+      v-model="drawer.open"
+      app
+    >
+      <!-- <v-list>
         <v-list-tile v-for="list in lists" :key="list.text" router :to="list.route">
           <v-list-tile-action>
             <v-icon>{{list.icon}}</v-icon>
           </v-list-tile-action>
-          <v-list-tile-content>{{list.text}}</v-list-tile-content>
+          <v-list-tile-content><v-list-tile-title>{{list.text}}</v-list-tile-title></v-list-tile-content>
         </v-list-tile>
+      </v-list>-->
+      <v-list>
+        <v-list-tile v-if="!drawer.permanent" @click="makeDrawerPermanent">
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-list-tile-action v-on="on">
+                <v-icon>chevron_right</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>Static Drawer</v-list-tile-title>
+              </v-list-tile-content>
+            </template>
+            <span>Static Drawer</span>
+          </v-tooltip>
+        </v-list-tile>
+        <v-list-tile @click="toggleMiniDrawer">
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-list-tile-action v-on="on">
+                <v-icon>aspect_ratio</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>Mini Drawer</v-list-tile-title>
+              </v-list-tile-content>
+            </template>
+            <span>Mini Drawer</span>
+          </v-tooltip>
+        </v-list-tile>
+
+        <v-divider></v-divider>
+
+        <v-list-tile
+          v-for="list in lists"
+          :key="list.text"
+          :to="list.route"
+          router
+          @click="openRouterView(list.route)"
+        >
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-list-tile-action v-on="on">
+                <v-icon>{{list.icon}}</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>{{list.text}}</v-list-tile-title>
+              </v-list-tile-content>
+            </template>
+            <span>{{list.text}}</span>
+          </v-tooltip>
+        </v-list-tile>
+
+        <!-- <v-list-tile @click="toggleMiniDrawer">
+          <v-list-tile-action>
+            <v-icon>dashboard</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Dashboard</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>-->
       </v-list>
     </v-navigation-drawer>
-
-    <v-toolbar color="blue darken-3" dark app :clipped-left="$vuetify.breakpoint.mdAndUp" fixed>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title class="hidden-sm-and-down">Follroad</v-toolbar-title>
+    <!-- <v-toolbar color="blue darken-3" dark app :clipped-left="$vuetify.breakpoint.mdAndUp" fixed> -->
+    <v-toolbar
+      color="blue darken-3"
+      dark
+      app
+      :fixed="toolbar.fixed"
+      :clipped-left="toolbar.clippedLeft"
+    >
+      <!-- <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon> -->
+      <v-toolbar-side-icon @click.stop="toggleDrawer"></v-toolbar-side-icon>
+      <v-toolbar-title
+        class="hidden-sm-and-down"
+        style="overflow: unset; margin-left: 10px"
+      >Follroad</v-toolbar-title>
       <gmap-autocomplete
         @place_changed="setPlace"
         style="width:100%"
@@ -49,18 +126,38 @@ export default {
   name: "Navbar",
   data() {
     return {
-      drawer: null,
+      // drawer: null,
+      drawer: {
+        // sets the open status of the drawer
+        open: true,
+        // sets if the drawer is shown above (false) or below (true) the toolbar
+        clipped: false,
+        // sets if the drawer is CSS positioned as 'fixed'
+        fixed: false,
+        // sets if the drawer remains visible all the time (true) or not (false)
+        permanent: true,
+        // sets the drawer to the mini variant, showing only icons, of itself (true)
+        // or showing the full drawer (false)
+        mini: true
+      },
+      toolbar: {
+        //
+        fixed: true,
+        // sets if the toolbar contents is leaving space for drawer (false) or not (true)
+        clippedLeft: false
+      },
       lists: [
         { text: "Home", icon: "home", route: "/" },
         { text: "Search", icon: "directions", route: "/search" },
         { text: "Feed", icon: "today", route: "/news" }
       ],
+      activeRouter: "/",
       installBtn: "none",
       installer: null
     };
   },
   computed: {
-    ...mapGetters(["myLocation", "searchPlace"])
+    ...mapGetters(["myLocation", "searchPlace", "showRouterView"])
   },
   created() {
     let installPrompt;
@@ -80,7 +177,20 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["setCenter", "setSearchPlace", "setDirection"]),
+    ...mapActions([
+      "setCenter",
+      "setSearchPlace",
+      "setDirection",
+      "setShowRouterView"
+    ]),
+    openRouterView: function(route) {
+      if (this.activeRouter == route) {
+        this.setShowRouterView(!this.showRouterView);
+      } else {
+        this.activeRouter = route;
+        this.setShowRouterView(true);
+      }
+    },
     setPlace: function(place) {
       if (place) {
         if (place.geometry) {
@@ -108,6 +218,29 @@ export default {
           this.searchPlace.geometry.location
         );
       }
+    },
+    // changes the drawer to permanent
+    makeDrawerPermanent() {
+      this.drawer.permanent = true;
+      // set the clipped state of the drawer and toolbar
+      this.drawer.clipped = false;
+      this.toolbar.clippedLeft = false;
+    },
+    // toggles the drawer variant (mini/full)
+    toggleMiniDrawer() {
+      this.drawer.mini = !this.drawer.mini;
+    },
+    // toggles the drawer type (permanent vs temporary) or shows/hides the drawer
+    toggleDrawer() {
+      if (this.drawer.permanent) {
+        this.drawer.permanent = !this.drawer.permanent;
+        // set the clipped state of the drawer and toolbar
+        this.drawer.clipped = true;
+        this.toolbar.clippedLeft = true;
+      } else {
+        // normal drawer
+        this.drawer.open = !this.drawer.open;
+      }
     }
   }
 };
@@ -116,58 +249,4 @@ export default {
 ::placeholder {
   color: white;
 }
-/* .modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: table;
-  transition: opacity 0.3s ease;
-}
-
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
-}
-
-.modal-container {
-  width: 300px;
-  margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
-}
-
-.modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
-}
-
-.modal-body {
-  margin: 20px 0;
-}
-
-.modal-default-button {
-  float: right;
-}
-
-.modal-enter {
-  opacity: 0;
-}
-
-.modal-leave-active {
-  opacity: 0;
-}
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-} */
 </style>

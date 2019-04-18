@@ -49,7 +49,6 @@
     </v-container>
   </v-card>
 </template>
-
 <style>
 .abc {
   margin-top: 2px;
