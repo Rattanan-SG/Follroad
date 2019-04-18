@@ -1,26 +1,55 @@
 <template >
-  <v-list two-line style="height: 550px; overflow: auto">
-    <template v-for="(event, index) in events">
+  <v-list two-line>
+    <template v-for="(event, index) in eventList">
       <v-divider v-if="index + 1 < event.length" :key="`divider-${index}`"></v-divider>
-      <HomeFeedItem :key="event.eid" :event="event"></HomeFeedItem>
+      <HomeFeedItem :key="index" :event="event"></HomeFeedItem>
     </template>
+    <infinite-loading :identifier="infiniteId" @infinite="getEvents"></infinite-loading>
   </v-list>
 </template>
 
 <script>
 import HomeFeedItem from "./HomeFeedItem.vue";
+import { mapGetters } from "vuex";
 export default {
   components: {
     HomeFeedItem
   },
-  props: {
-    events: Array
+  data() {
+    return {
+      eventList: [],
+      pageSize: 10,
+      pageNumber: 0,
+      infiniteId: +new Date()
+    };
+  },
+  computed: {
+    ...mapGetters(["events", "pagingEvents"])
+  },
+  watch: {
+    events() {
+      this.pageNumber = 0;
+      this.infiniteId += 1;
+      this.eventList = [];
+    }
+  },
+  methods: {
+    getEvents: function($state) {
+      let events = this.pagingEvents(this.pageSize, this.pageNumber);
+      if (events.length) {
+        this.pageNumber++;
+        this.eventList.push(...events);
+        $state.loaded();
+      } else {
+        $state.complete();
+      }
+    }
   }
 };
 </script>
 <style scoped>
 .v-list {
   height: 550px;
-  overflow-y: auto;
+  overflow: auto;
 }
 </style>

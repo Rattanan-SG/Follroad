@@ -32,7 +32,7 @@ export default {
     return {
       dialog: false,
       checkbox: [
-        { value: "brokencar", type: "1" },
+        { value: "carbreakdown", type: "1" },
         { value: "construction", type: "2" },
         { value: "accident", type: "3" },
         { value: "rain", type: "5" },

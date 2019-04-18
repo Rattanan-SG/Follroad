@@ -51,7 +51,6 @@ export default {
   name: "GoogleMap",
   data() {
     return {
-      markers: [],
       currentMidx: null,
       infoContent: "",
       infoWindowPos: null,
@@ -70,7 +69,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["center", "myLocation", "searchPlace", "events"]),
+    ...mapGetters(["center", "myLocation", "searchPlace", "events", "markers"]),
     searchPlaceMarker: function() {
       return {
         position: this.searchPlace.geometry.location,
@@ -84,7 +83,6 @@ export default {
     google: gmapApi
   },
   created() {
-    this.getEvent();
     eventBus.$on("startDirections", ({ startLocation, stopLocation }) => {
       this.getRoute(startLocation, stopLocation);
     });
@@ -176,75 +174,6 @@ export default {
     cleanRoute: function() {
       this.directionsRenderer.setPanel(null);
       this.directionsRenderer.setMap(null);
-    },
-    getEvent: async function() {
-      axios.get("/events").then(response => {
-        let events = response.data;
-        events.map(event => {
-          let icon = "";
-          switch (event.icon) {
-            case "carbreakdown":
-              icon =
-                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/carbreakdown.png";
-              break;
-            case "construction":
-              icon =
-                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/construction.png";
-              break;
-            case "accident":
-              icon =
-                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/accident.png";
-              break;
-            case "information":
-              icon =
-                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/information.png";
-              break;
-            case "trafficjam":
-              icon =
-                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/traffic+jam.png";
-              break;
-            case "warning":
-              icon =
-                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/warning.png";
-              break;
-            case "event":
-              icon =
-                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/event.png";
-              break;
-            case "demonstration":
-              icon =
-                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/demonstration.png";
-              break;
-            case "fire":
-              icon =
-                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/fire.png";
-              break;
-            case "flood":
-              icon =
-                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/flood.png";
-              break;
-            case "rain":
-              icon =
-                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/rain.png";
-              break;
-            case "sale":
-              icon =
-                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/sale.png";
-              break;
-            case "checkpoint":
-              icon =
-                "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/checkpoint.png";
-              break;
-          }
-          this.pushMarker(
-            Number(event.latitude),
-            Number(event.longitude),
-            event.description,
-            event.title,
-            icon
-          );
-        });
-      });
     }
   }
   // beforeDestroy() {
