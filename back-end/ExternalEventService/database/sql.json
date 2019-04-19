@@ -4,5 +4,5 @@
   "getEventsHaveLimit": "SELECT eid, title, title_en, description, description_en, latitude, longitude, type, DATE_FORMAT(start, '%Y-%m-%d %T') as start, DATE_FORMAT(stop, '%Y-%m-%d %T') as stop, contributor, icon from external_events WHERE stop > NOW() AND start < ? ORDER BY start DESC LIMIT ?",
   "getEventId": "SELECT eid from external_events WHERE stop >= NOW() ORDER BY start DESC",
   "getEventByType": "SELECT eid, title, title_en, description, description_en, latitude, longitude, type, DATE_FORMAT(start, '%Y-%m-%d %T') as start, DATE_FORMAT(stop, '%Y-%m-%d %T') as stop, contributor, icon from external_events WHERE stop > NOW() AND type = ? ORDER BY start DESC",
-  "insertEvents": "INSERT INTO external_events(eid, title, title_en, description, description_en, latitude, longitude, type, start, stop, contributor, icon) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE start=VALUES(start), stop=VALUES(stop)"
+  "insertEvents": "INSERT INTO external_events(eid, title, title_en, description, description_en, latitude, longitude, type, start, stop, contributor, icon) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE start=VALUES(start), stop=VALUES(stop), description=VALUES(description), description_en=VALUES(description_en)"
 }
