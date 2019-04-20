@@ -1,4 +1,4 @@
-const api = require("./iticApi");
+const api = require("./itic-api");
 const db = require("../database/controller");
 
 function updateEventToDatabase() {

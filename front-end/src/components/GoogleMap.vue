@@ -45,7 +45,6 @@
 import { mapGetters, mapActions } from "vuex";
 import { gmapApi } from "vue2-google-maps";
 import { eventBus } from "../main";
-import axios from "../utilitys/axios";
 
 export default {
   name: "GoogleMap",
