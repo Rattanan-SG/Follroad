@@ -3,14 +3,14 @@ services:
   - docker
 
 before_install:
-  - docker build -t $DOCKER_USERNAME/follroad-external-event ./back-end/ExternalEventService
+  - docker build -t $DOCKER_HUB_USER/follroad-external-event ./back-end/ExternalEventService
 
 script:
-  - docker run $DOCKER_USERNAME/follroad-external-event npm test
+  - docker run $DOCKER_HUB_USER/follroad-external-event npm test
 
 after_success:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push $DOCKER_USERNAME/follroad-external-event
+  - echo "$DOCKER_HUB_PSW" | docker login -u "$DOCKER_HUB_USER" --password-stdin
+  - docker push $DOCKER_HUB_USER/follroad-external-event
 
 deploy:
   provider: script
