@@ -2,7 +2,7 @@ const db = require("../database/controller");
 const services = require("../services/service");
 
 exports.home = (req, res) => {
-  res.send({ status: "UP Testttttt" });
+  res.send({ status: "UP Testttttt222 hiii" });
 };
 
 exports.getEvents = async (req, res) => {

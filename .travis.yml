@@ -17,6 +17,7 @@ after_success:
   - docker push $DOCKER_HUB_USER/follroad-external-event
 
 deploy:
+  skip_cleanup: true
   provider: script
   script: bash scripts/deploy.sh
   on:
