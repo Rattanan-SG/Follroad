@@ -11,7 +11,7 @@ const cronJobRouter = require("./routes/cron-job");
 app.use(cors());
 app.use(bodyParser.json());
 app.use("/api/external-event", externalEventRouter);
-app.use("/api/job", cronJobRouter);
+app.use("/api/external-event/job", cronJobRouter);
 
 const PORT = global.gConfig.node_port || 3000;
 app.listen(PORT, () => {

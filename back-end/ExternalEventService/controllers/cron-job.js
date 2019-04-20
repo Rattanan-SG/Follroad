@@ -1,6 +1,6 @@
 const job = require("../services/cron-job");
 
-exports.home = (req, res) => {
+exports.getJobStatus = (req, res) => {
   res.send({
     cronJob: { cronTime: job.cronTime.source, running: job.running }
   });
