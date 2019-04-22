@@ -1,10 +1,8 @@
 <template>
-  <v-tabs>
+  <div>
     <ScrollableDialog/>
-    <v-tab-item>
-      <HomeFeedList></HomeFeedList>
-    </v-tab-item>
-  </v-tabs>
+    <HomeFeedList></HomeFeedList>
+  </div>
 </template> 
 
 <script>

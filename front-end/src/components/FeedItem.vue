@@ -2,7 +2,7 @@
   <v-card>
     <v-container align-center>
       <v-layout row wrap align-start justify-center fill-height>
-        <v-card color="deep-orange lighten-1  black--text " class="mb-4 mt-4" width="800px">
+        <v-card color="deep-orange lighten-1  black--text " class="mb-4 mt-4">
           <v-layout>
             <!-- <v-flex xs2 md1>
               <br>
