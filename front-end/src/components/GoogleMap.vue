@@ -12,35 +12,36 @@
       }"
     @click="isOnEdge"
   >
+    <gmap-marker :position="myLocation"></gmap-marker>
     <gmap-info-window
-      :options="infoOptions"
-      :position="infoWindowPos"
-      :opened="infoWinOpen"
-      @closeclick="infoWinOpen=false"
+      v-if="infoWindow.marker"
+      :options="infoWindow.infoOptions"
+      :position="infoWindow.marker.position"
+      :opened="infoWindow.infoWindowOpen"
+      @closeclick="closeInfoWindow"
     >
-      <h2>{{infoTitle}}</h2>
+      <h2>{{infoWindow.marker.title}}</h2>
       <br>
-      <p>{{infoContent}}</p>
+      <p>{{infoWindow.marker.description}}</p>
       <v-divider></v-divider>
       <br>
-      <p>เริ่ม : {{start}}</p>
-      <p>จบลงใน : {{stop}}</p>
-      ลงข้อมูลโดย : {{contributor}}
+      <p>เริ่ม : {{infoWindow.marker.startTime}}</p>
+      <p>จบลงใน : {{infoWindow.marker.stopTime}}</p>
+      ลงข้อมูลโดย : {{infoWindow.marker.contributor}}
     </gmap-info-window>
-    <gmap-marker :position="myLocation"></gmap-marker>
+    <gmap-marker
+      :key="marker.eid"
+      v-for="(marker) in markers"
+      :position="marker.position"
+      :title="marker.title"
+      :icon="marker.icon"
+      @click="setInfoWindow(marker)"
+    ></gmap-marker>
     <gmap-marker
       v-if="searchPlace"
       :position="searchPlaceMarker.position"
       :title="searchPlaceMarker.title"
-      @click="toggleInfoWindow(searchPlaceMarker,searchPlace.id)"
-    ></gmap-marker>
-    <gmap-marker
-      :key="index"
-      v-for="(m, index) in markers"
-      :position="m.position"
-      :title="m.title"
-      :icon="m.icon"
-      @click="toggleInfoWindow(m,index)"
+      @click="setInfoWindow(searchPlaceMarker)"
     ></gmap-marker>
     <v-btn icon @click="resetCenterToMyLocation" slot="visible">
       <v-icon>gps_fixed</v-icon>
@@ -59,20 +60,6 @@ export default {
   name: "GoogleMap",
   data() {
     return {
-      currentMidx: null,
-      infoContent: "",
-      infoTitle: "",
-      start: "",
-      stop: "",
-      contributor: "",
-      infoWindowPos: null,
-      infoWinOpen: false,
-      infoOptions: {
-        pixelOffset: {
-          width: 0,
-          height: -35
-        }
-      },
       directionsService: null,
       directionsRenderer: null,
       path: [],
@@ -81,9 +68,17 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["center", "myLocation", "searchPlace", "events", "markers"]),
+    ...mapGetters([
+      "center",
+      "myLocation",
+      "searchPlace",
+      "events",
+      "markers",
+      "infoWindow"
+    ]),
     searchPlaceMarker: function() {
       return {
+        id: this.searchPlace.id,
         position: this.searchPlace.geometry.location,
         infoText: `
             ${this.searchPlace.name}\n
@@ -112,7 +107,13 @@ export default {
     });
   },
   methods: {
-    ...mapActions(["setCenter", "setMyLocation", "setDirection"]),
+    ...mapActions([
+      "setCenter",
+      "setMyLocation",
+      "setDirection",
+      "setInfoWindow",
+      "closeInfoWindow"
+    ]),
     isOnEdge: function(event) {
       // console.log(event);
       if (this.polyline) {
@@ -136,20 +137,6 @@ export default {
         title: title,
         icon: icon
       });
-    },
-    toggleInfoWindow: function(marker, idx) {
-      this.infoWindowPos = marker.position;
-      this.infoContent = marker.infoText;
-      this.infoTitle = marker.title;
-      this.start = marker.startTime;
-      this.stop = marker.stopTime;
-      this.contributor = marker.contributor;
-      if (this.currentMidx == idx) {
-        this.infoWinOpen = !this.infoWinOpen;
-      } else {
-        this.infoWinOpen = true;
-        this.currentMidx = idx;
-      }
     },
     resetCenterToMyLocation: function() {
       this.$refs.gmap.$mapObject.setCenter(this.myLocation);

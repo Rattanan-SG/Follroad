@@ -16,7 +16,18 @@ const state = {
   direction: null,
   events: [],
   eventCategorySelected: eventService.EVENT_CATEGORY,
-  showRouterView: false
+  showRouterView: false,
+  infoWindow: {
+    marker: null,
+    infoWindowOpen: false,
+    currentIndex: null,
+    infoOptions: {
+      pixelOffset: {
+        width: 0,
+        height: -35
+      }
+    }
+  }
 };
 
 const getters = {
@@ -49,11 +60,12 @@ const getters = {
   markers: (state, getters) => {
     return getters.events.map(event => {
       return {
+        id: event.eid,
         position: {
           lat: event.latitude,
           lng: event.longitude
         },
-        infoText: event.description,
+        description: event.description,
         title: event.title,
         startTime: event.start,
         stopTime: event.stop,
@@ -70,6 +82,9 @@ const getters = {
   },
   showRouterView: state => {
     return state.showRouterView;
+  },
+  infoWindow: state => {
+    return state.infoWindow;
   }
 };
 
@@ -96,6 +111,12 @@ const actions = {
   },
   setShowRouterView: ({ commit }, showRouterView) => {
     commit("SET_SHOWROUTERVIEW", showRouterView);
+  },
+  setInfoWindow: ({ commit }, marker) => {
+    commit("SET_INFOWINDOW", marker);
+  },
+  closeInfoWindow: ({ commit }) => {
+    commit("CLOSE_INFOWINDOW");
   }
 };
 
@@ -123,6 +144,18 @@ const mutations = {
   },
   SET_SHOWROUTERVIEW: (state, showRouterView) => {
     state.showRouterView = showRouterView;
+  },
+  SET_INFOWINDOW: (state, marker) => {
+    state.infoWindow.marker = marker;
+    if (state.infoWindow.currentIndex == marker.id) {
+      state.infoWindow.infoWindowOpen = !state.infoWindow.infoWindowOpen;
+    } else {
+      state.infoWindow.infoWindowOpen = true;
+      state.infoWindow.currentIndex = marker.id;
+    }
+  },
+  CLOSE_INFOWINDOW: state => {
+    state.infoWindow.infoWindowOpen = false;
   }
 };
 

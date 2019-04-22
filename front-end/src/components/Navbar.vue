@@ -34,10 +34,8 @@
             </template>
             <span>Mini Drawer</span>
           </v-tooltip>
-        </v-list-tile> -->
-
+        </v-list-tile>-->
         <v-divider></v-divider>
-
         <v-list-tile
           v-for="list in lists"
           :key="list.text"
