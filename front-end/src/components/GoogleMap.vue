@@ -18,7 +18,7 @@
       :opened="infoWinOpen"
       @closeclick="infoWinOpen=false"
     >
-      <h2>{{titleInfo}}</h2>
+      <h2>{{infoTitle}}</h2>
       <br>
       <p>{{infoContent}}</p>
       <v-divider></v-divider>

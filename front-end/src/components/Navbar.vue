@@ -93,7 +93,7 @@
       >Follroad</v-toolbar-title>
       <gmap-autocomplete
         @place_changed="setPlace"
-        style="width:100%"
+        style="width:100% "
         class="pa-2 ml-2 subheading"
         ref="autocomplete"
         placeholder="ค้นหาสถานที่"
