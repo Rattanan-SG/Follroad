@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" scrollable max-width="40%" max-height="100%">
+  <v-dialog v-model="dialog" scrollable max-width="50%" max-height="100%">
     <template v-slot:activator="{ on }">
       <div id="category-btn">
         <v-btn color="blue-grey" class="white--text" v-on="on">เลือกประเภทเหตุการณ์</v-btn>
@@ -11,7 +11,7 @@
       <v-card-text>
         <v-container fluid>
           <v-layout row wrap>
-            <v-flex xs6 v-for="item in checkbox" :key="item.type">
+            <v-flex xs12 lg6 v-for="item in checkbox" :key="item.type">
               <v-checkbox v-model="selected" :value="item.value" :label="item.value"></v-checkbox>
             </v-flex>
           </v-layout>
