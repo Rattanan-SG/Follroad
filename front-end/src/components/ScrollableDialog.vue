@@ -2,7 +2,7 @@
   <v-dialog v-model="dialog" scrollable max-width="40%" max-height="100%">
     <template v-slot:activator="{ on }">
       <div id="category-btn">
-        <v-btn color="blue-grey" class="white--text" v-on="on">Category</v-btn>
+        <v-btn color="blue-grey" class="white--text" v-on="on">เลือกประเภทเหตุการณ์</v-btn>
       </div>
     </template>
     <v-card flat>

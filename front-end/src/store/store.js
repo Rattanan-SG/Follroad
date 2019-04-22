@@ -55,6 +55,9 @@ const getters = {
         },
         infoText: event.description,
         title: event.title,
+        startTime: event.start,
+        stopTime: event.stop,
+        contributor: event.contributor,
         icon: eventService.selectIcon(event)
       };
     });

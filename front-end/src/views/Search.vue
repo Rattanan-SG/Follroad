@@ -1,10 +1,8 @@
 <template>
   <!-- <v-tabs color="cyan" dark-side-color="yellow"> -->
-  <v-tabs>
-    <v-tab-item>
-      <SearchDirection/>
-    </v-tab-item>
-  </v-tabs>
+
+  <SearchDirection/>
+
   <!-- </v-tabs> -->
 </template>
 <script>

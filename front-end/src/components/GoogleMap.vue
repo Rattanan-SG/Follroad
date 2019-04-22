@@ -17,7 +17,16 @@
       :position="infoWindowPos"
       :opened="infoWinOpen"
       @closeclick="infoWinOpen=false"
-    >{{infoContent}}</gmap-info-window>
+    >
+      <h2>{{titleInfo}}</h2>
+      <br>
+      <p>{{infoContent}}</p>
+      <v-divider></v-divider>
+      <br>
+      <p>เริ่ม : {{start}}</p>
+      <p>จบลงใน : {{stop}}</p>
+      ลงข้อมูลโดย : {{contributor}}
+    </gmap-info-window>
     <gmap-marker :position="myLocation"></gmap-marker>
     <gmap-marker
       v-if="searchPlace"
@@ -52,6 +61,10 @@ export default {
     return {
       currentMidx: null,
       infoContent: "",
+      infoTitle: "",
+      start: "",
+      stop: "",
+      contributor: "",
       infoWindowPos: null,
       infoWinOpen: false,
       infoOptions: {
@@ -127,6 +140,10 @@ export default {
     toggleInfoWindow: function(marker, idx) {
       this.infoWindowPos = marker.position;
       this.infoContent = marker.infoText;
+      this.titleInfo = marker.title;
+      this.start = marker.startTime;
+      this.stop = marker.stopTime;
+      this.contributor = marker.contributor;
       if (this.currentMidx == idx) {
         this.infoWinOpen = !this.infoWinOpen;
       } else {
