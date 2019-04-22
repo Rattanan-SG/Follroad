@@ -10,7 +10,7 @@
     >
       <v-list>
         <v-list-tile v-if="!drawer.permanent" @click="makeDrawerPermanent">
-          <v-tooltip bottom>
+          <v-tooltip bottom close-delay="10">
             <template v-slot:activator="{ on }">
               <v-list-tile-action v-on="on">
                 <v-icon>chevron_right</v-icon>
@@ -22,8 +22,8 @@
             <span>Static Drawer</span>
           </v-tooltip>
         </v-list-tile>
-        <v-list-tile @click="toggleMiniDrawer">
-          <v-tooltip bottom>
+        <!-- <v-list-tile @click="toggleMiniDrawer">
+          <v-tooltip bottom close-delay="10">
             <template v-slot:activator="{ on }">
               <v-list-tile-action v-on="on">
                 <v-icon>aspect_ratio</v-icon>
@@ -34,7 +34,7 @@
             </template>
             <span>Mini Drawer</span>
           </v-tooltip>
-        </v-list-tile>
+        </v-list-tile> -->
 
         <v-divider></v-divider>
 
@@ -45,7 +45,7 @@
           router
           @click="openRouterView(list.route)"
         >
-          <v-tooltip bottom>
+          <v-tooltip bottom close-delay="10">
             <template v-slot:activator="{ on }">
               <v-list-tile-action v-on="on">
                 <v-icon>{{list.icon}}</v-icon>
