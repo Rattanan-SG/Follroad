@@ -1,17 +1,25 @@
 <template>
-  <v-dialog v-model="dialog" scrollable max-width="50%" max-height="100%">
+  <v-dialog v-model="dialog" scrollable max-width="100%" max-height="100%">
     <template v-slot:activator="{ on }">
-      <div id="category-btn">
-        <v-btn color="blue-grey" class="white--text" v-on="on">เลือกประเภทเหตุการณ์</v-btn>
-      </div>
+      <!-- <v-flex lg4 xs3 pl-1>
+        <v-text-field prepend-icon="search" label="Search"></v-text-field>
+      </v-flex>-->
+      <v-layout row wrap>
+        <!-- <v-card height="90%" width="48%"> -->
+        <v-flex xs6 lg6>
+          <v-text-field label="ค้นหาเหตุการณ์" prepend-icon="search"></v-text-field>
+        </v-flex>
+        <!-- </v-card> -->
+        <v-flex xs2 lg2>
+          <v-btn color="blue-grey" class="white--text" v-on="on">เลือกประเภท</v-btn>
+        </v-flex>
+      </v-layout>
     </template>
     <v-card flat>
-      <!-- <v-card-title>EventCategory</v-card-title>
-      <v-divider></v-divider>-->
       <v-card-text>
         <v-container fluid>
           <v-layout row wrap>
-            <v-flex xs12 lg6 v-for="item in checkbox" :key="item.type">
+            <v-flex xs6 lg6 v-for="item in checkbox" :key="item.type">
               <v-checkbox v-model="selected" :value="item.value" :label="item.value"></v-checkbox>
             </v-flex>
           </v-layout>
@@ -61,7 +69,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 #category-btn {
   margin-top: 2%;
 }

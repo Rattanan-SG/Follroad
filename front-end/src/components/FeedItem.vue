@@ -58,7 +58,7 @@
     </v-container>
   </v-card>
 </template>
-<style>
+<style scoped>
 .title {
 }
 .abc {
