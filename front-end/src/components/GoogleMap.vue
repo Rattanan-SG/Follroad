@@ -140,7 +140,7 @@ export default {
     toggleInfoWindow: function(marker, idx) {
       this.infoWindowPos = marker.position;
       this.infoContent = marker.infoText;
-      this.titleInfo = marker.title;
+      this.infoTitle = marker.title;
       this.start = marker.startTime;
       this.stop = marker.stopTime;
       this.contributor = marker.contributor;
