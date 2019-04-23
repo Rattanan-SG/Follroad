@@ -10,6 +10,7 @@ const state = {
     lat: 13.7563,
     lng: 100.5018
   },
+  zoomLevel: 15,
   myLocation: null,
   startPlace: null,
   searchPlace: null,
@@ -33,6 +34,9 @@ const state = {
 const getters = {
   center: state => {
     return state.center;
+  },
+  zoomLevel: state => {
+    return state.zoomLevel;
   },
   myLocation: state => {
     return state.myLocation;
@@ -95,6 +99,9 @@ const actions = {
   setCenter: ({ commit }, center) => {
     commit("SET_CENTER", center);
   },
+  setZoomLevel: ({ commit }, zoomLevel) => {
+    commit("SET_ZOOMLEVEL", zoomLevel);
+  },
   setMyLocation: ({ commit }, myLocation) => {
     commit("SET_MYLOCATION", myLocation);
   },
@@ -126,6 +133,9 @@ const actions = {
 const mutations = {
   SET_CENTER: (state, center) => {
     state.center = center;
+  },
+  SET_ZOOMLEVEL: (state, zoomLevel) => {
+    state.zoomLevel = zoomLevel;
   },
   SET_MYLOCATION: (state, myLocation) => {
     state.myLocation = myLocation;

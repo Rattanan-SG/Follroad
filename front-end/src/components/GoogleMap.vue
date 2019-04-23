@@ -2,7 +2,7 @@
   <gmap-map
     ref="gmap"
     :center="center"
-    :zoom="15"
+    :zoom="zoomLevel"
     :options="{
         mapTypeControl: false,
         fullscreenControl: false,
@@ -70,6 +70,7 @@ export default {
   computed: {
     ...mapGetters([
       "center",
+      "zoomLevel",
       "myLocation",
       "searchPlace",
       "events",
@@ -140,6 +141,7 @@ export default {
     },
     resetCenterToMyLocation: function() {
       this.$refs.gmap.$mapObject.setCenter(this.myLocation);
+      this.$refs.gmap.$mapObject.setZoom(15);
     },
     getRoute: function(startLocation, stopLocation) {
       if (this.directionsRenderer.getMap() != null) {

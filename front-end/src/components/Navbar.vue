@@ -148,6 +148,7 @@ export default {
   methods: {
     ...mapActions([
       "setCenter",
+      "setZoomLevel",
       "setSearchPlace",
       "setDirection",
       "setShowRouterView"
@@ -171,6 +172,7 @@ export default {
     search: function() {
       if (this.searchPlace) {
         this.setCenter(this.searchPlace.geometry.location);
+        this.setZoomLevel(18);
         this.$router.push("/");
       }
     },
@@ -178,6 +180,7 @@ export default {
       this.$refs.autocomplete.$el.value = null;
       this.setSearchPlace(null);
       this.setDirection(null);
+      this.setZoomLevel(15);
       eventBus.stopDirections();
     },
     startDirections: function() {
