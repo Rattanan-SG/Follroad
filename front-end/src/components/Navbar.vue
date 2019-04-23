@@ -41,7 +41,7 @@
           :key="list.text"
           :to="list.route"
           router
-          @click="openRouterView(list.route)"
+          @click="toggleRouterView(list.route)"
         >
           <v-tooltip bottom close-delay="10">
             <template v-slot:activator="{ on }">
@@ -153,7 +153,7 @@ export default {
       "setDirection",
       "setShowRouterView"
     ]),
-    openRouterView: function(route) {
+    toggleRouterView: function(route) {
       if (this.activeRouter == route) {
         this.setShowRouterView(!this.showRouterView);
       } else {
@@ -172,8 +172,12 @@ export default {
     search: function() {
       if (this.searchPlace) {
         this.setCenter(this.searchPlace.geometry.location);
-        this.setZoomLevel(18);
-        this.$router.push("/");
+        this.setZoomLevel(17);
+        this.$router.push("/search");
+        this.activeRouter = "/search";
+        this.$vuetify.breakpoint.xsOnly
+          ? this.setShowRouterView(false)
+          : this.setShowRouterView(true);
       }
     },
     clear: function() {
@@ -182,6 +186,8 @@ export default {
       this.setDirection(null);
       this.setZoomLevel(15);
       eventBus.stopDirections();
+      this.$router.push("/");
+      this.activeRouter = "/";
     },
     startDirections: function() {
       if (this.searchPlace && this.myLocation) {
@@ -189,6 +195,11 @@ export default {
           this.myLocation,
           this.searchPlace.geometry.location
         );
+        this.$router.push("/search");
+        this.activeRouter = "/search";
+        this.$vuetify.breakpoint.xsOnly
+          ? this.setShowRouterView(false)
+          : this.setShowRouterView(true);
       }
     },
     makeDrawerPermanent() {
