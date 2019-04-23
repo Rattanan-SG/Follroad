@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" scrollable max-width="100%" max-height="100%">
+  <v-dialog v-model="dialog" scrollable max-width="50%" max-height="100%">
     <template v-slot:activator="{ on }">
       <!-- <v-flex lg4 xs3 pl-1>
         <v-text-field prepend-icon="search" label="Search"></v-text-field>
@@ -19,7 +19,7 @@
       <v-card-text>
         <v-container fluid>
           <v-layout row wrap>
-            <v-flex xs6 lg6 v-for="item in checkbox" :key="item.type">
+            <v-flex xs9 lg6 v-for="item in checkbox" :key="item.type">
               <v-checkbox v-model="selected" :value="item.value" :label="item.value"></v-checkbox>
             </v-flex>
           </v-layout>
@@ -27,8 +27,8 @@
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
-        <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
-        <v-btn color="blue darken-1" flat @click="dialog = false">Save</v-btn>
+        <v-btn color="blue darken-1" flat @click="dialog = false">RESET</v-btn>
+        <v-btn color="blue darken-1" flat @click="dialog = false">CLOSE</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
