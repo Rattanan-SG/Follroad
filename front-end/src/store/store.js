@@ -74,6 +74,9 @@ const getters = {
       };
     });
   },
+  markerByEventId: (state, getters) => eid => {
+    return getters.markers.find(marker => marker.id == eid);
+  },
   pagingEvents: (state, getters) => (pageSize, pageNumber) => {
     return eventService.eventPaginate(getters.events, pageSize, pageNumber);
   },
@@ -143,7 +146,7 @@ const mutations = {
     state.eventCategorySelected = eventCategorySelected;
   },
   SET_SHOWROUTERVIEW: (state, showRouterView) => {
-    state.showRouterView = showRouterView;
+    state.showRouterView = !!showRouterView;
   },
   SET_INFOWINDOW: (state, marker) => {
     state.infoWindow.marker = marker;

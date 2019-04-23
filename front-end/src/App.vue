@@ -3,7 +3,7 @@
     <Navbar/>
     <v-content>
       <v-layout row wrap fill-height>
-        <v-flex v-if="this.$store.state.showRouterView" xl3 lg3 md3 sm4 xs12 style="z-index: 2">
+        <v-flex v-if="showRouterView" xl3 lg3 md3 sm4 xs12 style="z-index: 2">
           <v-card flat height="100%">
             <keep-alive>
               <router-view></router-view>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import Navbar from "./components/Navbar";
 import GoogleMap from "./components/GoogleMap";
 export default {
@@ -27,6 +27,9 @@ export default {
   components: {
     Navbar,
     GoogleMap
+  },
+  computed: {
+    ...mapGetters(["showRouterView"])
   },
   created() {
     this.fetchEvents();

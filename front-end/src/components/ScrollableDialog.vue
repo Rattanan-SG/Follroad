@@ -17,13 +17,11 @@
     </template>
     <v-card flat>
       <v-card-text>
-        <v-container fluid>
-          <v-layout row wrap>
-            <v-flex xs9 lg6 v-for="item in checkbox" :key="item.type">
-              <v-checkbox v-model="selected" :value="item.value" :label="item.value"></v-checkbox>
-            </v-flex>
-          </v-layout>
-        </v-container>
+        <v-layout row wrap>
+          <v-flex xs12 lg6 v-for="item in checkbox" :key="item.type">
+            <v-checkbox v-model="selected" :value="item.value" :label="item.value"></v-checkbox>
+          </v-flex>
+        </v-layout>
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
