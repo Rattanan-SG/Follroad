@@ -44,7 +44,10 @@ export default {
         let lat = parseFloat(position.coords.latitude);
         let lng = parseFloat(position.coords.longitude);
         this.setCenter({ lat: lat, lng: lng });
-        this.setMyLocation({ lat: lat, lng: lng });
+        this.setMyLocation({
+          name: "ตำแหน่งของคุณ",
+          location: { lat: lat, lng: lng }
+        });
       });
     }
   }

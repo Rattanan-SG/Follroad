@@ -12,7 +12,7 @@
       }"
     @click="isOnEdge"
   >
-    <gmap-marker :position="myLocation"></gmap-marker>
+    <gmap-marker v-if="myLocation" :position="myLocation.location" :title="myLocation.name"></gmap-marker>
     <gmap-info-window
       v-if="infoWindow.marker"
       :options="infoWindow.infoOptions"

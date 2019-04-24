@@ -192,7 +192,7 @@ export default {
     startDirections: function() {
       if (this.searchPlace && this.myLocation) {
         eventBus.startDirections(
-          this.myLocation,
+          this.myLocation.location,
           this.searchPlace.geometry.location
         );
         this.$router.push("/search");

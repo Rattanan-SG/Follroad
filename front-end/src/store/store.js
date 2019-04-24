@@ -12,7 +12,6 @@ const state = {
   },
   zoomLevel: 15,
   myLocation: null,
-  startPlace: null,
   searchPlace: null,
   direction: null,
   events: [],
@@ -40,9 +39,6 @@ const getters = {
   },
   myLocation: state => {
     return state.myLocation;
-  },
-  startPlace: state => {
-    return state.startPlace;
   },
   searchPlace: state => {
     return state.searchPlace;
@@ -105,9 +101,6 @@ const actions = {
   setMyLocation: ({ commit }, myLocation) => {
     commit("SET_MYLOCATION", myLocation);
   },
-  setStartPlace: ({ commit }, startPlace) => {
-    commit("SET_STARTPLACE", startPlace);
-  },
   setSearchPlace: ({ commit }, searchPlace) => {
     commit("SET_SEARCHPLACE", searchPlace);
   },
@@ -139,9 +132,6 @@ const mutations = {
   },
   SET_MYLOCATION: (state, myLocation) => {
     state.myLocation = myLocation;
-  },
-  SET_STARTPLACE: (state, startPlace) => {
-    state.startPlace = startPlace;
   },
   SET_SEARCHPLACE: (state, searchPlace) => {
     state.searchPlace = searchPlace;
