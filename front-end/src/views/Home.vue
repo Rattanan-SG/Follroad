@@ -1,18 +1,18 @@
 <template>
   <div>
-    <ScrollableDialog/>
+    <FilterEventCategory/>
     <HomeFeedList></HomeFeedList>
   </div>
 </template> 
 
 <script>
 import HomeFeedList from "../components/HomeFeedList";
-import ScrollableDialog from "../components/ScrollableDialog";
+import FilterEventCategory from "../components/FilterEventCategory";
 export default {
   name: "Home",
   components: {
     HomeFeedList,
-    ScrollableDialog
+    FilterEventCategory
   }
 };
 </script>

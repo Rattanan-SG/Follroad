@@ -1,38 +1,39 @@
 <template>
   <div>
+    <br>
     <v-layout row wrap>
-      <v-flex xs2 md1 pt-3>
+      <v-flex xs1 md1 lg1 ml-3>
         <v-icon>my_location</v-icon>
       </v-flex>
-      <v-flex xs10 md11 pl-3>
+      <v-flex xs10 md11 lg10 pl-3>
         <gmap-autocomplete
           @place_changed="setStartLocation"
           ref="start"
           placeholder="จุดเริ่มต้น"
-          style="background-color: white; width:100%; height:120%"
+          style="background-color: #E0E0E0; width:90%; height:100%"
           :select-first-on-enter="true"
         ></gmap-autocomplete>
       </v-flex>
     </v-layout>
+    <br>
     <v-layout row wrap>
-      <v-flex xs2 md1 pt-3>
+      <v-flex xs1 md1 lg1 ml-3>
         <v-icon>place</v-icon>
       </v-flex>
-      <v-flex xs10 md11 pl-3>
+      <v-flex xs10 md11 lg10 pl-3>
         <gmap-autocomplete
           @place_changed="setDestinationLocation"
           ref="destination"
           placeholder="จุดหมาย"
-          style="background-color: white; width:100%; height:120%"
+          style="background-color: #E0E0E0; width:90%; height:100%"
           :select-first-on-enter="true"
         ></gmap-autocomplete>
       </v-flex>
-      <v-flex xs12 md12 px-1>
+      <v-flex xs11 md12 lg11 pr-2>
         <v-layout align-end justify-end fill-height>
           <v-btn color="blue-grey" class="white--text" @click="startDirections">ค้นหาเส้นทาง</v-btn>
         </v-layout>
       </v-flex>
-      <v-flex xs12>หก</v-flex>
     </v-layout>
   </div>
 </template>

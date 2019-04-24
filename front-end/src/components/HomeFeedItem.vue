@@ -1,5 +1,5 @@
 <template>
-  <v-list-tile avatar @click="toggleInfoWindow">
+  <v-list-tile avatar @click="toggleInfoWindow" v-ripple>
     <v-list-tile-content>
       <v-list-tile-title>{{event.title}}</v-list-tile-title>
       <v-list-tile-sub-title>{{event.start}}</v-list-tile-sub-title>
