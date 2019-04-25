@@ -10,7 +10,7 @@
           @place_changed="setStartLocation"
           ref="start"
           placeholder="จุดเริ่มต้น"
-          style="background-color: #E0E0E0; width:90%; height:100%"
+          style="background-color: #E0E0E0; width:90%; height:120%"
           :select-first-on-enter="true"
         ></gmap-autocomplete>
       </v-flex>
@@ -25,11 +25,12 @@
           @place_changed="setDestinationLocation"
           ref="destination"
           placeholder="จุดหมาย"
-          style="background-color: #E0E0E0; width:90%; height:100%"
+          style="background-color: #E0E0E0; width:90%; height:120%"
           :select-first-on-enter="true"
         ></gmap-autocomplete>
       </v-flex>
-      <v-flex xs11 md12 lg11 pr-2>
+
+      <v-flex xs11 md12 lg11 pt-3>
         <v-layout align-end justify-end fill-height>
           <v-btn color="blue-grey" class="white--text" @click="startDirections">ค้นหาเส้นทาง</v-btn>
         </v-layout>

@@ -52,6 +52,7 @@
                 <v-list-tile-title>{{list.text}}</v-list-tile-title>
               </v-list-tile-content>
             </template>
+
             <span>{{list.text}}</span>
           </v-tooltip>
         </v-list-tile>
@@ -88,9 +89,6 @@
       </v-btn>
       <v-btn icon @click="installer()" :style="{'display' : installBtn}">
         <v-icon>mobile_friendly</v-icon>
-      </v-btn>
-      <v-btn icon to="/news" class="hidden-sm-and-down">
-        <v-icon>notifications</v-icon>
       </v-btn>
     </v-toolbar>
   </div>
