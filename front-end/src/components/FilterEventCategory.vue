@@ -13,6 +13,17 @@
     <v-card flat>
       <v-card-text>
         <v-layout row wrap>
+          <v-flex xs2 lg2>
+            <v-btn>แสดงเหตุการณ์เฉพาะเส้นทางที่เลือก</v-btn>
+          </v-flex>
+          <v-flex xs8 lg8></v-flex>
+          <v-flex xs2 lg2>
+            <v-btn color="error" @click="dialog = false">
+              <h1>X</h1>
+            </v-btn>
+          </v-flex>
+        </v-layout>
+        <v-layout row wrap>
           <v-flex xs12 lg6 v-for="item in checkbox" :key="item.type">
             <v-checkbox v-model="selected" :value="item.value" :label="item.value"></v-checkbox>
           </v-flex>
@@ -20,8 +31,12 @@
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
-        <v-btn color="blue darken-1" flat @click="dialog = false">RESET</v-btn>
-        <v-btn color="blue darken-1" flat @click="dialog = false">CLOSE</v-btn>
+        <v-layout row wrap>
+          <v-flex xs10 lg10></v-flex>
+          <v-flex xs2 lg2>
+            <v-btn color="blue darken-1" flat @click="dialog = false">RESET</v-btn>
+          </v-flex>
+        </v-layout>
       </v-card-actions>
     </v-card>
   </v-dialog>
