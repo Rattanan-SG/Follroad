@@ -1,5 +1,6 @@
 <template>
   <div>
+    <SearchEvent/>
     <FilterEventCategory/>
     <HomeFeedList></HomeFeedList>
   </div>
@@ -8,11 +9,13 @@
 <script>
 import HomeFeedList from "../components/HomeFeedList";
 import FilterEventCategory from "../components/FilterEventCategory";
+import SearchEvent from "../components/SearchEvent";
 export default {
   name: "Home",
   components: {
     HomeFeedList,
-    FilterEventCategory
+    FilterEventCategory,
+    SearchEvent
   }
 };
 </script>

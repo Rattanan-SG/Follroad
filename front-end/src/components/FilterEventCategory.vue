@@ -2,29 +2,26 @@
   <v-dialog v-model="dialog" scrollable max-width="50%" max-height="100%">
     <template v-slot:activator="{ on }">
       <v-layout row ml-4>
-        <v-flex xs6 lg6>
-          <v-text-field label="ค้นหาเหตุการณ์" prepend-icon="search"></v-text-field>
-        </v-flex>
         <v-flex xs2 lg2>
-          <v-btn color="blue-grey" class="white--text" v-on="on">เลือกประเภท</v-btn>
+          <v-btn color="blue-grey" class="white--text" v-on="on">เลือกประเภทเหตุการณ์</v-btn>
         </v-flex>
       </v-layout>
     </template>
     <v-card flat>
       <v-card-text>
         <v-layout row wrap>
-          <v-flex xs2 lg2>
-            <v-btn>แสดงเหตุการณ์เฉพาะเส้นทางที่เลือก</v-btn>
+          <v-flex xs2 lg2 md3>
+            <!-- <v-btn>แสดงเหตุการณ์เฉพาะเส้นทางที่เลือก</v-btn> -->
           </v-flex>
-          <v-flex xs8 lg8></v-flex>
-          <v-flex xs2 lg2>
+          <v-flex xs2 lg8 md6></v-flex>
+          <v-flex xs2 lg2 md2>
             <v-btn color="error" @click="dialog = false">
               <h1>X</h1>
             </v-btn>
           </v-flex>
         </v-layout>
         <v-layout row wrap>
-          <v-flex xs12 lg6 v-for="item in checkbox" :key="item.type">
+          <v-flex xs12 lg6 md6 v-for="item in checkbox" :key="item.type">
             <v-checkbox v-model="selected" :value="item.value" :label="item.value"></v-checkbox>
           </v-flex>
         </v-layout>
@@ -32,8 +29,8 @@
       <v-divider></v-divider>
       <v-card-actions>
         <v-layout row wrap>
-          <v-flex xs10 lg10></v-flex>
-          <v-flex xs2 lg2>
+          <v-flex xs6 lg10 md10></v-flex>
+          <v-flex xs6 lg2 md2>
             <v-btn color="blue darken-1" flat @click="dialog = false">RESET</v-btn>
           </v-flex>
         </v-layout>
