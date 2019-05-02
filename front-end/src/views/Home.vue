@@ -6,7 +6,7 @@
       </v-flex>
     </v-layout>
     <v-layout>
-      <v-flex xs7 lg8 md7 xl7 ml-1>
+      <v-flex xs6 lg8 md7 xl7 ml-1>
         <ShowSpecificEvent/>
       </v-flex>
       <v-flex xs2 lg5 md2 xl2>
