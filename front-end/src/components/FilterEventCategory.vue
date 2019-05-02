@@ -10,9 +10,7 @@
     <v-card flat>
       <v-card-text>
         <v-layout row wrap>
-          <v-flex xs2 lg2 md3>
-            <!-- <v-btn>แสดงเหตุการณ์เฉพาะเส้นทางที่เลือก</v-btn> -->
-          </v-flex>
+          <v-flex xs2 lg2 md3></v-flex>
           <v-flex xs2 lg8 md6></v-flex>
           <v-flex xs2 lg2 md2>
             <v-btn color="error" @click="dialog = false">
