@@ -1,15 +1,15 @@
 <template>
   <div>
-    <v-layout row wrap>
+    <v-layout>
       <v-flex>
         <SearchEvent/>
       </v-flex>
     </v-layout>
-    <v-layout row wrap>
+    <v-layout>
       <v-flex xs7 lg8 md7 xl7 ml-1>
         <ShowSpecificEvent/>
       </v-flex>
-      <v-flex xs2 lg2 md2 xl2>
+      <v-flex xs2 lg5 md2 xl2>
         <FilterEventCategory/>
       </v-flex>
     </v-layout>

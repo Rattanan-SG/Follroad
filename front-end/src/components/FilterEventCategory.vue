@@ -1,9 +1,9 @@
 <template>
   <v-dialog v-model="dialog" scrollable max-width="50%" max-height="100%">
     <template v-slot:activator="{ on }">
-      <v-layout row ml-4>
+      <v-layout row>
         <v-flex xs2 lg2>
-          <v-btn color="blue-grey" class="white--text" v-on="on">เลือกประเภทเหตุการณ์</v-btn>
+          <v-btn color="blue-grey" class="white--text" v-on="on">หมวดหมู่</v-btn>
         </v-flex>
       </v-layout>
     </template>
@@ -13,8 +13,8 @@
           <v-flex xs2 lg2 md3></v-flex>
           <v-flex xs2 lg8 md6></v-flex>
           <v-flex xs2 lg2 md2>
-            <v-btn color="error" @click="dialog = false">
-              <h1>X</h1>
+            <v-btn outline flat ripple @click="dialog = false">
+              <i class="material-icons">close</i>
             </v-btn>
           </v-flex>
         </v-layout>
