@@ -2,15 +2,15 @@
   <div>
     <v-layout>
       <v-flex>
-        <SearchEvent/>
+        <HomeSearchEvent/>
       </v-flex>
     </v-layout>
     <v-layout>
       <v-flex xs6 lg8 md7 xl7 ml-1>
-        <ShowSpecificEvent/>
+        <HomeShowSpecificEvent/>
       </v-flex>
       <v-flex xs2 lg5 md2 xl2>
-        <FilterEventCategory/>
+        <HomeFilterEventCategory/>
       </v-flex>
     </v-layout>
     <HomeFeedList></HomeFeedList>
@@ -19,16 +19,16 @@
 
 <script>
 import HomeFeedList from "../components/HomeFeedList";
-import FilterEventCategory from "../components/FilterEventCategory";
-import SearchEvent from "../components/SearchEvent";
-import ShowSpecificEvent from "../components/ShowSpecificEvent";
+import HomeFilterEventCategory from "../components/HomeFilterEventCategory";
+import HomeSearchEvent from "../components/HomeSearchEvent";
+import HomeShowSpecificEvent from "../components/HomeShowSpecificEvent";
 export default {
   name: "Home",
   components: {
     HomeFeedList,
-    FilterEventCategory,
-    SearchEvent,
-    ShowSpecificEvent
+    HomeFilterEventCategory,
+    HomeSearchEvent,
+    HomeShowSpecificEvent
   }
 };
 </script>

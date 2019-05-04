@@ -1,17 +1,17 @@
 <template>
   <div style="height: 580px; overflow: auto">
-    <FeedList :events="events"></FeedList>
+    <NewsFeedList :events="events"></NewsFeedList>
     <infinite-loading @infinite="getEvent"></infinite-loading>
   </div>
 </template>
 
 <script>
-import FeedList from "../components/FeedList";
+import NewsFeedList from "../components/NewsFeedList";
 import axios from "@/utilitys/axios";
 export default {
   name: "News",
   components: {
-    FeedList
+    NewsFeedList
   },
   data() {
     return {
