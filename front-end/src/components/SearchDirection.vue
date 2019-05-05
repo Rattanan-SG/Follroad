@@ -36,18 +36,14 @@
       </v-flex>
       <v-flex xs11 pl-5>
         <v-card>
-          <v-card>
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
-                <div>{{ card_text }}</div>
-              </div>
-            </v-card-title>
-          </v-card>
           <v-card-title primary-title>
             <div>
               <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
-              <div>{{ card_text }}</div>
+            </div>
+          </v-card-title>
+          <v-card-title primary-title>
+            <div>
+              <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
             </div>
           </v-card-title>
           <v-card-actions>

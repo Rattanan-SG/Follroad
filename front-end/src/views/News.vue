@@ -6,9 +6,8 @@
 </template>
 
 <script>
-import NewsFeedList from "../components/NewsFeedList";
 import axios from "@/utilitys/axios";
-const FeedList = () => import("../components/FeedList");
+const NewsFeedList = () => import("../components/NewsFeedList");
 export default {
   name: "News",
   components: {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-layout>
-      <v-flex>
+      <v-flex xs10 lg10 md10 ml-2>
         <HomeSearchEvent/>
       </v-flex>
     </v-layout>
@@ -13,15 +13,17 @@
         <HomeFilterEventCategory/>
       </v-flex>
     </v-layout>
-    <HomeFeedList></HomeFeedList>
+    <HomeFeedList/>
   </div>
 </template> 
 
 <script>
 const HomeFeedList = () => import("../components/HomeFeedList");
-const HomeFilterEventCategory = () => import("../components/HomeFilterEventCategory");
+const HomeFilterEventCategory = () =>
+  import("../components/HomeFilterEventCategory");
 const HomeSearchEvent = () => import("../components/HomeSearchEvent");
-const HomeShowSpecificEvent = () => import("../components/HomeShowSpecificEvent");
+const HomeShowSpecificEvent = () =>
+  import("../components/HomeShowSpecificEvent");
 export default {
   name: "Home",
   components: {
@@ -32,5 +34,3 @@ export default {
   }
 };
 </script>
-<style>
-</style>

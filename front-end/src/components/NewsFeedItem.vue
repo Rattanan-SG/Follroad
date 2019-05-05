@@ -59,8 +59,6 @@
   </v-card>
 </template>
 <style scoped>
-.title {
-}
 .abc {
   margin-top: 2px;
 }

@@ -20,7 +20,7 @@ export default {
       eventList: [],
       pageSize: 10,
       pageNumber: 0,
-      infiniteId: +new Date()
+      infiniteId: new Date()
     };
   },
   computed: {
