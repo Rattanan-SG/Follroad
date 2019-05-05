@@ -4,6 +4,7 @@ import eventService from "../utilitys/eventService";
 import axios from "../utilitys/axios";
 import googleMap from "./modules/google-map";
 import event from "./modules/event";
+import direction from "./modules/direction";
 
 Vue.use(Vuex);
 
@@ -78,9 +79,10 @@ const mutations = {
   }
 };
 
-export const store = new Vuex.Store({
+export default new Vuex.Store({
   modules: {
     googleMap,
-    event
+    event,
+    direction
   }
 });

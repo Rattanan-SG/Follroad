@@ -61,7 +61,7 @@ import GmapCluster from "vue2-google-maps/dist/components/cluster";
 
 export default {
   name: "GoogleMap",
-  component: {
+  components: {
     GmapCluster
   },
   data() {
