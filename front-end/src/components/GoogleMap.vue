@@ -1,17 +1,5 @@
 <template>
-  <gmap-map
-    ref="gmap"
-    :center="center"
-    :zoom="zoomLevel"
-    :options="{
-        mapTypeControl: false,
-        fullscreenControl: false,
-        gestureHandling: 'greedy',
-        scaleControl: true, 
-        zoomControl: false
-      }"
-    @click="isOnEdge"
-  >
+  <gmap-map ref="gmap" :center="center" :zoom="zoomLevel" :options="options">
     <gmap-marker v-if="myLocation" :position="myLocation.location" :title="myLocation.name"></gmap-marker>
     <gmap-info-window
       v-if="infoWindow.marker"
@@ -29,7 +17,7 @@
       <p>จบลงใน : {{infoWindow.marker.stopTime}}</p>
       ลงข้อมูลโดย : {{infoWindow.marker.contributor}}
     </gmap-info-window>
-    <gmap-cluster :zoom-on-click="true">
+    <gmap-cluster :max-zoom="10" :zoom-on-click="true">
       <gmap-marker
         :key="marker.eid"
         v-for="(marker) in markers"
@@ -66,10 +54,17 @@ export default {
   },
   data() {
     return {
+      options: {
+        minZoom: 5,
+        mapTypeControl: false,
+        fullscreenControl: false,
+        gestureHandling: "greedy",
+        scaleControl: true,
+        zoomControl: false
+      },
       directionsService: null,
       directionsRenderer: null,
       path: [],
-      polyline: null,
       timer: null
     };
   },
@@ -109,6 +104,7 @@ export default {
     this.$gmapApiPromiseLazy().then(() => {
       let trafficLayer = new this.google.maps.TrafficLayer();
       trafficLayer.setMap(this.$refs.gmap.$mapObject);
+      this.setGoogleClass(this.google);
       this.directionsService = new this.google.maps.DirectionsService();
       this.directionsRenderer = new this.google.maps.DirectionsRenderer();
     });
@@ -117,23 +113,13 @@ export default {
     ...mapActions([
       "setCenter",
       "setMyLocation",
+      "setGoogleClass",
       "setDirection",
       "setInfoWindow",
-      "closeInfoWindow"
+      "closeInfoWindow",
+      "setRoutePolyline",
+      "setSpecificEvents"
     ]),
-    isOnEdge: function(event) {
-      // console.log(event);
-      if (this.polyline) {
-        let onEdge = this.google.maps.geometry.poly.isLocationOnEdge(
-          event.latLng,
-          this.polyline,
-          0.0003
-        );
-        // console.log(event.latLng.lat(), event.latLng.lng());
-        // console.log(onEdge);
-        onEdge;
-      }
-    },
     pushMarker: function(lat, lng, infoText, title, icon) {
       this.markers.push({
         position: {
@@ -146,7 +132,7 @@ export default {
       });
     },
     resetCenterToMyLocation: function() {
-      this.$refs.gmap.$mapObject.setCenter(this.myLocation);
+      this.$refs.gmap.$mapObject.setCenter(this.myLocation.location);
       this.$refs.gmap.$mapObject.setZoom(15);
     },
     getRoute: function(startLocation, stopLocation) {
@@ -162,22 +148,28 @@ export default {
         },
         (response, status) => {
           if (status === "OK") {
-            this.setDirection(response);
-            // this.path = this.google.maps.geometry.encoding.decodePath(
-            //   response.routes[0].overview_polyline
+            console.log(response);
+            // console.log(response.routes[0].overview_path);
+            // console.log(
+            //   response.routes[0].overview_path.map(a => {
+            //     return a.lat() + ", " + a.lng();
+            //   })
             // );
-            this.polyline = new this.google.maps.Polyline({
-              path: response.routes[0].overview_path
-            });
-            // แสดงจุดบนเส้นทาง
-            // response.routes[0].overview_path.map(x => {
-            //   this.pushMarker(x.lat(), x.lng(), "dd");
-            // });
             this.directionsRenderer.setMap(this.$refs.gmap.$mapObject);
             this.directionsRenderer.setDirections(response);
             // this.directionsRenderer.setPanel(
             //   document.getElementById("directionsPanel")
             // );
+            // this.path = this.google.maps.geometry.encoding.decodePath(
+            //   response.routes[0].overview_polyline
+            // );
+            this.setDirection(response);
+            this.setRoutePolyline(
+              new this.google.maps.Polyline({
+                path: response.routes[0].overview_path
+              })
+            );
+            this.setSpecificEvents();
           }
         }
       );

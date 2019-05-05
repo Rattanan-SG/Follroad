@@ -33,12 +33,20 @@ export default {
   },
   created() {
     this.fetchEvents();
+    this.$vuetify.breakpoint.xsOnly
+      ? this.setShowRouterView(false)
+      : this.setShowRouterView(true);
   },
   mounted() {
     this.getGeolocateFromUser();
   },
   methods: {
-    ...mapActions(["setCenter", "setMyLocation", "fetchEvents"]),
+    ...mapActions([
+      "setCenter",
+      "setMyLocation",
+      "fetchEvents",
+      "setShowRouterView"
+    ]),
     getGeolocateFromUser: function() {
       navigator.geolocation.getCurrentPosition(position => {
         let lat = parseFloat(position.coords.latitude);

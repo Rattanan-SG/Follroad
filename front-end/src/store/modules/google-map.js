@@ -5,7 +5,9 @@ const state = {
   },
   zoomLevel: 15,
   myLocation: null,
-  googleClass: null
+  googleClass: null,
+  showRouterView: false,
+  searchPlace: null
 };
 
 const getters = {
@@ -20,6 +22,12 @@ const getters = {
   },
   googleClass: state => {
     return state.googleClass;
+  },
+  showRouterView: state => {
+    return state.showRouterView;
+  },
+  searchPlace: state => {
+    return state.searchPlace;
   }
 };
 
@@ -35,6 +43,12 @@ const actions = {
   },
   setGoogleClass: ({ commit }, googleClass) => {
     commit("SET_GOOGLECLASS", googleClass);
+  },
+  setShowRouterView: ({ commit }, showRouterView) => {
+    commit("SET_SHOWROUTERVIEW", showRouterView);
+  },
+  setSearchPlace: ({ commit }, searchPlace) => {
+    commit("SET_SEARCHPLACE", searchPlace);
   }
 };
 
@@ -50,6 +64,12 @@ const mutations = {
   },
   SET_GOOGLECLASS: (state, googleClass) => {
     state.googleClass = googleClass;
+  },
+  SET_SHOWROUTERVIEW: (state, showRouterView) => {
+    state.showRouterView = !!showRouterView;
+  },
+  SET_SEARCHPLACE: (state, searchPlace) => {
+    state.searchPlace = searchPlace;
   }
 };
 
