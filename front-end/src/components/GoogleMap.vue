@@ -148,21 +148,22 @@ export default {
         },
         (response, status) => {
           if (status === "OK") {
-            console.log(response);
+            // console.log(response);
             // console.log(response.routes[0].overview_path);
             // console.log(
             //   response.routes[0].overview_path.map(a => {
             //     return a.lat() + ", " + a.lng();
             //   })
             // );
+            // this.path = this.google.maps.geometry.encoding.decodePath(
+            //   response.routes[0].overview_polyline
+            // );
             this.directionsRenderer.setMap(this.$refs.gmap.$mapObject);
             this.directionsRenderer.setDirections(response);
             // this.directionsRenderer.setPanel(
             //   document.getElementById("directionsPanel")
             // );
-            // this.path = this.google.maps.geometry.encoding.decodePath(
-            //   response.routes[0].overview_polyline
-            // );
+            eventBus.setPanel(this.directionsRenderer)
             this.setDirection(response);
             this.setRoutePolyline(
               new this.google.maps.Polyline({

@@ -181,7 +181,6 @@ export default {
       this.$refs.autocomplete.$el.value = null;
       this.setSearchPlace(null);
       this.setDirection(null);
-      this.setZoomLevel(15);
       eventBus.stopDirections();
       this.$router.push("/");
       this.activeRouter = "/";
