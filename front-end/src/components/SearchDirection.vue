@@ -29,36 +29,33 @@
           :select-first-on-enter="true"
         ></gmap-autocomplete>
       </v-flex>
-
       <v-flex xs11 md12 lg11 pt-3>
         <v-layout align-end justify-end fill-height>
           <v-btn color="blue-grey" class="white--text" @click="startDirections">ค้นหาเส้นทาง</v-btn>
         </v-layout>
       </v-flex>
-      <v-flex xs11 pl-5 >
-      <v-card>
+      <v-flex xs11 pl-5>
         <v-card>
-        <v-card-title primary-title>
-          <div>
-            <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
-            <div> {{ card_text }} </div>
-          </div>
-        </v-card-title>
+          <v-card>
+            <v-card-title primary-title>
+              <div>
+                <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
+                <div>{{ card_text }}</div>
+              </div>
+            </v-card-title>
+          </v-card>
+          <v-card-title primary-title>
+            <div>
+              <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
+              <div>{{ card_text }}</div>
+            </div>
+          </v-card-title>
+          <v-card-actions>
+            <v-btn flat color="orange">Share</v-btn>
+            <v-btn flat color="orange">Explore</v-btn>
+          </v-card-actions>
         </v-card>
-
-        <v-card-title primary-title>
-          <div>
-            <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
-            <div> {{ card_text }} </div>
-          </div>
-        </v-card-title>
-
-        <v-card-actions>
-          <v-btn flat color="orange">Share</v-btn>
-          <v-btn flat color="orange">Explore</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
+      </v-flex>
     </v-layout>
   </div>
 </template>

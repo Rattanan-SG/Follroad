@@ -17,13 +17,12 @@ export default new Router({
       path: "/search",
       name: "search",
       component: () =>
-        import(/* webpackChunkName: "about" */ "./views/Search.vue")
+        import(/* webpackChunkName: "search" */ "./views/Search.vue")
     },
     {
       path: "/news",
       name: "news",
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/News.vue")
+      component: () => import(/* webpackChunkName: "news" */ "./views/News.vue")
     },
     {
       path: "*",

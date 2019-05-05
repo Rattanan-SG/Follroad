@@ -2,7 +2,7 @@
   <SearchDirection/>
 </template>
 <script>
-import SearchDirection from "../components/SearchDirection";
+const SearchDirection = () => import("../components/SearchDirection");
 export default {
   components: {
     SearchDirection

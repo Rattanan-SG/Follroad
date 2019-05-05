@@ -94,7 +94,6 @@
   </div>
 </template>
 
-
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { eventBus } from "../main";

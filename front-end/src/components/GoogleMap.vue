@@ -29,14 +29,16 @@
       <p>จบลงใน : {{infoWindow.marker.stopTime}}</p>
       ลงข้อมูลโดย : {{infoWindow.marker.contributor}}
     </gmap-info-window>
-    <gmap-marker
-      :key="marker.eid"
-      v-for="(marker) in markers"
-      :position="marker.position"
-      :title="marker.title"
-      :icon="marker.icon"
-      @click="setInfoWindow(marker)"
-    ></gmap-marker>
+    <gmap-cluster :zoom-on-click="true">
+      <gmap-marker
+        :key="marker.eid"
+        v-for="(marker) in markers"
+        :position="marker.position"
+        :title="marker.title"
+        :icon="marker.icon"
+        @click="setInfoWindow(marker)"
+      ></gmap-marker>
+    </gmap-cluster>
     <gmap-marker
       v-if="searchPlace"
       :position="searchPlaceMarker.position"
@@ -55,9 +57,13 @@
 import { mapGetters, mapActions } from "vuex";
 import { gmapApi } from "vue2-google-maps";
 import { eventBus } from "../main";
+import GmapCluster from "vue2-google-maps/dist/components/cluster";
 
 export default {
   name: "GoogleMap",
+  component: {
+    GmapCluster
+  },
   data() {
     return {
       directionsService: null,

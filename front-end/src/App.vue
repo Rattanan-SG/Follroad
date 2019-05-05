@@ -21,7 +21,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import Navbar from "./components/Navbar";
-import GoogleMap from "./components/GoogleMap";
+const GoogleMap = () => import("./components/GoogleMap");
 export default {
   name: "App",
   components: {

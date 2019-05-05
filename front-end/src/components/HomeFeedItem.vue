@@ -7,8 +7,6 @@
   </v-list-tile>
 </template>
 
-<style>
-</style>
 <script>
 import { mapGetters, mapActions } from "vuex";
 export default {

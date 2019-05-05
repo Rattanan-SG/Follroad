@@ -58,9 +58,16 @@
     </v-container>
   </v-card>
 </template>
+
+<script>
+export default {
+  name: "FeedItem",
+  props: {
+    event: Object
+  }
+};
+</script>
 <style scoped>
-.title {
-}
 .abc {
   margin-top: 2px;
 }
@@ -71,12 +78,3 @@
   font-size: 17px;
 }
 </style>
-
-<script>
-export default {
-  name: "FeedItem",
-  props: {
-    event: Object
-  }
-};
-</script>

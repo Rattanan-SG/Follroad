@@ -18,10 +18,10 @@
 </template> 
 
 <script>
-import HomeFeedList from "../components/HomeFeedList";
-import FilterEventCategory from "../components/FilterEventCategory";
-import SearchEvent from "../components/SearchEvent";
-import ShowSpecificEvent from "../components/ShowSpecificEvent";
+const HomeFeedList = () => import("../components/HomeFeedList");
+const FilterEventCategory = () => import("../components/FilterEventCategory");
+const SearchEvent = () => import("../components/SearchEvent");
+const ShowSpecificEvent = () => import("../components/ShowSpecificEvent");
 export default {
   name: "Home",
   components: {

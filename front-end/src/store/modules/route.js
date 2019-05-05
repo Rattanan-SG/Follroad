@@ -1,12 +1,3 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import eventService from "../utilitys/eventService";
-import axios from "../utilitys/axios";
-import googleMap from "./modules/google-map";
-import event from "./modules/event";
-
-Vue.use(Vuex);
-
 const state = {
   searchPlace: null,
   direction: null,
@@ -78,9 +69,9 @@ const mutations = {
   }
 };
 
-export const store = new Vuex.Store({
-  modules: {
-    googleMap,
-    event
-  }
-});
+export default {
+  state,
+  getters,
+  actions,
+  mutations
+};
