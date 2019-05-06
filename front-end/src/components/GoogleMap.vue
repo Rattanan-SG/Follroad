@@ -160,20 +160,21 @@ export default {
             // );
             this.directionsRenderer.setMap(this.$refs.gmap.$mapObject);
             this.directionsRenderer.setDirections(response);
-            // this.directionsRenderer.setPanel(
-            //   document.getElementById("directionsPanel")
-            // );
-            eventBus.setPanel(this.directionsRenderer)
+            eventBus.setPanel(this.directionsRenderer);
             this.setDirection(response);
-            this.setRoutePolyline(
-              new this.google.maps.Polyline({
-                path: response.routes[0].overview_path
-              })
-            );
-            this.setSpecificEvents();
+            this.selectRoute(response, 0);
           }
         }
       );
+    },
+    selectRoute: function(response, index) {
+      this.setRoutePolyline(this.getPolylineByRouteIndex(response, index));
+      this.setSpecificEvents();
+    },
+    getPolylineByRouteIndex: function(response, index) {
+      return new this.google.maps.Polyline({
+        path: response.routes[index].overview_path
+      });
     },
     cleanRoute: function() {
       this.directionsRenderer.setPanel(null);

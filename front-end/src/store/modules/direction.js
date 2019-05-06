@@ -1,5 +1,6 @@
 const state = {
   direction: null,
+  routeIndex: 0,
   routePolyline: null,
   specificEvents: null,
   showSpecificEvents: false
@@ -8,6 +9,9 @@ const state = {
 const getters = {
   direction: state => {
     return state.direction;
+  },
+  routeIndex: state => {
+    return state.routeIndex;
   },
   routePolyline: state => {
     return state.routePolyline;
@@ -23,6 +27,9 @@ const getters = {
 const actions = {
   setDirection: ({ commit }, direction) => {
     commit("SET_DIRECTION", direction);
+  },
+  setRouteIndex: ({ commit }, routeIndex) => {
+    commit("SET_ROUTEINDEX", routeIndex);
   },
   setRoutePolyline: ({ commit }, routePolyline) => {
     commit("SET_ROUTEPOLYLINE", routePolyline);
@@ -50,6 +57,9 @@ const actions = {
 const mutations = {
   SET_DIRECTION: (state, direction) => {
     state.direction = direction;
+  },
+  SET_ROUTEINDEX: (state, routeIndex) => {
+    state.routeIndex = routeIndex;
   },
   SET_ROUTEPOLYLINE: (state, routePolyline) => {
     state.routePolyline = routePolyline;

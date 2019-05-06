@@ -74,11 +74,9 @@ export default {
   },
   methods: {
     ...mapActions([
-      "setCenter",
-      "setZoomLevel",
       "setSearchPlace",
-      "setDirection",
-      "setShowRouterView"
+      "setShowRouterView",
+      "setRouteIndex"
     ]),
     setupAutoComplete: function() {
       if (this.myLocation) {
