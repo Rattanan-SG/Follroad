@@ -37,7 +37,7 @@
         </v-layout>
       </v-flex>
       <v-flex xs12 pl-1>
-        <div id="panel" ref="panel" @click="loggg"></div>
+        <div id="panel" ref="panel"></div>
       </v-flex>
     </v-layout>
   </div>
@@ -50,9 +50,7 @@ export default {
   data() {
     return {
       startLocation: null,
-      destinationLocation: null,
-      directionsRenderer: null,
-      timer: null
+      destinationLocation: null
     };
   },
   computed: {
@@ -60,27 +58,11 @@ export default {
   },
   created() {
     eventBus.$on("setPanel", directionsRenderer => {
-      this.directionsRenderer = directionsRenderer;
-      this.directionsRenderer.setPanel(this.$refs.panel, function() {
-        console.log(45555);
-      });
-      // let a = this.$refs.panel;
-      // console.log(a.querySelectorAll("tr"));
-
-      // let a = this.$refs.panel.children[0].querySelectorAll("tr");
-      // console.log(a);
-
-      // a.map(b => {
-      //   b.addEventListener(
-      //     "click",
-      //     function() {
-      //       console.log(565556566);
-      //     },
-      //     false
-      //   );
-      // });
+      directionsRenderer.setPanel(this.$refs.panel);
+      setTimeout(() => {
+        this.setupPanel();
+      }, 1000);
     });
-    // this.timer = setInterval(this.loggg, 30000);
   },
   mounted() {
     this.setupAutoComplete();
@@ -98,32 +80,6 @@ export default {
       "setDirection",
       "setShowRouterView"
     ]),
-    loggg: function() {
-      // this.directionsRenderer.setRouteIndex(1);
-      let a = this.$refs.panel.children[0].querySelectorAll("tr");
-      console.log(a);
-
-      a.forEach((b, index) => {
-        b.addEventListener(
-          "click",
-          function() {
-            console.log(index);
-          },
-          false
-        );
-      });
-      // a.map(b => {
-      //   b.addEventListener(
-      //     "click",
-      //     function() {
-      //       console.log(565556566);
-      //     },
-      //     false
-      //   );
-      // });
-
-      console.log(this.directionsRenderer.getRouteIndex());
-    },
     setupAutoComplete: function() {
       if (this.myLocation) {
         this.$refs.start.$el.value = this.myLocation.name;
@@ -158,13 +114,29 @@ export default {
           ? this.setShowRouterView(false)
           : this.setShowRouterView(true);
       }
+    },
+    setupPanel: function() {
+      const tr = this.$refs.panel.children[0].querySelectorAll(
+        "tr[jsinstance]"
+      );
+      tr.forEach((element, index) => {
+        element.addEventListener(
+          "click",
+          () => {
+            this.changeRouteIndex(index);
+          },
+          false
+        );
+      });
+    },
+    changeRouteIndex: function(index) {
+      console.log(index);
     }
   }
 };
 </script>
 <style scoped>
 #panel {
-  font-family: "Roboto", "sans-serif";
   line-height: 30px;
   height: 600px;
   overflow: auto;
