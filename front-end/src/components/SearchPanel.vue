@@ -24,7 +24,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["selectRoute"]),
+    ...mapActions(["selectRoute", "setShowRouterView"]),
     setupPanel: function() {
       this.trDocument = this.$refs.panel.children[0].querySelectorAll(
         "tr[jsinstance]"
@@ -46,6 +46,9 @@ export default {
         response: this.direction,
         index: found.attributes[0].value
       });
+      // if (this.$vuetify.breakpoint.xsOnly) {
+      //   this.setShowRouterView(false);
+      // }
       console.log(found.attributes[0].value);
     }
   },

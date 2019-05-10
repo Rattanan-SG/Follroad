@@ -142,6 +142,11 @@ export default {
       });
     };
   },
+  watch: {
+    searchPlace() {
+      this.setupAutoComplete();
+    }
+  },
   methods: {
     ...mapActions([
       "setCenter",
@@ -150,6 +155,11 @@ export default {
       "setDirection",
       "setShowRouterView"
     ]),
+    setupAutoComplete: function() {
+      if (this.searchPlace) {
+        this.$refs.autocomplete.$el.value = this.searchPlace.name;
+      }
+    },
     toggleRouterView: function(route) {
       if (this.activeRouter == route) {
         this.setShowRouterView(!this.showRouterView);

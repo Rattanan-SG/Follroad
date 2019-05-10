@@ -15,6 +15,23 @@ const EVENT_CATEGORY = [
   "fire"
 ];
 
+const EVENT_CATEGORY_OBJECT = [
+  { value: "carbreakdown", label: "รถเสีย" },
+  { value: "construction", label: "ก่อสร้าง" },
+  { value: "accident", label: "อุบัติเหตุ" },
+  { value: "rain", label: "ฝนตก" },
+  { value: "flood", label: "น้ำท่วม" },
+  { value: "demonstration", label: "สาธิต" },
+  { value: "information", label: "ประกาศข่าว" },
+  { value: "checkpoint", label: "ด่านตรวจ" },
+  { value: "trafficjam", label: "การจราจรติดขัด" },
+  { value: "miscellaneous", label: "เบ็ดเตล็ด" },
+  { value: "warning", label: "ประกาศเตือน" },
+  { value: "event", label: "กิจกรรม-เทศกาล" },
+  { value: "sale", label: "ลดราคา" },
+  { value: "fire", label: "ไฟไหม้" }
+];
+
 function selectIcon(event) {
   let icon = "";
   switch (event.icon) {
@@ -78,10 +95,9 @@ function eventPaginate(events, pageSize, pageNumber) {
   return events.slice(pageNumber * pageSize, (pageNumber + 1) * pageSize);
 }
 
-export { EVENT_CATEGORY };
-
 export default {
   EVENT_CATEGORY,
+  EVENT_CATEGORY_OBJECT,
   selectIcon,
   eventPaginate
 };

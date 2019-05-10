@@ -1,15 +1,15 @@
 <template>
   <div>
     <v-layout>
-      <v-flex xs10 lg10 md10 ml-2>
+      <v-flex xs12 mx-2>
         <HomeSearchEvent/>
       </v-flex>
     </v-layout>
     <v-layout>
-      <v-flex xs6 lg8 md7 xl7 ml-1>
+      <v-flex xs mx-2>
         <HomeShowSpecificEvent/>
       </v-flex>
-      <v-flex xs2 lg5 md2 xl2>
+      <v-flex xs>
         <HomeFilterEventCategory/>
       </v-flex>
     </v-layout>

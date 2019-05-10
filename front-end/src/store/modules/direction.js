@@ -2,8 +2,7 @@ const state = {
   direction: null,
   directionsRenderer: null,
   routeIndex: 0,
-  routePolyline: null,
-  showSpecificEvents: false
+  routePolyline: null
 };
 
 const getters = {
@@ -33,9 +32,6 @@ const getters = {
         );
       });
     }
-  },
-  showSpecificEvents: state => {
-    return state.showSpecificEvents;
   }
 };
 
@@ -55,9 +51,6 @@ const actions = {
       commit("SET_ROUTEPOLYLINE", routePolyline);
       resolve();
     });
-  },
-  setShowSpecificEvents: ({ commit }, showSpecificEvents) => {
-    commit("SET_SHOWSPECIFICEVENTS", !!showSpecificEvents);
   }
 };
 
@@ -73,9 +66,6 @@ const mutations = {
   },
   SET_ROUTEPOLYLINE: (state, routePolyline) => {
     state.routePolyline = routePolyline;
-  },
-  SET_SHOWSPECIFICEVENTS: (state, showSpecificEvents) => {
-    state.direction = showSpecificEvents;
   }
 };
 
