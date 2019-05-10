@@ -117,7 +117,7 @@ export default {
         { text: "Search", icon: "directions", route: "/search" },
         { text: "Feed", icon: "today", route: "/news" }
       ],
-      activeRouter: null,
+      activeRouter: "/",
       installBtn: "none",
       installer: null
     };
@@ -142,6 +142,11 @@ export default {
       });
     };
   },
+  watch: {
+    searchPlace() {
+      this.setupAutoComplete();
+    }
+  },
   methods: {
     ...mapActions([
       "setCenter",
@@ -150,6 +155,11 @@ export default {
       "setDirection",
       "setShowRouterView"
     ]),
+    setupAutoComplete: function() {
+      if (this.searchPlace) {
+        this.$refs.autocomplete.$el.value = this.searchPlace.name;
+      }
+    },
     toggleRouterView: function(route) {
       if (this.activeRouter == route) {
         this.setShowRouterView(!this.showRouterView);
@@ -181,7 +191,6 @@ export default {
       this.$refs.autocomplete.$el.value = null;
       this.setSearchPlace(null);
       this.setDirection(null);
-      this.setZoomLevel(15);
       eventBus.stopDirections();
       this.$router.push("/");
       this.activeRouter = "/";

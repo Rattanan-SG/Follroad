@@ -1,22 +1,37 @@
 const state = {
   direction: null,
-  routePolyline: null,
-  specificEvents: null,
-  showSpecificEvents: false
+  directionsRenderer: null,
+  routeIndex: 0,
+  routePolyline: null
 };
 
 const getters = {
   direction: state => {
     return state.direction;
   },
+  directionsRenderer: state => {
+    return state.directionsRenderer;
+  },
+  routeIndex: state => {
+    return state.routeIndex;
+  },
   routePolyline: state => {
     return state.routePolyline;
   },
-  specificEvents: state => {
-    return state.specificEvents;
-  },
-  showSpecificEvents: state => {
-    return state.showSpecificEvents;
+  specificEvents: (state, rootState) => {
+    if (state.routePolyline) {
+      return rootState.events.filter(event => {
+        let latLng = new rootState.googleClass.maps.LatLng({
+          lat: event.latitude,
+          lng: event.longitude
+        });
+        return rootState.googleClass.maps.geometry.poly.isLocationOnEdge(
+          latLng,
+          state.routePolyline,
+          0.001
+        );
+      });
+    }
   }
 };
 
@@ -24,26 +39,18 @@ const actions = {
   setDirection: ({ commit }, direction) => {
     commit("SET_DIRECTION", direction);
   },
-  setRoutePolyline: ({ commit }, routePolyline) => {
-    commit("SET_ROUTEPOLYLINE", routePolyline);
+  setDirectionsRenderer: ({ commit }, directionsRenderer) => {
+    commit("SET_DIRECTIONRENDERER", directionsRenderer);
   },
-  setSpecificEvents: ({ commit, state, rootState }) => {
-    let specificEvents;
-    specificEvents = rootState.event.events.filter(event => {
-      let latLng = new rootState.googleMap.googleClass.maps.LatLng({
-        lat: event.latitude,
-        lng: event.longitude
+  selectRoute: ({ commit, rootState }, { response, index }) => {
+    return new Promise(resolve => {
+      let routePolyline = new rootState.googleMap.googleClass.maps.Polyline({
+        path: response.routes[index].overview_path
       });
-      return rootState.googleMap.googleClass.maps.geometry.poly.isLocationOnEdge(
-        latLng,
-        state.routePolyline,
-        0.001
-      );
+      commit("SET_ROUTEINDEX", index);
+      commit("SET_ROUTEPOLYLINE", routePolyline);
+      resolve();
     });
-    commit("SET_SPECIFICEVENTS", specificEvents);
-  },
-  setShowSpecificEvents: ({ commit }, showSpecificEvents) => {
-    commit("SET_SHOWSPECIFICEVENTS", !!showSpecificEvents);
   }
 };
 
@@ -51,14 +58,14 @@ const mutations = {
   SET_DIRECTION: (state, direction) => {
     state.direction = direction;
   },
+  SET_DIRECTIONRENDERER: (state, directionsRenderer) => {
+    state.directionsRenderer = directionsRenderer;
+  },
+  SET_ROUTEINDEX: (state, routeIndex) => {
+    state.routeIndex = routeIndex;
+  },
   SET_ROUTEPOLYLINE: (state, routePolyline) => {
     state.routePolyline = routePolyline;
-  },
-  SET_SPECIFICEVENTS: (state, specificEvents) => {
-    state.specificEvents = specificEvents;
-  },
-  SET_SHOWSPECIFICEVENTS: (state, showSpecificEvents) => {
-    state.direction = showSpecificEvents;
   }
 };
 
