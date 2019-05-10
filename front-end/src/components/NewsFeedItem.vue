@@ -58,6 +58,7 @@
     </v-container>
   </v-card>
 </template>
+
 <style scoped>
 .abc {
   margin-top: 2px;

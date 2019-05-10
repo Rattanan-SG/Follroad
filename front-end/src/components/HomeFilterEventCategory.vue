@@ -36,6 +36,7 @@
     </v-card>
   </v-dialog>
 </template>
+
 <script>
 import { EVENT_CATEGORY } from "@/utilitys/eventService";
 export default {
