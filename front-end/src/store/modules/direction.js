@@ -19,21 +19,21 @@ const getters = {
   routePolyline: state => {
     return state.routePolyline;
   },
-  // specificEvents: (state, rootState) => {
-  //   if (state.routePolyline) {
-  //     return rootState.events.filter(event => {
-  //       let latLng = new rootState.googleClass.maps.LatLng({
-  //         lat: event.latitude,
-  //         lng: event.longitude
-  //       });
-  //       return rootState.googleClass.maps.geometry.poly.isLocationOnEdge(
-  //         latLng,
-  //         state.routePolyline,
-  //         0.001
-  //       );
-  //     });
-  //   }
-  // },
+  specificEvents: (state, rootState) => {
+    if (state.routePolyline) {
+      return rootState.events.filter(event => {
+        let latLng = new rootState.googleClass.maps.LatLng({
+          lat: event.latitude,
+          lng: event.longitude
+        });
+        return rootState.googleClass.maps.geometry.poly.isLocationOnEdge(
+          latLng,
+          state.routePolyline,
+          0.001
+        );
+      });
+    }
+  },
   showSpecificEvents: state => {
     return state.showSpecificEvents;
   }
@@ -47,11 +47,14 @@ const actions = {
     commit("SET_DIRECTIONRENDERER", directionsRenderer);
   },
   selectRoute: ({ commit, rootState }, { response, index }) => {
-    let routePolyline = new rootState.googleMap.googleClass.maps.Polyline({
-      path: response.routes[index].overview_path
+    return new Promise(resolve => {
+      let routePolyline = new rootState.googleMap.googleClass.maps.Polyline({
+        path: response.routes[index].overview_path
+      });
+      commit("SET_ROUTEINDEX", index);
+      commit("SET_ROUTEPOLYLINE", routePolyline);
+      resolve();
     });
-    commit("SET_ROUTEINDEX", index);
-    commit("SET_ROUTEPOLYLINE", routePolyline);
   },
   setShowSpecificEvents: ({ commit }, showSpecificEvents) => {
     commit("SET_SHOWSPECIFICEVENTS", !!showSpecificEvents);
