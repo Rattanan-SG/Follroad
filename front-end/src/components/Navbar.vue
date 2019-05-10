@@ -117,7 +117,7 @@ export default {
         { text: "Search", icon: "directions", route: "/search" },
         { text: "Feed", icon: "today", route: "/news" }
       ],
-      activeRouter: null,
+      activeRouter: "/",
       installBtn: "none",
       installer: null
     };
