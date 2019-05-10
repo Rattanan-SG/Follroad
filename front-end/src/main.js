@@ -26,9 +26,6 @@ export const eventBus = new Vue({
     },
     stopDirections: function() {
       this.$emit("stopDirections");
-    },
-    setPanel: function(directionsRenderer) {
-      this.$emit("setPanel", directionsRenderer);
     }
   }
 });

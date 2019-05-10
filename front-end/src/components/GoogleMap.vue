@@ -64,8 +64,6 @@ export default {
       },
       directionsService: null,
       directionsRenderer: null,
-      path: [],
-      timer: null
     };
   },
   computed: {
@@ -98,15 +96,14 @@ export default {
     eventBus.$on("stopDirections", () => {
       this.cleanRoute();
     });
-    // this.timer = setInterval(this.getEvent, 3000)
   },
   mounted() {
     this.$gmapApiPromiseLazy().then(() => {
       let trafficLayer = new this.google.maps.TrafficLayer();
       trafficLayer.setMap(this.$refs.gmap.$mapObject);
-      this.setGoogleClass(this.google);
       this.directionsService = new this.google.maps.DirectionsService();
       this.directionsRenderer = new this.google.maps.DirectionsRenderer();
+      this.setGoogleClass(this.google);
     });
   },
   methods: {
@@ -115,22 +112,11 @@ export default {
       "setMyLocation",
       "setGoogleClass",
       "setDirection",
+      "setDirectionsRenderer",
       "setInfoWindow",
       "closeInfoWindow",
-      "setRoutePolyline",
-      "setSpecificEvents"
+      "selectRoute"
     ]),
-    pushMarker: function(lat, lng, infoText, title, icon) {
-      this.markers.push({
-        position: {
-          lat: lat,
-          lng: lng
-        },
-        infoText: infoText,
-        title: title,
-        icon: icon
-      });
-    },
     resetCenterToMyLocation: function() {
       this.$refs.gmap.$mapObject.setCenter(this.myLocation.location);
       this.$refs.gmap.$mapObject.setZoom(15);
@@ -149,7 +135,6 @@ export default {
         (response, status) => {
           if (status === "OK") {
             // console.log(response);
-            // console.log(response.routes[0].overview_path);
             // console.log(
             //   response.routes[0].overview_path.map(a => {
             //     return a.lat() + ", " + a.lng();
@@ -160,30 +145,19 @@ export default {
             // );
             this.directionsRenderer.setMap(this.$refs.gmap.$mapObject);
             this.directionsRenderer.setDirections(response);
-            eventBus.setPanel(this.directionsRenderer);
             this.setDirection(response);
-            this.selectRoute(response, 0);
+            this.setDirectionsRenderer(this.directionsRenderer);
+            this.selectRoute({ response: response, index: 0 });
           }
         }
       );
     },
-    selectRoute: function(response, index) {
-      this.setRoutePolyline(this.getPolylineByRouteIndex(response, index));
-      this.setSpecificEvents();
-    },
-    getPolylineByRouteIndex: function(response, index) {
-      return new this.google.maps.Polyline({
-        path: response.routes[index].overview_path
-      });
-    },
     cleanRoute: function() {
       this.directionsRenderer.setPanel(null);
       this.directionsRenderer.setMap(null);
+      this.setDirectionsRenderer(null);
     }
   }
-  // beforeDestroy() {
-  //   clearInterval(this.timer)
-  // }
 };
 </script>
 <style scoped>

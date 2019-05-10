@@ -37,16 +37,21 @@
         </v-layout>
       </v-flex>
       <v-flex xs12 pl-1>
-        <div id="panel" ref="panel"></div>
+        <SearchPanel v-if="directionsRenderer" :directionsRenderer="directionsRenderer"/>
       </v-flex>
     </v-layout>
   </div>
 </template>
+
 <script>
+import SearchPanel from "./SearchPanel";
 import { mapGetters, mapActions } from "vuex";
 import { eventBus } from "../main";
 export default {
   name: "SearchDirection",
+  components: {
+    SearchPanel
+  },
   data() {
     return {
       startLocation: null,
@@ -54,15 +59,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["myLocation", "searchPlace", "showRouterView"])
-  },
-  created() {
-    eventBus.$on("setPanel", directionsRenderer => {
-      directionsRenderer.setPanel(this.$refs.panel);
-      setTimeout(() => {
-        this.setupPanel();
-      }, 1000);
-    });
+    ...mapGetters([
+      "myLocation",
+      "searchPlace",
+      "showRouterView",
+      "directionsRenderer"
+    ])
   },
   mounted() {
     this.setupAutoComplete();
@@ -73,11 +75,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      "setSearchPlace",
-      "setShowRouterView",
-      "setRouteIndex"
-    ]),
+    ...mapActions(["setSearchPlace", "setShowRouterView"]),
     setupAutoComplete: function() {
       if (this.myLocation) {
         this.$refs.start.$el.value = this.myLocation.name;
@@ -112,31 +110,8 @@ export default {
           ? this.setShowRouterView(false)
           : this.setShowRouterView(true);
       }
-    },
-    setupPanel: function() {
-      const tr = this.$refs.panel.children[0].querySelectorAll(
-        "tr[jsinstance]"
-      );
-      tr.forEach((element, index) => {
-        element.addEventListener(
-          "click",
-          () => {
-            this.changeRouteIndex(index);
-          },
-          false
-        );
-      });
-    },
-    changeRouteIndex: function(index) {
-      console.log(index);
     }
   }
 };
 </script>
-<style scoped>
-#panel {
-  line-height: 30px;
-  height: 600px;
-  overflow: auto;
-}
-</style>
+
