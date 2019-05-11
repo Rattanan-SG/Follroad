@@ -9,11 +9,13 @@
 </template>
 
 <script>
-import HomeFeedItem from "./HomeFeedItem.vue";
 import { mapGetters } from "vuex";
+import HomeFeedItem from "./HomeFeedItem.vue";
+const InfiniteLoading = () => import("vue-infinite-loading");
 export default {
   components: {
-    HomeFeedItem
+    HomeFeedItem,
+    InfiniteLoading
   },
   data() {
     return {

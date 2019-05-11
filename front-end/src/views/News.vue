@@ -7,11 +7,13 @@
 
 <script>
 import axios from "@/utilitys/axios";
+const InfiniteLoading = () => import("vue-infinite-loading");
 const NewsFeedList = () => import("../components/NewsFeedList");
 export default {
   name: "News",
   components: {
-    NewsFeedList
+    NewsFeedList,
+    InfiniteLoading
   },
   data() {
     return {
