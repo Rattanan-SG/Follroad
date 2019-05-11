@@ -1,6 +1,6 @@
 const express = require("express");
-const router = express.Router();
 const controller = require("../controllers/cron-job");
+const router = express.Router();
 
 router.get("/", controller.getJobStatus);
 router.post("/start", controller.postStartJob);
