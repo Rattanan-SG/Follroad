@@ -1,41 +1,55 @@
 <template>
   <div>
-    <br>
-    <v-layout row wrap>
-      <v-flex xs1 md1 lg1 sm1 ml-2>
-        <v-icon>my_location</v-icon>
+    <v-layout row wrap pt-3>
+      <v-flex xs1>
+        <v-btn
+          icon
+          small
+          flat
+          @click="setStartToMyLocation"
+          :class="[isMyLocationActive ? 'is-active' : null]"
+        >
+          <v-icon>my_location</v-icon>
+        </v-btn>
       </v-flex>
-      <v-flex xs10 md10 lg10 sm10>
+      <v-flex xs9 ml-4>
         <gmap-autocomplete
           @place_changed="setStartLocation"
           ref="start"
           placeholder="จุดเริ่มต้น"
-          class="pl-2 ml-2"
-          style="background-color: #E0E0E0; width:100%; height:120%"
+          class="pl-2"
+          style="background-color: #E0E0E0; width:100%; height:100%"
           :select-first-on-enter="true"
         ></gmap-autocomplete>
       </v-flex>
     </v-layout>
-    <br>
-    <v-layout row wrap>
-      <v-flex xs1 md1 lg1 sm1 ml-2>
-        <v-icon>place</v-icon>
+    <v-layout row wrap mt-3>
+      <v-flex xs1>
+        <v-btn icon small>
+          <v-icon>place</v-icon>
+        </v-btn>
       </v-flex>
-      <v-flex xs10 md10 lg10 sm10>
+      <v-flex xs9 ml-4>
         <gmap-autocomplete
           @place_changed="setDestinationLocation"
           ref="destination"
           placeholder="จุดหมาย"
-          class="pl-2 ml-2"
-          style="background-color: #E0E0E0; width:100%; height:120%"
+          class="pl-2"
+          style="background-color: #E0E0E0; width:100%; height:100%"
           :select-first-on-enter="true"
         ></gmap-autocomplete>
       </v-flex>
-      <v-flex xs12 md12 lg12 mt-3>
-        <v-layout align-end justify-end>
-          <v-btn color="blue-grey" class="white--text" @click="startDirections">ค้นหาเส้นทาง</v-btn>
-        </v-layout>
-      </v-flex>
+    </v-layout>
+    <v-layout row wrap my-3 justify-center>
+      <v-btn
+        v-if="!directionsRenderer"
+        color="blue"
+        class="white--text"
+        @click="startDirections"
+      >ค้นหาเส้นทาง</v-btn>
+      <v-btn v-else color="red" class="white--text" @click="stopDirections">ยกเลิกเส้นทาง</v-btn>
+    </v-layout>
+    <v-layout row wrap>
       <v-flex xs12 ma-1>
         <SearchFeedPanel v-if="directionsRenderer"/>
       </v-flex>
@@ -60,7 +74,8 @@ export default {
   data() {
     return {
       startLocation: null,
-      destinationLocation: null
+      destinationLocation: null,
+      isMyLocationActive: false
     };
   },
   computed: {
@@ -77,14 +92,16 @@ export default {
   watch: {
     searchPlace() {
       this.setupAutoComplete();
+    },
+    startLocation(val) {
+      if (val != this.myLocation.location) this.isMyLocationActive = false;
     }
   },
   methods: {
-    ...mapActions(["setSearchPlace", "setShowRouterView"]),
+    ...mapActions(["setSearchPlace", "setDirection", "setShowRouterView"]),
     setupAutoComplete: function() {
-      if (this.myLocation) {
-        this.$refs.start.$el.value = this.myLocation.name;
-        this.startLocation = this.myLocation.location;
+      if (this.myLocation && this.startLocation == null) {
+        this.setStartToMyLocation();
       }
       if (this.searchPlace) {
         this.$refs.destination.$el.value = this.searchPlace.name;
@@ -116,7 +133,25 @@ export default {
           ? this.setShowRouterView(false)
           : this.setShowRouterView(true);
       }
+    },
+    stopDirections: function() {
+      this.$refs.start.$el.value = null;
+      this.startLocation = null;
+      this.setSearchPlace(null);
+      this.setDirection(null);
+      eventBus.stopDirections();
+    },
+    setStartToMyLocation: function() {
+      this.isMyLocationActive = true;
+      this.$refs.start.$el.value = this.myLocation.name;
+      this.startLocation = this.myLocation.location;
     }
   }
 };
 </script>
+<style scoped>
+.is-active {
+  background-color: #4169e1;
+  color: white;
+}
+</style>
