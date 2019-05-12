@@ -1,32 +1,7 @@
 <template>
   <gmap-map ref="gmap" :center="center" :zoom="zoomLevel" :options="options">
     <gmap-marker v-if="myLocation" :position="myLocation.location" :title="myLocation.name"></gmap-marker>
-    <gmap-info-window
-      v-if="infoWindow.marker"
-      :options="infoWindow.infoOptions"
-      :position="infoWindow.marker.position"
-      :opened="infoWindow.infoWindowOpen"
-      @closeclick="closeInfoWindow"
-    >
-      <h2>{{infoWindow.marker.title}}</h2>
-      <br>
-      <p>{{infoWindow.marker.description}}</p>
-      <v-divider/>
-      <br>
-      <template v-if="infoWindow.marker.eventCaption">
-        <p>เกิดเหตุการณ์ขึ้น ณ : {{infoWindow.marker.eventCaption.startTime}}</p>
-        <p>จะสิ้นสุดใน : {{infoWindow.marker.eventCaption.stopTime}}</p>
-        <p>ลงข้อมูลโดย : {{infoWindow.marker.eventCaption.contributor}}</p>
-      </template>
-      <template v-if="infoWindow.marker.searchPlaceCaption">
-        <img
-          :src="infoWindow.marker.searchPlaceCaption.photo"
-          :alt="infoWindow.marker.title"
-          width="350"
-          height="200"
-        >
-      </template>
-    </gmap-info-window>
+    <GoogleMapInfoWindow/>
     <gmap-cluster :max-zoom="10" :zoom-on-click="true">
       <gmap-marker
         :key="marker.eid"
@@ -47,8 +22,6 @@
       <v-icon>gps_fixed</v-icon>
     </v-btn>
   </gmap-map>
-  <!-- <div id="directionsPanel" style="width:50%;height 100%"></div>
-  </div>-->
 </template>
 
 <script>
@@ -56,11 +29,12 @@ import { mapGetters, mapActions } from "vuex";
 import { gmapApi } from "vue2-google-maps";
 import { eventBus } from "../main";
 import GmapCluster from "vue2-google-maps/dist/components/cluster";
-
+const GoogleMapInfoWindow = () => import("./GoogleMapInfoWindow");
 export default {
   name: "GoogleMap",
   components: {
-    GmapCluster
+    GmapCluster,
+    GoogleMapInfoWindow
   },
   data() {
     return {
@@ -84,8 +58,7 @@ export default {
       "events",
       "markers",
       "searchPlace",
-      "searchPlaceMarker",
-      "infoWindow"
+      "searchPlaceMarker"
     ]),
     google: gmapApi
   },
@@ -114,7 +87,6 @@ export default {
       "setDirection",
       "setDirectionsRenderer",
       "setInfoWindow",
-      "closeInfoWindow",
       "selectRoute"
     ]),
     resetCenterToMyLocation: function() {

@@ -5,13 +5,8 @@
         <HomeSearchEvent/>
       </v-flex>
     </v-layout>
-    <v-layout>
-      <v-flex xs mx-2>
-        <HomeShowSpecificEvent/>
-      </v-flex>
-      <v-flex xs>
-        <HomeFilterEventCategory/>
-      </v-flex>
+    <v-layout justify-center mb-2>
+      <HomeFilterEventCategory/>
     </v-layout>
     <HomeFeedList/>
   </div>

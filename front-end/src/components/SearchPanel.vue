@@ -49,7 +49,7 @@ export default {
       // if (this.$vuetify.breakpoint.xsOnly) {
       //   this.setShowRouterView(false);
       // }
-      console.log(found.attributes[0].value);
+      // console.log(found.attributes[0].value);
     }
   },
   beforeDestroy() {

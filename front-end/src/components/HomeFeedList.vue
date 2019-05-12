@@ -1,4 +1,4 @@
-<template >
+<template>
   <v-list two-line>
     <template v-for="(event, index) in eventList">
       <v-divider v-if="index + 1 < event.length" :key="`divider-${index}`"></v-divider>
