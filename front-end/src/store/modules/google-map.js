@@ -28,6 +28,19 @@ const getters = {
   },
   searchPlace: state => {
     return state.searchPlace;
+  },
+  searchPlaceMarker: state => {
+    if (state.searchPlace) {
+      return {
+        id: state.searchPlace.id,
+        position: state.searchPlace.geometry.location,
+        title: state.searchPlace.name,
+        description: state.searchPlace.formatted_address,
+        searchPlaceCaption: {
+          photo: state.searchPlace.photos[0].getUrl()
+        }
+      };
+    }
   }
 };
 

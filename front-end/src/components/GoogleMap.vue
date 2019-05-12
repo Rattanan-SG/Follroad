@@ -11,11 +11,21 @@
       <h2>{{infoWindow.marker.title}}</h2>
       <br>
       <p>{{infoWindow.marker.description}}</p>
-      <v-divider></v-divider>
+      <v-divider/>
       <br>
-      <p>เริ่ม : {{infoWindow.marker.startTime}}</p>
-      <p>จบลงใน : {{infoWindow.marker.stopTime}}</p>
-      ลงข้อมูลโดย : {{infoWindow.marker.contributor}}
+      <template v-if="infoWindow.marker.eventCaption">
+        <p>เกิดเหตุการณ์ขึ้น ณ : {{infoWindow.marker.eventCaption.startTime}}</p>
+        <p>จะสิ้นสุดใน : {{infoWindow.marker.eventCaption.stopTime}}</p>
+        <p>ลงข้อมูลโดย : {{infoWindow.marker.eventCaption.contributor}}</p>
+      </template>
+      <template v-if="infoWindow.marker.searchPlaceCaption">
+        <img
+          :src="infoWindow.marker.searchPlaceCaption.photo"
+          :alt="infoWindow.marker.title"
+          width="350"
+          height="200"
+        >
+      </template>
     </gmap-info-window>
     <gmap-cluster :max-zoom="10" :zoom-on-click="true">
       <gmap-marker
@@ -63,7 +73,7 @@ export default {
         zoomControl: false
       },
       directionsService: null,
-      directionsRenderer: null,
+      directionsRenderer: null
     };
   },
   computed: {
@@ -71,22 +81,12 @@ export default {
       "center",
       "zoomLevel",
       "myLocation",
-      "searchPlace",
       "events",
       "markers",
+      "searchPlace",
+      "searchPlaceMarker",
       "infoWindow"
     ]),
-    searchPlaceMarker: function() {
-      return {
-        id: this.searchPlace.id,
-        position: this.searchPlace.geometry.location,
-        infoText: `
-            ${this.searchPlace.name}\n
-            ${this.searchPlace.formatted_address}
-        `,
-        title: this.searchPlace.name
-      };
-    },
     google: gmapApi
   },
   created() {

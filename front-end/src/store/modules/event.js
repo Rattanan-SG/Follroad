@@ -37,11 +37,13 @@ const getters = {
           lat: event.latitude,
           lng: event.longitude
         },
-        description: event.description,
         title: event.title,
-        startTime: event.start,
-        stopTime: event.stop,
-        contributor: event.contributor,
+        description: event.description,
+        eventCaption: {
+          startTime: event.start,
+          stopTime: event.stop,
+          contributor: event.contributor
+        },
         icon: eventService.selectIcon(event)
       };
     });
