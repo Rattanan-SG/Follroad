@@ -17,15 +17,12 @@ const HomeFeedList = () => import("../components/HomeFeedList");
 const HomeFilterEventCategory = () =>
   import("../components/HomeFilterEventCategory");
 const HomeSearchEvent = () => import("../components/HomeSearchEvent");
-const HomeShowSpecificEvent = () =>
-  import("../components/HomeShowSpecificEvent");
 export default {
   name: "Home",
   components: {
     HomeFeedList,
     HomeFilterEventCategory,
-    HomeSearchEvent,
-    HomeShowSpecificEvent
+    HomeSearchEvent
   }
 };
 </script>
