@@ -14,6 +14,7 @@
           <GoogleMap/>
         </v-flex>
       </v-layout>
+      <RefreshSnackBar/>
     </v-content>
   </v-app>
 </template>
@@ -22,11 +23,13 @@
 import { mapGetters, mapActions } from "vuex";
 import Navbar from "./components/Navbar";
 const GoogleMap = () => import("./components/GoogleMap");
+const RefreshSnackBar = () => import("./components/RefreshSnackBar.vue");
 export default {
   name: "App",
   components: {
     Navbar,
-    GoogleMap
+    GoogleMap,
+    RefreshSnackBar
   },
   computed: {
     ...mapGetters(["showRouterView"])
