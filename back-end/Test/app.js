@@ -13,15 +13,21 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => {
   res.send("Hello from Test Service.");
 });
-app.get("/aaa", (req, res) => {
+app.get("/test", (req, res) => {
+  let env = process.env;
+  res.send({ data: env });
+});
+app.get("/test/external-event", (req, res) => {
   axios
-    .get(
-      `${"http://" +
-        global.gConfig.external_event_host +
-        "/api/external-event/events"}`
-    )
+    .get(`${global.gConfig.external_event_url + "/events"}`)
     .then(response => {
       res.send(response.data);
+    })
+    .catch(error => {
+      throw new Error("Higher-level error. : " + error);
+    })
+    .catch(error => {
+      res.json({ error: `${error}` });
     });
 });
 

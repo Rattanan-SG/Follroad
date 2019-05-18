@@ -5,19 +5,19 @@ const config = {
   development: {
     config_id: "development",
     node_port: 9000,
-    external_event_host: "external-event:3000"
+    external_event_url: "http://external-event:3000/api/external-event"
   },
   testing: {
     config_id: "testing"
   },
   staging: {
     config_id: "staging",
-    node_port: 8080
+    node_port: 9000
   },
   production: {
     config_id: "production",
-    node_port: process.env.PORT || 8080,
-    external_event_host: process.env.EXTERNAL_EVENT_HOST
+    node_port: process.env.PORT || 9000,
+    external_event_url: process.env.EXTERNAL_EVENT_URL
   }
 };
 
