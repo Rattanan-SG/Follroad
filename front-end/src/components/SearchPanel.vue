@@ -46,6 +46,9 @@ export default {
         response: this.direction,
         index: found.attributes[0].value
       });
+      // this.directionsRenderer.setOptions({
+      //   polylineOptions: { strokeColor: "#8b0013" }
+      // });
       // if (this.$vuetify.breakpoint.xsOnly) {
       //   this.setShowRouterView(false);
       // }

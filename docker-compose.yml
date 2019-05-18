@@ -1,10 +1,10 @@
 version: "3"
 services:
-  external-event-service:
+  external-event:
     build: ./back-end/ExternalEventService
     command: ["npm", "run", "dev"]
     ports:
-      - "4000:3000"
+      - "3000:3000"
     links:
       - external-event-db:database
     volumes:
@@ -26,6 +26,14 @@ services:
       MYSQL_PASSWORD: test
       MYSQL_DATABASE: events
       TZ: Asia/Bangkok
+  test:
+    build: ./back-end/Test
+    command: ["npm", "run", "dev"]
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./back-end/Test:/app
+      - /app/node_modules
   # web:
   #   build: ./front-end
   #   ports:

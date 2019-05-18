@@ -103,6 +103,9 @@ export default {
           destination: stopLocation,
           travelMode: "DRIVING",
           provideRouteAlternatives: true
+          // drivingOptions: {
+          //   departureTime: new Date()
+          // }
         },
         (response, status) => {
           if (status === "OK") {
