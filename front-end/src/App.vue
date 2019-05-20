@@ -41,7 +41,7 @@ export default {
       : this.setShowRouterView(true);
   },
   mounted() {
-    this.getGeolocateFromUser();
+    this.getGeolocation();
   },
   methods: {
     ...mapActions([
@@ -50,16 +50,39 @@ export default {
       "fetchEvents",
       "setShowRouterView"
     ]),
-    getGeolocateFromUser: function() {
-      navigator.geolocation.getCurrentPosition(position => {
-        let lat = parseFloat(position.coords.latitude);
-        let lng = parseFloat(position.coords.longitude);
-        this.setCenter({ lat: lat, lng: lng });
-        this.setMyLocation({
-          name: "ตำแหน่งของคุณ",
-          location: { lat: lat, lng: lng }
-        });
+    getGeolocation: function() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          this.setUserLocation,
+          this.handleLocationError,
+          { timeout: 15000 }
+        );
+      }
+    },
+    setUserLocation: function(position) {
+      let lat = parseFloat(position.coords.latitude);
+      let lng = parseFloat(position.coords.longitude);
+      this.setCenter({ lat: lat, lng: lng });
+      this.setMyLocation({
+        name: "ตำแหน่งของคุณ",
+        location: { lat: lat, lng: lng }
       });
+    },
+    handleLocationError: function(error) {
+      switch (error.code) {
+        case 3:
+          // deal with timeout
+          navigator.geolocation.getCurrentPosition(
+            this.setUserLocation,
+            this.handleLocationError
+          );
+          break;
+        case 2:
+          // device can't get data
+          break;
+        case 1:
+        // user said no
+      }
     }
   }
 };
