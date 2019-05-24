@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" scrollable max-width="50%" max-height="100%">
     <template v-slot:activator="{ on }">
-      <v-btn color="blue-grey" class="white--text" v-on="on">หมวดหมู่</v-btn>
+      <v-btn color="blue" class="white--text" v-on="on">หมวดหมู่</v-btn>
     </template>
     <v-card>
       <v-card-title>เลือกหมวดหมู่ที่ต้องการแสดง</v-card-title>
@@ -15,13 +15,9 @@
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
-        <v-layout row wrap>
-          <v-flex xl2 lg2 md2 sm3 xs6>
-            <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
-          </v-flex>
-          <v-flex xl2 lg2 md2 sm3 xs6>
-            <v-btn color="blue darken-1" flat @click="reset">Reset</v-btn>
-          </v-flex>
+        <v-layout row wrap justify-end>
+          <v-btn color="green darken-1" flat @click="reset">Reset</v-btn>
+          <v-btn color="red darken-1" flat @click="dialog = false">Close</v-btn>
         </v-layout>
       </v-card-actions>
     </v-card>

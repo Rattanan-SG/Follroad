@@ -8,28 +8,30 @@ const EVENT_CATEGORY = [
   "information",
   "checkpoint",
   "trafficjam",
-  "miscellaneous",
+  "misc",
   "warning",
   "event",
   "sale",
-  "fire"
+  "fire",
+  "complaint"
 ];
 
 const EVENT_CATEGORY_OBJECT = [
-  { value: "carbreakdown", label: "รถเสีย" },
-  { value: "construction", label: "ก่อสร้าง" },
-  { value: "accident", label: "อุบัติเหตุ" },
-  { value: "rain", label: "ฝนตก" },
-  { value: "flood", label: "น้ำท่วม" },
-  { value: "demonstration", label: "สาธิต" },
-  { value: "information", label: "ประกาศข่าว" },
-  { value: "checkpoint", label: "ด่านตรวจ" },
-  { value: "trafficjam", label: "การจราจรติดขัด" },
-  { value: "miscellaneous", label: "เบ็ดเตล็ด" },
-  { value: "warning", label: "ประกาศเตือน" },
-  { value: "event", label: "กิจกรรม-เทศกาล" },
-  { value: "sale", label: "ลดราคา" },
-  { value: "fire", label: "ไฟไหม้" }
+  { value: "carbreakdown", label: "รถเสีย", type: "1" },
+  { value: "construction", label: "ก่อสร้าง", type: "2" },
+  { value: "accident", label: "อุบัติเหตุ", type: "3" },
+  { value: "rain", label: "ฝนตก", type: "5" },
+  { value: "flood", label: "น้ำท่วม", type: "6" },
+  { value: "demonstration", label: "สาธิต", type: "7" },
+  { value: "information", label: "ประกาศข่าว", type: "8" },
+  { value: "checkpoint", label: "ด่านตรวจ", type: "9" },
+  { value: "trafficjam", label: "การจราจรติดขัด", type: "10" },
+  { value: "misc", label: "เบ็ดเตล็ด", type: "11" },
+  { value: "warning", label: "ประกาศเตือน", type: "12" },
+  { value: "event", label: "กิจกรรม-เทศกาล", type: "13" },
+  { value: "sale", label: "ลดราคา", type: "14" },
+  { value: "fire", label: "ไฟไหม้", type: "15" },
+  { value: "complaint", label: "ร้องเรียน", type: "16" }
 ];
 
 function selectIcon(event) {

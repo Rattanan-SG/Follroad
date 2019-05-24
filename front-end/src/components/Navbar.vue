@@ -184,11 +184,6 @@ export default {
       if (this.searchPlace) {
         this.setCenter(this.searchPlace.geometry.location);
         this.setZoomLevel(17);
-        this.$router.push("/search");
-        this.activeRouter = "/search";
-        this.$vuetify.breakpoint.xsOnly
-          ? this.setShowRouterView(false)
-          : this.setShowRouterView(true);
       }
     },
     clear: function() {
