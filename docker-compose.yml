@@ -26,14 +26,14 @@ services:
       MYSQL_PASSWORD: test
       MYSQL_DATABASE: events
       TZ: Asia/Bangkok
-  test:
-    build: ./back-end/Test
-    command: ["npm", "run", "dev"]
-    ports:
-      - "9000:9000"
-    volumes:
-      - ./back-end/Test:/app
-      - /app/node_modules
+  # test:
+  #   build: ./back-end/Test
+  #   command: ["npm", "run", "dev"]
+  #   ports:
+  #     - "9000:9000"
+  #   volumes:
+  #     - ./back-end/Test:/app
+  #     - /app/node_modules
   # web:
   #   build: ./front-end
   #   ports:
