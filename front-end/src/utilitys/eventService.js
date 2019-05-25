@@ -73,7 +73,8 @@ function selectIcon(event) {
         "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/traffic+jam.png";
       break;
     case EVENT_CATEGORY[9]:
-      icon = "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/fire.png";
+      icon =
+        "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/miscellaneous.png";
       break;
     case EVENT_CATEGORY[10]:
       icon =
@@ -88,6 +89,10 @@ function selectIcon(event) {
       break;
     case EVENT_CATEGORY[13]:
       icon = "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/fire.png";
+      break;
+    case EVENT_CATEGORY[14]:
+      icon =
+        "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/complaint.png";
       break;
   }
   return icon;
