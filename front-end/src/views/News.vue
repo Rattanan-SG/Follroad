@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 580px; overflow: auto">
+  <div style="height: 70vh; overflow: auto">
     <NewsFeedList :events="events"></NewsFeedList>
     <infinite-loading @infinite="getEvent"></infinite-loading>
   </div>

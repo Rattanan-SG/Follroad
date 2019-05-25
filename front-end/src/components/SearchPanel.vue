@@ -63,7 +63,7 @@ export default {
 <style scoped>
 #panel {
   line-height: 30px;
-  height: 600px;
+  height: 60vh;
   overflow: auto;
 }
 </style>
