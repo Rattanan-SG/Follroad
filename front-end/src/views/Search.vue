@@ -140,6 +140,7 @@ export default {
       this.setSearchPlace(null);
       this.setDirection(null);
       eventBus.stopDirections();
+      this.$router.push("/");
     },
     setStartToMyLocation: function() {
       this.isMyLocationActive = true;
