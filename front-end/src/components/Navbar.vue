@@ -91,6 +91,12 @@
       <v-btn icon @click="installer()" :style="{'display' : installBtn}">
         <v-icon>mobile_friendly</v-icon>
       </v-btn>
+      <v-btn v-if="!isAuthenticated" icon @click.prevent="login">
+        <v-icon>search</v-icon>
+      </v-btn>
+      <v-btn v-else icon @click.prevent="logout">
+        <v-icon>close</v-icon>
+      </v-btn>
     </v-toolbar>
   </div>
 </template>
@@ -120,7 +126,9 @@ export default {
       ],
       activeRouter: "/",
       installBtn: "none",
-      installer: null
+      installer: null,
+      isAuthenticated: false,
+      profile: {}
     };
   },
   computed: {
@@ -156,6 +164,17 @@ export default {
       "setDirection",
       "setShowRouterView"
     ]),
+    login() {
+      this.$auth.login();
+    },
+    logout() {
+      this.$auth.logOut();
+      this.$router.push({ path: "/" });
+    },
+    handleLoginEvent(data) {
+      this.isAuthenticated = data.loggedIn;
+      this.profile = data.profile;
+    },
     setupAutoComplete: function() {
       if (this.searchPlace) {
         this.$refs.autocomplete.$el.value = this.searchPlace.name;

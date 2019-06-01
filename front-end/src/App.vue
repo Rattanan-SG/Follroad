@@ -34,7 +34,12 @@ export default {
   computed: {
     ...mapGetters(["showRouterView"])
   },
-  created() {
+  async created() {
+    try {
+      await this.$auth.renewTokens();
+    } catch (e) {
+      console.log(e);
+    }
     this.fetchEvents();
     this.$vuetify.breakpoint.xsOnly
       ? this.setShowRouterView(false)

@@ -2,12 +2,14 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store/store";
+import AuthPlugin from "./plugins/auth";
 import * as VueGoogleMaps from "vue2-google-maps";
 import "./plugins/vuetify";
 import "./registerServiceWorker";
 
 Vue.config.productionTip = false;
 
+Vue.use(AuthPlugin);
 Vue.use(VueGoogleMaps, {
   load: {
     libraries: "places,geometry,directions",

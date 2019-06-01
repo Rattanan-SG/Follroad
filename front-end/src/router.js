@@ -25,6 +25,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "news" */ "./views/News.vue")
     },
     {
+      path: "/callback",
+      name: "callback",
+      component: () => import(/* webpackChunkName: "news" */ "./components/Callback.vue")
+    },
+    {
       path: "*",
       redirect: "/"
     }
