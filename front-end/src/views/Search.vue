@@ -50,7 +50,7 @@
       <v-btn v-else color="red" class="white--text" @click="stopDirections">ยกเลิกเส้นทาง</v-btn>
     </v-layout>
     <v-layout row wrap>
-      <v-flex xs12 ma-1>
+      <v-flex xs12 my-1>
         <SearchFeedPanel v-if="directionsRenderer"/>
       </v-flex>
       <v-flex xs12 ml-1>
@@ -140,6 +140,7 @@ export default {
       this.setSearchPlace(null);
       this.setDirection(null);
       eventBus.stopDirections();
+      this.$router.push("/");
     },
     setStartToMyLocation: function() {
       this.isMyLocationActive = true;

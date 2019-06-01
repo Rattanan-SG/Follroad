@@ -51,7 +51,7 @@ export default {
 </script>
 <style scoped>
 .v-list {
-  height: 500px;
+  height: 60vh;
   overflow: auto;
 }
 </style>

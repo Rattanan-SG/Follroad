@@ -1,8 +1,8 @@
 <template>
-  <v-snackbar v-model="snackWithButtons" :timeout="timeout" bottom right class="snack">
+  <v-snackbar v-model="snackWithButtons" :timeout="timeout" multi-line bottom right>
     {{ snackWithBtnText }}
     <v-btn dark flat color="#00f500" @click.native="refreshApp">{{ snackBtnText }}</v-btn>
-    <v-btn icon @click="snackWithButtons = false">
+    <v-btn icon flat @click="snackWithButtons = false">
       <v-icon>close</v-icon>
     </v-btn>
   </v-snackbar>
@@ -52,7 +52,4 @@ export default {
 };
 </script>
 <style scoped>
-.snack >>> .v-snack__content {
-  padding-right: 16px;
-}
 </style>

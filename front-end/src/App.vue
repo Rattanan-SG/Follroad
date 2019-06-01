@@ -60,7 +60,7 @@ export default {
         navigator.geolocation.getCurrentPosition(
           this.setUserLocation,
           this.handleLocationError,
-          { timeout: 15000 }
+          { enableHighAccuracy: true, timeout: 15000 }
         );
       }
     },
