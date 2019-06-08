@@ -92,10 +92,10 @@
         <v-icon>mobile_friendly</v-icon>
       </v-btn>
       <v-btn v-if="!isAuthenticated" icon @click.prevent="login">
-        <v-icon>search</v-icon>
+        <v-icon>person</v-icon>
       </v-btn>
       <v-btn v-else icon @click.prevent="logout">
-        <v-icon>close</v-icon>
+        <v-icon>input</v-icon>
       </v-btn>
     </v-toolbar>
   </div>
