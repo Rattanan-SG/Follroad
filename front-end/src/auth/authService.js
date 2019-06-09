@@ -1,12 +1,12 @@
 import auth0 from "auth0-js";
 import { EventEmitter } from "events";
-import authConfig from "../../auth_config.json";
 
 const webAuth = new auth0.WebAuth({
-  domain: authConfig.domain,
+  domain: process.env.VUE_APP_DOMAIN,
+  clientID: process.env.VUE_APP_CLIENTID,
+  audience: process.env.VUE_APP_AUDIENCE,
   redirectUri: `${window.location.origin}/callback`,
-  clientID: authConfig.clientId,
-  responseType: "id_token",
+  responseType: "token id_token",
   scope: "openid profile email"
 });
 
@@ -17,6 +17,8 @@ class AuthService extends EventEmitter {
   idToken = null;
   profile = null;
   tokenExpiry = null;
+  accessToken = null;
+  accessTokenExpiry = null;
 
   login(customState) {
     webAuth.authorize({
@@ -24,7 +26,6 @@ class AuthService extends EventEmitter {
     });
   }
 
-  // Handles the callback request from Auth0
   handleAuthentication() {
     return new Promise((resolve, reject) => {
       webAuth.parseHash((err, authResult) => {
@@ -39,12 +40,11 @@ class AuthService extends EventEmitter {
   }
 
   localLogin(authResult) {
-    console.log(authResult);
     this.idToken = authResult.idToken;
     this.profile = authResult.idTokenPayload;
-
-    // Convert the JWT expiry time from seconds to milliseconds
     this.tokenExpiry = new Date(this.profile.exp * 1000);
+    this.accessToken = authResult.accessToken;
+    this.accessTokenExpiry = new Date(Date.now() + authResult.expiresIn * 1000);
 
     localStorage.setItem(localStorageKey, "true");
 
@@ -72,6 +72,18 @@ class AuthService extends EventEmitter {
     });
   }
 
+  getAccessToken() {
+    return new Promise((resolve, reject) => {
+      if (this.isAccessTokenValid()) {
+        resolve(this.accessToken);
+      } else {
+        this.renewTokens().then(authResult => {
+          resolve(authResult.accessToken);
+        }, reject);
+      }
+    });
+  }
+
   logOut() {
     localStorage.removeItem(localStorageKey);
 
@@ -90,6 +102,14 @@ class AuthService extends EventEmitter {
     return (
       Date.now() < this.tokenExpiry &&
       localStorage.getItem(localStorageKey) === "true"
+    );
+  }
+
+  isAccessTokenValid() {
+    return (
+      this.accessToken &&
+      this.accessTokenExpiry &&
+      Date.now() < this.accessTokenExpiry
     );
   }
 }
