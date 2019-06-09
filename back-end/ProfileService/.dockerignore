@@ -1,0 +1,9 @@
+node_modules
+setup_database
+.git
+.gitignore
+Dockerfile*
+docker-compose*
+.dockerignore
+README.md
+.DS_Store
