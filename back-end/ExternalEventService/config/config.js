@@ -15,11 +15,11 @@ const config = {
   },
   staging: {
     config_id: "staging",
-    node_port: 8080
+    node_port: 3000
   },
   production: {
     config_id: "production",
-    node_port: process.env.PORT || 8080,
+    node_port: process.env.PORT || 3000,
     db_host: process.env.DB_HOST,
     db_user: process.env.DB_USER,
     db_password: process.env.DB_PASSWORD,

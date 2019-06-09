@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "Get data from longdo api",
   "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon -L app.js",
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
@@ -16,12 +23,5 @@
     "chai": "^4.2.0",
     "mocha": "^6.1.4",
     "nodemon": "^1.18.9"
-  },
-  "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon -L app.js",
-    "test": "mocha"
-  },
-  "author": "",
-  "license": "ISC"
+  }
 }
