@@ -16,18 +16,21 @@
       </v-layout>
       <RefreshSnackBar/>
     </v-content>
+    <BottomMenuBar/>
   </v-app>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
 import Navbar from "./components/Navbar";
+import BottomMenuBar from "./components/BottomMenuBar";
 const GoogleMap = () => import("./components/GoogleMap");
 const RefreshSnackBar = () => import("./components/RefreshSnackBar.vue");
 export default {
   name: "App",
   components: {
     Navbar,
+    BottomMenuBar,
     GoogleMap,
     RefreshSnackBar
   },
@@ -62,6 +65,17 @@ export default {
           this.handleLocationError,
           { enableHighAccuracy: true, timeout: 15000 }
         );
+      }
+    },
+    isMobile() {
+      if (
+        /Android|webOS|iPhone||iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        )
+      ) {
+        return true;
+      } else {
+        return false;
       }
     },
     setUserLocation: function(position) {

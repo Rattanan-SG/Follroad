@@ -9,6 +9,8 @@
       app
     >
       <v-list>
+        <!--StaticDrawer--->
+
         <v-list-tile v-if="!drawer.permanent" @click="makeDrawerPermanent">
           <v-tooltip bottom close-delay="10">
             <template v-slot:activator="{ on }">
@@ -22,6 +24,9 @@
             <span>Static Drawer</span>
           </v-tooltip>
         </v-list-tile>
+
+        <!--------------->
+
         <!-- <v-list-tile @click="toggleMiniDrawer">
           <v-tooltip bottom close-delay="10">
             <template v-slot:activator="{ on }">
@@ -36,6 +41,7 @@
           </v-tooltip>
         </v-list-tile>-->
         <v-divider></v-divider>
+
         <v-list-tile
           v-for="list in lists"
           :key="list.text"
@@ -45,12 +51,14 @@
         >
           <v-tooltip bottom close-delay="10">
             <template v-slot:activator="{ on }">
-              <v-list-tile-action v-on="on">
-                <v-icon>{{list.icon}}</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>{{list.text}}</v-list-tile-title>
-              </v-list-tile-content>
+              <v-layout align-end fill-height>
+                <v-list-tile-action v-on="on">
+                  <v-icon>{{list.icon}}</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>{{list.text}}</v-list-tile-title>
+                </v-list-tile-content>
+              </v-layout>
             </template>
 
             <span>{{list.text}}</span>
@@ -109,10 +117,10 @@ export default {
   data() {
     return {
       drawer: {
-        open: true,
+        open: false,
         clipped: false,
         fixed: false,
-        permanent: true,
+        permanent: false,
         mini: true
       },
       toolbar: {
