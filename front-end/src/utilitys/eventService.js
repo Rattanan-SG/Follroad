@@ -36,61 +36,61 @@ const EVENT_CATEGORY_OBJECT = [
 
 function selectIcon(event) {
   let icon = "";
-  switch (event.icon) {
-    case EVENT_CATEGORY[0]:
+  switch (event.type) {
+    case 1:
       icon =
         "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/carbreakdown.png";
       break;
-    case EVENT_CATEGORY[1]:
+    case 2:
       icon =
         "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/construction.png";
       break;
-    case EVENT_CATEGORY[2]:
+    case 3:
       icon =
         "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/accident.png";
       break;
-    case EVENT_CATEGORY[3]:
+    case 5:
       icon = "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/rain.png";
       break;
-    case EVENT_CATEGORY[4]:
+    case 6:
       icon =
         "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/flood.png";
       break;
-    case EVENT_CATEGORY[5]:
+    case 7:
       icon =
         "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/demonstration.png";
       break;
-    case EVENT_CATEGORY[6]:
+    case 8:
       icon =
         "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/information.png";
       break;
-    case EVENT_CATEGORY[7]:
+    case 9:
       icon =
         "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/checkpoint.png";
       break;
-    case EVENT_CATEGORY[8]:
+    case 10:
       icon =
         "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/traffic+jam.png";
       break;
-    case EVENT_CATEGORY[9]:
+    case 11:
       icon =
         "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/miscellaneous.png";
       break;
-    case EVENT_CATEGORY[10]:
+    case 12:
       icon =
         "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/warning.png";
       break;
-    case EVENT_CATEGORY[11]:
+    case 13:
       icon =
         "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/event.png";
       break;
-    case EVENT_CATEGORY[12]:
+    case 14:
       icon = "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/sale.png";
       break;
-    case EVENT_CATEGORY[13]:
+    case 15:
       icon = "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/fire.png";
       break;
-    case EVENT_CATEGORY[14]:
+    case 16:
       icon =
         "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/complaint.png";
       break;
