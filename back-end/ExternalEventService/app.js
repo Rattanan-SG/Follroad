@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const helmet = require("helmet");
 const app = express();
 
 const config = require("./config/config.js");
@@ -9,6 +10,7 @@ global.gConfig = config;
 const externalEventRouter = require("./routes/external-event");
 const cronJobRouter = require("./routes/cron-job");
 
+app.use(helmet());
 app.use(cors());
 app.use(bodyParser.json());
 app.use("/api/external-event", externalEventRouter);
