@@ -2,6 +2,11 @@
   <div>
     <v-layout row wrap pt-3>
       <v-flex xs1>
+        <v-btn flat icon to="/">
+          <v-icon large>keyboard_arrow_left</v-icon>
+        </v-btn>
+      </v-flex>
+      <v-flex xs1 pl-3>
         <v-btn
           icon
           small
@@ -12,7 +17,7 @@
           <v-icon>my_location</v-icon>
         </v-btn>
       </v-flex>
-      <v-flex xs9 ml-4>
+      <v-flex xs9 ml-4 pl-3>
         <gmap-autocomplete
           @place_changed="setStartLocation"
           ref="start"
@@ -24,12 +29,13 @@
       </v-flex>
     </v-layout>
     <v-layout row wrap mt-3>
-      <v-flex xs1>
+      <v-flex xs1></v-flex>
+      <v-flex xs1 pl-3>
         <v-btn icon small>
           <v-icon>place</v-icon>
         </v-btn>
       </v-flex>
-      <v-flex xs9 ml-4>
+      <v-flex xs9 ml-4 pl-3>
         <gmap-autocomplete
           @place_changed="setDestinationLocation"
           ref="destination"

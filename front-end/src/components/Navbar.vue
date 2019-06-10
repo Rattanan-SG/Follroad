@@ -9,8 +9,6 @@
       app
     >
       <v-list>
-        <!--StaticDrawer--->
-
         <v-list-tile v-if="!drawer.permanent" @click="makeDrawerPermanent">
           <v-tooltip bottom close-delay="10">
             <template v-slot:activator="{ on }">
@@ -24,8 +22,6 @@
             <span>Static Drawer</span>
           </v-tooltip>
         </v-list-tile>
-
-        <!--------------->
 
         <!-- <v-list-tile @click="toggleMiniDrawer">
           <v-tooltip bottom close-delay="10">
@@ -75,6 +71,7 @@
       :clipped-left="toolbar.clippedLeft"
     >
       <v-toolbar-side-icon @click.stop="toggleDrawer"></v-toolbar-side-icon>
+
       <v-toolbar-title
         class="hidden-sm-and-down"
         style="overflow: unset; margin-left: 10px"
