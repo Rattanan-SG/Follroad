@@ -1,18 +1,20 @@
 <template>
-  <v-bottom-nav :active.sync="bottomNav" :value="true" class="hidden-sm-and-up">
-    <v-btn
-      color="teal"
-      flat
-      v-for="list in lists"
-      :key="list.text"
-      :to="list.route"
-      router
-      @click="toggleRouterView(list.route)"
-    >
-      <span>{{list.text}}</span>
-      <v-icon>{{list.icon}}</v-icon>
-    </v-btn>
-  </v-bottom-nav>
+  <v-card height="8%" flat class="hidden-sm-and-up">
+    <v-bottom-nav :active.sync="bottomNav" :value="true" height="60%">
+      <v-btn
+        color="teal"
+        flat
+        v-for="list in lists"
+        :key="list.text"
+        :to="list.route"
+        router
+        @click="toggleRouterView(list.route)"
+      >
+        <span>{{list.text}}</span>
+        <v-icon>{{list.icon}}</v-icon>
+      </v-btn>
+    </v-bottom-nav>
+  </v-card>
 </template>
 
 <script>
