@@ -1,11 +1,12 @@
 <template>
   <div>
     <v-layout row wrap pt-3>
-      <v-flex xs1>
-        <v-btn flat icon to="/">
+      <v-flex xs12 class="hidden-sm-and-up">
+        <v-btn flat icon @click="toggleRouterView()">
           <v-icon large>keyboard_arrow_left</v-icon>
         </v-btn>
       </v-flex>
+
       <v-flex xs1 pl-3>
         <v-btn
           icon
@@ -29,7 +30,7 @@
       </v-flex>
     </v-layout>
     <v-layout row wrap mt-3>
-      <v-flex xs1></v-flex>
+      <!-- <v-flex xs1></v-flex> -->
       <v-flex xs1 pl-3>
         <v-btn icon small>
           <v-icon>place</v-icon>
@@ -105,6 +106,14 @@ export default {
   },
   methods: {
     ...mapActions(["setSearchPlace", "setDirection", "setShowRouterView"]),
+    toggleRouterView: function(route) {
+      if (this.activeRouter == route) {
+        this.setShowRouterView(!this.showRouterView);
+      } else {
+        this.activeRouter = route;
+        this.setShowRouterView(true);
+      }
+    },
     setupAutoComplete: function() {
       if (this.myLocation && this.startLocation == null) {
         this.setStartToMyLocation();

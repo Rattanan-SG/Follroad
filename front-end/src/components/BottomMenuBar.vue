@@ -1,6 +1,10 @@
 <template>
   <v-card height="8%" flat class="hidden-sm-and-up">
     <v-bottom-nav :active.sync="bottomNav" :value="true" height="60%">
+      <v-btn color="teal" flat router @click="toggleRouterView()">
+        <span>Home</span>
+        <v-icon>home</v-icon>
+      </v-btn>
       <v-btn
         color="teal"
         flat
@@ -13,25 +17,31 @@
         <span>{{list.text}}</span>
         <v-icon>{{list.icon}}</v-icon>
       </v-btn>
+      <!-- </v-dialog> -->
     </v-bottom-nav>
   </v-card>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+// import HomeFeedList from "./HomeFeedList.vue";
 export default {
+  // components: {
+  //   HomeFeedList
+  // },
   data() {
     return {
       bottomNav: "recent",
+      dialog: false,
       bottomMenuBar: {
         fixed: true,
         clippedLeft: false
       },
       lists: [
-        { text: "Home", icon: "home", route: "/" },
+        { text: "Feed", icon: "today", route: "/" },
         { text: "Search", icon: "directions", route: "/search" },
-        { text: "Feed", icon: "today", route: "/news" },
-        { text: "Notifications", icon: "notifications" }
+        { text: "Notifications", icon: "notifications" },
+        { text: "Forum", icon: "forum", route: "/news" }
       ]
     };
   },

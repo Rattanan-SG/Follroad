@@ -7,6 +7,7 @@
       :mini-variant="drawer.mini"
       v-model="drawer.open"
       app
+      class="hidden-sm-and-down"
     >
       <v-list>
         <v-list-tile v-if="!drawer.permanent" @click="makeDrawerPermanent">
@@ -70,7 +71,7 @@
       :fixed="toolbar.fixed"
       :clipped-left="toolbar.clippedLeft"
     >
-      <v-toolbar-side-icon @click.stop="toggleDrawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click.stop="toggleDrawer" class="hidden-sm-and-down"></v-toolbar-side-icon>
 
       <v-toolbar-title
         class="hidden-sm-and-down"
