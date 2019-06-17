@@ -1,7 +1,7 @@
 {
-  "name": "external_event_service",
+  "name": "notification-service",
   "version": "1.0.0",
-  "description": "Get data from longdo api",
+  "description": "",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -12,18 +12,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.0",
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
-    "cron": "^1.6.0",
-    "dotenv": "^7.0.0",
-    "express": "^4.16.4",
-    "helmet": "^3.18.0",
-    "mariadb": "^2.0.3"
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "helmet": "^3.18.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^6.1.4",
-    "nodemon": "^1.18.9"
+    "nodemon": "^1.19.1"
   }
 }

@@ -25,9 +25,16 @@ export default new Router({
       component: () => import(/* webpackChunkName: "news" */ "./views/News.vue")
     },
     {
+      path: "/notification",
+      name: "notification",
+      component: () =>
+        import(/* webpackChunkName: "news" */ "./views/Notification.vue")
+    },
+    {
       path: "/callback",
       name: "callback",
-      component: () => import(/* webpackChunkName: "news" */ "./components/Callback.vue")
+      component: () =>
+        import(/* webpackChunkName: "news" */ "./components/Callback.vue")
     },
     {
       path: "*",
