@@ -10,9 +10,6 @@ if (process.env.NODE_ENV === "production") {
     },
     registered(registration) {
       console.log("Service worker has been registered.");
-      document.dispatchEvent(
-        new CustomEvent("swRegistered", { detail: registration })
-      );
       setInterval(() => {
         registration.update();
       }, 1000 * 60 * 60); // hourly checks

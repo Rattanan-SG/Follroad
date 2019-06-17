@@ -34,14 +34,6 @@ services:
     volumes:
       - ./back-end/ProfileService:/app
       - /app/node_modules
-  notification:
-    build: ./back-end/NotificationService
-    command: ["npm", "run", "dev"]
-    ports:
-      - "3002:3002"
-    volumes:
-      - ./back-end/NotificationService:/app
-      - /app/node_modules
   # test:
   #   build: ./back-end/Test
   #   command: ["npm", "run", "dev"]

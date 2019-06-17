@@ -8,7 +8,6 @@
     "dev": "nodemon -L app.js",
     "test": "mocha"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {

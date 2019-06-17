@@ -43,9 +43,6 @@ export default {
     } catch (e) {
       console.log();
     }
-    document.addEventListener("swRegistered", this.setSwRegistration, {
-      once: true
-    });
     this.fetchEvents();
     this.$vuetify.breakpoint.xsOnly
       ? this.setShowRouterView(false)
@@ -59,8 +56,7 @@ export default {
       "setCenter",
       "setMyLocation",
       "fetchEvents",
-      "setShowRouterView",
-      "setSwRegistration"
+      "setShowRouterView"
     ]),
     getGeolocation: function() {
       if (navigator.geolocation) {

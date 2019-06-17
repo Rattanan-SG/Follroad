@@ -12,25 +12,8 @@ self.addEventListener("push", event => {
     icon: "img/icons/favicon-32x32.png",
     badge: "img/icons/favicon-32x32.png"
   };
+
   event.waitUntil(self.registration.showNotification(title, options));
-});
-
-self.addEventListener("notificationclick", event => {
-  console.log("[Service Worker] Notification click Received.");
-  event.notification.close();
-  event.waitUntil(clients.openWindow("https://developers.google.com/web/"));
-});
-
-self.addEventListener("pushsubscriptionchange", event => {
-  console.log("[Service Worker]: 'pushsubscriptionchange' event fired.");
-  event.waitUntil(
-    self.registration.pushManager
-      .subscribe(event.oldSubscription.options)
-      .then(newSubscription => {
-        // TODO: Send to application server
-        console.log("[Service Worker] New subscription: ", newSubscription);
-      })
-  );
 });
 
 self.addEventListener("message", event => {

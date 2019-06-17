@@ -129,8 +129,7 @@ export default {
         { text: "Feed", icon: "today", route: "/" },
         { text: "Search", icon: "directions", route: "/search" },
         { text: "Notifications", icon: "notifications" },
-        { text: "Forum", icon: "forum", route: "/news" },
-        { text: "Notification", icon: "forum", route: "/notification" }
+        { text: "Forum", icon: "forum", route: "/news" }
       ],
       activeRouter: "/",
       installBtn: "none",

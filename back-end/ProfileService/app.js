@@ -1,9 +1,9 @@
 const express = require("express");
-const helmet = require("helmet");
-const cors = require("cors");
-const bodyParser = require("body-parser");
 const jwt = require("express-jwt");
 const jwks = require("jwks-rsa");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const helmet = require("helmet");
 const app = express();
 
 const config = require("./config/config.js");
