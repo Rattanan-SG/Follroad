@@ -7,6 +7,8 @@ const app = express();
 const config = require("./config/config.js");
 global.gConfig = config;
 
+const notificationRouter = require("./routes/notification");
+
 app.use(helmet());
 app.use(cors());
 app.use(bodyParser.json());
@@ -15,6 +17,8 @@ app.get("/api/", (req, res) => {
   let publicBattles = [1, 2, 3];
   res.json(publicBattles);
 });
+
+app.use("/api/notification", notificationRouter);
 
 const PORT = global.gConfig.node_port || 3002;
 app.listen(PORT, () => {

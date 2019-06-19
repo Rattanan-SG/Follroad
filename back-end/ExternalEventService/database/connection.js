@@ -7,6 +7,4 @@ const pool = mariadb.createPool({
   database: global.gConfig.db_database
 });
 
-module.exports = {
-  pool
-};
+module.exports = pool;
