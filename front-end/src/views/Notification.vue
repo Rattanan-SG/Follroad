@@ -78,7 +78,7 @@ export default {
 
     subscribeUser() {
       const applicationServerKey = this.urlB64ToUint8Array(
-        "BAw9J-zAdzrLEUH8tzEX7WMMxXRRsBurDAyyTsT3K7lIo9Tgcw7JMPmUo077RABEi9olT8L1A2Ao-bviY9CVCUs"
+        "BPv9dLtGAEzGDoR8mIDTZGjPa1nYt_CnU3hkQpLzRyRD62F-CeWrp9AEUfzZ7mB6T_mrbrYktByJQW5djr5q2Hk"
       );
       this.swRegistration.pushManager
         .subscribe({
