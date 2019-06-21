@@ -14,13 +14,13 @@
       scroll-target="#scrolling-techniques"
       height="40%"
     >
-      <v-flex xs1>
+      <v-flex lg1 xs1>
         <v-btn icon dark @click="closeInfoWindow">
           <v-icon>close</v-icon>
         </v-btn>
       </v-flex>
-      <v-flex xs9></v-flex>
-      <v-flex xs2>
+      <v-flex lg9 xs7></v-flex>
+      <v-flex lg2 xs5>
         <span>รายงาน</span>
         <v-btn icon>
           <v-icon>report</v-icon>
@@ -35,10 +35,10 @@
         <v-flex xs12>
           <v-card color="cyan gradient" class="white--text">
             <v-layout>
-              <v-flex xs5>
+              <v-flex xs5 class="hidden-sm-and-down">
                 <!--ไว้ใส่รูปที่  user แจ้งเข้ามา-->
               </v-flex>
-              <v-flex xs7>
+              <v-flex lg7 xs12>
                 <v-card-title primary-title>
                   <div>
                     <h3>{{infoWindow.marker.title}}</h3>
