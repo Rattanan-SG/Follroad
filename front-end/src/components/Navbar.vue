@@ -77,14 +77,24 @@
         class="hidden-sm-and-down"
         style="overflow: unset; margin-left: 10px"
       >Follroad</v-toolbar-title>
-      <gmap-autocomplete
+      <!-- <gmap-autocomplete
         @place_changed="setPlace"
         style="width:100%"
         class="pa-2 ml-2 subheading"
         ref="autocomplete"
         placeholder="ค้นหาสถานที่"
         :select-first-on-enter="true"
+      ></gmap-autocomplete>-->
+
+      <gmap-autocomplete
+        @place_changed="setPlace"
+        style="background-color: #E0E0E0; width:50%; height:70%"
+        class="pa-2 ml-2 subheading"
+        ref="autocomplete"
+        placeholder="ค้นหาสถานที่"
+        :select-first-on-enter="true"
       ></gmap-autocomplete>
+
       <v-btn v-if="!searchPlace" icon @click="search">
         <v-icon>search</v-icon>
       </v-btn>
@@ -94,6 +104,7 @@
       <v-btn icon @click="startDirections">
         <v-icon>directions</v-icon>
       </v-btn>
+      <v-spacer></v-spacer>
       <v-btn icon @click="installer()" :style="{'display' : installBtn}">
         <v-icon>mobile_friendly</v-icon>
       </v-btn>
