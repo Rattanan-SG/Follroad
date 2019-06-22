@@ -108,6 +108,9 @@
       <v-btn icon @click="installer()" :style="{'display' : installBtn}">
         <v-icon>mobile_friendly</v-icon>
       </v-btn>
+      <v-btn icon to="/profile">
+        <v-icon>person</v-icon>
+      </v-btn>
       <v-btn v-if="!isAuthenticated" icon @click.prevent="login">
         <v-icon>person</v-icon>
       </v-btn>
