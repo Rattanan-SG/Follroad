@@ -4,7 +4,8 @@ const env = process.env.NODE_ENV || "development";
 const config = {
   development: {
     config_id: "development",
-    node_port: 3002
+    node_port: 3002,
+    mongo_url: "mongodb://mongodb/test"
   },
   testing: {
     config_id: "testing"

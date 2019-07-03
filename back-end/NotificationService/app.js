@@ -6,6 +6,7 @@ const app = express();
 
 const config = require("./config/config.js");
 global.gConfig = config;
+require("./config/database");
 
 const notificationRouter = require("./routes/notification");
 

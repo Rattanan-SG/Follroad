@@ -39,9 +39,18 @@ services:
     command: ["npm", "run", "dev"]
     ports:
       - "3002:3002"
+    links:
+      - mongodb
     volumes:
       - ./back-end/NotificationService:/app
       - /app/node_modules
+  mongodb:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb:/data/db
   # test:
   #   build: ./back-end/Test
   #   command: ["npm", "run", "dev"]
@@ -57,3 +66,5 @@ services:
   #   volumes:
   #     - ./front-end:/app
   #     - /app/node_modules
+volumes:
+  mongodb:
