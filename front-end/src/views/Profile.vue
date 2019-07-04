@@ -27,17 +27,17 @@
         <v-list dense>
           <v-list-tile @click>
             <v-list-tile-content>
-              <h3>ชื่อ เบอร์โทรศัพท์ อีเมล</h3>
+              <h3>ตั้งค่าการแจ้งเตือน</h3>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile to="historyRoute">
+            <v-list-tile-content>
+              <h3>ประวัติเส้นทางที่เดินทาง</h3>
             </v-list-tile-content>
           </v-list-tile>
           <v-list-tile @click>
             <v-list-tile-content>
-              <h3>ชื่อ เบอร์โทรศัพท์ อีเมล</h3>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile @click>
-            <v-list-tile-content>
-              <h3>ชื่อ เบอร์โทรศัพท์ อีเมล</h3>
+              <h3>ชิปกับเดลชิปกับเดลชิปกับเดล</h3>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -46,19 +46,19 @@
     <v-layout>
       <v-flex xs12 lg12 mt-5>
         <v-list dense>
-          <v-list-tile @click>
+          <v-list-tile to="historyRoute">
             <v-list-tile-content>
-              <h3>ชื่อ เบอร์โทรศัพท์ อีเมล</h3>
+              <h3>ชิปกับเดลชิปกับเดลชิปกับเดล</h3>
             </v-list-tile-content>
           </v-list-tile>
           <v-list-tile @click>
             <v-list-tile-content>
-              <h3>ชื่อ เบอร์โทรศัพท์ อีเมล</h3>
+              <h3>ชิปกับเดลชิปกับเดลชิปกับเดล</h3>
             </v-list-tile-content>
           </v-list-tile>
           <v-list-tile @click>
             <v-list-tile-content>
-              <h3>ชื่อ เบอร์โทรศัพท์ อีเมล</h3>
+              <h3>ชิปกับเดลชิปกับเดลชิปกับเดล</h3>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>

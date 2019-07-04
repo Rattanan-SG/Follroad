@@ -36,6 +36,11 @@ export default new Router({
         import(/* webpackChunkName: "news" */ "./views/Notification.vue")
     },
     {
+      path: "/historyroute",
+      name: "historyroute",
+      component: () => import("./views/HistoryRoute.vue")
+    },
+    {
       path: "/callback",
       name: "callback",
       component: () =>
