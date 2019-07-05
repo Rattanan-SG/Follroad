@@ -1,12 +1,12 @@
 <template>
-  <!-- <v-flex xs12>
-    <div>
-      <v-icon large>keyboard_arrow_left</v-icon>
-    </div>
-  </v-flex>-->
   <v-container>
     <v-layout grid-list-md text-xs-center>
-      <v-flex xs12>
+      <v-flex xs1>
+        <div>
+          <v-icon large>keyboard_arrow_left</v-icon>
+        </div>
+      </v-flex>
+      <v-flex xs10>
         <v-btn size="60px" fab>
           <v-icon>person</v-icon>
         </v-btn>
