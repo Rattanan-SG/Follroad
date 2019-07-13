@@ -77,18 +77,10 @@
         class="hidden-sm-and-down"
         style="overflow: unset; margin-left: 10px"
       >Follroad</v-toolbar-title>
-      <!-- <gmap-autocomplete
-        @place_changed="setPlace"
-        style="width:100%"
-        class="pa-2 ml-2 subheading"
-        ref="autocomplete"
-        placeholder="ค้นหาสถานที่"
-        :select-first-on-enter="true"
-      ></gmap-autocomplete>-->
 
       <gmap-autocomplete
         @place_changed="setPlace"
-        style="background-color: #E0E0E0; width:50%; height:70%"
+        style="background-color: #0080FF; width:40%; height:70%"
         class="pa-2 ml-2 subheading"
         ref="autocomplete"
         placeholder="ค้นหาสถานที่"
