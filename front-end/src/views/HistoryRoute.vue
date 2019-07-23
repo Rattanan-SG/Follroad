@@ -23,65 +23,63 @@
       </v-flex>
     </v-layout>
 
-    <v-layout>
-      <v-flex xs12 lg12 mt-5>
-        <v-list dense>
-          <v-list-tile @click>
-            <v-list-tile-action>
+
+
+
+<v-layout>
+     <v-flex xs12 lg12 mt-5 >
+            <v-list-tile :key="index" avatar ripple @click="">
+              <v-list-tile-action>
               <v-icon size="35px" color="indigo">location_on</v-icon>
             </v-list-tile-action>
-            <v-list-tile-content>
-              <h1>KMUTT to Central</h1>
-              <!-- <v-list-tile-sub-title>Personal</v-list-tile-sub-title> -->
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-      </v-flex>
+              <v-list-tile-content>
+                 <h3>Home <---> KMUTT</h3>
+                <v-list-tile-sub-title>CCC</v-list-tile-sub-title>
+                
+              </v-list-tile-content>
+
+            </v-list-tile>
+            
+          </v-flex>
     </v-layout>
+
+<v-divider inset></v-divider>
 
     <v-layout>
-      <v-list two-line subheader>
-        <v-subheader inset>Folders</v-subheader>
+     <v-flex xs12 lg12 mt-0 >
+            <v-list-tile :key="index" avatar ripple @click="">
+              <v-list-tile-action>
+              <v-icon size="35px" color="indigo">location_on</v-icon>
+            </v-list-tile-action>
+              <v-list-tile-content>
+                 <h3>Home <---> KMUTT</h3>
+                <v-list-tile-sub-title>CCC</v-list-tile-sub-title>
+                
+              </v-list-tile-content>
 
-        <v-list-tile>
-          <v-list-tile-avatar>
-            <v-icon>location_on</v-icon>
-          </v-list-tile-avatar>
-
-          <v-list-tile-content>
-            <v-list-tile-title>SSSS</v-list-tile-title>
-            <v-list-tile-sub-title>CCC</v-list-tile-sub-title>
-          </v-list-tile-content>
-
-          <v-list-tile-action>
-            <v-btn icon ripple>
-              <v-icon color="grey lighten-1">info</v-icon>
-            </v-btn>
-          </v-list-tile-action>
-        </v-list-tile>
-
-        <v-divider inset></v-divider>
-
-        <v-subheader inset>Files</v-subheader>
-
-        <v-list-tile>
-          <v-list-tile-avatar>
-            <v-icon>location_on</v-icon>
-          </v-list-tile-avatar>
-
-          <v-list-tile-content>
-            <v-list-tile-title>KMUTT</v-list-tile-title>
-            <v-list-tile-sub-title>AAA</v-list-tile-sub-title>
-          </v-list-tile-content>
-
-          <v-list-tile-action>
-            <v-btn icon ripple>
-              <v-icon color="grey lighten-1">info</v-icon>
-            </v-btn>
-          </v-list-tile-action>
-        </v-list-tile>
-      </v-list>
+            </v-list-tile>
+          </v-flex>
     </v-layout>
+
+
+    <v-divider inset></v-divider>
+
+    <v-layout>
+     <v-flex xs12 lg12 mt-0 >
+            <v-list-tile :key="index" avatar ripple @click="">
+              <v-list-tile-action>
+              <v-icon size="35px" color="indigo">location_on</v-icon>
+            </v-list-tile-action>
+              <v-list-tile-content>
+                 <h3>Home <---> KMUTT</h3>
+                <v-list-tile-sub-title>CCC</v-list-tile-sub-title>
+                
+              </v-list-tile-content>
+
+            </v-list-tile>
+          </v-flex>
+    </v-layout>
+
   </v-container>
 </template>
 <script>
