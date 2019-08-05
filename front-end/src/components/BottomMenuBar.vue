@@ -1,10 +1,16 @@
 <template>
   <v-card height="8%" flat class="hidden-sm-and-up">
-    <v-bottom-nav :active.sync="bottomNav" :value="true" height="60%">
-      <v-btn color="teal" flat router @click="toggleRouterView()">
-        <span>Home</span>
-        <v-icon>home</v-icon>
-      </v-btn>
+    <!-- <div id="closeBottomMenu">
+      <v-flex xs5></v-flex>
+      <v-flex xs2>
+        <v-btn flat>
+          <v-icon>home</v-icon>
+        </v-btn>
+      </v-flex>
+      <v-flex xs5></v-flex>
+    </div>-->
+
+    <v-bottom-nav :active.sync="bottomNav" :value="showNav" height="60%">
       <v-btn
         color="teal"
         flat
@@ -16,6 +22,10 @@
       >
         <span>{{list.text}}</span>
         <v-icon>{{list.icon}}</v-icon>
+      </v-btn>
+      <v-btn color="teal" flat>
+        <span>Menu</span>
+        <v-icon>menu</v-icon>
       </v-btn>
       <!-- </v-dialog> -->
     </v-bottom-nav>
@@ -31,7 +41,8 @@ export default {
   // },
   data() {
     return {
-      bottomNav: "recent",
+      bottomNav: 1,
+      showNav: true,
       dialog: false,
       bottomMenuBar: {
         fixed: true,

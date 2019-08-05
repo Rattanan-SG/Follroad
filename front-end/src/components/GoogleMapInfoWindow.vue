@@ -51,7 +51,7 @@
                       <p>เกิดเหตุการณ์ขึ้น ณ : {{infoWindow.marker.eventCaption.startTime}}</p>
                       <p>จะสิ้นสุดใน : {{infoWindow.marker.eventCaption.stopTime}}</p>
                       <p>ลงข้อมูลโดย : {{infoWindow.marker.eventCaption.contributor}}</p>
-                      <v-btn color="warning">ดูเพิ่มเติม</v-btn>
+                      <v-btn color="warning" to="/details">ดูเพิ่มเติม</v-btn>
                     </template>
                     <template v-if="infoWindow.marker.searchPlaceCaption">
                       <img
