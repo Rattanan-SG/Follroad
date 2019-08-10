@@ -1,19 +1,19 @@
 <template>
   <div>
     <v-layout>
-      <v-flex xs1 pt-2 class="hidden-sm-and-up">
+      <!-- <v-flex xs1 pt-2 class="hidden-sm-and-up">
         <v-btn flat icon @click="toggleRouterView()">
           <v-icon large>keyboard_arrow_left</v-icon>
         </v-btn>
-      </v-flex>
+      </v-flex>-->
       <v-flex xs12 mx-2>
-        <HomeSearchEvent/>
+        <HomeSearchEvent />
       </v-flex>
     </v-layout>
     <v-layout justify-center mb-2>
-      <HomeFilterEventCategory/>
+      <HomeFilterEventCategory />
     </v-layout>
-    <HomeFeedList/>
+    <HomeFeedList />
   </div>
 </template> 
 

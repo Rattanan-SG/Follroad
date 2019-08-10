@@ -77,14 +77,16 @@
         class="hidden-sm-and-down"
         style="overflow: unset; margin-left: 10px"
       >Follroad</v-toolbar-title>
+
       <gmap-autocomplete
         @place_changed="setPlace"
-        style="width:100%"
+        style="background-color: #0080FF; width:40%; height:70%"
         class="pa-2 ml-2 subheading"
         ref="autocomplete"
         placeholder="ค้นหาสถานที่"
         :select-first-on-enter="true"
       ></gmap-autocomplete>
+
       <v-btn v-if="!searchPlace" icon @click="search">
         <v-icon>search</v-icon>
       </v-btn>
@@ -94,15 +96,19 @@
       <v-btn icon @click="startDirections">
         <v-icon>directions</v-icon>
       </v-btn>
+      <v-spacer></v-spacer>
       <v-btn icon @click="installer()" :style="{'display' : installBtn}">
         <v-icon>mobile_friendly</v-icon>
+      </v-btn>
+      <v-btn icon to="/profile">
+        <v-icon>person</v-icon>
       </v-btn>
       <v-btn v-if="!isAuthenticated" icon @click.prevent="login">
         <v-icon>person</v-icon>
       </v-btn>
-      <v-btn v-else icon @click.prevent="logout">
+      <!-- <v-btn v-else icon @click.prevent="logout">
         <v-icon>input</v-icon>
-      </v-btn>
+      </v-btn> -->
     </v-toolbar>
   </div>
 </template>

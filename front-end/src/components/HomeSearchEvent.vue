@@ -1,3 +1,14 @@
 <template>
-  <v-text-field label="ค้นหาเหตุการณ์" prepend-icon="search"></v-text-field>
+  <div>
+    <v-layout>
+      <v-flex xs2 pt-2 class="hidden-sm-and-up">
+        <v-btn flat icon @click="toggleRouterView()">
+          <v-icon large>keyboard_arrow_left</v-icon>
+        </v-btn>
+      </v-flex>
+      <v-flex xs9 lg12 sm12>
+        <v-text-field label="ค้นหาเหตุการณ์"></v-text-field>
+      </v-flex>
+    </v-layout>
+  </div>
 </template>

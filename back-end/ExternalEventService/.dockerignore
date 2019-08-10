@@ -4,6 +4,10 @@ setup_database
 .gitignore
 Dockerfile*
 docker-compose*
-.dockerignore
 README.md
 .DS_Store
+npm-debug*
+.idea
+dist
+build
+.vscode

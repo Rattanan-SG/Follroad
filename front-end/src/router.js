@@ -14,6 +14,16 @@ export default new Router({
       component: Home
     },
     {
+      path: "/details",
+      name: "details",
+      component: () => import("./views/Details.vue")
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: () => import("./views/Profile.vue")
+    },
+    {
       path: "/search",
       name: "search",
       component: () =>
@@ -29,6 +39,11 @@ export default new Router({
       name: "notification",
       component: () =>
         import(/* webpackChunkName: "news" */ "./views/Notification.vue")
+    },
+    {
+      path: "/historyroute",
+      name: "historyroute",
+      component: () => import("./views/HistoryRoute.vue")
     },
     {
       path: "/callback",
