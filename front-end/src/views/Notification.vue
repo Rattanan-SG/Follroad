@@ -87,7 +87,7 @@ export default {
         })
         .then(subscription => {
           console.log("User is subscribed.");
-          console.log(subscription.options);
+          console.log(subscription.toJSON());
           this.updateSubscriptionOnServer(subscription);
           this.isSubscribed = true;
           this.updateBtn();
@@ -120,7 +120,7 @@ export default {
     updateSubscriptionOnServer(subscription) {
       // TODO: Send subscription to application server
       if (subscription) {
-        this.message = JSON.stringify(subscription);
+        this.message = subscription.toJSON();
       } else {
         this.message = "";
       }
