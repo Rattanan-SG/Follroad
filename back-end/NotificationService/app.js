@@ -2,24 +2,22 @@ const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const app = express();
 
-const config = require("./config/config.js");
+const config = require("./config");
 global.gConfig = config;
 require("./config/database");
 
-const notificationRouter = require("./routes/notification");
+const route = require("./routes");
+const errorMiddleware = require("./middleware/error-middleware");
 
+const app = express();
 app.use(helmet());
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/api/", (req, res) => {
-  let publicBattles = [1, 2, 3];
-  res.json(publicBattles);
-});
-
-app.use("/api/notification", notificationRouter);
+app.use(route);
+app.use(errorMiddleware);
 
 const PORT = global.gConfig.node_port || 3002;
 app.listen(PORT, () => {
