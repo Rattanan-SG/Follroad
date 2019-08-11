@@ -19,14 +19,14 @@ const config = {
   },
   staging: {
     config_id: "staging",
-    node_port: env.PORT || 3002,
+    node_port: env.NODE_PORT || 3002,
     mongo_url: env.MONGO_URL,
     vapid_public_key: env.VAPID_PUBLIC_KEY,
     vapid_private_Key: env.VAPID_PRIVATE_KEY
   },
   production: {
     config_id: "production",
-    node_port: env.PORT || 3002,
+    node_port: env.NODE_PORT || 3002,
     mongo_url: env.MONGO_URL,
     vapid_public_key: env.VAPID_PUBLIC_KEY,
     vapid_private_Key: env.VAPID_PRIVATE_KEY

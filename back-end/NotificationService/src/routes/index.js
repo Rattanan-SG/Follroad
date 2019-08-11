@@ -6,7 +6,7 @@ const router = express.Router();
 const { npm_package_name, npm_package_version } = process.env;
 
 router.get("/", (req, res) => {
-  rres.json(`Hello this is ${npm_package_name}`);
+  res.json(`Hello this is ${npm_package_name}`);
 });
 
 router.get("/notification", (req, res) => {

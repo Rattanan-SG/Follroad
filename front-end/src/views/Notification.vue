@@ -1,17 +1,20 @@
 <template>
   <div>
     <v-btn :disabled="btnDisabled" @click="handleClick">{{btnText}}</v-btn>
-    <p>{{message}}</p>
+    <p>{{isSubscribed}}</p>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import { mapGetters } from "vuex";
+import urlB64ToUint8Array from "../utilitys/urlB64ToUint8Array";
+
 export default {
   name: "Notification",
   data() {
     return {
-      message: "dfd",
+      profile: this.$auth.profile,
       btnDisabled: true,
       btnText: "Enable Push Messaging",
       isSubscribed: false
@@ -20,19 +23,22 @@ export default {
   computed: {
     ...mapGetters(["swRegistration"])
   },
-  created() {
-    this.initialSubscription();
+  watch: {
+    swRegistration(newValue, oldValue) {
+      if (newValue) {
+        this.checkSubscribed();
+      }
+    }
+  },
+  mounted() {
+    if (this.swRegistration) {
+      this.checkSubscribed();
+    }
   },
   methods: {
-    initialSubscription() {
+    checkSubscribed() {
       this.swRegistration.pushManager.getSubscription().then(subscription => {
         this.isSubscribed = !(subscription === null);
-        this.updateSubscriptionOnServer(subscription);
-        if (this.isSubscribed) {
-          console.log("User IS subscribed.");
-        } else {
-          console.log("User is NOT subscribed.");
-        }
         this.updateBtn();
       });
     },
@@ -50,7 +56,6 @@ export default {
       if (Notification.permission === "denied") {
         this.btnText = "Push Messaging Blocked.";
         this.btnDisabled = true;
-        this.updateSubscriptionOnServer(null);
         return;
       }
       if (this.isSubscribed) {
@@ -61,68 +66,46 @@ export default {
       this.btnDisabled = false;
     },
 
-    urlB64ToUint8Array(base64String) {
-      const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-      const base64 = (base64String + padding)
-        .replace(/-/g, "+")
-        .replace(/_/g, "/");
-
-      const rawData = window.atob(base64);
-      const outputArray = new Uint8Array(rawData.length);
-
-      for (let i = 0; i < rawData.length; ++i) {
-        outputArray[i] = rawData.charCodeAt(i);
-      }
-      return outputArray;
-    },
-
-    subscribeUser() {
-      const applicationServerKey = this.urlB64ToUint8Array(
+    async subscribeUser() {
+      const applicationServerKey = urlB64ToUint8Array(
         "BPv9dLtGAEzGDoR8mIDTZGjPa1nYt_CnU3hkQpLzRyRD62F-CeWrp9AEUfzZ7mB6T_mrbrYktByJQW5djr5q2Hk"
       );
-      this.swRegistration.pushManager
-        .subscribe({
+      try {
+        const subscription = await this.swRegistration.pushManager.subscribe({
           userVisibleOnly: true,
           applicationServerKey: applicationServerKey
-        })
-        .then(subscription => {
-          console.log("User is subscribed.");
-          console.log(subscription.toJSON());
-          this.updateSubscriptionOnServer(subscription);
-          this.isSubscribed = true;
-          this.updateBtn();
-        })
-        .catch(err => {
-          console.log("Failed to subscribe the user: ", err);
-          this.updateBtn();
         });
+        const uid = this.profile && this.profile.sub;
+        const subscribe = subscription.toJSON();
+        const body = { ...subscribe, uid };
+        const response = await axios.post(
+          "http://localhost:3002/notification/api/subscription",
+          body
+        );
+        this.isSubscribed = true;
+        this.updateBtn();
+      } catch (err) {
+        this.unsubscribeUser();
+        console.log("Failed to subscribe");
+      }
     },
 
-    unsubscribeUser() {
-      this.swRegistration.pushManager
-        .getSubscription()
-        .then(subscription => {
-          if (subscription) {
-            return subscription.unsubscribe();
-          }
-        })
-        .catch(error => {
-          console.log("Error unsubscribing", error);
-        })
-        .then(() => {
-          this.updateSubscriptionOnServer(null);
-          console.log("User is unsubscribed.");
-          this.isSubscribed = false;
-          this.updateBtn();
-        });
-    },
-
-    updateSubscriptionOnServer(subscription) {
-      // TODO: Send subscription to application server
-      if (subscription) {
-        this.message = subscription.toJSON();
-      } else {
-        this.message = "";
+    async unsubscribeUser() {
+      try {
+        const subscription = await this.swRegistration.pushManager.getSubscription();
+        if (subscription) {
+          subscription.unsubscribe().then(async () => {
+            const subscribe = subscription.toJSON();
+            const response = await axios.delete(
+              "http://localhost:3002/notification/api/subscription",
+              { data: subscribe }
+            );
+            this.isSubscribed = false;
+            this.updateBtn();
+          });
+        }
+      } catch (err) {
+        console.log("Failed to unsubscribe");
       }
     }
   }
