@@ -1,8 +1,8 @@
 const api = require("./itic-api");
-const db = require("../database/controller");
+const db = require("../controllers/controller");
 
 function updateEventToDatabase() {
-  return Promise.all([db.getEventId(), api.getEvents()])
+  return Promise.all([db.getEventId(), api.getEventFromItic()])
     .then(response => {
       const databaseEventsEid = response[0].map(x => x.eid);
       const eventFilter = response[1].filter(

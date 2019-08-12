@@ -6,25 +6,26 @@ services:
     ports:
       - "3000:3000"
     links:
-      - external-event-db:database
+      - mariadb:database
     volumes:
       - ./back-end/ExternalEventService:/app
       - /app/node_modules
     environment:
       TZ: Asia/Bangkok
-  external-event-db:
+  mariadb:
     image: mariadb
     restart: always
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
-      - ./back-end/ExternalEventService/setup_database/init:/docker-entrypoint-initdb.d
+      - ./back-end/ExternalEventService/src/utils:/docker-entrypoint-initdb.d
+      - mariadb:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: admin
-      MYSQL_PASSWORD: test
-      MYSQL_DATABASE: events
+      MYSQL_PASSWORD: dev
+      MYSQL_DATABASE: dev
       TZ: Asia/Bangkok
   profile:
     build: ./back-end/ProfileService
@@ -68,3 +69,4 @@ services:
   #     - /app/node_modules
 volumes:
   mongodb:
+  mariadb:

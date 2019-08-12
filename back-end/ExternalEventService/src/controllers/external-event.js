@@ -1,4 +1,4 @@
-const db = require("../database/controller");
+const db = require("./controller");
 const services = require("../services/service");
 
 exports.home = (req, res) => {
