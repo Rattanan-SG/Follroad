@@ -14,8 +14,7 @@ const state = {
         height: -35
       }
     }
-  },
-  swRegistration: null
+  }
 };
 
 const getters = {
@@ -60,9 +59,6 @@ const getters = {
   },
   infoWindow: state => {
     return state.infoWindow;
-  },
-  swRegistration: state => {
-    return state.swRegistration;
   }
 };
 
@@ -77,9 +73,6 @@ const actions = {
   },
   closeInfoWindow: ({ commit }) => {
     commit("CLOSE_INFOWINDOW");
-  },
-  setSwRegistration: ({ commit }, swRegistration) => {
-    commit("SET_SWREGISTRATION", swRegistration.detail);
   }
 };
 
@@ -101,9 +94,6 @@ const mutations = {
   },
   CLOSE_INFOWINDOW: state => {
     state.infoWindow.infoWindowOpen = false;
-  },
-  SET_SWREGISTRATION: (state, swRegistration) => {
-    state.swRegistration = swRegistration;
   }
 };
 

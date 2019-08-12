@@ -106,9 +106,9 @@
       <v-btn v-if="!isAuthenticated" icon @click.prevent="login">
         <v-icon>person</v-icon>
       </v-btn>
-      <!-- <v-btn v-else icon @click.prevent="logout">
+      <v-btn v-else icon @click.prevent="logout">
         <v-icon>input</v-icon>
-      </v-btn> -->
+      </v-btn>
     </v-toolbar>
   </div>
 </template>

@@ -2,12 +2,12 @@
   <div>
     <v-btn :disabled="btnDisabled" @click="handleClick">{{btnText}}</v-btn>
     <p>{{isSubscribed}}</p>
+    <p>{{profile}}</p>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import { mapGetters } from "vuex";
 import urlB64ToUint8Array from "../utilitys/urlB64ToUint8Array";
 
 export default {
@@ -15,34 +15,24 @@ export default {
   data() {
     return {
       profile: this.$auth.profile,
+      registration: null,
+      isSubscribed: false,
       btnDisabled: true,
-      btnText: "Enable Push Messaging",
-      isSubscribed: false
+      btnText: "Enable Push Messaging"
     };
   },
-  computed: {
-    ...mapGetters(["swRegistration"])
-  },
-  watch: {
-    swRegistration(newValue, oldValue) {
-      if (newValue) {
-        this.checkSubscribed();
-      }
-    }
-  },
-  mounted() {
-    if (this.swRegistration) {
-      this.checkSubscribed();
+  async created() {
+    try {
+      const registration = await navigator.serviceWorker.ready;
+      this.registration = registration;
+      const subscription = await registration.pushManager.getSubscription();
+      this.isSubscribed = !(subscription === null);
+      this.updateBtn();
+    } catch (err) {
+      console.log("Service Worker not ready");
     }
   },
   methods: {
-    checkSubscribed() {
-      this.swRegistration.pushManager.getSubscription().then(subscription => {
-        this.isSubscribed = !(subscription === null);
-        this.updateBtn();
-      });
-    },
-
     handleClick() {
       this.btnDisabled = true;
       if (this.isSubscribed) {
@@ -71,7 +61,7 @@ export default {
         "BPv9dLtGAEzGDoR8mIDTZGjPa1nYt_CnU3hkQpLzRyRD62F-CeWrp9AEUfzZ7mB6T_mrbrYktByJQW5djr5q2Hk"
       );
       try {
-        const subscription = await this.swRegistration.pushManager.subscribe({
+        const subscription = await this.registration.pushManager.subscribe({
           userVisibleOnly: true,
           applicationServerKey: applicationServerKey
         });
@@ -92,17 +82,16 @@ export default {
 
     async unsubscribeUser() {
       try {
-        const subscription = await this.swRegistration.pushManager.getSubscription();
+        const subscription = await this.registration.pushManager.getSubscription();
         if (subscription) {
-          subscription.unsubscribe().then(async () => {
-            const subscribe = subscription.toJSON();
-            const response = await axios.delete(
-              "http://localhost:3002/notification/api/subscription",
-              { data: subscribe }
-            );
-            this.isSubscribed = false;
-            this.updateBtn();
-          });
+          await subscription.unsubscribe();
+          const subscribe = subscription.toJSON();
+          const response = await axios.delete(
+            "http://localhost:3002/notification/api/subscription",
+            { data: subscribe }
+          );
+          this.isSubscribed = false;
+          this.updateBtn();
         }
       } catch (err) {
         console.log("Failed to unsubscribe");
