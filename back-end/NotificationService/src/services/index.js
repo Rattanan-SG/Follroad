@@ -1,3 +1,4 @@
+const { logInfo } = require("../utils/logger");
 const Subscription = require("../models/subscription");
 const webpush = require("./webpush");
 
@@ -11,6 +12,12 @@ exports.getSubscription = query => Subscription.find(query);
 exports.getSubscriptionThatUidisNull = () => Subscription.find({ uid: null });
 
 exports.getSubscriptionById = id => Subscription.findById(id);
+
+exports.renewSubscription = (oldSubscription, newSubscription) =>
+  Subscription.updateOne(
+    { endpoint: oldSubscription.endpoint },
+    newSubscription
+  );
 
 exports.updateSubscriptionById = (id, subscription) =>
   Subscription.findByIdAndUpdate(id, subscription, { new: true });

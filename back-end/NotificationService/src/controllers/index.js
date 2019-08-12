@@ -21,6 +21,14 @@ exports.getSubscriptionById = asyncWrapper(async (req, res) => {
   res.send(result);
 });
 
+exports.renewSubscription = asyncWrapper(async (req, res) => {
+  const result = await service.renewSubscription(
+    req.body.oldSubscription,
+    req.body.newSubscription
+  );
+  res.send(result);
+});
+
 exports.updateSubscriptionById = asyncWrapper(async (req, res) => {
   const result = await service.updateSubscriptionById(req.params.id, req.body);
   res.send(result);

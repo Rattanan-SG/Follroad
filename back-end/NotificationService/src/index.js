@@ -1,6 +1,7 @@
 const express = require("express");
-const helmet = require("helmet");
 const cors = require("cors");
+const helmet = require("helmet");
+const morgan = require("morgan");
 const bodyParser = require("body-parser");
 
 const config = require("./config");
@@ -11,8 +12,9 @@ const route = require("./routes");
 const errorMiddleware = require("./middleware/error-middleware");
 
 const app = express();
-app.use(helmet());
 app.use(cors());
+app.use(helmet());
+app.use(morgan("combined"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
