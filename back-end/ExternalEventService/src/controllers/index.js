@@ -6,7 +6,12 @@ exports.getEvent = asyncWrapper(async (req, res) => {
   res.send(result);
 });
 
-exports.updateEvent = asyncWrapper(async (req, res) => {
-  const result = await service.updateEventToDatabase();
+exports.syncEvent = asyncWrapper(async (req, res) => {
+  const result = await service.syncEvent();
+  res.send(result);
+});
+
+exports.getEventByType = asyncWrapper(async (req, res) => {
+  const result = await service.getEventByType(req.params.type);
   res.send(result);
 });

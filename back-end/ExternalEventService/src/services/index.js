@@ -12,7 +12,7 @@ exports.getEvent = query => {
   }
 };
 
-exports.updateEventToDatabase = async () => {
+exports.syncEvent = async () => {
   const response = await Promise.all([
     domain.getEventId(),
     itic.getExternalEvent()
@@ -23,10 +23,14 @@ exports.updateEventToDatabase = async () => {
   );
   if (eventFilter.length != 0) {
     const result = await domain.batchInsertEvent(eventFilter);
-    logInfo("Update events complete", result);
+    logInfo("Update event complete", result);
     return result;
   } else {
-    logInfo("Not have events to update");
+    logInfo("Not have event to update");
     return { message: "Not have event to update" };
   }
+};
+
+exports.getEventByType = type => {
+  return domain.getEventByType(type);
 };

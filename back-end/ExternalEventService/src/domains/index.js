@@ -1,5 +1,5 @@
 const { pool } = require("../config/database");
-const { formatDataToInsert } = require("../utils/formatDataToInsert");
+const { formatDataToInsert } = require("../utils/format-event");
 const sql = require("../utils/sql.json");
 
 exports.getEvent = () => pool.query(sql.getEvent);
