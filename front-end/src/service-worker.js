@@ -28,7 +28,21 @@ self.addEventListener("pushsubscriptionchange", event => {
       .subscribe(event.oldSubscription.options)
       .then(newSubscription => {
         // TODO: Send to application server
-        console.log("[Service Worker] New subscription: ", newSubscription);
+        console.log("[Service Worker] Renew subscription");
+        return fetch(
+          "http://localhost:3002/notification/api/subscription/renew",
+          {
+            method: "post",
+            mode: "cors",
+            headers: {
+              "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+              oldSubscription: event.oldSubscription,
+              newSubscription: newSubscription
+            })
+          }
+        );
       })
   );
 });

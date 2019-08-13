@@ -2,9 +2,9 @@ import auth0 from "auth0-js";
 import { EventEmitter } from "events";
 
 const webAuth = new auth0.WebAuth({
-  domain: process.env.VUE_APP_DOMAIN,
-  clientID: process.env.VUE_APP_CLIENTID,
-  audience: process.env.VUE_APP_AUDIENCE,
+  domain: process.env.VUE_APP_AUTH0_DOMAIN,
+  clientID: process.env.VUE_APP_AUTH0_CLIENTID,
+  audience: process.env.VUE_APP_AUTH0_AUDIENCE,
   redirectUri: `${window.location.origin}/callback`,
   responseType: "token id_token",
   scope: "openid profile email"
@@ -40,6 +40,8 @@ class AuthService extends EventEmitter {
   }
 
   localLogin(authResult) {
+    console.log(authResult);
+
     this.idToken = authResult.idToken;
     this.profile = authResult.idTokenPayload;
     this.tokenExpiry = new Date(this.profile.exp * 1000);

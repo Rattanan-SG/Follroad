@@ -4,6 +4,7 @@ build
 dist
 out
 coverage
+.env
 
 # Log files
 npm-debug*

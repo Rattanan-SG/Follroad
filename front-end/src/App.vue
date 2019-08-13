@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Navbar/>
+    <Navbar />
     <v-content>
       <v-layout row wrap fill-height>
         <v-flex v-if="showRouterView" xl3 lg3 md3 sm4 xs12 style="z-index: 2">
@@ -11,12 +11,12 @@
           </v-card>
         </v-flex>
         <v-flex>
-          <GoogleMap/>
+          <GoogleMap />
         </v-flex>
       </v-layout>
-      <RefreshSnackBar/>
+      <RefreshSnackBar />
     </v-content>
-    <BottomMenuBar/>
+    <BottomMenuBar />
   </v-app>
 </template>
 
@@ -43,9 +43,6 @@ export default {
     } catch (e) {
       console.log();
     }
-    document.addEventListener("swRegistered", this.setSwRegistration, {
-      once: true
-    });
     this.fetchEvents();
     this.$vuetify.breakpoint.xsOnly
       ? this.setShowRouterView(false)
@@ -59,8 +56,7 @@ export default {
       "setCenter",
       "setMyLocation",
       "fetchEvents",
-      "setShowRouterView",
-      "setSwRegistration"
+      "setShowRouterView"
     ]),
     getGeolocation: function() {
       if (navigator.geolocation) {
