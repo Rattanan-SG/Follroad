@@ -64,7 +64,7 @@ const getters = {
 
 const actions = {
   fetchEvents: ({ commit }) => {
-    axios.get("/events").then(response => {
+    axios.get("/event").then(response => {
       commit("SET_EVENTS", response.data);
     });
   },
