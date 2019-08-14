@@ -12,7 +12,7 @@
 
     <v-bottom-nav :active.sync="bottomNav" :value="showNav" height="60%">
       <v-btn
-        color="teal"
+        color="deep-purple accent-4"
         flat
         v-for="list in lists"
         :key="list.text"
