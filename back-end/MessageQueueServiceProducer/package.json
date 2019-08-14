@@ -1,7 +1,7 @@
 {
-  "name": "notification-service",
+  "name": "message-queue-service-producer",
   "version": "1.0.0",
-  "description": "notification-service",
+  "description": "message-queue-service-producer",
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
@@ -18,9 +18,8 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "helmet": "^3.18.0",
-    "mongoose": "^5.6.2",
+    "lodash": "^4.17.15",
     "morgan": "^1.9.1",
-    "web-push": "^3.3.5",
     "winston": "^3.2.1"
   },
   "devDependencies": {

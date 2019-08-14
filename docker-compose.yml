@@ -27,13 +27,13 @@ services:
       MYSQL_PASSWORD: dev
       MYSQL_DATABASE: dev
       TZ: Asia/Bangkok
-  profile:
-    build: ./back-end/ProfileService
+  message-queue:
+    build: ./back-end/MessageQueueServiceProducer
     command: ["npm", "run", "dev"]
     ports:
       - "3001:3001"
     volumes:
-      - ./back-end/ProfileService:/app
+      - ./back-end/MessageQueueServiceProducer:/app
       - /app/node_modules
   notification:
     build: ./back-end/NotificationService

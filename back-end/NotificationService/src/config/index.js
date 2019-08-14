@@ -12,7 +12,11 @@ const config = {
       env.VAPID_PUBLIC_KEY ||
       "BPv9dLtGAEzGDoR8mIDTZGjPa1nYt_CnU3hkQpLzRyRD62F-CeWrp9AEUfzZ7mB6T_mrbrYktByJQW5djr5q2Hk",
     vapid_private_Key:
-      env.VAPID_PRIVATE_KEY || "_KcE9A_s1P0lhsaaLAnsr5Z2pqrSTXhtbLDlY_PMwKI"
+      env.VAPID_PRIVATE_KEY || "_KcE9A_s1P0lhsaaLAnsr5Z2pqrSTXhtbLDlY_PMwKI",
+    aws_access_key: env.AWS_ACCESS_KEY,
+    aws_secet_access_key: env.AWS_SECET_ACCESS_KEY,
+    aws_region: env.AWS_REGION,
+    sqs_queue_name: env.SQS_QUEUE_NAME
   },
   testing: {
     config_id: "testing"
@@ -22,14 +26,22 @@ const config = {
     node_port: env.NODE_PORT || 3002,
     mongo_url: env.MONGO_URL,
     vapid_public_key: env.VAPID_PUBLIC_KEY,
-    vapid_private_Key: env.VAPID_PRIVATE_KEY
+    vapid_private_Key: env.VAPID_PRIVATE_KEY,
+    aws_access_key: env.AWS_ACCESS_KEY,
+    aws_secet_access_key: env.AWS_SECET_ACCESS_KEY,
+    aws_region: env.AWS_REGION,
+    sqs_queue_name: env.SQS_QUEUE_NAME
   },
   production: {
     config_id: "production",
     node_port: env.NODE_PORT || 3002,
     mongo_url: env.MONGO_URL,
     vapid_public_key: env.VAPID_PUBLIC_KEY,
-    vapid_private_Key: env.VAPID_PRIVATE_KEY
+    vapid_private_Key: env.VAPID_PRIVATE_KEY,
+    aws_access_key: env.AWS_ACCESS_KEY,
+    aws_secet_access_key: env.AWS_SECET_ACCESS_KEY,
+    aws_region: env.AWS_REGION,
+    sqs_queue_name: env.SQS_QUEUE_NAME
   }
 };
 
