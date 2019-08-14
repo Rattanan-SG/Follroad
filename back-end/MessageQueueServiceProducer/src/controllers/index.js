@@ -1,10 +1,10 @@
 const asyncWrapper = require("../middleware/async-wrapper");
 const service = require("../services");
 
-// exports.createQueue = asyncWrapper(async (req, res) => {
-//   const result = await service.createQueue(req.body);
-//   res.send(result);
-// });
+exports.createQueue = asyncWrapper(async (req, res) => {
+  const result = await service.createQueue(req.body);
+  res.send(result);
+});
 
 exports.getQueue = asyncWrapper(async (req, res) => {
   const result = await service.getQueue();
