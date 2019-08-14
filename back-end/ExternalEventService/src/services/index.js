@@ -1,6 +1,6 @@
 const domain = require("../domains");
 const itic = require("./itic-api");
-const sqs = require("./aws-sqs");
+const sqs = require("./aws/sqs");
 const { logInfo } = require("../utils/logger");
 
 exports.getEvent = query => {

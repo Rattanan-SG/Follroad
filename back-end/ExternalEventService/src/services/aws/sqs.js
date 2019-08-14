@@ -1,5 +1,5 @@
-const AWS = require("../config/aws");
-const { logInfo } = require("../utils/logger");
+const AWS = require("../../config/aws");
+const { logInfo } = require("../../utils/logger");
 
 const sqs = new AWS.SQS();
 
