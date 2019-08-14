@@ -25,7 +25,7 @@ const config = {
   },
   production: {
     config_id: "production",
-    node_port: env.NODE_PORT || 3002,
+    node_port: env.NODE_PORT || 3000,
     db_host: env.DB_HOST,
     db_user: env.DB_USER,
     db_password: env.DB_PASSWORD,
