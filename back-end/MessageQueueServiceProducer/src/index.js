@@ -6,7 +6,6 @@ const bodyParser = require("body-parser");
 
 const config = require("./config");
 global.gConfig = config;
-require("./config/database");
 
 const route = require("./routes");
 const errorMiddleware = require("./middleware/error-middleware");
