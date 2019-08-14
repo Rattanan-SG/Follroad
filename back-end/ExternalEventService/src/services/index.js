@@ -1,6 +1,5 @@
 const domain = require("../domains");
 const itic = require("./itic-api");
-const sqs = require("./aws/sqs");
 const { logInfo } = require("../utils/logger");
 
 exports.getEvent = query => {
@@ -25,7 +24,6 @@ exports.syncEvent = async () => {
   if (eventFilter.length != 0) {
     const result = await domain.batchInsertEvent(eventFilter);
     logInfo("Update event complete", result);
-    await sqs.sendMessageBatch(eventFilter);
     return result;
   } else {
     logInfo("Not have event to update");
