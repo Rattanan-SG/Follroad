@@ -1,15 +1,5 @@
 <template>
   <v-card height="8%" flat class="hidden-sm-and-up">
-    <!-- <div id="closeBottomMenu">
-      <v-flex xs5></v-flex>
-      <v-flex xs2>
-        <v-btn flat>
-          <v-icon>home</v-icon>
-        </v-btn>
-      </v-flex>
-      <v-flex xs5></v-flex>
-    </div>-->
-
     <v-bottom-nav :active.sync="bottomNav" :value="showNav" height="60%">
       <v-btn
         color="deep-purple accent-4"
@@ -27,7 +17,6 @@
         <span>Menu</span>
         <v-icon>menu</v-icon>
       </v-btn>
-      <!-- </v-dialog> -->
     </v-bottom-nav>
   </v-card>
 </template>

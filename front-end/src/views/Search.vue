@@ -1,9 +1,10 @@
 <template>
   <div>
-    <v-layout row wrap pt-3>
-      <v-flex xs12 class="hidden-sm-and-up">
+    <v-layout row wrap pt-1>
+      <v-flex xs12 class="hidden-sm-and-up" pl-4>
         <v-btn flat icon @click="toggleRouterView()">
           <v-icon large>keyboard_arrow_left</v-icon>
+          <h3>แผนที่</h3>
         </v-btn>
       </v-flex>
 
@@ -58,10 +59,10 @@
     </v-layout>
     <v-layout row wrap>
       <v-flex xs12 my-1>
-        <SearchFeedPanel v-if="directionsRenderer"/>
+        <SearchFeedPanel v-if="directionsRenderer" />
       </v-flex>
       <v-flex xs12 ml-1>
-        <SearchPanel v-if="directionsRenderer" :directionsRenderer="directionsRenderer"/>
+        <SearchPanel v-if="directionsRenderer" :directionsRenderer="directionsRenderer" />
       </v-flex>
     </v-layout>
   </div>
