@@ -12,3 +12,27 @@
     </v-layout>
   </div>
 </template>
+<script>
+import { mapGetters, mapActions } from "vuex";
+export default {
+  computed: {
+    ...mapGetters([
+      "myLocation",
+      "searchPlace",
+      "showRouterView",
+      "directionsRenderer"
+    ])
+  },
+  methods: {
+    ...mapActions(["setShowRouterView"]),
+    toggleRouterView: function(route) {
+      if (this.activeRouter == route) {
+        this.setShowRouterView(!this.showRouterView);
+      } else {
+        this.activeRouter = route;
+        this.setShowRouterView(true);
+      }
+    }
+  }
+};
+</script>
