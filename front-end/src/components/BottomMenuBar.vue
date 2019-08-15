@@ -62,10 +62,7 @@ export default {
   methods: {
     ...mapActions(["setShowRouterView"]),
     toggleRouterView: function(route) {
-      if (this.activeRouter == route) {
-        this.setShowRouterView(!this.showRouterView);
-      } else {
-        this.activeRouter = route;
+      if ((this.activeRouter = route)) {
         this.setShowRouterView(true);
       }
     }
