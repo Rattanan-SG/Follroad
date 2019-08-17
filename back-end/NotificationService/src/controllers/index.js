@@ -16,6 +16,11 @@ exports.updateOrCreateSubscription = asyncWrapper(async (req, res) => {
   res.send(result);
 });
 
+exports.unSubscribe = asyncWrapper(async (req, res) => {
+  const result = await service.unSubscribe(req.body.endpoint);
+  res.send(result);
+});
+
 exports.getSubscriptionThatUidisNull = asyncWrapper(async (req, res) => {
   const result = await service.getSubscriptionThatUidisNull();
   res.send(result);
@@ -46,11 +51,6 @@ exports.renewSubscription = asyncWrapper(async (req, res) => {
 
 exports.updateSubscriptionById = asyncWrapper(async (req, res) => {
   const result = await service.updateSubscriptionById(req.params.id, req.body);
-  res.send(result);
-});
-
-exports.unsubscribe = asyncWrapper(async (req, res) => {
-  const result = await service.unsubscribe(req.body.endpoint);
   res.send(result);
 });
 

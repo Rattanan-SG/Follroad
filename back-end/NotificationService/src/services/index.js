@@ -12,6 +12,8 @@ exports.getSubscription = query => Subscription.find(query);
 exports.updateOrCreateSubscription = body =>
   Subscription.updateOne({ endpoint: body.endpoint }, body, { upsert: true });
 
+exports.unSubscribe = endpoint => Subscription.deleteOne({ endpoint });
+
 exports.getSubscriptionThatUidisNull = () => Subscription.find({ uid: null });
 
 exports.getSubscriptionById = id => Subscription.findById(id);
@@ -24,8 +26,6 @@ exports.renewSubscription = (oldSubscription, newSubscription) =>
 
 exports.updateSubscriptionById = (id, subscription) =>
   Subscription.findByIdAndUpdate(id, subscription, { new: true });
-
-exports.unsubscribe = endpoint => Subscription.deleteOne({ endpoint });
 
 exports.sendNotificationToSpecificUser = async body => {
   const { uid, message } = body;
