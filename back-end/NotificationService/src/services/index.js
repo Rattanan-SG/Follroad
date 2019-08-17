@@ -9,6 +9,9 @@ exports.subscribe = body => {
 
 exports.getSubscription = query => Subscription.find(query);
 
+exports.updateOrCreateSubscription = body =>
+  Subscription.updateOne({ endpoint: body.endpoint }, body, { upsert: true });
+
 exports.getSubscriptionThatUidisNull = () => Subscription.find({ uid: null });
 
 exports.getSubscriptionById = id => Subscription.findById(id);

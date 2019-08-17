@@ -11,6 +11,11 @@ exports.getSubscription = asyncWrapper(async (req, res) => {
   res.send(result);
 });
 
+exports.updateOrCreateSubscription = asyncWrapper(async (req, res) => {
+  const result = await service.updateOrCreateSubscription(req.body);
+  res.send(result);
+});
+
 exports.getSubscriptionThatUidisNull = asyncWrapper(async (req, res) => {
   const result = await service.getSubscriptionThatUidisNull();
   res.send(result);

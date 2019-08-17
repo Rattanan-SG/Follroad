@@ -26,6 +26,9 @@ export default {
       this.registration = registration;
       const subscription = await registration.pushManager.getSubscription();
       this.isSubscribed = !(subscription === null);
+      if (this.isSubscribed) {
+        this.syncSubscription(subscription);
+      }
       this.updateBtn();
     } catch (err) {
       console.log("Service Worker not ready");
@@ -51,8 +54,21 @@ export default {
         this.btnText = "Disable Push Messaging";
       } else {
         this.btnText = "Enable Push Messaging";
+        if (Notification.permission === "granted") {
+          this.subscribeUser();
+        }
       }
       this.btnDisabled = false;
+    },
+
+    async syncSubscription(subscription) {
+      const uid = this.profile && this.profile.sub;
+      const subscribe = subscription.toJSON();
+      const body = { ...subscribe, uid };
+      await axios.put(
+        `${process.env.VUE_APP_NOTIFICATION_URL}/subscription`,
+        body
+      );
     },
 
     async subscribeUser() {
