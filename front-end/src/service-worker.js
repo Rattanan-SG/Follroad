@@ -18,7 +18,7 @@ self.addEventListener("push", event => {
 self.addEventListener("notificationclick", event => {
   console.log("[Service Worker] Notification click Received.");
   event.notification.close();
-  event.waitUntil(clients.openWindow("https://developers.google.com/web/"));
+  event.waitUntil(clients.openWindow("https://follroad.netlify.com"));
 });
 
 self.addEventListener("pushsubscriptionchange", event => {
@@ -27,10 +27,9 @@ self.addEventListener("pushsubscriptionchange", event => {
     self.registration.pushManager
       .subscribe(event.oldSubscription.options)
       .then(newSubscription => {
-        // TODO: Send to application server
         console.log("[Service Worker] Renew subscription");
         return fetch(
-          "http://localhost:3002/notification/api/subscription/renew",
+          "https://follroad.tk/notification/api/subscription/renew",
           {
             method: "post",
             mode: "cors",

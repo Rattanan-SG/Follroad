@@ -1,5 +1,5 @@
+import axios from "axios";
 import eventService from "@/utilitys/eventService";
-import axios from "@/utilitys/axios";
 
 const state = {
   events: [],
@@ -64,9 +64,11 @@ const getters = {
 
 const actions = {
   fetchEvents: ({ commit }) => {
-    axios.get("/event").then(response => {
-      commit("SET_EVENTS", response.data);
-    });
+    axios
+      .get(`${process.env.VUE_APP_NOTIFICATION_URL}/event`)
+      .then(response => {
+        commit("SET_EVENTS", response.data);
+      });
   },
   setInfoWindow: ({ commit }, marker) => {
     commit("SET_INFOWINDOW", marker);
