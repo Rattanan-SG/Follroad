@@ -2,7 +2,6 @@
   <div>
     <v-btn :disabled="btnDisabled" @click="handleClick">{{btnText}}</v-btn>
     <p>{{isSubscribed}}</p>
-    <p>{{profile}}</p>
   </div>
 </template>
 
