@@ -16,6 +16,16 @@ exports.getSubscriptionThatUidisNull = asyncWrapper(async (req, res) => {
   res.send(result);
 });
 
+exports.sendNotificationToSpecificUser = asyncWrapper(async (req, res) => {
+  const result = await service.sendNotificationToSpecificUser(req.body);
+  res.send(result);
+});
+
+exports.sendNotificationToAllUser = asyncWrapper(async (req, res) => {
+  const result = await service.sendNotificationToAllUser(req.body);
+  res.send(result);
+});
+
 exports.getSubscriptionById = asyncWrapper(async (req, res) => {
   const result = await service.getSubscriptionById(req.params.id, req.body);
   res.send(result);

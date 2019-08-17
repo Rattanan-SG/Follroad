@@ -1,10 +1,11 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
+import auth from "./auth/authService";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
@@ -38,7 +39,8 @@ export default new Router({
       path: "/notification",
       name: "notification",
       component: () =>
-        import(/* webpackChunkName: "news" */ "./views/Notification.vue")
+        import(/* webpackChunkName: "news" */ "./views/Notification.vue"),
+      meta: { requiresAuth: true }
     },
     {
       path: "/historyroute",
@@ -56,3 +58,15 @@ export default new Router({
     }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.path === "/" || to.path === "/callback" || auth.isAuthenticated()) {
+    return next();
+  }
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    auth.login({ target: to.path });
+  }
+  return next();
+});
+
+export default router;

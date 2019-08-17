@@ -1,6 +1,6 @@
-const { logInfo } = require("../utils/logger");
 const Subscription = require("../models/subscription");
-const webpush = require("./webpush");
+const webpush = require("../config/webpush");
+const { logInfo } = require("../utils/logger");
 
 exports.subscribe = body => {
   const subscription = new Subscription(body);
@@ -24,6 +24,22 @@ exports.updateSubscriptionById = (id, subscription) =>
 
 exports.unsubscribe = endpoint => Subscription.deleteOne({ endpoint });
 
+exports.sendNotificationToSpecificUser = async body => {
+  const { uid, message } = body;
+  const qurey = await Subscription.find({ uid: { $in: uid } }, "endpoint keys");
+  const result = sendMutipleNotification(qurey, message);
+  logInfo(`Send notification to specific user: ${uid}`, { uid, result });
+  return result;
+};
+
+exports.sendNotificationToAllUser = async body => {
+  const { message } = body;
+  const qurey = await Subscription.find({}, "endpoint keys");
+  const result = sendMutipleNotification(qurey, message);
+  logInfo("Send notification to all user", result);
+  return result;
+};
+
 exports.sendNotification = body => {
   const { endpoint, keys, message } = body;
   const pushSubscription = {
@@ -31,4 +47,29 @@ exports.sendNotification = body => {
     keys
   };
   return webpush.sendNotification(pushSubscription, message);
+};
+
+const sendMutipleNotification = async (qurey, message) => {
+  let successCount = 0,
+    failCount = 0;
+  const response = await Promise.all(
+    qurey.map(({ endpoint, keys }) => {
+      const pushSubscription = {
+        endpoint,
+        keys
+      };
+      return webpush
+        .sendNotification(pushSubscription, message)
+        .then(data => {
+          successCount++;
+          return data;
+        })
+        .catch(err => {
+          failCount++;
+          return err;
+        });
+    })
+  );
+  const result = { successCount, failCount, response };
+  return result;
 };
