@@ -13,10 +13,10 @@
         <span>{{list.text}}</span>
         <v-icon>{{list.icon}}</v-icon>
       </v-btn>
-      <v-btn color="teal" flat>
+      <!-- <v-btn color="teal" flat to="/ProfileMobile">
         <span>Menu</span>
         <v-icon>menu</v-icon>
-      </v-btn>
+      </v-btn>-->
     </v-bottom-nav>
   </v-card>
 </template>
@@ -41,7 +41,8 @@ export default {
         { text: "Feed", icon: "today", route: "/" },
         { text: "Search", icon: "directions", route: "/search" },
         { text: "Notifications", icon: "notifications" },
-        { text: "Forum", icon: "forum", route: "/news" }
+        { text: "Forum", icon: "forum", route: "/news" },
+        { text: "Menu", icon: "menu", route: "/profilemobile" }
       ]
     };
   },

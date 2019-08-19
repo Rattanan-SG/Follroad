@@ -1,7 +1,7 @@
 <template>
   <gmap-map ref="gmap" :center="center" :zoom="zoomLevel" :options="options">
     <gmap-marker v-if="myLocation" :position="myLocation.location" :title="myLocation.name"></gmap-marker>
-    <GoogleMapInfoWindow/>
+    <GoogleMapInfoWindow />
     <gmap-cluster :max-zoom="10" :zoom-on-click="true">
       <gmap-marker
         :key="marker.eid"
@@ -109,7 +109,7 @@ export default {
         },
         (response, status) => {
           if (status === "OK") {
-            // console.log(response);
+            console.log(response);
             // console.log(
             //   response.routes[0].overview_path.map(a => {
             //     return a.lat() + ", " + a.lng();

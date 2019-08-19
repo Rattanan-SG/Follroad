@@ -14,6 +14,11 @@ export default new Router({
       component: Home
     },
     {
+      path: "/profilemobile",
+      name: "profilemobile",
+      component: () => import("./views/ProfileMobile.vue")
+    },
+    {
       path: "/details",
       name: "details",
       component: () => import("./views/Details.vue")
