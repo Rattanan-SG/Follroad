@@ -1,10 +1,10 @@
 import auth0 from "auth0-js";
+import axios from "axios";
 import { EventEmitter } from "events";
 
 const webAuth = new auth0.WebAuth({
   domain: process.env.VUE_APP_AUTH0_DOMAIN,
   clientID: process.env.VUE_APP_AUTH0_CLIENTID,
-  audience: process.env.VUE_APP_AUTH0_AUDIENCE,
   redirectUri: `${window.location.origin}/callback`,
   responseType: "token id_token",
   scope: "openid profile email"
@@ -40,8 +40,6 @@ class AuthService extends EventEmitter {
   }
 
   localLogin(authResult) {
-    console.log(authResult);
-
     this.idToken = authResult.idToken;
     this.profile = authResult.idTokenPayload;
     this.tokenExpiry = new Date(this.profile.exp * 1000);
@@ -86,8 +84,23 @@ class AuthService extends EventEmitter {
     });
   }
 
-  logOut() {
+  async logOut() {
     localStorage.removeItem(localStorageKey);
+
+    try {
+      const registration = await navigator.serviceWorker.ready;
+      const subscription = await registration.pushManager.getSubscription();
+      if (subscription) {
+        await subscription.unsubscribe();
+        const subscribe = subscription.toJSON();
+        await axios.delete(
+          `${process.env.VUE_APP_NOTIFICATION_URL}/subscription`,
+          { data: subscribe }
+        );
+      }
+    } catch (err) {
+      console.log("Failed to unsubscribe");
+    }
 
     this.idToken = null;
     this.tokenExpiry = null;

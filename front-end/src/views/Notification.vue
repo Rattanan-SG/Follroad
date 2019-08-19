@@ -2,7 +2,6 @@
   <div>
     <v-btn :disabled="btnDisabled" @click="handleClick">{{btnText}}</v-btn>
     <p>{{isSubscribed}}</p>
-    <p>{{profile}}</p>
   </div>
 </template>
 
@@ -27,6 +26,9 @@ export default {
       this.registration = registration;
       const subscription = await registration.pushManager.getSubscription();
       this.isSubscribed = !(subscription === null);
+      if (this.isSubscribed) {
+        this.syncSubscription(subscription);
+      }
       this.updateBtn();
     } catch (err) {
       console.log("Service Worker not ready");
@@ -52,13 +54,26 @@ export default {
         this.btnText = "Disable Push Messaging";
       } else {
         this.btnText = "Enable Push Messaging";
+        if (Notification.permission === "granted") {
+          this.subscribeUser();
+        }
       }
       this.btnDisabled = false;
     },
 
+    async syncSubscription(subscription) {
+      const uid = this.profile && this.profile.sub;
+      const subscribe = subscription.toJSON();
+      const body = { ...subscribe, uid };
+      await axios.put(
+        `${process.env.VUE_APP_NOTIFICATION_URL}/subscription`,
+        body
+      );
+    },
+
     async subscribeUser() {
       const applicationServerKey = urlB64ToUint8Array(
-        "BPv9dLtGAEzGDoR8mIDTZGjPa1nYt_CnU3hkQpLzRyRD62F-CeWrp9AEUfzZ7mB6T_mrbrYktByJQW5djr5q2Hk"
+        process.env.VUE_APP_WEB_PUSH_KEY
       );
       try {
         const subscription = await this.registration.pushManager.subscribe({
@@ -68,8 +83,8 @@ export default {
         const uid = this.profile && this.profile.sub;
         const subscribe = subscription.toJSON();
         const body = { ...subscribe, uid };
-        const response = await axios.post(
-          "http://localhost:3002/notification/api/subscription",
+        await axios.post(
+          `${process.env.VUE_APP_NOTIFICATION_URL}/subscription`,
           body
         );
         this.isSubscribed = true;
@@ -86,8 +101,8 @@ export default {
         if (subscription) {
           await subscription.unsubscribe();
           const subscribe = subscription.toJSON();
-          const response = await axios.delete(
-            "http://localhost:3002/notification/api/subscription",
+          await axios.delete(
+            `${process.env.VUE_APP_NOTIFICATION_URL}/subscription`,
             { data: subscribe }
           );
           this.isSubscribed = false;
