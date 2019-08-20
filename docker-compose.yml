@@ -40,6 +40,14 @@ services:
     volumes:
       - ./back-end/DirectionRecordService:/app
       - /app/node_modules
+  geometry-service:
+    build: ./back-end/GeometryService
+    command: ["npm", "run", "dev"]
+    ports:
+      - "3005:3005"
+    volumes:
+      - ./back-end/GeometryService:/app
+      - /app/node_modules
   mariadb:
     image: mariadb
     restart: always
