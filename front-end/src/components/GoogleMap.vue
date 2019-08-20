@@ -1,5 +1,5 @@
 <template>
-  <gmap-map ref="gmap" :center="center" :zoom="zoomLevel" :options="options">
+  <gmap-map ref="gmap" :center="center" :zoom="zoomLevel" :options="options" @click="aa">
     <gmap-marker v-if="myLocation" :position="myLocation.location" :title="myLocation.name"></gmap-marker>
     <GoogleMapInfoWindow />
     <gmap-cluster :max-zoom="10" :zoom-on-click="true">
@@ -89,6 +89,9 @@ export default {
       "setInfoWindow",
       "selectRoute"
     ]),
+    aa: function(e) {
+      console.log(JSON.stringify(e.latLng));
+    },
     resetCenterToMyLocation: function() {
       this.$refs.gmap.$mapObject.setCenter(this.myLocation.location);
       this.$refs.gmap.$mapObject.setZoom(15);
@@ -109,7 +112,7 @@ export default {
         },
         (response, status) => {
           if (status === "OK") {
-            console.log(response);
+            console.log(JSON.stringify(response));
             // console.log(
             //   response.routes[0].overview_path.map(a => {
             //     return a.lat() + ", " + a.lng();
