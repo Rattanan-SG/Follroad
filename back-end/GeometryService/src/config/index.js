@@ -9,9 +9,7 @@ const config = {
     node_port: 3005,
     notification_api: env.NOTIFICATION_API,
     direction_record_api: env.DIRECTION_RECORD_API,
-    aws_access_key: env.AWS_ACCESS_KEY,
-    aws_secet_access_key: env.AWS_SECET_ACCESS_KEY,
-    aws_region: env.AWS_REGION
+    sqs_queue_url: env.SQS_QUEUE_URL
   },
   testing: {
     config_id: "testing"
@@ -21,18 +19,14 @@ const config = {
     node_port: env.NODE_PORT || 3005,
     notification_api: env.NOTIFICATION_API,
     direction_record_api: env.DIRECTION_RECORD_API,
-    aws_access_key: env.AWS_ACCESS_KEY,
-    aws_secet_access_key: env.AWS_SECET_ACCESS_KEY,
-    aws_region: env.AWS_REGION
+    sqs_queue_url: env.SQS_QUEUE_URL
   },
   production: {
     config_id: "production",
     node_port: env.NODE_PORT || 3005,
     notification_api: env.NOTIFICATION_API,
     direction_record_api: env.DIRECTION_RECORD_API,
-    aws_access_key: env.AWS_ACCESS_KEY,
-    aws_secet_access_key: env.AWS_SECET_ACCESS_KEY,
-    aws_region: env.AWS_REGION
+    sqs_queue_url: env.SQS_QUEUE_URL
   }
 };
 

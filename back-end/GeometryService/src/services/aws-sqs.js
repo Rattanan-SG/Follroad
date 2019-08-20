@@ -1,33 +1,23 @@
-const AWS = require("../config/aws");
+const { Consumer } = require("sqs-consumer");
+const { logError } = require("../utils/logger");
 
-const sqs = new AWS.SQS();
+const consumer = Consumer.create({
+  queueUrl: global.gConfig.sqs_queue_url,
+  handleMessageBatch: async message => {
+    // do some work with `message`
+  }
+});
 
-exports.receiveMessage = body => {
-  var params = {
-    MaxNumberOfMessages: 10,
-    MessageAttributeNames: ["All"],
-    QueueUrl:
-      "https://sqs.ap-southeast-1.amazonaws.com/583507551570/Notification",
-    VisibilityTimeout: 20,
-    WaitTimeSeconds: 20
-  };
-  return sqs
-    .receiveMessage(params)
-    .promise()
-    .then(res => res.Messages);
-};
+consumer.on("error", err => {
+  logError("SQS-Consumer error", err.message);
+});
 
-exports.deleteMessageBatch = messages => {
-  const Entries = messages.map((item, index) => {
-    return {
-      Id: index.toString(),
-      ReceiptHandle: item.ReceiptHandle
-    };
-  });
-  const params = {
-    QueueUrl:
-      "https://sqs.ap-southeast-1.amazonaws.com/583507551570/Notification",
-    Entries
-  };
-  return sqs.deleteMessageBatch(params).promise();
-};
+consumer.on("processing_error", err => {
+  logError("SQS-Consumer processing_error", err.message);
+});
+
+consumer.on("timeout_error", err => {
+  logError("SQS-Consumer timeout_error", err.message);
+});
+
+consumer.start();
