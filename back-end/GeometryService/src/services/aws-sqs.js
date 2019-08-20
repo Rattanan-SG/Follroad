@@ -6,10 +6,10 @@ const consumer = Consumer.create({
   queueUrl: global.gConfig.sqs_queue_url,
   messageAttributeNames: ["All"],
   handleMessage: async message => {
-    service.checkNewEventWithAllRecord(message);
+    service.checkNewEventWithAllRecord(message.MessageAttributes);
   },
   batchSize: 10,
-  visibilityTimeout: 20
+  visibilityTimeout: 10
 });
 
 consumer.on("error", err => {
@@ -30,8 +30,20 @@ consumer.on("stopped", () => {
 
 consumer.start();
 
-exports.start = () => consumer.start();
+exports.start = () => {
+  consumer.start();
+  logInfo("SQS-Consumer start");
+  return "SQS-Consumer start";
+};
 
-exports.stop = () => consumer.stop();
+exports.stop = () => {
+  consumer.stop();
+  return "SQS-Consumer stop";
+};
 
-exports.isRunning = () => consumer.isRunning;
+exports.isRunning = () => {
+  if (consumer.isRunning) {
+    return { status: "start" };
+  }
+  return { status: "stop" };
+};
