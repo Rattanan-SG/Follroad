@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import axios from "@/utilitys/axios";
+import axios from "axios";
 const InfiniteLoading = () => import("vue-infinite-loading");
 const NewsFeedList = () => import("../components/NewsFeedList");
 export default {
@@ -24,7 +24,7 @@ export default {
   methods: {
     getEvent: function($state) {
       axios
-        .get("/events", {
+        .get(`${process.env.VUE_APP_EXTERNAL_EVENT_URL}/event`, {
           params: {
             startAt: this.startAt,
             limit: 10

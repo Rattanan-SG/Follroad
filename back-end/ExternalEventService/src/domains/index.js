@@ -26,10 +26,12 @@ exports.batchInsertEvent = async events => {
       sql.insertEvent,
       formatDataToInsert(events)
     );
-    connection.commit();
+    await connection.commit();
+    await connection.end();
     return result;
   } catch (error) {
     console.log(error);
-    connection.rollback();
+    await connection.rollback();
+    await connection.end();
   }
 };

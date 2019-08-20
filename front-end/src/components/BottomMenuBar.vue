@@ -1,18 +1,8 @@
 <template>
   <v-card height="8%" flat class="hidden-sm-and-up">
-    <!-- <div id="closeBottomMenu">
-      <v-flex xs5></v-flex>
-      <v-flex xs2>
-        <v-btn flat>
-          <v-icon>home</v-icon>
-        </v-btn>
-      </v-flex>
-      <v-flex xs5></v-flex>
-    </div>-->
-
     <v-bottom-nav :active.sync="bottomNav" :value="showNav" height="60%">
       <v-btn
-        color="teal"
+        color="deep-purple accent-4"
         flat
         v-for="list in lists"
         :key="list.text"
@@ -23,11 +13,10 @@
         <span>{{list.text}}</span>
         <v-icon>{{list.icon}}</v-icon>
       </v-btn>
-      <v-btn color="teal" flat>
+      <!-- <v-btn color="teal" flat to="/ProfileMobile">
         <span>Menu</span>
         <v-icon>menu</v-icon>
-      </v-btn>
-      <!-- </v-dialog> -->
+      </v-btn>-->
     </v-bottom-nav>
   </v-card>
 </template>
@@ -52,7 +41,8 @@ export default {
         { text: "Feed", icon: "today", route: "/" },
         { text: "Search", icon: "directions", route: "/search" },
         { text: "Notifications", icon: "notifications" },
-        { text: "Forum", icon: "forum", route: "/news" }
+        { text: "Forum", icon: "forum", route: "/news" },
+        { text: "Menu", icon: "menu", route: "/profilemobile" }
       ]
     };
   },
@@ -62,10 +52,7 @@ export default {
   methods: {
     ...mapActions(["setShowRouterView"]),
     toggleRouterView: function(route) {
-      if (this.activeRouter == route) {
-        this.setShowRouterView(!this.showRouterView);
-      } else {
-        this.activeRouter = route;
+      if ((this.activeRouter = route)) {
         this.setShowRouterView(true);
       }
     }

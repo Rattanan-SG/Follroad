@@ -2,7 +2,7 @@
   <HomeProfile />
 </template>
 <script>
-const HomeProfile = () => import("../components/HomeProfile");
+import HomeProfile from "../components/HomeProfile.vue";
 export default {
   name: "Profile",
   components: {
