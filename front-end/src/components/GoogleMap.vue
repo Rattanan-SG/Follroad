@@ -29,6 +29,7 @@ import { mapGetters, mapActions } from "vuex";
 import { gmapApi } from "vue2-google-maps";
 import { eventBus } from "../main";
 import GmapCluster from "vue2-google-maps/dist/components/cluster";
+import axios from "axios";
 const GoogleMapInfoWindow = () => import("./GoogleMapInfoWindow");
 export default {
   name: "GoogleMap",
@@ -110,9 +111,15 @@ export default {
           //   departureTime: new Date()
           // }
         },
-        (response, status) => {
+        async (response, status) => {
           if (status === "OK") {
-            console.log(JSON.stringify(response));
+            console.log(response);
+            // console.log(JSON.stringify(response));
+            // const { data } = await axios.get(
+            //   `${process.env.VUE_APP_DIRECTION_RECORD_URL}/record/5d5d295cd6927600422718d1`
+            // );
+            // console.log(data.direction);
+
             // console.log(
             //   response.routes[0].overview_path.map(a => {
             //     return a.lat() + ", " + a.lng();

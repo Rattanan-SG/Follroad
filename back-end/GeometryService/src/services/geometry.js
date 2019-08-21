@@ -1,7 +1,7 @@
 const geolib = require("geolib");
 
 const checkDistance = (start, end, toleranceInMeters = 1000) => {
-  console.log(geolib.getDistance(start, end));
+  // console.log(geolib.getDistance(start, end));
   return geolib.getDistance(start, end) <= toleranceInMeters;
 };
 

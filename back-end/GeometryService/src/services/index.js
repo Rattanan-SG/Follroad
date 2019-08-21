@@ -1,7 +1,7 @@
 const sqs = require("./aws-sqs");
 const geometry = require("./geometry");
-const notification = require("./notification");
-const directionRecord = require("./direction-record");
+const notification = require("../client/notification");
+const directionRecord = require("../client/direction-record");
 const { logInfo } = require("../utils/logger");
 
 exports.checkRoute = async () => {
