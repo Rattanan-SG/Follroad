@@ -1,5 +1,13 @@
 <template>
-  <div id="panel" ref="panel"></div>
+  <!-- <div id="panel" ref="panel"></div> -->
+  <!-- <p>{{direction.routes[0].legs[0].distance.text}}</p>--->
+  <div id="panel" ref="panel">
+    <div v-for="(route, index) in direction.routes" :key="index">
+      <p>{{route.summary}}</p>
+
+      <!-- <v-list></v-list> -->
+    </div>
+  </div>
 </template>
 
 <script>
@@ -17,6 +25,8 @@ export default {
   },
   mounted() {
     if (this.directionsRenderer) {
+      console.log(this.direction.routes[0].legs[0].distance.text);
+
       this.directionsRenderer.setPanel(this.$refs.panel);
       setTimeout(() => {
         this.setupPanel();

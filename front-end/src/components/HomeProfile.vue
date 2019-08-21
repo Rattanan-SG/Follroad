@@ -66,4 +66,7 @@
   </v-container>
 </template>
 <script>
+export default {
+  name: "HomeProfile"
+};
 </script>

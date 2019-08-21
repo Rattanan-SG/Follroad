@@ -22,6 +22,7 @@ exports.syncEvent = async () => {
     event => !databaseEventsEid.includes(parseInt(event.eid))
   );
   if (eventFilter.length != 0) {
+    console.log(eventFilter);
     const result = await domain.batchInsertEvent(eventFilter);
     logInfo("Update event complete", result);
     return result;

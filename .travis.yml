@@ -5,13 +5,16 @@ services:
 
 before_install:
   - docker build -t $DOCKER_HUB_USER/follroad-external-event ./back-end/ExternalEventService
+  - docker build -t $DOCKER_HUB_USER/follroad-notification ./back-end/NotificationService
 
 script:
   - docker run $DOCKER_HUB_USER/follroad-external-event npm test
+  - docker run $DOCKER_HUB_USER/follroad-notification npm test
 
 after_success:
   - echo "$DOCKER_HUB_PSW" | docker login -u "$DOCKER_HUB_USER" --password-stdin
   - docker push $DOCKER_HUB_USER/follroad-external-event
+  - docker push $DOCKER_HUB_USER/follroad-notification
 
 deploy:
   skip_cleanup: true
