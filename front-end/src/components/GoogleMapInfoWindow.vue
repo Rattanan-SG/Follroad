@@ -106,7 +106,7 @@
           <v-card-title primary-title>
             <div>
               <div>
-                <h3>{{infoWindow.marker.description}}</h3>
+                <v-list-item-title>{{infoWindow.marker.description}}</v-list-item-title>
               </div>
               <br />
               <v-divider></v-divider>
@@ -129,14 +129,11 @@
       </v-layout>
 
       <v-card-actions>
-        <v-btn text color="white">Read</v-btn>
+        <v-btn class="hidden-sm-and-down" text color="white">See More</v-btn>
+        <v-btn class="hidden-sm-and-up" icon @click="show = !show">
+          <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+        </v-btn>
         <v-spacer></v-spacer>
-        <v-btn icon>
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
-        <v-btn icon>
-          <v-icon>mdi-share-variant</v-icon>
-        </v-btn>
       </v-card-actions>
     </v-card>
     <!-- <h2>{{infoWindow.marker.title}}</h2>
