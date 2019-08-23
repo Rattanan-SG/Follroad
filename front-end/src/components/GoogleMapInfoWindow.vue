@@ -129,7 +129,7 @@
       </v-layout>
 
       <v-card-actions>
-        <v-btn class="hidden-sm-and-down" text color="white">See More</v-btn>
+        <v-btn class="hidden-sm-and-down" text color="white" to="/details">See More</v-btn>
         <v-btn class="hidden-sm-and-up" icon @click="show = !show">
           <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
         </v-btn>
