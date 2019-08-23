@@ -56,6 +56,7 @@
         @click="startDirections"
       >ค้นหาเส้นทาง</v-btn>
       <v-btn v-else color="red" class="white--text" @click="stopDirections">ยกเลิกเส้นทาง</v-btn>
+      <SaveRoute />
     </v-layout>
     <v-layout row wrap>
       <v-flex xs12 my-1>
@@ -71,13 +72,15 @@
 <script>
 const SearchPanel = () => import("../components/SearchPanel");
 const SearchFeedPanel = () => import("../components/SearchFeedPanel");
+import SaveRoute from "../components/SaveRoute";
 import { mapGetters, mapActions } from "vuex";
 import { eventBus } from "../main";
 export default {
   name: "Search",
   components: {
     SearchPanel,
-    SearchFeedPanel
+    SearchFeedPanel,
+    SaveRoute
   },
   data() {
     return {
