@@ -74,7 +74,7 @@
     <v-card max-width="344" class="mx-auto">
       <v-layout>
         <v-flex xs12 lg12 mt-5>
-          <v-list-tile :key="index" avatar ripple to>
+          <v-list-tile avatar ripple to>
             <v-list-tile-action>
               <v-img :src="infoWindow.marker.icon" max-width="40" max-height="40"></v-img>
             </v-list-tile-action>
