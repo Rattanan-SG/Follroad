@@ -1,6 +1,6 @@
 const domain = require("../domains");
 const itic = require("./itic-api");
-const { logInfo } = require("../utils/logger");
+const { logInfo, logDebug } = require("../utils/logger");
 
 exports.getEvent = query => {
   let limit = parseInt(query.limit);
@@ -22,7 +22,10 @@ exports.syncEvent = async () => {
     event => !databaseEventsEid.includes(parseInt(event.eid))
   );
   if (eventFilter.length != 0) {
-    console.log(eventFilter);
+    logDebug("New Event to insert", {
+      length: eventFilter.length,
+      eid: eventFilter.map(e => e.eid)
+    });
     const result = await domain.batchInsertEvent(eventFilter);
     logInfo("Update event complete", result);
     return result;

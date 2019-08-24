@@ -12,21 +12,6 @@ services:
       - /app/node_modules
     environment:
       TZ: Asia/Bangkok
-  mariadb:
-    image: mariadb
-    restart: always
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./back-end/ExternalEventService/src/utils:/docker-entrypoint-initdb.d
-      - mariadb:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: dev
-      MYSQL_DATABASE: dev
-      TZ: Asia/Bangkok
   message-queue:
     build: ./back-end/MessageQueueServiceProducer
     command: ["npm", "run", "dev"]
@@ -45,6 +30,39 @@ services:
     volumes:
       - ./back-end/NotificationService:/app
       - /app/node_modules
+  direction-record:
+    build: ./back-end/DirectionRecordService
+    command: ["npm", "run", "dev"]
+    ports:
+      - "3003:3003"
+    links:
+      - mongodb
+    volumes:
+      - ./back-end/DirectionRecordService:/app
+      - /app/node_modules
+  geometry-service:
+    build: ./back-end/GeometryService
+    command: ["npm", "run", "dev"]
+    ports:
+      - "3005:3005"
+    volumes:
+      - ./back-end/GeometryService:/app
+      - /app/node_modules
+  mariadb:
+    image: mariadb
+    restart: always
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./back-end/ExternalEventService/src/utils:/docker-entrypoint-initdb.d
+      - mariadb:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: dev
+      MYSQL_DATABASE: dev
+      TZ: Asia/Bangkok
   mongodb:
     image: mongo
     restart: always
@@ -68,5 +86,5 @@ services:
   #     - ./front-end:/app
   #     - /app/node_modules
 volumes:
-  mongodb:
   mariadb:
+  mongodb:

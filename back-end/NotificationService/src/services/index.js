@@ -62,7 +62,7 @@ const sendMutipleNotification = async (qurey, message) => {
         keys
       };
       return webpush
-        .sendNotification(pushSubscription, message)
+        .sendNotification(pushSubscription, JSON.stringify(message))
         .then(data => {
           successCount++;
           return data;
