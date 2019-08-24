@@ -5,6 +5,17 @@ const checkDistanceIsWithinMeters = (start, end, toleranceInMeters = 100) => {
   return geolib.getDistance(start, end) <= toleranceInMeters;
 };
 
+exports.checkLatLngAndRoute = (latLng, route, toleranceInMeters) => {
+  const result = route.some(path =>
+    checkDistanceIsWithinMeters(
+      latLng,
+      { latitude: path.lat, longitude: path.lng },
+      toleranceInMeters
+    )
+  );
+  return result;
+};
+
 exports.checkEventIsRelatedToThisRoutes = (
   eventLatLng,
   routes,

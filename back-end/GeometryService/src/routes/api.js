@@ -3,11 +3,9 @@ const controller = require("../controllers");
 
 const router = express.Router();
 
-router.post("/check-route", controller.checkRoute);
-router.get("/consumer/check", controller.consumerCheck)
-router.post("/consumer/start", controller.consumerStart)
-router.post("/consumer/stop", controller.consumerStop)
-// router.post("/queue", controller.createQueue); Not available now.
-// router.delete("/queue/:name", controller.deleteQueueByName); Not available now.
+router.post("/isLocationOnRoute", controller.isLocationOnRoute);
+router.get("/consumer/status", controller.consumerStatus);
+router.post("/consumer/start", controller.consumerStart);
+router.post("/consumer/stop", controller.consumerStop);
 
 module.exports = router;
