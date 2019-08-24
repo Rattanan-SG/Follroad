@@ -52,7 +52,7 @@ const actions = {
           return rootState.googleMap.googleClass.maps.geometry.poly.isLocationOnEdge(
             latLng,
             state.routePolyline,
-            0.001
+            0.002
           );
         });
         commit("SET_SPECIFICEVENTS", result);

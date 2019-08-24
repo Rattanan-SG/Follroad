@@ -38,30 +38,45 @@ exports.checkEventWithRecord = async event => {
 exports.handleMessageBatchCheckEvents = async messages => {
   const records = await directionRecord.getRecord();
   let trueCount = 0,
-    faultCount = 0;
-  const summary = await Promise.all(
-    messages.map(({ MessageAttributes: event }) => {
-      const resultRecords = records.map(record => {
-        const result = geometry.checkEventIsRelatedToThisRoutes(
-          event,
-          record.direction.routes,
-          200
-        );
-        if (result) trueCount++;
-        else faultCount++;
-        return {
-          recordId: record._id,
-          uid: record.uid,
-          event: event.title.StringValue,
-          result
-        };
+    faultCount = 0,
+    summary = [];
+
+  messages.forEach(({ MessageAttributes: event }) => {
+    const resultRecords = records.map(record => {
+      const result = geometry.checkEventIsRelatedToThisRoutes(
+        {
+          latitude: Number(event.latitude.StringValue),
+          longitude: Number(event.longitude.StringValue)
+        },
+        record.direction.routes,
+        200
+      );
+      if (result) trueCount++;
+      else faultCount++;
+      return {
+        recordId: record._id,
+        uid: record.uid,
+        result
+      };
+    });
+    // logDebug("Check event is related with records", {
+    //   event: event.title.StringValue,
+    //   resultRecords
+    // });
+    const filterUid = resultRecords
+      .filter(item => item.result)
+      .map(obj => obj.uid);
+    if (filterUid.length > 0) {
+      notification.sendToSpecificUser({
+        message: {
+          title: event.title.StringValue,
+          body: event.description.StringValue
+        },
+        uid: filterUid
       });
-      logDebug("Check event is related with records", resultRecords);
-      const FilteredResults = resultRecords.filter(item => item.result);
-      console.log(FilteredResults);
-      return FilteredResults;
-    })
-  );
+    }
+    summary.push({ event: event.title.StringValue, related: filterUid });
+  });
   logInfo("Handle Message Batch Check Events", {
     trueCount,
     faultCount,

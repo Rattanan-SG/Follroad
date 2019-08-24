@@ -6,16 +6,15 @@ const checkDistanceIsWithinMeters = (start, end, toleranceInMeters = 100) => {
 };
 
 exports.checkEventIsRelatedToThisRoutes = (
-  event,
+  eventLatLng,
   routes,
   toleranceInMeters
 ) => {
-  const eventLatLng = { latitude: event.latitude, longitude: event.longitude };
   const result = routes.some(({ overview_path }) =>
     overview_path.some(path =>
       checkDistanceIsWithinMeters(
-        { latitude: path.lat, longitude: path.lng },
         eventLatLng,
+        { latitude: path.lat, longitude: path.lng },
         toleranceInMeters
       )
     )
