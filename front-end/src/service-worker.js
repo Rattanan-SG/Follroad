@@ -6,9 +6,10 @@ workbox.clientsClaim();
 
 self.addEventListener("push", event => {
   console.log("[Service Worker] Push Received.");
-  const title = "Push Codelab";
+  const data = event.data.json();
+  const title = data.title;
   const options = {
-    body: "Yay it works. : " + event.data.text(),
+    body: data.body,
     icon: "img/icons/favicon-32x32.png",
     badge: "img/icons/favicon-32x32.png"
   };
