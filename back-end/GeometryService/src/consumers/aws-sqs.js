@@ -1,27 +1,26 @@
 const { Consumer } = require("sqs-consumer");
-const service = require("./index");
+const service = require("../services");
 const { logInfo, logError } = require("../utils/logger");
 
 const consumer = Consumer.create({
   queueUrl: global.gConfig.sqs_queue_url,
   messageAttributeNames: ["All"],
-  handleMessage: async message => {
-    service.checkNewEventWithAllRecord(message.MessageAttributes);
-  },
+  handleMessageBatch: async messages =>
+    service.handleMessageBatchCheckEvents(messages),
   batchSize: 10,
   visibilityTimeout: 10
 });
 
 consumer.on("error", err => {
-  logError("SQS-Consumer error", err.message);
+  logError("SQS-Consumer error", err);
 });
 
 consumer.on("processing_error", err => {
-  logError("SQS-Consumer processing_error", err.message);
+  logError("SQS-Consumer processing_error", err);
 });
 
 consumer.on("timeout_error", err => {
-  logError("SQS-Consumer timeout_error", err.message);
+  logError("SQS-Consumer timeout_error", err);
 });
 
 consumer.on("stopped", () => {

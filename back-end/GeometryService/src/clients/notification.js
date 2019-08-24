@@ -15,7 +15,7 @@ exports.getSubscription = params => {
 
 exports.sendToSpecificUser = data => {
   return notification
-    .post("subscription/send", data)
+    .post("/subscription/send", data)
     .then(response => response.data)
     .catch(err => {
       throw err;
@@ -24,7 +24,7 @@ exports.sendToSpecificUser = data => {
 
 exports.sendToAllUser = data => {
   return notification
-    .post("subscription/send/all", data)
+    .post("/subscription/send/all", data)
     .then(response => response.data)
     .catch(err => {
       throw err;

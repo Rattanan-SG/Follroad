@@ -1,6 +1,6 @@
 const asyncWrapper = require("../middleware/async-wrapper");
 const service = require("../services");
-const consumer = require("../services/aws-sqs");
+const consumer = require("../consumers/aws-sqs");
 
 exports.checkRoute = asyncWrapper(async (req, res) => {
   const result = await service.checkss(req.body);

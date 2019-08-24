@@ -1,17 +1,23 @@
 const geolib = require("geolib");
 
-const checkDistance = (start, end, toleranceInMeters = 1000) => {
+const checkDistanceIsWithinMeters = (start, end, toleranceInMeters = 100) => {
   // console.log(geolib.getDistance(start, end));
   return geolib.getDistance(start, end) <= toleranceInMeters;
 };
 
-exports.mappingEventAndRecords = (event, records) => {
-  //   const routes = records.direction.routes;
-  const routes = records.routes;
+exports.checkEventIsRelatedToThisRoutes = (
+  event,
+  routes,
+  toleranceInMeters
+) => {
   const eventLatLng = { latitude: event.latitude, longitude: event.longitude };
   const result = routes.some(({ overview_path }) =>
     overview_path.some(path =>
-      checkDistance({ latitude: path.lat, longitude: path.lng }, eventLatLng)
+      checkDistanceIsWithinMeters(
+        { latitude: path.lat, longitude: path.lng },
+        eventLatLng,
+        toleranceInMeters
+      )
     )
   );
   return result;
