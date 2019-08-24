@@ -9,7 +9,7 @@ const config = {
     node_port: 3005,
     notification_api: env.NOTIFICATION_API,
     direction_record_api: env.DIRECTION_RECORD_API,
-    sqs_queue_url: env.SQS_QUEUE_URL
+    sqs_notification_url: env.SQS_NOTIFICATION_URL
   },
   testing: {
     config_id: "testing"
@@ -19,14 +19,14 @@ const config = {
     node_port: env.NODE_PORT || 3005,
     notification_api: env.NOTIFICATION_API,
     direction_record_api: env.DIRECTION_RECORD_API,
-    sqs_queue_url: env.SQS_QUEUE_URL
+    sqs_notification_url: env.SQS_NOTIFICATION_URL
   },
   production: {
     config_id: "production",
     node_port: env.NODE_PORT || 3005,
     notification_api: env.NOTIFICATION_API,
     direction_record_api: env.DIRECTION_RECORD_API,
-    sqs_queue_url: env.SQS_QUEUE_URL
+    sqs_notification_url: env.SQS_NOTIFICATION_URL
   }
 };
 

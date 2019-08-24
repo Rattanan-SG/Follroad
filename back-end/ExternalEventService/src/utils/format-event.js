@@ -1,4 +1,4 @@
-exports.formatDataToInsert = events => {
+exports.formatEventToInsert = events => {
   let result = [];
   events.map(event => {
     let row = [];
@@ -26,3 +26,30 @@ exports.formatDataToInsert = events => {
   });
   return result;
 };
+
+exports.formatEventToSendMessageQueue = events =>
+  events.map(
+    ({
+      eid,
+      title,
+      description,
+      latitude,
+      longitude,
+      type,
+      start,
+      stop,
+      contributor,
+      icon
+    }) => ({
+      eid,
+      title,
+      description,
+      latitude,
+      longitude,
+      type,
+      start,
+      stop,
+      contributor,
+      icon
+    })
+  );
