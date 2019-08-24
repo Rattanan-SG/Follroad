@@ -22,8 +22,9 @@
     </v-toolbar>
     <br />
     <br />
+    <br />
 
-    <v-card max-width="344" class="mx-auto">
+    <v-card max-width="100%" class="mx-auto" flat>
       <v-layout>
         <!-- <v-flex xs12 lg12 mt-5>
           <v-list-tile avatar ripple to>
@@ -40,13 +41,15 @@
         </v-flex>-->
         <br />
         <br />
+        <br />
         <v-list-tile-action>
           <v-img :src="infoWindow.marker.icon" max-width="40" max-height="40"></v-img>
         </v-list-tile-action>
         <v-list-item three-line>
           <v-list-item-content class="align-self-start">
-            <v-list-item-title class="headline mb-2">{{infoWindow.marker.title}}</v-list-item-title>
-            <br />
+            <!-- <v-list-item-title class="headline mb-">{{infoWindow.marker.title}}</v-list-item-title> -->
+
+            <h3>{{infoWindow.marker.title}}</h3>
             <v-list-item-subtitle>by {{infoWindow.marker.eventCaption.contributor}}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
