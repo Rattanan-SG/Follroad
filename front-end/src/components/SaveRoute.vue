@@ -58,6 +58,9 @@
                   </div>
                 </v-card>
               </v-flex>
+              <v-flex xs12 md12>
+                <v-switch v-model="switch1" label="รับการแจ้งเตือนในเส้นทางนี้ ?"></v-switch>
+              </v-flex>
               <v-flex xs11 sm11>
                 <v-menu
                   ref="menu"
@@ -71,6 +74,7 @@
                   full-width
                   max-width="290px"
                   min-width="290px"
+                  v-if="switch1"
                 >
                   <template v-slot:activator="{ on }">
                     <v-text-field
@@ -107,11 +111,6 @@
                   </v-time-picker>
                 </v-dialog>
               </v-flex>
-              <v-flex xs12 md12>
-                <v-radio-group v-model="dialogm1" column>
-                  <v-radio label="รับการแจ้งเตือนในเส้นทางนี้ ?"></v-radio>
-                </v-radio-group>
-              </v-flex>
             </v-layout>
             <!-- </v-container> -->
           </v-card-text>
@@ -135,7 +134,8 @@ export default {
       time: null,
       menu2: false,
       modal2: false,
-      dialogm1: ""
+      dialogm1: "",
+      switch1: false
     };
   },
   computed: {
