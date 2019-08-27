@@ -1,9 +1,9 @@
 const { Consumer } = require("sqs-consumer");
-const service = require("../services");
 const { logInfo, logError } = require("../utils/logger");
+const service = require("../services");
 
 const consumer = Consumer.create({
-  queueUrl: global.gConfig.sqs_queue_url,
+  queueUrl: global.gConfig.sqs_notification_url,
   messageAttributeNames: ["All"],
   handleMessageBatch: async messages =>
     service.handleMessageBatchCheckEvents(messages),
