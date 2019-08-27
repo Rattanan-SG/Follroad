@@ -1,4 +1,5 @@
 "use strict";
+const moment = require("moment");
 module.exports = (sequelize, DataTypes) => {
   const internalEvent = sequelize.define(
     "internalEvent",
@@ -31,11 +32,21 @@ module.exports = (sequelize, DataTypes) => {
       },
       start: {
         allowNull: false,
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
+        get() {
+          return moment(this.getDataValue("start"))
+            .local()
+            .format("YYYY-MM-DD h:mm:ss");
+        }
       },
       stop: {
         allowNull: false,
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
+        get() {
+          return moment(this.getDataValue("stop"))
+            .local()
+            .format("YYYY-MM-DD h:mm:ss");
+        }
       },
       icon: {
         allowNull: false,
@@ -57,25 +68,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       tableName: "internal_event",
-      paranoid: true,
-      defaultScope: {
-        attributes: {
-          include: [
-            [
-              sequelize.fn(
-                "date_format",
-                sequelize.col("start"),
-                "%Y-%m-%d %T"
-              ),
-              "start"
-            ],
-            [
-              sequelize.fn("date_format", sequelize.col("stop"), "%Y-%m-%d %T"),
-              "stop"
-            ]
-          ]
-        }
-      }
+      paranoid: true
     }
   );
   internalEvent.associate = function(models) {
