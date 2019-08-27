@@ -1,5 +1,7 @@
 "use strict";
+const Sequelize = require("sequelize");
 const moment = require("moment");
+const Op = Sequelize.Op;
 module.exports = (sequelize, DataTypes) => {
   const internalEvent = sequelize.define(
     "internalEvent",
@@ -33,6 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       start: {
         allowNull: false,
         type: DataTypes.DATE,
+        defaultValue: Sequelize.NOW,
         get() {
           return moment(this.getDataValue("start"))
             .local()
@@ -68,7 +71,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       tableName: "internal_event",
-      paranoid: true
+      paranoid: true,
+      defaultScope: {
+        where: {
+          stop: {
+            [Op.gt]: sequelize.fn("NOW")
+          }
+        }
+      }
     }
   );
   internalEvent.associate = function(models) {
