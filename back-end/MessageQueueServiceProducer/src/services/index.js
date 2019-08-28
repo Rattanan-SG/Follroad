@@ -19,7 +19,7 @@ const parseDataToEntrie = (data, index) => {
   })(data);
   return {
     Id: index.toString(),
-    MessageBody: data.title,
+    MessageBody: data.title.toString(),
     MessageAttributes
   };
 };
