@@ -40,7 +40,19 @@ services:
     volumes:
       - ./back-end/DirectionRecordService:/app
       - /app/node_modules
-  geometry-service:
+  internal-event:
+    build: ./back-end/InternalEventService
+    command: ["npm", "run", "dev"]
+    ports:
+      - "3004:3004"
+    links:
+      - mariadb:database
+    volumes:
+      - ./back-end/InternalEventService:/app
+      - /app/node_modules
+    environment:
+      TZ: Asia/Bangkok
+  geometry:
     build: ./back-end/GeometryService
     command: ["npm", "run", "dev"]
     ports:

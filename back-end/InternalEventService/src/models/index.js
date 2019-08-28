@@ -14,15 +14,21 @@ if (config.use_env_variable) {
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, {
     ...config,
+    dialectOptions: {
+      useUTC: false,
+      timezone: "Etc/GMT0"
+    },
     pool: {
-      max:  parseInt(config.maxConnectionPool, 10),
+      max: parseInt(config.maxConnectionPool, 10),
       min: 0,
       acquire: 20000,
       idle: 10000
     },
     define: {
       timestamps: true
-    }
+    },
+    benchmark: false,
+    logging: false
   });
 }
 

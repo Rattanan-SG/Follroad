@@ -19,7 +19,6 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "helmet": "^3.20.0",
-    "lodash": "^4.17.15",
     "mariadb": "^2.1.0",
     "morgan": "^1.9.1",
     "winston": "^3.2.1"

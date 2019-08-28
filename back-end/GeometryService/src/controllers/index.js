@@ -1,6 +1,6 @@
 const asyncWrapper = require("../middleware/async-wrapper");
 const service = require("../services");
-const consumer = require("../consumers/aws-sqs");
+const consumer = require("../consumers/notification");
 
 exports.isLocationOnRoute = asyncWrapper(async (req, res) => {
   const result = await service.isLocationOnRoute(req.body);

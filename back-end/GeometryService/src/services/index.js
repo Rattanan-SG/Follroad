@@ -1,4 +1,3 @@
-const sqs = require("../consumers/aws-sqs");
 const geometry = require("./geometry");
 const notification = require("../clients/notification");
 const directionRecord = require("../clients/direction-record");
