@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(route);
 app.use(errorMiddleware);
 
-const PORT = global.gConfig.node_port || 3004;
+const PORT = global.gConfig.node_port || 3000;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}...`);
 });

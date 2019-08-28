@@ -6,7 +6,7 @@ const options = {
 };
 
 // const options = {
-//   url: "https://follroad.tk/external-event/api/event/sync",
+//   url: "https://follroad.tk/event/api/event/sync",
 //   method: "post"
 // };
 
