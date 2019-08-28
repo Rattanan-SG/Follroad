@@ -49,6 +49,7 @@
       </v-flex>
     </v-layout>
     <v-layout row wrap my-3 justify-center>
+      <SaveRoute />
       <v-btn
         v-if="!directionsRenderer"
         color="blue"
@@ -71,13 +72,15 @@
 <script>
 const SearchPanel = () => import("../components/SearchPanel");
 const SearchFeedPanel = () => import("../components/SearchFeedPanel");
+import SaveRoute from "../components/SaveRoute";
 import { mapGetters, mapActions } from "vuex";
 import { eventBus } from "../main";
 export default {
   name: "Search",
   components: {
     SearchPanel,
-    SearchFeedPanel
+    SearchFeedPanel,
+    SaveRoute
   },
   data() {
     return {

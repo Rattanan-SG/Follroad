@@ -52,7 +52,7 @@ services:
       - /app/node_modules
     environment:
       TZ: Asia/Bangkok
-  geometry-service:
+  geometry:
     build: ./back-end/GeometryService
     command: ["npm", "run", "dev"]
     ports:
