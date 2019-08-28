@@ -49,6 +49,7 @@
       </v-flex>
     </v-layout>
     <v-layout row wrap my-3 justify-center>
+      <SaveRoute />
       <v-btn
         v-if="!directionsRenderer"
         color="blue"
@@ -56,7 +57,6 @@
         @click="startDirections"
       >ค้นหาเส้นทาง</v-btn>
       <v-btn v-else color="red" class="white--text" @click="stopDirections">ยกเลิกเส้นทาง</v-btn>
-      <SaveRoute />
     </v-layout>
     <v-layout row wrap>
       <v-flex xs12 my-1>
