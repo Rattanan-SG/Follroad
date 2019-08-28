@@ -47,7 +47,12 @@ exports.handleMessageBatchCheckEvents = async messages => {
         uid: filterUid
       });
     }
-    summary.push({ event: event.title.StringValue, related: filterUid });
+    summary.push({
+      event: event.title.StringValue,
+      latitude: event.latitude.StringValue,
+      longitude: event.longitude.StringValue,
+      related: filterUid
+    });
   });
   logInfo("Handle Message Batch Check Events", {
     trueCount,

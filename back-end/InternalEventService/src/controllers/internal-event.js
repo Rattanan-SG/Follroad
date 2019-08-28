@@ -16,12 +16,12 @@ exports.getInternalEventById = asyncWrapper(async (req, res) => {
   res.send(result);
 });
 
-// exports.patchInternalEventById = asyncWrapper(async (req, res) => {
-//   const result = await internalEvent.patchRecordById(req.params.id, req.body);
-//   res.send(result);
-// });
+exports.patchInternalEventById = asyncWrapper(async (req, res) => {
+  const result = await internalEvent.patchInternalEventById(req.params.id, req.body);
+  res.send(result);
+});
 
-// exports.deleteInternalEventById = asyncWrapper(async (req, res) => {
-//   const result = await internalEvent.deleteRecordById(req.params.id);
-//   res.send(result);
-// });
+exports.deleteInternalEventById = asyncWrapper(async (req, res) => {
+  const result = await internalEvent.deleteInternalEventById(req.params.id);
+  res.send(result);
+});

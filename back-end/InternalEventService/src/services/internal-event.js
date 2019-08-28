@@ -6,7 +6,7 @@ exports.getInternalEvent = query => internalEvent.findAll(query);
 
 exports.getInternalEventById = id => internalEvent.findByPk(id);
 
-// exports.patchInternalEventById = (id, directionRecord) =>
-//   DirectionRecord.findByIdAndUpdate(id, directionRecord, { new: true });
+exports.patchInternalEventById = (id, body) =>
+  internalEvent.updateByPk(id, body);
 
-// exports.deleteInternalEventById = id => DirectionRecord.findByIdAndDelete(id);
+exports.deleteInternalEventById = id => internalEvent.deleteByPk(id);
