@@ -1,16 +1,25 @@
 "use strict";
 const Sequelize = require("sequelize");
 const moment = require("moment");
+const {
+  EVENT_CATEGORY,
+  EVENT_SOURCE,
+  EVENT_MAPPING
+} = require("../utils/constant");
 const Op = Sequelize.Op;
 module.exports = (sequelize, DataTypes) => {
-  const internalEvent = sequelize.define(
-    "internalEvent",
+  const event = sequelize.define(
+    "event",
     {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER
+      },
+      eid: {
+        unique: true,
+        type: DataTypes.STRING
       },
       title: {
         allowNull: false,
@@ -24,13 +33,26 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.DOUBLE
       },
-      longtitude: {
+      longitude: {
         allowNull: false,
         type: DataTypes.DOUBLE
       },
       type: {
         allowNull: false,
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        validate: {
+          typeMustMatchWithIcon(value) {
+            const found = EVENT_MAPPING.find(element => element.type == value);
+            if (value && !found) {
+              throw new Error(`Not found type ${this.type}`);
+            }
+            if (this.icon !== found.icon) {
+              throw new Error(
+                `type ${this.type} should match with icon ${found.icon}`
+              );
+            }
+          }
+        }
       },
       start: {
         allowNull: false,
@@ -39,21 +61,36 @@ module.exports = (sequelize, DataTypes) => {
         get() {
           return moment(this.getDataValue("start"))
             .local()
-            .format("YYYY-MM-DD h:mm:ss");
+            .format("YYYY-MM-DD HH:mm:ss");
         }
       },
       stop: {
         allowNull: false,
         type: DataTypes.DATE,
+        defaultValue: Sequelize.NOW,
         get() {
           return moment(this.getDataValue("stop"))
             .local()
-            .format("YYYY-MM-DD h:mm:ss");
+            .format("YYYY-MM-DD HH:mm:ss");
         }
+      },
+      contributor: {
+        allowNull: false,
+        type: DataTypes.STRING
       },
       icon: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        validate: {
+          isIn: [Object.values(EVENT_CATEGORY)]
+        }
+      },
+      source: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        validate: {
+          isIn: [Object.values(EVENT_SOURCE)]
+        }
       },
       createdAt: {
         field: "created_at",
@@ -70,19 +107,22 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     {
-      tableName: "internal_event",
+      tableName: "event",
       paranoid: true,
-      defaultScope: {
-        where: {
-          stop: {
-            [Op.gt]: sequelize.fn("NOW")
-          }
+      scopes: {
+        activeEvent: {
+          where: {
+            stop: {
+              [Op.gt]: sequelize.fn("NOW")
+            }
+          },
+          order: [["start", "DESC"]]
         }
       }
     }
   );
-  internalEvent.associate = function(models) {
+  event.associate = function(models) {
     // associations can be defined here
   };
-  return internalEvent;
+  return event;
 };

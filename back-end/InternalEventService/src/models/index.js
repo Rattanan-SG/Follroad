@@ -27,7 +27,6 @@ if (config.use_env_variable) {
     define: {
       timestamps: true
     },
-    benchmark: false,
     logging: false
   });
 }

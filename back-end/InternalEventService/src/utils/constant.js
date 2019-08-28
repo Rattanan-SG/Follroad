@@ -1,22 +1,27 @@
-const EVENT_CATEGORY = [
-  "carbreakdown",
-  "construction",
-  "accident",
-  "rain",
-  "flood",
-  "demonstration",
-  "information",
-  "checkpoint",
-  "trafficjam",
-  "misc",
-  "warning",
-  "event",
-  "sale",
-  "fire",
-  "complaint"
-];
+const EVENT_CATEGORY = {
+  CARBREAKDOWN: "carbreakdown",
+  CONSTRUCTION: "construction",
+  ACCIDENT: "accident",
+  RAIN: "rain",
+  FLOOD: "flood",
+  DEMONSTRATION: "demonstration",
+  INFORMATION: "information",
+  CHECKPOINT: "checkpoint",
+  TRAFFICJAM: "trafficjam",
+  MISC: "misc",
+  WARNING: "warning",
+  EVENT: "event",
+  SALE: "sale",
+  FIRE: "fire",
+  COMPLAINT: "complaint"
+};
 
-const EVENT_DURATION = [
+const EVENT_SOURCE = {
+  FOLLROAD: "follroad",
+  ITIC: "itic"
+};
+
+const EVENT_MAPPING = [
   { icon: "carbreakdown", type: "1", defaultDuration: { hours: 2 } },
   { icon: "construction", type: "2", defaultDuration: { days: 2 } },
   { icon: "accident", type: "3", defaultDuration: { hours: 2 } },
@@ -33,3 +38,9 @@ const EVENT_DURATION = [
   { icon: "fire", type: "15", defaultDuration: { hours: 2 } },
   { icon: "complaint", type: "16", defaultDuration: { days: 2 } }
 ];
+
+module.exports = {
+  EVENT_CATEGORY,
+  EVENT_SOURCE,
+  EVENT_MAPPING
+};

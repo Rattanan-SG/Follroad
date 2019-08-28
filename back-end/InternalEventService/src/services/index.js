@@ -1,5 +1,5 @@
-const internalEvent = require("./internal-event");
+const event = require("./event");
 
 module.exports = {
-  internalEvent
+  event
 };

@@ -1,12 +1,17 @@
 "use strict";
+const { EVENT_CATEGORY, EVENT_SOURCE } = require("../utils/constant");
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("internal_event", {
+    return queryInterface.createTable("event", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
+      },
+      eid: {
+        unique: true,
+        type: Sequelize.STRING
       },
       title: {
         allowNull: false,
@@ -20,7 +25,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DOUBLE
       },
-      longtitude: {
+      longitude: {
         allowNull: false,
         type: Sequelize.DOUBLE
       },
@@ -36,9 +41,23 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      icon: {
+      contributor: {
         allowNull: false,
         type: Sequelize.STRING
+      },
+      icon: {
+        allowNull: false,
+        type: Sequelize.STRING,
+        validate: {
+          isIn: [Object.values(EVENT_CATEGORY)]
+        }
+      },
+      source: {
+        allowNull: false,
+        type: Sequelize.STRING,
+        validate: {
+          isIn: [Object.values(EVENT_SOURCE)]
+        }
       },
       createdAt: {
         field: "created_at",
@@ -56,6 +75,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("internal_event");
+    return queryInterface.dropTable("event");
   }
 };
