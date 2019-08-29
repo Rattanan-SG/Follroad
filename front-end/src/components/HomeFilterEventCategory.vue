@@ -8,8 +8,8 @@
       <v-divider></v-divider>
       <v-card-text style="height: 500px;">
         <v-layout row wrap>
-          <v-flex xl6 lg6 md6 sm12 xs12 v-for="(item, index) in checkbox" :key="index">
-            <v-checkbox v-model="selected" :value="item" :label="item"></v-checkbox>
+          <v-flex xl6 lg6 md6 sm12 xs12 v-for="(item, index) in checkbox" :key="index.type">
+            <v-checkbox v-model="selected" :value="item.value" :label="item.label"></v-checkbox>
           </v-flex>
         </v-layout>
       </v-card-text>
@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       dialog: false,
-      checkbox: eventService.EVENT_CATEGORY
+      checkbox: eventService.EVENT_CATEGORY_OBJECT
     };
   },
   computed: {
