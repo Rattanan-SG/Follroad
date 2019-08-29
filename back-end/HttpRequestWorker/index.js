@@ -5,11 +5,6 @@ const options = {
   method: env.METHOD
 };
 
-// const options = {
-//   url: "https://follroad.tk/event/api/event/sync",
-//   method: "post"
-// };
-
 axios(options)
   .then(res => {
     console.log(

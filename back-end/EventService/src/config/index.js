@@ -6,7 +6,7 @@ const state = env.NODE_ENV || "development";
 const config = {
   development: {
     config_id: "development",
-    node_port: 3000,
+    node_port: env.NODE_PORT || 3000,
     itic_api: env.ITIC_API,
     message_queue_api: env.MESSAGE_QUEUE_API
   },
