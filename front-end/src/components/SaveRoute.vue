@@ -60,12 +60,12 @@
 
               <v-flex xs12 md12 lg12>
                 <v-card>
-                  <v-layout>
+                  <v-layout row>
                     <v-flex xs5 md5 lg5 ml-1>
                       <v-combobox
                         v-model="select"
                         :items="items"
-                        label="เลือกวันที่ต้องการ"
+                        label="เลือกวัน"
                         multiple
                         chips
                         v-if="switch1"
@@ -90,7 +90,7 @@
                         <template v-slot:activator="{ on }">
                           <v-text-field
                             v-model="time"
-                            label="เวลาในการแจ้งเตือน"
+                            label="ตั้งเวลา"
                             prepend-icon="access_time"
                             readonly
                             v-on="on"
@@ -105,7 +105,7 @@
                       </v-menu>
                     </v-flex>
                     <!-- <v-flex xs1 lg1 md1></v-flex> -->
-                    <v-flex xs1 lg1 md1 mt-3 v-if="switch1">
+                    <v-flex lg1 md1 mt-3 v-if="switch1">
                       <v-btn icon small>
                         <v-icon>add_circle_outline</v-icon>
                       </v-btn>
@@ -124,13 +124,7 @@
                         min-width="290px"
                       >
                         <template v-slot:activator="{ on }">
-                          <v-text-field
-                            v-model="date"
-                            label="เลือกวันที่"
-                            prepend-icon="event"
-                            readonly
-                            v-on="on"
-                          ></v-text-field>
+                          <v-text-field v-model="date" label="เลือกวัน" readonly v-on="on"></v-text-field>
                         </template>
                         <v-date-picker v-model="date" @input="menu3 = false"></v-date-picker>
                       </v-menu>
@@ -154,7 +148,7 @@
                         <template v-slot:activator="{ on }">
                           <v-text-field
                             v-model="time2"
-                            label="เวลาในการแจ้งเตือน"
+                            label="ตั้งเวลา"
                             prepend-icon="access_time"
                             readonly
                             v-on="on"
@@ -167,6 +161,11 @@
                           @click:minute="$refs.menuSecond.save(time2)"
                         ></v-time-picker>
                       </v-menu>
+                    </v-flex>
+                    <v-flex lg1 md1 mt-3 v-if="switch1">
+                      <v-btn icon small>
+                        <v-icon>add_circle_outline</v-icon>
+                      </v-btn>
                     </v-flex>
                   </v-layout>
                 </v-card>
