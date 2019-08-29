@@ -1,14 +1,14 @@
 version: "3"
 services:
-  external-event:
-    build: ./back-end/ExternalEventService
+  event:
+    build: ./back-end/EventService
     command: ["npm", "run", "dev"]
     ports:
       - "3000:3000"
     links:
       - mariadb:database
     volumes:
-      - ./back-end/ExternalEventService:/app
+      - ./back-end/EventService:/app
       - /app/node_modules
     environment:
       TZ: Asia/Bangkok
@@ -40,18 +40,6 @@ services:
     volumes:
       - ./back-end/DirectionRecordService:/app
       - /app/node_modules
-  internal-event:
-    build: ./back-end/InternalEventService
-    command: ["npm", "run", "dev"]
-    ports:
-      - "3004:3004"
-    links:
-      - mariadb:database
-    volumes:
-      - ./back-end/InternalEventService:/app
-      - /app/node_modules
-    environment:
-      TZ: Asia/Bangkok
   geometry:
     build: ./back-end/GeometryService
     command: ["npm", "run", "dev"]
@@ -67,7 +55,6 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./back-end/ExternalEventService/src/utils:/docker-entrypoint-initdb.d
       - mariadb:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -82,6 +69,18 @@ services:
       - "27017:27017"
     volumes:
       - mongodb:/data/db
+  # external-event:
+  #   build: ./back-end/ExternalEventService
+  #   command: ["npm", "run", "dev"]
+  #   ports:
+  #     - "3000:3000"
+  #   links:
+  #     - mariadb:database
+  #   volumes:
+  #     - ./back-end/ExternalEventService:/app
+  #     - /app/node_modules
+  #   environment:
+  #     TZ: Asia/Bangkok
   # test:
   #   build: ./back-end/Test
   #   command: ["npm", "run", "dev"]
