@@ -1,6 +1,6 @@
 <template>
   <div class="spinner">
-    <img src="../assets/loading.svg" alt="Loading">
+    <img src="../assets/loading.svg" alt="Loading" />
   </div>
 </template>
 
@@ -18,7 +18,6 @@ export default {
       await this.$auth.handleAuthentication();
     } catch (e) {
       this.$router.push("/");
-      console.error(e);
     }
   }
 };

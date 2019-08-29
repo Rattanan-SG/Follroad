@@ -21,11 +21,11 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import Navbar from "./components/Navbar";
-import BottomMenuBar from "./components/BottomMenuBar";
+const Navbar = () => import("./components/Navbar");
+const BottomMenuBar = () => import("./components/BottomMenuBar");
 const GoogleMap = () => import("./components/GoogleMap");
 const RefreshSnackBar = () => import("./components/RefreshSnackBar.vue");
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "App",
   components: {
@@ -41,7 +41,7 @@ export default {
     try {
       await this.$auth.renewTokens();
     } catch (e) {
-      console.error(e);
+      throw e;
     }
     this.fetchEvents();
     this.$vuetify.breakpoint.xsOnly
