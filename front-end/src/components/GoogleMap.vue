@@ -98,7 +98,7 @@ export default {
       this.$refs.gmap.$mapObject.setZoom(15);
     },
     getRoute: function(startLocation, stopLocation) {
-      if (this.directionsRenderer.getMap() != null) {
+      if (this.directionsService && this.directionsRenderer) {
         this.cleanRoute();
       }
       this.directionsService.route(
@@ -113,8 +113,8 @@ export default {
         },
         async (response, status) => {
           if (status === "OK") {
-            console.log(response);
-            console.log(JSON.stringify(response));
+            // console.log(response);
+            // console.log(JSON.stringify(response));
             // const { data } = await axios.get(
             //   `${process.env.VUE_APP_DIRECTION_RECORD_URL}/record/5d5d295cd6927600422718d1`
             // );
@@ -140,6 +140,9 @@ export default {
     cleanRoute: function() {
       this.directionsRenderer.setPanel(null);
       this.directionsRenderer.setMap(null);
+      this.directionsService = new this.google.maps.DirectionsService();
+      this.directionsRenderer = new this.google.maps.DirectionsRenderer();
+      this.setDirection(null);
       this.setDirectionsRenderer(null);
     }
   }
