@@ -26,7 +26,7 @@
 
       <v-layout>
         <v-flex xs12 lg12 mt-5>
-          <v-list-tile :key="index" avatar ripple to="/historyroute">
+          <v-list-tile avatar ripple to="/historyroute">
             <v-list-tile-action>
               <v-icon size="35px" color="indigo">save</v-icon>
             </v-list-tile-action>
@@ -39,7 +39,7 @@
 
       <v-layout>
         <v-flex xs12 lg12>
-          <v-list-tile :key="index" avatar ripple to>
+          <v-list-tile avatar ripple to>
             <v-list-tile-action>
               <v-icon size="35px" color="indigo">settings</v-icon>
             </v-list-tile-action>
@@ -52,7 +52,7 @@
 
       <v-layout>
         <v-flex xs12 lg12>
-          <v-list-tile :key="index" avatar ripple to>
+          <v-list-tile avatar ripple to>
             <v-list-tile-action>
               <v-icon size="35px" color="indigo">logout</v-icon>
             </v-list-tile-action>

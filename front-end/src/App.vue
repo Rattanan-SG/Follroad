@@ -41,7 +41,7 @@ export default {
     try {
       await this.$auth.renewTokens();
     } catch (e) {
-      console.log();
+      console.error(e);
     }
     this.fetchEvents();
     this.$vuetify.breakpoint.xsOnly
@@ -65,17 +65,6 @@ export default {
           this.handleLocationError,
           { enableHighAccuracy: true, timeout: 15000 }
         );
-      }
-    },
-    isMobile() {
-      if (
-        /Android|webOS|iPhone||iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
-        )
-      ) {
-        return true;
-      } else {
-        return false;
       }
     },
     setUserLocation: function(position) {

@@ -100,14 +100,16 @@
       <v-btn icon @click="installer()" :style="{'display' : installBtn}">
         <v-icon>mobile_friendly</v-icon>
       </v-btn>
-      <v-btn icon to="/profile">
-        <v-icon>person</v-icon>
-      </v-btn>
       <v-btn v-if="!isAuthenticated" icon @click.prevent="login">
         <v-icon>person</v-icon>
       </v-btn>
-      <v-btn v-else icon @click.prevent="logout">
+      <!-- <v-btn v-else icon @click.prevent="logout">
         <v-icon>input</v-icon>
+      </v-btn>-->
+      <v-btn v-else icon to="/profile">
+        <v-avatar size="40px">
+          <img :src="profile.picture" alt="avatar" />
+        </v-avatar>
       </v-btn>
     </v-toolbar>
   </div>
@@ -142,7 +144,7 @@ export default {
       installBtn: "none",
       installer: null,
       isAuthenticated: false,
-      profile: {}
+      profile: this.$auth.profile
     };
   },
   computed: {
