@@ -82,7 +82,15 @@
         </v-flex>
       </v-layout>
 
-      <v-layout>
+      <v-layout align-end justify-end fill-height>
+        <v-card-actions>
+          <v-btn text color="white" to="/details">See More</v-btn>
+
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-layout>
+
+      <!-- <v-layout>
         <v-flex xs9 md9 lg9>
           <div>
             <v-btn flat icon color="blue lighten-2">
@@ -102,7 +110,7 @@
             <v-spacer></v-spacer>
           </v-card-actions>
         </v-flex>
-      </v-layout>
+      </v-layout>-->
     </v-card>
   </gmap-info-window>
 </template>
