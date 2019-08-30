@@ -31,6 +31,19 @@
               <template v-if="infoWindow.marker.eventCaption">
                 <p>เกิดเหตุการณ์ขึ้น ณ : {{infoWindow.marker.eventCaption.startTime}}</p>
                 <p>จะสิ้นสุดใน : {{infoWindow.marker.eventCaption.stopTime}}</p>
+                <v-layout>
+                  <v-divider></v-divider>
+                  <v-flex xs12 md12 lg12>
+                    <v-btn flat icon color="blue lighten-2">
+                      <v-icon>thumb_up</v-icon>
+                    </v-btn>
+                    <v-list-item-subtitle>(23)</v-list-item-subtitle>
+                    <v-btn flat icon color="red lighten-2">
+                      <v-icon>thumb_down</v-icon>
+                    </v-btn>
+                    <v-list-item-subtitle>(23)</v-list-item-subtitle>
+                  </v-flex>
+                </v-layout>
               </template>
               <template v-if="infoWindow.marker.searchPlaceCaption">
                 <img

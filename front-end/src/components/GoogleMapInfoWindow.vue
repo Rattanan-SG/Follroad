@@ -69,6 +69,7 @@
                 <p>เกิดเหตุการณ์ขึ้น ณ : {{infoWindow.marker.eventCaption.startTime}}</p>
                 <p>จะสิ้นสุดใน : {{infoWindow.marker.eventCaption.stopTime}}</p>
               </template>
+
               <template v-if="infoWindow.marker.searchPlaceCaption">
                 <img
                   :src="infoWindow.marker.searchPlaceCaption.photo"
@@ -122,13 +123,6 @@
           <!-- <v-spacer></v-spacer> -->
           <v-btn outline color="blue" to="/details">ดูเพิ่มเติม</v-btn>
         </v-flex>
-        <!-- <v-flex xs2 md2 lg2>
-          <v-card-actions>
-            <v-btn text color="white" to="/details">See More</v-btn>
-
-            <v-spacer></v-spacer>
-          </v-card-actions>
-        </v-flex>-->
       </v-layout>
     </v-card>
   </gmap-info-window>
