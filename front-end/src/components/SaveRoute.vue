@@ -1,6 +1,12 @@
 <template>
   <div>
-    <v-btn text icon @click.stop="dialog=true" v-if="directionsRenderer">
+    <v-btn
+      color="secondary"
+      class="white--text"
+      @click.stop="dialog=true"
+      v-if="directionsRenderer"
+    >
+      บันทึกเส้นทาง
       <v-icon>save</v-icon>
     </v-btn>
     <v-layout row justify-center>
@@ -43,74 +49,128 @@
                 <v-card color="#E0E0E0" flat>
                   <div>
                     <h3>เส้นทางที่ต้องการบันทึก</h3>
-                    <v-checkbox
-                      v-validate="'required'"
-                      type="checkbox"
-                      required
-                      label="ทางพิเศษเฉลิมมหานคร 200km 50 นาที"
-                    ></v-checkbox>
-                    <v-checkbox
-                      v-validate="'required'"
-                      type="checkbox"
-                      required
-                      label="ถนนพระราม 2 ขาออก 50km 37 นาที"
-                    ></v-checkbox>
+                    <v-checkbox type="checkbox" required label="ทางพิเศษเฉลิมมหานคร 200km 50 นาที"></v-checkbox>
+                    <v-checkbox type="checkbox" required label="ถนนพระราม 2 ขาออก 50km 37 นาที"></v-checkbox>
                   </div>
                 </v-card>
               </v-flex>
               <v-flex xs12 md12>
                 <v-switch v-model="switch1" label="รับการแจ้งเตือนในเส้นทางนี้ ?"></v-switch>
               </v-flex>
-              <v-flex xs11 sm11>
-                <v-menu
-                  ref="menu"
-                  v-model="menu2"
-                  :close-on-content-click="false"
-                  :nudge-right="40"
-                  :return-value.sync="time"
-                  lazy
-                  transition="scale-transition"
-                  offset-y
-                  full-width
-                  max-width="290px"
-                  min-width="290px"
-                  v-if="switch1"
-                >
-                  <template v-slot:activator="{ on }">
-                    <v-text-field
-                      v-model="time"
-                      label="กำหนดเวลาการแจ้งเตือน"
-                      prepend-icon="access_time"
-                      readonly
-                      v-on="on"
-                    ></v-text-field>
-                  </template>
-                  <v-time-picker
-                    v-if="menu2"
-                    v-model="time"
-                    full-width
-                    @click:minute="$refs.menu.save(time)"
-                  ></v-time-picker>
-                </v-menu>
-              </v-flex>
 
-              <v-spacer></v-spacer>
-              <v-flex xs11 sm5>
-                <v-dialog
-                  ref="dialog"
-                  v-model="modal2"
-                  :return-value.sync="time"
-                  persistent
-                  lazy
-                  full-width
-                  width="290px"
-                >
-                  <v-time-picker v-if="modal2" v-model="time" full-width>
-                    <v-spacer></v-spacer>
-                    <v-btn flat color="primary" @click="$refs.dialog.save(time)">OK</v-btn>
-                  </v-time-picker>
-                </v-dialog>
+              <v-flex xs12 md12 lg12>
+                <v-card>
+                  <v-layout row>
+                    <v-flex xs5 md5 lg5 ml-1>
+                      <v-combobox
+                        v-model="select"
+                        :items="items"
+                        label="เลือกวัน"
+                        multiple
+                        chips
+                        v-if="switch1"
+                      ></v-combobox>
+                    </v-flex>
+                    <v-flex xs1 md1 lg1></v-flex>
+                    <v-flex xs5 sm5 lg5>
+                      <v-menu
+                        ref="menu"
+                        v-model="menu2"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        :return-value.sync="time"
+                        lazy
+                        transition="scale-transition"
+                        offset-y
+                        full-width
+                        max-width="290px"
+                        min-width="290px"
+                        v-if="switch1"
+                      >
+                        <template v-slot:activator="{ on }">
+                          <v-text-field
+                            v-model="time"
+                            label="ตั้งเวลา"
+                            prepend-icon="access_time"
+                            readonly
+                            v-on="on"
+                          ></v-text-field>
+                        </template>
+                        <v-time-picker
+                          v-if="menu2"
+                          v-model="time"
+                          full-width
+                          @click:minute="$refs.menu.save(time)"
+                        ></v-time-picker>
+                      </v-menu>
+                    </v-flex>
+                    <!-- <v-flex xs1 lg1 md1></v-flex> -->
+                    <v-flex lg1 md1 mt-3 v-if="switch1">
+                      <v-btn icon small>
+                        <v-icon>add_circle_outline</v-icon>
+                      </v-btn>
+                    </v-flex>
+                  </v-layout>
+                  <v-layout>
+                    <v-flex xs5 md5 lg5 v-if="switch1">
+                      <v-menu
+                        v-model="menu3"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        lazy
+                        transition="scale-transition"
+                        offset-y
+                        full-width
+                        min-width="290px"
+                      >
+                        <template v-slot:activator="{ on }">
+                          <v-text-field v-model="date" label="เลือกวัน" readonly v-on="on"></v-text-field>
+                        </template>
+                        <v-date-picker v-model="date" @input="menu3 = false"></v-date-picker>
+                      </v-menu>
+                    </v-flex>
+                    <v-flex xs1 md1 lg1></v-flex>
+                    <v-flex xs5 md5 lg5>
+                      <v-menu
+                        ref="menuSecond"
+                        v-model="menu"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        :return-value.sync="time2"
+                        lazy
+                        transition="scale-transition"
+                        offset-y
+                        full-width
+                        max-width="290px"
+                        min-width="290px"
+                        v-if="switch1"
+                      >
+                        <template v-slot:activator="{ on }">
+                          <v-text-field
+                            v-model="time2"
+                            label="ตั้งเวลา"
+                            prepend-icon="access_time"
+                            readonly
+                            v-on="on"
+                          ></v-text-field>
+                        </template>
+                        <v-time-picker
+                          v-if="menu"
+                          v-model="time2"
+                          full-width
+                          @click:minute="$refs.menuSecond.save(time2)"
+                        ></v-time-picker>
+                      </v-menu>
+                    </v-flex>
+                    <v-flex lg1 md1 mt-3 v-if="switch1">
+                      <v-btn icon small>
+                        <v-icon>add_circle_outline</v-icon>
+                      </v-btn>
+                    </v-flex>
+                  </v-layout>
+                </v-card>
               </v-flex>
+              <v-spacer></v-spacer>
             </v-layout>
             <!-- </v-container> -->
           </v-card-text>
@@ -126,16 +186,30 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+
 export default {
   name: "saveRoute",
   data() {
     return {
       dialog: false,
       time: null,
+      time2: null,
+      menu: false,
       menu2: false,
+      menu3: false,
       modal2: false,
-      dialogm1: "",
-      switch1: false
+      switch1: false,
+      date: new Date().toISOString().substr(0, 10),
+      select: null,
+      items: [
+        "อาทิตย์",
+        "จันทร์",
+        "อังคาร",
+        "พุธ",
+        "พฤหัสบดี",
+        "ศุกร์",
+        "เสาร์"
+      ]
     };
   },
   computed: {

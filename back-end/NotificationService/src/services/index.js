@@ -30,8 +30,8 @@ exports.updateSubscriptionById = (id, subscription) =>
 exports.sendNotificationToSpecificUser = async body => {
   const { uid, message } = body;
   const qurey = await Subscription.find({ uid: { $in: uid } }, "endpoint keys");
-  const result = sendMutipleNotification(qurey, message);
-  logInfo(`Send notification to specific user: ${uid}`, { uid, result });
+  const result = await sendMutipleNotification(qurey, message);
+  logInfo("Send notification to specific user", { uid, result });
   return result;
 };
 

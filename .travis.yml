@@ -4,17 +4,26 @@ services:
   - docker
 
 before_install:
-  - docker build -t $DOCKER_HUB_USER/follroad-external-event ./back-end/ExternalEventService
+  - docker build -t $DOCKER_HUB_USER/follroad-event ./back-end/EventService
+  - docker build -t $DOCKER_HUB_USER/follroad-message-queue ./back-end/MessageQueueServiceProducer
   - docker build -t $DOCKER_HUB_USER/follroad-notification ./back-end/NotificationService
+  - docker build -t $DOCKER_HUB_USER/follroad-direction-record ./back-end/DirectionRecordService
+  - docker build -t $DOCKER_HUB_USER/follroad-geometry ./back-end/GeometryService
 
 script:
-  - docker run $DOCKER_HUB_USER/follroad-external-event npm test
+  - docker run $DOCKER_HUB_USER/follroad-event npm test
+  - docker run $DOCKER_HUB_USER/follroad-message-queue npm test
   - docker run $DOCKER_HUB_USER/follroad-notification npm test
+  - docker run $DOCKER_HUB_USER/follroad-direction-record npm test
+  - docker run $DOCKER_HUB_USER/follroad-geometry npm test
 
 after_success:
   - echo "$DOCKER_HUB_PSW" | docker login -u "$DOCKER_HUB_USER" --password-stdin
-  - docker push $DOCKER_HUB_USER/follroad-external-event
+  - docker push $DOCKER_HUB_USER/follroad-event
+  - docker push $DOCKER_HUB_USER/follroad-message-queue
   - docker push $DOCKER_HUB_USER/follroad-notification
+  - docker push $DOCKER_HUB_USER/follroad-direction-record
+  - docker push $DOCKER_HUB_USER/follroad-geometry
 
 deploy:
   skip_cleanup: true

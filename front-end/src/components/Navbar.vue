@@ -97,17 +97,17 @@
         <v-icon>directions</v-icon>
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn icon @click="installer()" :style="{'display' : installBtn}">
+      <v-btn v-if="installBtn" icon @click="installer()">
         <v-icon>mobile_friendly</v-icon>
       </v-btn>
-      <v-btn icon to="/profile">
-        <v-icon>person</v-icon>
-      </v-btn>
-      <v-btn v-if="!isAuthenticated" icon @click.prevent="login">
-        <v-icon>person</v-icon>
-      </v-btn>
-      <v-btn v-else icon @click.prevent="logout">
+      <v-btn v-if="!isAuthenticated" outline @click.prevent="login">Log in</v-btn>
+      <!-- <v-btn v-else icon @click.prevent="logout">
         <v-icon>input</v-icon>
+      </v-btn>-->
+      <v-btn v-else icon to="/profile" @click="toggleRouterView('/profile')">
+        <v-avatar size="35px">
+          <img :src="profile.picture" alt="avatar" />
+        </v-avatar>
       </v-btn>
     </v-toolbar>
   </div>
@@ -134,15 +134,14 @@ export default {
       lists: [
         { text: "Feed", icon: "today", route: "/" },
         { text: "Search", icon: "directions", route: "/search" },
-        { text: "Notifications", icon: "notifications" },
         { text: "Forum", icon: "forum", route: "/news" },
-        { text: "Notification", icon: "forum", route: "/notification" }
+        { text: "Profile", icon: "person", route: "/profile" }
       ],
       activeRouter: "/",
-      installBtn: "none",
+      installBtn: false,
       installer: null,
       isAuthenticated: false,
-      profile: {}
+      profile: this.$auth.profile
     };
   },
   computed: {
@@ -154,14 +153,14 @@ export default {
     window.addEventListener("beforeinstallprompt", e => {
       e.preventDefault();
       installPrompt = e;
-      this.installBtn = "block";
+      this.installBtn = true;
     });
 
     this.installer = () => {
       installPrompt.prompt();
       installPrompt.userChoice.then(() => {
         installPrompt = null;
-        this.installBtn = "none";
+        this.installBtn = false;
       });
     };
   },
@@ -183,7 +182,6 @@ export default {
     },
     logout() {
       this.$auth.logOut();
-      this.$router.push({ path: "/" });
     },
     handleLoginEvent(data) {
       this.isAuthenticated = data.loggedIn;
