@@ -82,12 +82,26 @@
         </v-flex>
       </v-layout>
 
-      <v-layout align-start justify-end row fill-height>
-        <v-card-actions>
-          <v-btn text color="white" to="/details">See More</v-btn>
+      <v-layout>
+        <v-flex xs9 md9 lg9>
+          <div>
+            <v-btn flat icon color="blue lighten-2">
+              <v-icon>thumb_up</v-icon>
+            </v-btn>
+            <v-list-item-subtitle>(23)</v-list-item-subtitle>
+            <v-btn flat icon color="red lighten-2">
+              <v-icon>thumb_down</v-icon>
+            </v-btn>
+            <v-list-item-subtitle>(23)</v-list-item-subtitle>
+          </div>
+        </v-flex>
+        <v-flex xs2 md2 lg2>
+          <v-card-actions>
+            <v-btn text color="white" to="/details">See More</v-btn>
 
-          <v-spacer></v-spacer>
-        </v-card-actions>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-flex>
       </v-layout>
     </v-card>
   </gmap-info-window>

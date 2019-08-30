@@ -4,7 +4,7 @@
       <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px"></v-img>
 
       <v-card flat>
-        <h3>{{infoWindow.marker.title}}</h3>
+        <h2>{{infoWindow.marker.title}}</h2>
         <v-list-item-subtitle>by {{infoWindow.marker.eventCaption.contributor}}</v-list-item-subtitle>
         <br />
 
@@ -34,21 +34,6 @@
         </v-flex>
       </v-card>
       <v-text-field label="แสดงความคิดเห็น" outlined></v-text-field>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-
-        <v-btn icon @click="show = !show">
-          <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-        </v-btn>
-      </v-card-actions>
-
-      <v-expand-transition>
-        <div v-show="show">
-          <v-card>
-            <v-icon>person</v-icon>รถยังไม่หายติดเลย
-          </v-card>
-        </div>
-      </v-expand-transition>
     </v-card>
   </v-container>
 </template>
