@@ -82,13 +82,13 @@
         </v-flex>
       </v-layout>
 
-      <v-layout align-end justify-end fill-height>
+      <!-- <v-layout align-end justify-end fill-height>
         <v-card-actions>
           <v-btn text color="white" to="/details">See More</v-btn>
 
           <v-spacer></v-spacer>
         </v-card-actions>
-      </v-layout>
+      </v-layout>-->
 
       <!-- <v-layout>
         <v-flex xs9 md9 lg9>
@@ -109,8 +109,8 @@
           <div>เกิดเหตุการณ์ขึ้น ณ : {{infoWindow.marker.eventCaption.startTime}}</div>
           <div>จะสิ้นสุดใน : {{infoWindow.marker.eventCaption.stopTime}}</div>
         </v-card-text>
-         <v-flex xs12 md12 lg12> -->
-           <v-layout>
+      <v-flex xs12 md12 lg12>-->
+      <v-layout>
         <v-divider></v-divider>
         <v-flex xs12 md12 lg12>
           <v-btn flat icon color="blue lighten-2">
@@ -122,13 +122,13 @@
           <!-- <v-spacer></v-spacer> -->
           <v-btn outline color="blue" to="/details">ดูเพิ่มเติม</v-btn>
         </v-flex>
-        <v-flex xs2 md2 lg2>
+        <!-- <v-flex xs2 md2 lg2>
           <v-card-actions>
             <v-btn text color="white" to="/details">See More</v-btn>
 
             <v-spacer></v-spacer>
           </v-card-actions>
-        </v-flex>
+        </v-flex>-->
       </v-layout>
     </v-card>
   </gmap-info-window>
