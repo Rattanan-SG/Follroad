@@ -8,7 +8,7 @@
   >
     <v-toolbar
       absolute
-      color="blue"
+      color="blue-grey darken-2"
       dark
       scroll-off-screen
       scroll-target="#scrolling-techniques"
@@ -93,15 +93,34 @@
       <!-- <v-layout>
         <v-flex xs9 md9 lg9>
           <div>
-            <v-btn flat icon color="blue lighten-2">
-              <v-icon>thumb_up</v-icon>
-            </v-btn>
-            <v-list-item-subtitle>(23)</v-list-item-subtitle>
-            <v-btn flat icon color="red lighten-2">
-              <v-icon>thumb_down</v-icon>
-            </v-btn>
-            <v-list-item-subtitle>(23)</v-list-item-subtitle>
+            <v-flex md2 lg2>
+              <v-img :src="infoWindow.marker.icon" max-width="40" max-height="40"></v-img>
+            </v-flex>
+            <v-flex xs12 md12 lg12>
+              <h2>{{infoWindow.marker.title}}</h2>
+              <div>โดย {{infoWindow.marker.eventCaption.contributor}}</div>
+            </v-flex>
           </div>
+        </v-card-title>
+        <v-card-text>
+          <div>{{infoWindow.marker.description}}</div>
+        </v-card-text>
+        <v-card-text>
+          <div>เกิดเหตุการณ์ขึ้น ณ : {{infoWindow.marker.eventCaption.startTime}}</div>
+          <div>จะสิ้นสุดใน : {{infoWindow.marker.eventCaption.stopTime}}</div>
+        </v-card-text>
+         <v-flex xs12 md12 lg12> -->
+           <v-layout>
+        <v-divider></v-divider>
+        <v-flex xs12 md12 lg12>
+          <v-btn flat icon color="blue lighten-2">
+            <v-icon>thumb_up</v-icon>
+          </v-btn>(23)
+          <v-btn flat icon color="red lighten-2">
+            <v-icon>thumb_down</v-icon>
+          </v-btn>(23)
+          <!-- <v-spacer></v-spacer> -->
+          <v-btn outline color="blue" to="/details">ดูเพิ่มเติม</v-btn>
         </v-flex>
         <v-flex xs2 md2 lg2>
           <v-card-actions>
@@ -110,7 +129,7 @@
             <v-spacer></v-spacer>
           </v-card-actions>
         </v-flex>
-      </v-layout>-->
+      </v-layout>
     </v-card>
   </gmap-info-window>
 </template>

@@ -27,7 +27,7 @@
       </v-layout>
       <v-layout>
         <v-flex xs12 lg12 mt-5>
-          <v-list-tile :key="index" avatar ripple>
+          <v-list-tile avatar ripple>
             <v-list-tile-action>
               <v-icon size="35px" color="indigo">location_on</v-icon>
             </v-list-tile-action>
@@ -41,7 +41,7 @@
 
       <v-layout>
         <v-flex xs12 lg12 mt-0>
-          <v-list-tile :key="index" avatar ripple>
+          <v-list-tile avatar ripple>
             <v-list-tile-action>
               <v-icon size="35px" color="indigo">location_on</v-icon>
             </v-list-tile-action>
@@ -55,7 +55,7 @@
 
       <v-layout>
         <v-flex xs12 lg12 mt-0>
-          <v-list-tile :key="index" avatar ripple>
+          <v-list-tile avatar ripple>
             <v-list-tile-action>
               <v-icon size="35px" color="indigo">location_on</v-icon>
             </v-list-tile-action>

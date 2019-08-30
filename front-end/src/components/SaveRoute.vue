@@ -65,7 +65,7 @@
                       <v-combobox
                         v-model="select"
                         :items="items"
-                        label="เลือกวัน"
+                        label="เลือกวัน(จ-อา)"
                         multiple
                         chips
                         v-if="switch1"
@@ -124,7 +124,7 @@
                         min-width="290px"
                       >
                         <template v-slot:activator="{ on }">
-                          <v-text-field v-model="date" label="เลือกวัน" readonly v-on="on"></v-text-field>
+                          <v-text-field label="เลือกวัน" readonly v-on="on"></v-text-field>
                         </template>
                         <v-date-picker v-model="date" @input="menu3 = false"></v-date-picker>
                       </v-menu>
