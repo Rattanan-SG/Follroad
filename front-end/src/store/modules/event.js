@@ -65,7 +65,7 @@ const getters = {
 const actions = {
   fetchEvents: ({ commit }) => {
     axios
-      .get(`${process.env.VUE_APP_EXTERNAL_EVENT_URL}/event`)
+      .get(`${process.env.VUE_APP_EVENT_URL}/event`)
       .then(response => {
         commit("SET_EVENTS", response.data);
       });

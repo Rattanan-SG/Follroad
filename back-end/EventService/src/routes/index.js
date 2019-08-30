@@ -9,11 +9,11 @@ router.get("/", (req, res) => {
   res.json(`Hello this is ${service}`);
 });
 
-router.get("/geometry", (req, res) => {
+router.get("/event", (req, res) => {
   res.json(`Hello this is ${service}`);
 });
 
-router.get("/geometry/health-check", (req, res) => {
+router.get("/event/health-check", (req, res) => {
   res.json({
     status: "OK",
     service,
@@ -21,7 +21,7 @@ router.get("/geometry/health-check", (req, res) => {
   });
 });
 
-router.use("/geometry/api", api);
+router.use("/event/api", api);
 
 router.all("*", (req, res) => {
   res.status(404).json({

@@ -15,19 +15,9 @@ const router = new Router({
       component: Home
     },
     {
-      path: "/profilemobile",
-      name: "profilemobile",
-      component: () => import("./views/ProfileMobile.vue")
-    },
-    {
       path: "/details",
       name: "details",
       component: () => import("./views/Details.vue")
-    },
-    {
-      path: "/profile",
-      name: "profile",
-      component: () => import("./views/Profile.vue")
     },
     {
       path: "/search",
@@ -41,10 +31,10 @@ const router = new Router({
       component: () => import(/* webpackChunkName: "news" */ "./views/News.vue")
     },
     {
-      path: "/notification",
-      name: "notification",
+      path: "/profile",
+      name: "profile",
       component: () =>
-        import(/* webpackChunkName: "news" */ "./views/Notification.vue"),
+        import(/* webpackChunkName: "profile" */ "./views/Profile.vue"),
       meta: { requiresAuth: true }
     },
     {
