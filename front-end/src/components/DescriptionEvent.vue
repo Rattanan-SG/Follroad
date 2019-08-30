@@ -1,6 +1,6 @@
 <template>
   <v-container flat>
-    <v-card class="mx-auto" max-width="100%" flat>
+    <v-card max-width="100%">
       <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px"></v-img>
       <v-card-title>
         <div>
@@ -57,3 +57,9 @@ export default {
   }
 };
 </script>
+<style scoped>
+.v-card {
+  height: 83vh;
+  overflow: auto;
+}
+</style>
