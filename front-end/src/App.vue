@@ -41,7 +41,7 @@ export default {
     try {
       await this.$auth.renewTokens();
     } catch (e) {
-      throw e;
+      console.error(e);
     }
     this.fetchEvents();
     this.$vuetify.breakpoint.xsOnly
