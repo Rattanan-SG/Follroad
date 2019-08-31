@@ -6,10 +6,11 @@ workbox.clientsClaim();
 
 self.addEventListener("push", event => {
   console.log("[Service Worker] Push Received.");
-  const data = event.data.json();
-  const title = data.title;
+  const data = event.data ? event.data.json() : "no payload";
+  const title = data.title ? data.title : "Follroad";
+  const body = data.body ? data.body : data;
   const options = {
-    body: data.body,
+    body,
     icon: "img/icons/favicon-32x32.png",
     badge: "img/icons/favicon-32x32.png"
   };

@@ -8,19 +8,19 @@
           </div>-->
         </v-flex>
         <v-flex xs10>
-          <v-btn size="60px" fab>
-            <v-icon>person</v-icon>
-          </v-btn>
+          <v-avatar size="80px">
+            <img :src="profile.picture" alt="avatar" />
+          </v-avatar>
         </v-flex>
       </v-layout>
       <v-layout grid-list-md text-xs-center>
         <v-flex xs12>
-          <h1 class="Name">Vertical Duke</h1>
+          <h1 class="Name">{{profile.name}}</h1>
         </v-flex>
       </v-layout>
       <v-layout>
         <v-flex xs12 grid-list-md text-xs-center>
-          <h4 class="e-mail">vertical.duke@gmail.com</h4>
+          <h4 class="e-mail">{{profile.email}}</h4>
         </v-flex>
       </v-layout>
 
@@ -39,12 +39,12 @@
 
       <v-layout>
         <v-flex xs12 lg12>
-          <v-list-tile avatar ripple to>
+          <v-list-tile avatar ripple :disabled="btnDisabled" @click="handleClick">
             <v-list-tile-action>
               <v-icon size="35px" color="indigo">settings</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <h3>ตั้งค่าการแจ้งเตือน</h3>
+              <h3>{{btnText}}</h3>
             </v-list-tile-content>
           </v-list-tile>
         </v-flex>
@@ -52,7 +52,7 @@
 
       <v-layout>
         <v-flex xs12 lg12>
-          <v-list-tile avatar ripple to>
+          <v-list-tile avatar ripple @click="logout">
             <v-list-tile-action>
               <v-icon size="35px" color="indigo">logout</v-icon>
             </v-list-tile-action>
@@ -66,7 +66,112 @@
   </v-container>
 </template>
 <script>
+import axios from "axios";
+import urlB64ToUint8Array from "../utilitys/urlB64ToUint8Array";
 export default {
-  name: "HomeProfile"
+  name: "HomeProfile",
+  data() {
+    return {
+      profile: this.$auth.profile,
+      registration: null,
+      isSubscribed: false,
+      btnDisabled: true,
+      btnText: "กรุณาเปิดรับการแจ้งเตือน"
+    };
+  },
+  async created() {
+    try {
+      const registration = await navigator.serviceWorker.ready;
+      this.registration = registration;
+      const subscription = await registration.pushManager.getSubscription();
+      this.isSubscribed = !(subscription === null);
+      if (this.isSubscribed) {
+        this.syncSubscription(subscription);
+      }
+      this.updateBtn();
+    } catch (err) {
+      console.log("Service Worker not ready");
+    }
+  },
+  methods: {
+    logout() {
+      this.$auth.logOut();
+    },
+
+    handleClick() {
+      this.btnDisabled = true;
+      if (this.isSubscribed) {
+        this.unsubscribeUser();
+      } else {
+        this.subscribeUser();
+      }
+    },
+
+    updateBtn() {
+      if (Notification.permission === "denied") {
+        this.btnText = "ไม่อนุญาตรับการแจ้งเตือน";
+        this.btnDisabled = true;
+        return;
+      }
+      if (this.isSubscribed) {
+        this.btnText = "ปิดรับการแจ้งเตือน";
+      } else {
+        this.btnText = "เปิดรับการแจ้งเตือน";
+      }
+      this.btnDisabled = false;
+    },
+
+    async syncSubscription(subscription) {
+      const uid = this.profile && this.profile.sub;
+      const subscribe = subscription.toJSON();
+      const body = { ...subscribe, uid };
+      await axios.put(
+        `${process.env.VUE_APP_NOTIFICATION_URL}/subscription`,
+        body
+      );
+    },
+
+    async subscribeUser() {
+      const applicationServerKey = urlB64ToUint8Array(
+        process.env.VUE_APP_WEB_PUSH_KEY
+      );
+      try {
+        const subscription = await this.registration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: applicationServerKey
+        });
+        const uid = this.profile && this.profile.sub;
+        const subscribe = subscription.toJSON();
+        const body = { ...subscribe, uid };
+        await axios.post(
+          `${process.env.VUE_APP_NOTIFICATION_URL}/subscription`,
+          body
+        );
+        this.isSubscribed = true;
+        this.updateBtn();
+      } catch (err) {
+        this.unsubscribeUser();
+        console.log("Failed to subscribe");
+      }
+    },
+
+    async unsubscribeUser() {
+      try {
+        const subscription = await this.registration.pushManager.getSubscription();
+        if (subscription) {
+          await subscription.unsubscribe();
+          const subscribe = subscription.toJSON();
+          await axios.delete(
+            `${process.env.VUE_APP_NOTIFICATION_URL}/subscription`,
+            { data: subscribe }
+          );
+          this.isSubscribed = false;
+          this.updateBtn();
+        }
+      } catch (err) {
+        console.log("Failed to unsubscribe");
+      }
+    }
+  }
 };
 </script>

@@ -45,9 +45,7 @@ class AuthService extends EventEmitter {
     this.tokenExpiry = new Date(this.profile.exp * 1000);
     this.accessToken = authResult.accessToken;
     this.accessTokenExpiry = new Date(Date.now() + authResult.expiresIn * 1000);
-
     localStorage.setItem(localStorageKey, "true");
-
     this.emit(loginEvent, {
       loggedIn: true,
       profile: authResult.idTokenPayload,
@@ -60,7 +58,6 @@ class AuthService extends EventEmitter {
       if (localStorage.getItem(localStorageKey) !== "true") {
         return reject("Not logged in");
       }
-
       webAuth.checkSession({}, (err, authResult) => {
         if (err) {
           reject(err);
@@ -86,30 +83,27 @@ class AuthService extends EventEmitter {
 
   async logOut() {
     localStorage.removeItem(localStorageKey);
-
-    try {
-      const registration = await navigator.serviceWorker.ready;
-      const subscription = await registration.pushManager.getSubscription();
-      if (subscription) {
-        await subscription.unsubscribe();
-        const subscribe = subscription.toJSON();
-        await axios.delete(
-          `${process.env.VUE_APP_NOTIFICATION_URL}/subscription`,
-          { data: subscribe }
-        );
-      }
-    } catch (err) {
-      console.log("Failed to unsubscribe");
-    }
-
     this.idToken = null;
     this.tokenExpiry = null;
     this.profile = null;
-
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.ready.then(async registration => {
+        const subscription = await registration.pushManager.getSubscription();
+        if (subscription) {
+          await subscription.unsubscribe();
+          const subscribe = subscription.toJSON();
+          await axios.delete(
+            `${process.env.VUE_APP_NOTIFICATION_URL}/subscription`,
+            { data: subscribe }
+          );
+        }
+      });
+    } else {
+      console.log("Service workers are not supported.");
+    }
     webAuth.logout({
       returnTo: window.location.origin
     });
-
     this.emit(loginEvent, { loggedIn: false });
   }
 

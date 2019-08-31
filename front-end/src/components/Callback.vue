@@ -8,9 +8,7 @@
 export default {
   methods: {
     handleLoginEvent(data) {
-      if (!data.error) {
-        this.$router.push(data.state.target || "/");
-      }
+      this.$router.push(data.state.target || "/");
     }
   },
   async created() {

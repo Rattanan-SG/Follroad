@@ -101,9 +101,6 @@
         <v-icon>mobile_friendly</v-icon>
       </v-btn>
       <v-btn v-if="!isAuthenticated" outline @click.prevent="login">Log in</v-btn>
-      <!-- <v-btn v-else icon @click.prevent="logout">
-        <v-icon>input</v-icon>
-      </v-btn>-->
       <v-btn v-else icon to="/profile" @click="toggleRouterView('/profile')">
         <v-avatar size="35px">
           <img :src="profile.picture" alt="avatar" />
