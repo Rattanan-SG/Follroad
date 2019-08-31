@@ -11,15 +11,16 @@ exports.bulkCreate = (dataList, options) =>
   });
 
 exports.findAll = (where, options) => {
-  if (options.scope)
-    return event.scope(...options.scope).findAll({
+  const { scope, ...option } = options;
+  if (scope)
+    return event.scope(scope).findAll({
       where,
-      ...options
+      ...option
     });
   else
     return event.findAll({
       where,
-      ...options
+      ...option
     });
 };
 

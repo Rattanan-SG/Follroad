@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const itic = require("../clients/itic");
 const messageQueue = require("../clients/message-queue");
 const { event } = require("../domains");
@@ -12,7 +13,22 @@ exports.createEvent = async body => {
   return result;
 };
 
-exports.getEvent = query => event.findAll(query, { scope: ["activeEvent"] });
+exports.getEvent = query => {
+  const { limit, startFrom, ...where } = query;
+  if (limit) {
+    let time;
+    startFrom ? (time = new Date(startFrom)) : (time = new Date());
+    return event.findAll(
+      { ...where, start: { [Op.lt]: time } },
+      {
+        scope: ["activeEvent"],
+        limit: Number(limit)
+      }
+    );
+  } else {
+    return event.findAll(where, { scope: ["activeEvent"] });
+  }
+};
 
 exports.getEventById = id => event.findByPk(id);
 

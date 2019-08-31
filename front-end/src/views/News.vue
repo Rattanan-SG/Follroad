@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       events: [],
-      startAt: "now"
+      startFrom: null
     };
   },
   methods: {
@@ -26,13 +26,13 @@ export default {
       axios
         .get(`${process.env.VUE_APP_EVENT_URL}/event`, {
           params: {
-            startAt: this.startAt,
+            startFrom: this.startFrom,
             limit: 10
           }
         })
         .then(({ data }) => {
           if (data.length) {
-            this.startAt = data[data.length - 1].start;
+            this.startFrom = data[data.length - 1].start;
             this.events.push(...data);
             $state.loaded();
           } else {
