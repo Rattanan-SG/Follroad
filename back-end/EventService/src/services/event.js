@@ -75,5 +75,5 @@ exports.syncIticEvent = async () => {
 
 const sendEventToMessageQueue = events => {
   const data = formatEventToSendMessageQueue(events);
-  messageQueue.sendMessage("Notification", data);
+  messageQueue.sendMessage(global.gConfig.notification_queue_name, data);
 };
