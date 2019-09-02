@@ -2,7 +2,7 @@
   <HomeHistoryRoute />
 </template>
 <script>
-const HomeHistoryRoute = () => import("../components/HomeHistoryRoute");
+const HomeHistoryRoute = () => import("../components/HistoryRoute/HomeHistoryRoute");
 export default {
   name: "HistoryRoute",
   components: {

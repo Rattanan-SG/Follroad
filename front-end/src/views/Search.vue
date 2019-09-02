@@ -70,9 +70,9 @@
 </template>
 
 <script>
-const SearchPanel = () => import("../components/SearchPanel");
-const SearchFeedPanel = () => import("../components/SearchFeedPanel");
-const SaveRoute = () => import("../components/SaveRoute");
+const SearchPanel = () => import("../components/Search/SearchPanel");
+const SearchFeedPanel = () => import("../components/Search/SearchFeedPanel");
+const SaveRoute = () => import("../components/Search/SaveRoute");
 import { mapGetters, mapActions } from "vuex";
 import { eventBus } from "../main";
 export default {

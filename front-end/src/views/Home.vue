@@ -18,10 +18,10 @@
 </template> 
 
 <script>
-const HomeFeedList = () => import("../components/HomeFeedList");
+const HomeFeedList = () => import("../components/Home/HomeFeedList");
 const HomeFilterEventCategory = () =>
-  import("../components/HomeFilterEventCategory");
-const HomeSearchEvent = () => import("../components/HomeSearchEvent");
+  import("../components/Home/HomeFilterEventCategory");
+const HomeSearchEvent = () => import("../components/Home/HomeSearchEvent");
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Home",

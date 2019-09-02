@@ -12,7 +12,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import eventService from "../utilitys/eventService.js";
+import eventService from "@/utilitys/eventService.js";
 export default {
   name: "HomeFeedItem",
   props: {

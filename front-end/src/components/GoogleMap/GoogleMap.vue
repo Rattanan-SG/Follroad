@@ -26,8 +26,8 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { eventBus } from "@/main";
 import { gmapApi } from "vue2-google-maps";
-import { eventBus } from "../main";
 import GmapCluster from "vue2-google-maps/dist/components/cluster";
 // import axios from "axios";
 const GoogleMapInfoWindow = () => import("./GoogleMapInfoWindow");

@@ -2,7 +2,7 @@
   <HomeProfile />
 </template>
 <script>
-const HomeProfile = () => import("../components/HomeProfile");
+const HomeProfile = () => import("../components/Profile/HomeProfile");
 export default {
   name: "Profile",
   components: {

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import HomeFeedItem from "./HomeFeedItem";
+import HomeFeedItem from "../Home/HomeFeedItem";
 import { mapGetters } from "vuex";
 export default {
   name: "SearchFeedPanel",

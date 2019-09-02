@@ -21,9 +21,9 @@
 </template>
 
 <script>
-const Navbar = () => import("./components/Navbar");
-const BottomMenuBar = () => import("./components/BottomMenuBar");
-const GoogleMap = () => import("./components/GoogleMap");
+const Navbar = () => import("./components/Navbar/Navbar");
+const BottomMenuBar = () => import("./components/Navbar/BottomMenuBar");
+const GoogleMap = () => import("./components/GoogleMap/GoogleMap");
 const RefreshSnackBar = () => import("./components/RefreshSnackBar.vue");
 import { mapGetters, mapActions } from "vuex";
 export default {

@@ -67,7 +67,7 @@
 </template>
 <script>
 import axios from "axios";
-import urlB64ToUint8Array from "../utilitys/urlB64ToUint8Array";
+import urlB64ToUint8Array from "@/utilitys/urlB64ToUint8Array";
 export default {
   name: "HomeProfile",
   data() {
