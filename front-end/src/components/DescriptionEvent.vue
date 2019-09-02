@@ -1,6 +1,6 @@
 <template>
   <v-container flat>
-    <v-card max-width="100%" class="mx-auto" flat>
+    <v-card max-width="100%" class="white--text" flat color="blue-grey darken-2">
       <!-- <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px"></v-img> -->
 
       <v-layout>
@@ -30,12 +30,14 @@
           <v-divider></v-divider>
 
           <v-flex xs12 md12 lg12>
-            <v-btn flat icon color="blue lighten-2">
+            <v-btn flat icon color="blue lighten-2" v-on:click="countLike++">
               <v-icon>thumb_up</v-icon>
-            </v-btn>(23)
-            <v-btn flat icon color="red lighten-2">
+            </v-btn>
+            {{countLike}}
+            <v-btn flat icon color="red lighten-2" v-on:click="countDislike++">
               <v-icon>thumb_down</v-icon>
-            </v-btn>(23)
+            </v-btn>
+            {{countDislike}}
           </v-flex>
         </v-flex>
       </v-layout>
@@ -65,7 +67,9 @@ export default {
   name: "DescriptionEvent",
   data: () => ({
     dialog: false,
-    show: false
+    show: false,
+    countLike: 0,
+    countDislike: 0
   }),
   computed: {
     ...mapGetters(["infoWindow"])
