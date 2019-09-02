@@ -49,12 +49,14 @@
           <v-divider></v-divider>
 
           <v-flex xs12 md12 lg12>
-            <v-btn flat icon color="blue lighten-2">
+            <v-btn flat icon color="blue lighten-2" v-on:click="countLike++">
               <v-icon>thumb_up</v-icon>
-            </v-btn>(23)
-            <v-btn flat icon color="red lighten-2">
+            </v-btn>
+            {{countLike}}
+            <v-btn flat icon color="red lighten-2" v-on:click="countDislike++">
               <v-icon>thumb_down</v-icon>
-            </v-btn>(23)
+            </v-btn>
+            {{countDislike}}
             <!-- <v-spacer></v-spacer> -->
             <v-btn outline color="blue" to="/details">ดูเพิ่มเติม</v-btn>
           </v-flex>
@@ -70,7 +72,9 @@ export default {
   name: "GoogleMapInfoWindow",
   data() {
     return {
-      dialog: false
+      dialog: false,
+      countLike: 0,
+      countDislike: 0
     };
   },
 
