@@ -40,13 +40,14 @@
           </v-list>
           <v-card-text>
             <div>{{infoWindow.marker.description}}</div>
+
+            <br />
+            <v-divider></v-divider>
           </v-card-text>
           <v-card-text>
             <div>เกิดเหตุการณ์ขึ้น ณ : {{infoWindow.marker.eventCaption.startTime}}</div>
             <div>จะสิ้นสุดใน : {{infoWindow.marker.eventCaption.stopTime}}</div>
           </v-card-text>
-
-          <v-divider></v-divider>
 
           <v-flex xs12 md12 lg12>
             <v-btn flat icon color="blue lighten-2" v-on:click="countLike++">
