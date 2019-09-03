@@ -142,7 +142,9 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["myLocation", "searchPlace", "showRouterView"])
+    ...mapGetters("googleMap", ["myLocation"]),
+    ...mapGetters("search", ["searchPlace"]),
+    ...mapGetters("route", ["showRouterView"])
   },
   created() {
     let installPrompt;
@@ -167,13 +169,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      "setCenter",
-      "setZoomLevel",
-      "setSearchPlace",
-      "setDirection",
-      "setShowRouterView"
-    ]),
+    ...mapActions("googleMap", ["setCenter", "setZoomLevel"]),
+    ...mapActions("search", ["setSearchPlace"]),
+    ...mapActions("direction", ["setDirection"]),
+    ...mapActions("route", ["setShowRouterView"]),
     login() {
       this.$auth.login();
     },

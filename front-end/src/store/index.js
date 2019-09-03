@@ -1,15 +1,19 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import googleMap from "./modules/google-map";
 import event from "./modules/event";
+import route from "./modules/route";
+import googleMap from "./modules/google-map";
+import search from "./modules/search";
 import direction from "./modules/direction";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
-    googleMap,
     event,
+    route,
+    search,
+    googleMap,
     direction
   }
 });

@@ -80,10 +80,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["infoWindow"])
+    ...mapGetters("event", ["infoWindow"])
   },
   methods: {
-    ...mapActions(["closeInfoWindow"])
+    ...mapActions("event", ["closeInfoWindow"])
   }
 };
 </script>

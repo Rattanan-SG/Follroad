@@ -87,10 +87,10 @@ export default {
     countDislike: 0
   }),
   computed: {
-    ...mapGetters(["infoWindow"])
+    ...mapGetters("event", ["infoWindow"])
   },
   methods: {
-    ...mapActions(["closeInfoWindow"])
+    ...mapActions("event", ["closeInfoWindow"])
   }
 };
 </script>

@@ -35,7 +35,7 @@ export default {
     RefreshSnackBar
   },
   computed: {
-    ...mapGetters(["showRouterView"])
+    ...mapGetters("route", ["showRouterView"])
   },
   async created() {
     try {
@@ -52,12 +52,9 @@ export default {
     this.getGeolocation();
   },
   methods: {
-    ...mapActions([
-      "setCenter",
-      "setMyLocation",
-      "fetchEvents",
-      "setShowRouterView"
-    ]),
+    ...mapActions("googleMap", ["setCenter", "setMyLocation"]),
+    ...mapActions("event", ["fetchEvents"]),
+    ...mapActions("route", ["setShowRouterView"]),
     getGeolocation: function() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(

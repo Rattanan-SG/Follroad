@@ -17,15 +17,10 @@
 import { mapGetters, mapActions } from "vuex";
 export default {
   computed: {
-    ...mapGetters([
-      "myLocation",
-      "searchPlace",
-      "showRouterView",
-      "directionsRenderer"
-    ])
+    ...mapGetters("route", ["showRouterView"])
   },
   methods: {
-    ...mapActions(["setShowRouterView"]),
+    ...mapActions("route", ["setShowRouterView"]),
     toggleRouterView: function(route) {
       if (this.activeRouter == route) {
         this.setShowRouterView(!this.showRouterView);

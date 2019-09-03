@@ -10,7 +10,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import HomeFeedItem from "./HomeFeedItem.vue";
+import HomeFeedItem from "./HomeFeedItem";
 const InfiniteLoading = () => import("vue-infinite-loading");
 export default {
   components: {
@@ -26,7 +26,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["events", "pagingEvents"])
+    ...mapGetters("event", ["events", "pagingEvents"])
   },
   watch: {
     events() {

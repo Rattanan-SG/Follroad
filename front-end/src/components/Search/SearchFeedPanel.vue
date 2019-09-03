@@ -22,7 +22,7 @@ export default {
     HomeFeedItem
   },
   computed: {
-    ...mapGetters(["specificEvents"])
+    ...mapGetters(["direction/specificEvents"])
   }
 };
 </script>

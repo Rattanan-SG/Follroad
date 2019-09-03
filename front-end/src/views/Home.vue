@@ -31,10 +31,10 @@ export default {
     HomeSearchEvent
   },
   computed: {
-    ...mapGetters(["myLocation", "searchPlace", "showRouterView"])
+    ...mapGetters("route", ["showRouterView"])
   },
   methods: {
-    ...mapActions(["setShowRouterView"]),
+    ...mapActions("route", ["setShowRouterView"]),
     toggleRouterView: function(route) {
       if (this.activeRouter == route) {
         this.setShowRouterView(!this.showRouterView);

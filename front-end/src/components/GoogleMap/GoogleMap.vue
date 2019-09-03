@@ -13,7 +13,7 @@
       ></gmap-marker>
     </gmap-cluster>
     <gmap-marker
-      v-if="searchPlace"
+      v-if="searchPlaceMarker"
       :position="searchPlaceMarker.position"
       :title="searchPlaceMarker.title"
       @click="setInfoWindow(searchPlaceMarker)"
@@ -52,15 +52,9 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([
-      "center",
-      "zoomLevel",
-      "myLocation",
-      "events",
-      "markers",
-      "searchPlace",
-      "searchPlaceMarker"
-    ]),
+    ...mapGetters("googleMap", ["center", "zoomLevel", "myLocation"]),
+    ...mapGetters("event", ["markers"]),
+    ...mapGetters("search", ["searchPlaceMarker"]),
     google: gmapApi
   },
   created() {
@@ -81,15 +75,17 @@ export default {
     });
   },
   methods: {
-    ...mapActions([
+    ...mapActions("googleMap", [
       "setCenter",
       "setMyLocation",
-      "setGoogleClass",
+      "setGoogleClass"
+    ]),
+    ...mapActions("direction", [
       "setDirection",
       "setDirectionsRenderer",
-      "setInfoWindow",
       "selectRoute"
     ]),
+    ...mapActions("event", ["setInfoWindow"]),
     aa: function(e) {
       console.log(JSON.stringify(e.latLng));
     },

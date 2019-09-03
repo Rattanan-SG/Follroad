@@ -21,7 +21,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["direction"])
+    ...mapGetters("direction", ["direction"])
   },
   mounted() {
     if (this.directionsRenderer) {
@@ -34,7 +34,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["selectRoute", "setShowRouterView"]),
+    ...mapActions("direction", ["selectRoute", "route/setShowRouterView"]),
+    ...mapActions("route", ["setShowRouterView"]),
     setupPanel: function() {
       this.trDocument = this.$refs.panel.children[0].querySelectorAll(
         "tr[jsinstance]"

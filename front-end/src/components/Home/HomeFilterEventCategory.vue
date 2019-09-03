@@ -40,14 +40,14 @@ export default {
         return this.$store.state.event.eventCategorySelected;
       },
       set(value) {
-        this.$store.commit("SET_EVENT_CATEGORY_SELECTED", value);
+        this.$store.commit("event/SET_EVENT_CATEGORY_SELECTED", value);
       }
     }
   },
   methods: {
     reset: function() {
       this.$store.commit(
-        "SET_EVENT_CATEGORY_SELECTED",
+        "event/SET_EVENT_CATEGORY_SELECTED",
         eventConstant.EVENT_CATEGORY
       );
     }

@@ -19,10 +19,11 @@ export default {
     event: Object
   },
   computed: {
-    ...mapGetters(["markerByEventId"])
+    ...mapGetters("event", ["markerByEventId"])
   },
   methods: {
-    ...mapActions(["setShowRouterView", "setInfoWindow"]),
+    ...mapActions("event", ["setInfoWindow", "setShowRouterView"]),
+    ...mapActions("route", ["setShowRouterView"]),
     toggleInfoWindow: function() {
       this.setInfoWindow(this.markerByEventId(this.event.id));
       if (this.$vuetify.breakpoint.xsOnly) {

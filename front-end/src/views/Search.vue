@@ -90,12 +90,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([
-      "myLocation",
-      "searchPlace",
-      "showRouterView",
-      "directionsRenderer"
-    ])
+    ...mapGetters("googleMap", ["myLocation"]),
+    ...mapGetters("search", ["searchPlace"]),
+    ...mapGetters("route", ["showRouterView"]),
+    ...mapGetters("direction", ["directionsRenderer"])
   },
   mounted() {
     this.setupAutoComplete();
@@ -109,7 +107,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["setSearchPlace", "setDirection", "setShowRouterView"]),
+    ...mapActions("search", ["setSearchPlace"]),
+    ...mapActions("direction", ["setDirection"]),
+    ...mapActions("route", ["setShowRouterView"]),
     toggleRouterView: function(route) {
       if (this.activeRouter == route) {
         this.setShowRouterView(!this.showRouterView);
