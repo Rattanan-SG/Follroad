@@ -23,22 +23,7 @@
             <span>Static Drawer</span>
           </v-tooltip>
         </v-list-tile>
-
-        <!-- <v-list-tile @click="toggleMiniDrawer">
-          <v-tooltip bottom close-delay="10">
-            <template v-slot:activator="{ on }">
-              <v-list-tile-action v-on="on">
-                <v-icon>aspect_ratio</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>Mini Drawer</v-list-tile-title>
-              </v-list-tile-content>
-            </template>
-            <span>Mini Drawer</span>
-          </v-tooltip>
-        </v-list-tile>-->
-        <v-divider></v-divider>
-
+        <v-divider/>
         <v-list-tile
           v-for="list in lists"
           :key="list.text"
@@ -144,7 +129,7 @@ export default {
   computed: {
     ...mapGetters("googleMap", ["myLocation"]),
     ...mapGetters("search", ["searchPlace"]),
-    ...mapGetters("route", ["showRouterView"])
+    ...mapGetters("route", ["routerView"])
   },
   created() {
     let installPrompt;
@@ -172,7 +157,7 @@ export default {
     ...mapActions("googleMap", ["setCenter", "setZoomLevel"]),
     ...mapActions("search", ["setSearchPlace"]),
     ...mapActions("direction", ["setDirection"]),
-    ...mapActions("route", ["setShowRouterView"]),
+    ...mapActions("route", ["setRouterView"]),
     login() {
       this.$auth.login();
     },
@@ -193,10 +178,10 @@ export default {
     },
     toggleRouterView: function(route) {
       if (this.activeRouter == route) {
-        this.setShowRouterView(!this.showRouterView);
+        this.setRouterView(!this.routerView);
       } else {
         this.activeRouter = route;
-        this.setShowRouterView(true);
+        this.setRouterView(true);
       }
     },
     setPlace: function(place) {
@@ -214,8 +199,8 @@ export default {
         this.$router.push("/search");
         this.activeRouter = "/search";
         this.$vuetify.breakpoint.xsOnly
-          ? this.setShowRouterView(false)
-          : this.setShowRouterView(true);
+          ? this.setRouterView(false)
+          : this.setRouterView(true);
       }
     },
     clear: function() {
@@ -235,8 +220,8 @@ export default {
         this.$router.push("/search");
         this.activeRouter = "/search";
         this.$vuetify.breakpoint.xsOnly
-          ? this.setShowRouterView(false)
-          : this.setShowRouterView(true);
+          ? this.setRouterView(false)
+          : this.setRouterView(true);
       }
     },
     makeDrawerPermanent() {

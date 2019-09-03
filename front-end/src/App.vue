@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <SlideMenuBar />
     <Navbar />
     <v-content>
       <v-layout row wrap fill-height>
@@ -22,7 +21,6 @@
 </template>
 
 <script>
-const SlideMenuBar = () => import("./components/Navbar/SlideMenuBar");
 const Navbar = () => import("./components/Navbar/Navbar");
 const BottomMenuBar = () => import("./components/Navbar/BottomMenuBar");
 const GoogleMap = () => import("./components/GoogleMap/GoogleMap");
@@ -31,7 +29,6 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "App",
   components: {
-    SlideMenuBar,
     Navbar,
     BottomMenuBar,
     GoogleMap,
