@@ -213,7 +213,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["direction/directionsRenderer"])
+    ...mapGetters("direction", ["directionsRenderer"])
   }
 };
 </script>

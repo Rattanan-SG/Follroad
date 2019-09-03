@@ -23,13 +23,12 @@
             <span>Static Drawer</span>
           </v-tooltip>
         </v-list-tile>
-        <v-divider/>
+        <v-divider />
         <v-list-tile
           v-for="list in lists"
           :key="list.text"
           :to="list.route"
-          router
-          @click="toggleRouterView(list.route)"
+          @click="setRouterView(true)"
         >
           <v-tooltip bottom close-delay="10">
             <template v-slot:activator="{ on }">
@@ -86,7 +85,7 @@
         <v-icon>mobile_friendly</v-icon>
       </v-btn>
       <v-btn v-if="!isAuthenticated" outline @click.prevent="login">Log in</v-btn>
-      <v-btn v-else icon to="/profile" @click="toggleRouterView('/profile')">
+      <v-btn v-else icon to="/profile" @click="setRouterView(true)">
         <v-avatar size="35px">
           <img :src="profile.picture" alt="avatar" />
         </v-avatar>
@@ -119,7 +118,6 @@ export default {
         { text: "Forum", icon: "forum", route: "/news" },
         { text: "Profile", icon: "person", route: "/profile" }
       ],
-      activeRouter: "/",
       installBtn: false,
       installer: null,
       isAuthenticated: false,
@@ -176,14 +174,6 @@ export default {
         this.$refs.autocomplete.$el.value = null;
       }
     },
-    toggleRouterView: function(route) {
-      if (this.activeRouter == route) {
-        this.setRouterView(!this.routerView);
-      } else {
-        this.activeRouter = route;
-        this.setRouterView(true);
-      }
-    },
     setPlace: function(place) {
       if (place) {
         if (place.geometry) {
@@ -209,7 +199,6 @@ export default {
       this.setDirection(null);
       eventBus.stopDirections();
       this.$router.push("/");
-      this.activeRouter = "/";
     },
     startDirections: function() {
       if (this.searchPlace && this.myLocation) {
@@ -218,7 +207,6 @@ export default {
           this.searchPlace.geometry.location
         );
         this.$router.push("/search");
-        this.activeRouter = "/search";
         this.$vuetify.breakpoint.xsOnly
           ? this.setRouterView(false)
           : this.setRouterView(true);
