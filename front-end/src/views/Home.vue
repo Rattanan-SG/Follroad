@@ -1,10 +1,10 @@
 <template>
   <div>
-    <v-layout>
-      <!-- <v-flex xs12 mx-2>
+    <BackToolBar title="เหตุการณ์" />
+    <!-- <v-flex xs12 mx-2>
         <HomeSearchEvent />
-      </v-flex>-->
-    </v-layout>
+    </v-flex>-->
+    <!-- </v-layout> -->
     <v-layout justify-center mb-2>
       <HomeFilterEventCategory />
     </v-layout>
@@ -13,13 +13,15 @@
 </template> 
 
 <script>
-const HomeFeedList = () => import("../components/Home/HomeFeedList");
+const BackToolBar = () => import("@/components/Navbar/BackToolBar");
+const HomeFeedList = () => import("@/components/Home/HomeFeedList");
 const HomeFilterEventCategory = () =>
-  import("../components/Home/HomeFilterEventCategory");
-// const HomeSearchEvent = () => import("../components/Home/HomeSearchEvent");
+  import("@/components/Home/HomeFilterEventCategory");
+// const HomeSearchEvent = () => import("@/components/Home/HomeSearchEvent");
 export default {
   name: "Home",
   components: {
+    BackToolBar,
     HomeFeedList,
     HomeFilterEventCategory
     // HomeSearchEvent

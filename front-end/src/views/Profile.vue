@@ -1,11 +1,16 @@
 <template>
-  <HomeProfile />
+  <div>
+    <BackToolBar title="ข้อมูลส่วนตัว"/>
+    <HomeProfile />
+  </div>
 </template>
 <script>
-const HomeProfile = () => import("../components/Profile/HomeProfile");
+const BackToolBar = () => import("@/components/Navbar/BackToolBar");
+const HomeProfile = () => import("@/components/Profile/HomeProfile");
 export default {
   name: "Profile",
   components: {
+    BackToolBar,
     HomeProfile
   }
 };

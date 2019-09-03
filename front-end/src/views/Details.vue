@@ -1,10 +1,15 @@
 <template>
-  <DescriptionEvent />
+  <div>
+    <BackToolBar title="รายละเอียดเหตุการณ์"/>
+    <DescriptionEvent />
+  </div>
 </template>
 <script>
-import DescriptionEvent from "../components/Details/DescriptionEvent";
+const BackToolBar = () => import("@/components/Navbar/BackToolBar");
+const DescriptionEvent = () => import("@/components/Details/DescriptionEvent");
 export default {
   components: {
+    BackToolBar,
     DescriptionEvent
   }
 };

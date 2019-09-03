@@ -1,5 +1,6 @@
 <template>
   <div>
+    <BackToolBar title="เดินทาง" />
     <v-layout row wrap pt-1>
       <v-flex xs12 class="hidden-sm-and-up" pl-4>
         <v-btn flat icon @click="toggleRouterView()">
@@ -70,14 +71,16 @@
 </template>
 
 <script>
-const SearchPanel = () => import("../components/Search/SearchPanel");
-const SearchFeedPanel = () => import("../components/Search/SearchFeedPanel");
-const SaveRoute = () => import("../components/Search/SaveRoute");
+const BackToolBar = () => import("@/components/Navbar/BackToolBar");
+const SearchPanel = () => import("@/components/Search/SearchPanel");
+const SearchFeedPanel = () => import("@/components/Search/SearchFeedPanel");
+const SaveRoute = () => import("@/components/Search/SaveRoute");
 import { mapGetters, mapActions } from "vuex";
-import { eventBus } from "../main";
+import { eventBus } from "@/main";
 export default {
   name: "Search",
   components: {
+    BackToolBar,
     SearchPanel,
     SearchFeedPanel,
     SaveRoute

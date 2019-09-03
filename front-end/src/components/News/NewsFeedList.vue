@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 60vh; overflow: auto">
     <NewsFeedItem v-for="event in events" :key="event.id" :event="event"></NewsFeedItem>
   </div>
 </template>
@@ -16,4 +16,8 @@ export default {
 };
 </script>
 <style scoped>
+.v-list {
+  height: 60vh;
+  overflow: auto;
+}
 </style>

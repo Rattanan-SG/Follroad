@@ -1,17 +1,21 @@
 <template>
-  <div style="height: 70vh; overflow: auto">
+  <div>
+    <BackToolBar title="ข่าว" />
     <NewsFeedList :events="events"></NewsFeedList>
     <infinite-loading @infinite="getEvent"></infinite-loading>
   </div>
 </template>
 
 <script>
-import axios from "axios";
 const InfiniteLoading = () => import("vue-infinite-loading");
-const NewsFeedList = () => import("../components/News/NewsFeedList");
+const BackToolBar = () => import("@/components/Navbar/BackToolBar");
+const NewsFeedList = () => import("@/components/News/NewsFeedList");
+import event from "@/api/event";
+
 export default {
   name: "News",
   components: {
+    BackToolBar,
     NewsFeedList,
     InfiniteLoading
   },
@@ -23,14 +27,12 @@ export default {
   },
   methods: {
     getEvent: function($state) {
-      axios
-        .get(`${process.env.VUE_APP_EVENT_URL}/event`, {
-          params: {
-            startFrom: this.startFrom,
-            limit: 10
-          }
+      event
+        .getEvents({
+          startFrom: this.startFrom,
+          limit: 10
         })
-        .then(({ data }) => {
+        .then(data => {
           if (data.length) {
             this.startFrom = data[data.length - 1].start;
             this.events.push(...data);

@@ -7,7 +7,6 @@
       :mini-variant="drawer.mini"
       v-model="drawer.open"
       app
-      class="hidden-sm-and-down"
     >
       <v-list>
         <v-list-tile v-if="!drawer.permanent" @click="makeDrawerPermanent">
@@ -55,12 +54,9 @@
       :fixed="toolbar.fixed"
       :clipped-left="toolbar.clippedLeft"
     >
-      <v-toolbar-side-icon @click.stop="toggleDrawer" class="hidden-sm-and-down"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click.stop="toggleDrawer" class="hidden-xs-only"></v-toolbar-side-icon>
 
-      <v-toolbar-title
-        class="hidden-sm-and-down"
-        style="overflow: unset; margin-left: 10px"
-      >Follroad</v-toolbar-title>
+      <v-toolbar-title class="hidden-xs-only" style="overflow: unset; margin-left: 10px">Follroad</v-toolbar-title>
 
       <gmap-autocomplete
         @place_changed="setPlace"
@@ -71,12 +67,12 @@
         :select-first-on-enter="true"
       ></gmap-autocomplete>
 
-      <v-btn v-if="!searchPlace" icon @click="search">
+      <!-- <v-btn v-if="!searchPlace" icon @click="search">
         <v-icon>search</v-icon>
       </v-btn>
       <v-btn v-else icon @click="clear">
         <v-icon>close</v-icon>
-      </v-btn>
+      </v-btn>-->
       <v-btn icon @click="startDirections">
         <v-icon>directions</v-icon>
       </v-btn>
