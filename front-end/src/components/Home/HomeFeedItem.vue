@@ -22,12 +22,12 @@ export default {
     ...mapGetters("event", ["markerByEventId"])
   },
   methods: {
-    ...mapActions("event", ["setInfoWindow", "setShowRouterView"]),
-    ...mapActions("route", ["setShowRouterView"]),
+    ...mapActions("event", ["setInfoWindow", "setRouterView"]),
+    ...mapActions("route", ["setRouterView"]),
     toggleInfoWindow: function() {
       this.setInfoWindow(this.markerByEventId(this.event.id));
       if (this.$vuetify.breakpoint.xsOnly) {
-        this.setShowRouterView(false);
+        this.setRouterView(false);
       }
     },
     getIcon: function() {

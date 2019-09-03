@@ -92,7 +92,7 @@ export default {
   computed: {
     ...mapGetters("googleMap", ["myLocation"]),
     ...mapGetters("search", ["searchPlace"]),
-    ...mapGetters("route", ["showRouterView"]),
+    ...mapGetters("route", ["routerView"]),
     ...mapGetters("direction", ["directionsRenderer"])
   },
   mounted() {
@@ -109,13 +109,13 @@ export default {
   methods: {
     ...mapActions("search", ["setSearchPlace"]),
     ...mapActions("direction", ["setDirection"]),
-    ...mapActions("route", ["setShowRouterView"]),
+    ...mapActions("route", ["setRouterView"]),
     toggleRouterView: function(route) {
       if (this.activeRouter == route) {
-        this.setShowRouterView(!this.showRouterView);
+        this.setRouterView(!this.routerView);
       } else {
         this.activeRouter = route;
-        this.setShowRouterView(true);
+        this.setRouterView(true);
       }
     },
     setupAutoComplete: function() {
@@ -149,8 +149,8 @@ export default {
       if (this.startLocation && this.destinationLocation) {
         eventBus.startDirections(this.startLocation, this.destinationLocation);
         this.$vuetify.breakpoint.xsOnly
-          ? this.setShowRouterView(false)
-          : this.setShowRouterView(true);
+          ? this.setRouterView(false)
+          : this.setRouterView(true);
       }
     },
     stopDirections: function() {

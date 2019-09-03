@@ -16,19 +16,5 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
-  computed: {
-    ...mapGetters("route", ["showRouterView"])
-  },
-  methods: {
-    ...mapActions("route", ["setShowRouterView"]),
-    toggleRouterView: function(route) {
-      if (this.activeRouter == route) {
-        this.setShowRouterView(!this.showRouterView);
-      } else {
-        this.activeRouter = route;
-        this.setShowRouterView(true);
-      }
-    }
-  }
 };
 </script>

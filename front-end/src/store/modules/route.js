@@ -1,22 +1,29 @@
 const state = {
-  showRouterView: false
+  routerView: false,
+  activeRoute: "/"
 };
 
 const getters = {
-  showRouterView: state => {
-    return state.showRouterView;
+  routerView: state => {
+    return state.routerView;
+  },
+  activeRoute: state => {
+    return state.routerView;
   }
 };
 
 const actions = {
-  setShowRouterView: ({ commit }, showRouterView) => {
-    commit("SET_SHOWROUTERVIEW", showRouterView);
+  setRouterView: ({ commit }, routerView) => {
+    commit("SET_ROUTER_VIEW", routerView);
+  },
+  toggleRouterView: ({ commit, state }) => {
+    commit("SET_ROUTER_VIEW", !state.routerView);
   }
 };
 
 const mutations = {
-  SET_SHOWROUTERVIEW: (state, showRouterView) => {
-    state.showRouterView = !!showRouterView;
+  SET_ROUTER_VIEW: (state, routerView) => {
+    state.routerView = !!routerView;
   }
 };
 
@@ -27,3 +34,31 @@ export default {
   actions,
   mutations
 };
+
+// const state = {
+//   routerView: this.$vuetify.breakpoint.xsOnly ? false : true
+// };
+
+// const getters = {
+//   routerView: state => {
+//     return state.routerView;
+//   }
+// };
+
+// const actions = {
+//   openRouterView: ({ commit }) => {
+//     commit("SET_ROUTER_VIEW", true);
+//   },
+//   closeRouterView: ({ commit }) => {
+//     commit("SET_ROUTER_VIEW", false);
+//   },
+//   toggleRouterView: ({ commit, state }) => {
+//     commit("SET_ROUTER_VIEW", !state.routerView);
+//   }
+// };
+
+// const mutations = {
+//   SET_ROUTER_VIEW: (state, routerView) => {
+//     state.routerView = !!routerView;
+//   }
+// };

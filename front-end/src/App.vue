@@ -1,9 +1,10 @@
 <template>
   <v-app>
+    <SlideMenuBar />
     <Navbar />
     <v-content>
       <v-layout row wrap fill-height>
-        <v-flex v-if="showRouterView" xl3 lg3 md3 sm4 xs12 style="z-index: 2">
+        <v-flex v-if="routerView" xl3 lg3 md3 sm4 xs12 style="z-index: 2">
           <v-card flat height="100%">
             <keep-alive>
               <router-view></router-view>
@@ -21,6 +22,7 @@
 </template>
 
 <script>
+const SlideMenuBar = () => import("./components/Navbar/SlideMenuBar");
 const Navbar = () => import("./components/Navbar/Navbar");
 const BottomMenuBar = () => import("./components/Navbar/BottomMenuBar");
 const GoogleMap = () => import("./components/GoogleMap/GoogleMap");
@@ -29,38 +31,40 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "App",
   components: {
+    SlideMenuBar,
     Navbar,
     BottomMenuBar,
     GoogleMap,
     RefreshSnackBar
   },
   computed: {
-    ...mapGetters("route", ["showRouterView"])
+    ...mapGetters("route", ["routerView"])
   },
   async created() {
     try {
       await this.$auth.renewTokens();
+      this.fetchEvents();
+      this.$vuetify.breakpoint.xsOnly
+        ? this.setRouterView(false)
+        : this.setRouterView(true);
     } catch (e) {
       console.error(e);
     }
-    this.fetchEvents();
-    this.$vuetify.breakpoint.xsOnly
-      ? this.setShowRouterView(false)
-      : this.setShowRouterView(true);
   },
   mounted() {
     this.getGeolocation();
   },
   methods: {
+    ...mapActions("route", ["setRouterView"]),
     ...mapActions("googleMap", ["setCenter", "setMyLocation"]),
     ...mapActions("event", ["fetchEvents"]),
-    ...mapActions("route", ["setShowRouterView"]),
+
     getGeolocation: function() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           this.setUserLocation,
           this.handleLocationError,
-          { enableHighAccuracy: true, timeout: 15000 }
+          { enableHighAccuracy: true, timeout: 5000 }
         );
       }
     },
@@ -89,7 +93,8 @@ export default {
         // user said no
       }
     }
-  }
+  },
+  destroyed() {}
 };
 </script>
 <style scoped>

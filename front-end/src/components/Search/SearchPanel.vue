@@ -34,8 +34,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions("direction", ["selectRoute", "route/setShowRouterView"]),
-    ...mapActions("route", ["setShowRouterView"]),
+    ...mapActions("direction", ["selectRoute"]),
+    ...mapActions("route", ["setRouterView"]),
     setupPanel: function() {
       this.trDocument = this.$refs.panel.children[0].querySelectorAll(
         "tr[jsinstance]"
@@ -61,7 +61,7 @@ export default {
       //   polylineOptions: { strokeColor: "#8b0013" }
       // });
       // if (this.$vuetify.breakpoint.xsOnly) {
-      //   this.setShowRouterView(false);
+      //   this.setRouterView(false);
       // }
       // console.log(found.attributes[0].value);
     }

@@ -47,13 +47,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("route", ["showRouterView"])
+    ...mapGetters("route", ["routerView"])
   },
   methods: {
-    ...mapActions("route", ["setShowRouterView"]),
+    ...mapActions("route", ["setRouterView"]),
     toggleRouterView: function(route) {
       if ((this.activeRouter = route)) {
-        this.setShowRouterView(true);
+        this.setRouterView(true);
       }
     }
   }
