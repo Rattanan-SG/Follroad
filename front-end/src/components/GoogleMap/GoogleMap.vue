@@ -4,7 +4,7 @@
     <GoogleMapInfoWindow />
     <gmap-cluster :max-zoom="10" :zoom-on-click="true">
       <gmap-marker
-        :key="marker.eid"
+        :key="marker.id"
         v-for="(marker) in markers"
         :position="marker.position"
         :title="marker.title"

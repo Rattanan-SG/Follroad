@@ -1,4 +1,4 @@
-import axios from "axios";
+import event from "@/api/event";
 import eventService from "@/utilitys/eventService";
 
 const state = {
@@ -30,26 +30,24 @@ const getters = {
     }
   },
   markers: (state, getters) => {
-    return getters.events.map(event => {
-      return {
-        id: event.eid,
-        position: {
-          lat: event.latitude,
-          lng: event.longitude
-        },
-        title: event.title,
-        description: event.description,
-        eventCaption: {
-          startTime: event.start,
-          stopTime: event.stop,
-          contributor: event.contributor
-        },
-        icon: eventService.selectIcon(event)
-      };
-    });
+    return getters.events.map(event => ({
+      id: event.id,
+      position: {
+        lat: event.latitude,
+        lng: event.longitude
+      },
+      title: event.title,
+      description: event.description,
+      eventCaption: {
+        startTime: event.start,
+        stopTime: event.stop,
+        contributor: event.contributor
+      },
+      icon: eventService.selectIcon(event)
+    }));
   },
-  markerByEventId: (state, getters) => eid => {
-    return getters.markers.find(marker => marker.id == eid);
+  markerByEventId: (state, getters) => id => {
+    return getters.markers.find(marker => marker.id == id);
   },
   pagingEvents: (state, getters) => (pageSize, pageNumber) => {
     return eventService.eventPaginate(getters.events, pageSize, pageNumber);
@@ -64,11 +62,9 @@ const getters = {
 
 const actions = {
   fetchEvents: ({ commit }) => {
-    axios
-      .get(`${process.env.VUE_APP_EVENT_URL}/event`)
-      .then(response => {
-        commit("SET_EVENTS", response.data);
-      });
+    event.getEvents().then(data => {
+      commit("SET_EVENTS", data);
+    });
   },
   setInfoWindow: ({ commit }, marker) => {
     commit("SET_INFOWINDOW", marker);
