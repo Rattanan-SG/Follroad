@@ -25,13 +25,13 @@
 </template>
 
 <script>
-import eventService from "@/utilitys/eventService";
+import eventConstant from "@/utilitys/eventConstant";
 export default {
   name: "HomeFilterEventCategory",
   data() {
     return {
       dialog: false,
-      checkbox: eventService.EVENT_CATEGORY_OBJECT
+      checkbox: eventConstant.EVENT_CATEGORY_OBJECT
     };
   },
   computed: {
@@ -40,15 +40,15 @@ export default {
         return this.$store.state.event.eventCategorySelected;
       },
       set(value) {
-        this.$store.commit("SET_EVENTCATEGORYSELECTED", value);
+        this.$store.commit("SET_EVENT_CATEGORY_SELECTED", value);
       }
     }
   },
   methods: {
     reset: function() {
       this.$store.commit(
-        "SET_EVENTCATEGORYSELECTED",
-        eventService.EVENT_CATEGORY
+        "SET_EVENT_CATEGORY_SELECTED",
+        eventConstant.EVENT_CATEGORY
       );
     }
   }

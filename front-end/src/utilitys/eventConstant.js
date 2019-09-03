@@ -98,13 +98,8 @@ function selectIcon(event) {
   return icon;
 }
 
-function eventPaginate(events, pageSize, pageNumber) {
-  return events.slice(pageNumber * pageSize, (pageNumber + 1) * pageSize);
-}
-
 export default {
   EVENT_CATEGORY,
   EVENT_CATEGORY_OBJECT,
-  selectIcon,
-  eventPaginate
+  selectIcon
 };

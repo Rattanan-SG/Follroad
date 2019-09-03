@@ -1,9 +1,9 @@
 import event from "@/api/event";
-import eventService from "@/utilitys/eventService";
+import eventConstant from "@/utilitys/eventConstant";
 
 const state = {
   events: [],
-  eventCategorySelected: eventService.EVENT_CATEGORY,
+  eventCategorySelected: eventConstant.EVENT_CATEGORY,
   infoWindow: {
     marker: null,
     infoWindowOpen: false,
@@ -20,7 +20,7 @@ const state = {
 const getters = {
   events: state => {
     if (
-      state.eventCategorySelected.length != eventService.EVENT_CATEGORY.length
+      state.eventCategorySelected.length != eventConstant.EVENT_CATEGORY.length
     ) {
       return state.events.filter(event =>
         state.eventCategorySelected.includes(event.icon)
@@ -43,14 +43,17 @@ const getters = {
         stopTime: event.stop,
         contributor: event.contributor
       },
-      icon: eventService.selectIcon(event)
+      icon: eventConstant.selectIcon(event)
     }));
   },
   markerByEventId: (state, getters) => id => {
     return getters.markers.find(marker => marker.id == id);
   },
   pagingEvents: (state, getters) => (pageSize, pageNumber) => {
-    return eventService.eventPaginate(getters.events, pageSize, pageNumber);
+    return getters.events.slice(
+      pageNumber * pageSize,
+      (pageNumber + 1) * pageSize
+    );
   },
   eventCategorySelected: state => {
     return state.eventCategorySelected;
@@ -78,7 +81,7 @@ const mutations = {
   SET_EVENTS: (state, events) => {
     state.events = events;
   },
-  SET_EVENTCATEGORYSELECTED: (state, eventCategorySelected) => {
+  SET_EVENT_CATEGORY_SELECTED: (state, eventCategorySelected) => {
     state.eventCategorySelected = eventCategorySelected;
   },
   SET_INFOWINDOW: (state, marker) => {

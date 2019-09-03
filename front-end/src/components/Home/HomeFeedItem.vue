@@ -12,7 +12,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import eventService from "@/utilitys/eventService.js";
+import eventConstant from "@/utilitys/eventConstant";
 export default {
   name: "HomeFeedItem",
   props: {
@@ -30,7 +30,7 @@ export default {
       }
     },
     getIcon: function() {
-      return eventService.selectIcon(this.event);
+      return eventConstant.selectIcon(this.event);
     }
   }
 };
