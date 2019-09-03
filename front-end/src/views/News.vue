@@ -2,7 +2,7 @@
   <div>
     <BackToolBar title="ข่าว" />
     <NewsFeedList :events="events"></NewsFeedList>
-    <infinite-loading @infinite="getEvent"></infinite-loading>
+    <infinite-loading @infinite="getEvents"></infinite-loading>
   </div>
 </template>
 
@@ -26,7 +26,7 @@ export default {
     };
   },
   methods: {
-    getEvent: function($state) {
+    getEvents: function($state) {
       event
         .getEvents({
           startFrom: this.startFrom,

@@ -109,7 +109,7 @@ export default {
         clippedLeft: false
       },
       lists: [
-        { text: "Feed", icon: "today", route: "/" },
+        { text: "Home", icon: "today", route: "/" },
         { text: "Search", icon: "directions", route: "/search" },
         { text: "Forum", icon: "forum", route: "/news" },
         { text: "Profile", icon: "person", route: "/profile" }

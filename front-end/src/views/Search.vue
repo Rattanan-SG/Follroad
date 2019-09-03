@@ -2,13 +2,6 @@
   <div>
     <BackToolBar title="เดินทาง" />
     <v-layout row wrap pt-1>
-      <v-flex xs12 class="hidden-sm-and-up" pl-4>
-        <v-btn flat icon @click="toggleRouterView()">
-          <v-icon large>keyboard_arrow_left</v-icon>
-          <h3>แผนที่</h3>
-        </v-btn>
-      </v-flex>
-
       <v-flex xs1 pl-3>
         <v-btn
           icon

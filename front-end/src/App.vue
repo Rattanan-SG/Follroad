@@ -16,7 +16,7 @@
       </v-layout>
       <RefreshSnackBar />
     </v-content>
-    <!-- <BottomMenuBar /> -->
+    <BottomMenuBar v-if="this.$vuetify.breakpoint.xsOnly" />
   </v-app>
 </template>
 
