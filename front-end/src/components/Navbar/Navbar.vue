@@ -10,17 +10,12 @@
     >
       <v-list>
         <v-list-tile v-if="!drawer.permanent" @click="makeDrawerPermanent">
-          <v-tooltip bottom close-delay="10">
-            <template v-slot:activator="{ on }">
-              <v-list-tile-action v-on="on">
-                <v-icon>chevron_right</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>Static Drawer</v-list-tile-title>
-              </v-list-tile-content>
-            </template>
-            <span>Static Drawer</span>
-          </v-tooltip>
+          <v-list-tile-action>
+            <v-icon>chevron_right</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Static Drawer</v-list-tile-title>
+          </v-list-tile-content>
         </v-list-tile>
         <v-divider />
         <v-list-tile
@@ -29,20 +24,14 @@
           :to="list.route"
           @click="setRouterView(true)"
         >
-          <v-tooltip bottom close-delay="10">
-            <template v-slot:activator="{ on }">
-              <v-layout align-end fill-height>
-                <v-list-tile-action v-on="on">
-                  <v-icon>{{list.icon}}</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                  <v-list-tile-title>{{list.text}}</v-list-tile-title>
-                </v-list-tile-content>
-              </v-layout>
-            </template>
-
-            <span>{{list.text}}</span>
-          </v-tooltip>
+          <v-layout align-end fill-height>
+            <v-list-tile-action>
+              <v-icon>{{list.icon}}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>{{list.text}}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-layout>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
