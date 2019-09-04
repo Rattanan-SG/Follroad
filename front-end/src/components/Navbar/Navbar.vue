@@ -59,24 +59,23 @@
       <v-toolbar-title class="hidden-xs-only" style="overflow: unset; margin-left: 10px">Follroad</v-toolbar-title>
 
       <gmap-autocomplete
-        @place_changed="setPlace"
-        style="background-color: #0080FF; width:40%; height:70%"
-        class="pa-2 ml-2 subheading"
-        ref="autocomplete"
+        @place_changed="search"
+        style="background-color: #0080FF; width:50%; height:70%"
+        class="pa-2 ml-4 subheading"
+        ref="gmapAutocomplete"
         placeholder="ค้นหาสถานที่"
         :select-first-on-enter="true"
       ></gmap-autocomplete>
 
-      <!-- <v-btn v-if="!searchPlace" icon @click="search">
-        <v-icon>search</v-icon>
-      </v-btn>
-      <v-btn v-else icon @click="clear">
-        <v-icon>close</v-icon>
-      </v-btn>-->
-      <v-btn icon @click="startDirections">
+      <v-btn v-if="!searchPlace" icon @click="startDirections" to="/search">
         <v-icon>directions</v-icon>
       </v-btn>
+      <v-btn v-else icon @click="clearSearch">
+        <v-icon>close</v-icon>
+      </v-btn>
+
       <v-spacer></v-spacer>
+
       <v-btn v-if="installBtn" icon @click="installer()">
         <v-icon>mobile_friendly</v-icon>
       </v-btn>
@@ -101,7 +100,7 @@ export default {
         open: false,
         clipped: false,
         fixed: false,
-        permanent: false,
+        permanent: true,
         mini: true
       },
       toolbar: {
@@ -122,18 +121,15 @@ export default {
   },
   computed: {
     ...mapGetters("googleMap", ["myLocation"]),
-    ...mapGetters("search", ["searchPlace"]),
-    ...mapGetters("route", ["routerView"])
+    ...mapGetters("search", ["searchPlace"])
   },
   created() {
     let installPrompt;
-
     window.addEventListener("beforeinstallprompt", e => {
       e.preventDefault();
       installPrompt = e;
       this.installBtn = true;
     });
-
     this.installer = () => {
       installPrompt.prompt();
       installPrompt.userChoice.then(() => {
@@ -143,8 +139,13 @@ export default {
     };
   },
   watch: {
-    searchPlace() {
-      this.setupAutoComplete();
+    searchPlace(newValue, oldValue) {
+      if (newValue && newValue != oldValue) {
+        this.$refs.gmapAutocomplete.$el.value = newValue.name;
+        if (oldValue) this.search(newValue);
+      } else {
+        this.$refs.gmapAutocomplete.$el.value = null;
+      }
     }
   },
   methods: {
@@ -152,62 +153,6 @@ export default {
     ...mapActions("search", ["setSearchPlace"]),
     ...mapActions("direction", ["setDirection"]),
     ...mapActions("route", ["setRouterView"]),
-    login() {
-      this.$auth.login();
-    },
-    logout() {
-      this.$auth.logOut();
-    },
-    handleLoginEvent(data) {
-      this.isAuthenticated = data.loggedIn;
-      this.profile = data.profile;
-    },
-    setupAutoComplete: function() {
-      if (this.searchPlace) {
-        this.$refs.autocomplete.$el.value = this.searchPlace.name;
-        this.search();
-      } else {
-        this.$refs.autocomplete.$el.value = null;
-      }
-    },
-    setPlace: function(place) {
-      if (place) {
-        if (place.geometry) {
-          this.setSearchPlace(place);
-          this.search();
-        }
-      }
-    },
-    search: function() {
-      if (this.searchPlace) {
-        this.setCenter(this.searchPlace.geometry.location);
-        this.setZoomLevel(17);
-        this.$router.push("/search");
-        this.activeRouter = "/search";
-        this.$vuetify.breakpoint.xsOnly
-          ? this.setRouterView(false)
-          : this.setRouterView(true);
-      }
-    },
-    clear: function() {
-      this.$refs.autocomplete.$el.value = null;
-      this.setSearchPlace(null);
-      this.setDirection(null);
-      eventBus.stopDirections();
-      this.$router.push("/");
-    },
-    startDirections: function() {
-      if (this.searchPlace && this.myLocation) {
-        eventBus.startDirections(
-          this.myLocation.location,
-          this.searchPlace.geometry.location
-        );
-        this.$router.push("/search");
-        this.$vuetify.breakpoint.xsOnly
-          ? this.setRouterView(false)
-          : this.setRouterView(true);
-      }
-    },
     makeDrawerPermanent() {
       this.drawer.permanent = true;
       this.drawer.clipped = false;
@@ -224,6 +169,49 @@ export default {
       } else {
         this.drawer.open = !this.drawer.open;
       }
+    },
+    search: function(place) {
+      console.log("se", place);
+      if (place) {
+        this.setSearchPlace(place);
+        this.setCenter(place.geometry.location);
+        this.setZoomLevel(17);
+        this.goToThisPage("/search");
+      }
+    },
+    clearSearch: function() {
+      this.$refs.gmapAutocomplete.$el.value = null;
+      this.setSearchPlace(null);
+      this.setDirection(null);
+      eventBus.stopDirections();
+      this.goToThisPage("/");
+    },
+    startDirections: function() {
+      if (this.searchPlace && this.myLocation) {
+        eventBus.startDirections(
+          this.myLocation.location,
+          this.searchPlace.geometry.location
+        );
+        this.goToThisPage("/search");
+      }
+    },
+    goToThisPage: function(path) {
+      if (this.$route.path != path) {
+        this.$router.push(path);
+        this.$vuetify.breakpoint.xsOnly
+          ? this.setRouterView(false)
+          : this.setRouterView(true);
+      }
+    },
+    login() {
+      this.$auth.login();
+    },
+    logout() {
+      this.$auth.logOut();
+    },
+    handleLoginEvent(data) {
+      this.isAuthenticated = data.loggedIn;
+      this.profile = data.profile;
     }
   }
 };
