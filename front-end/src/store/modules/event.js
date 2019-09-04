@@ -32,7 +32,7 @@ const getters = {
         stopTime: event.stop,
         contributor: event.contributor
       },
-      icon: eventConstant.selectIcon(event.type),
+      icon: eventConstant.selectIcon(event),
       type: "event"
     }));
   },

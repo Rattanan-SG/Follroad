@@ -34,9 +34,9 @@ const EVENT_CATEGORY_OBJECT = [
   { value: "complaint", label: "ร้องเรียน", type: "16" }
 ];
 
-function selectIcon({ type }) {
+function selectIcon(event) {
   let icon = "";
-  switch (type) {
+  switch (event.type) {
     case 1:
       icon =
         "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/carbreakdown.png";
