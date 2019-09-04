@@ -4,12 +4,17 @@
       <v-btn color="blue" class="white--text" v-on="on">หมวดหมู่</v-btn>
     </template>
     <v-card>
-      <v-card-title>เลือกหมวดหมู่ที่ต้องการแสดง</v-card-title>
+      <!-- <v-card-title>เลือกหมวดหมู่ที่ต้องการแสดง</v-card-title> -->
+      <v-toolbar color="blue" dark flat>
+        <v-icon>category</v-icon>
+        <v-toolbar-title>เลือกหมวดหมู่ที่ต้องการแสดง</v-toolbar-title>
+        <v-spacer></v-spacer>
+      </v-toolbar>
       <v-divider></v-divider>
       <v-card-text style="height: 500px;">
         <v-layout row wrap>
           <v-flex xl6 lg6 md6 sm12 xs12 v-for="(item, index) in checkbox" :key="index.type">
-            <v-checkbox v-model="selected" :value="item.value" :label="item.label"></v-checkbox>
+            <v-checkbox v-model="selected" :value="item.value" :label="item.label" color="orange"></v-checkbox>
           </v-flex>
         </v-layout>
       </v-card-text>

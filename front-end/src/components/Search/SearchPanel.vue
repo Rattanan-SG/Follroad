@@ -3,7 +3,7 @@
   <!-- <p>{{direction.routes[0].legs[0].distance.text}}</p>--->
   <div id="panel" ref="panel">
     <div v-for="(route, index) in direction.routes" :key="index">
-      <p>{{route.summary}}</p>
+      <!-- <p>{{route.summary}}</p> -->
 
       <!-- <v-list></v-list> -->
     </div>
@@ -74,7 +74,7 @@ export default {
 <style scoped>
 #panel {
   line-height: 30px;
-  height: 60vh;
+  height: 45vh;
   overflow: auto;
 }
 </style>
