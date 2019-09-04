@@ -22,17 +22,20 @@
 
 <script>
 const Navbar = () => import("./components/Navbar/Navbar");
-const BottomMenuBar = () => import("./components/Navbar/BottomMenuBar");
 const GoogleMap = () => import("./components/GoogleMap/GoogleMap");
 const RefreshSnackBar = () => import("./components/RefreshSnackBar.vue");
+const BottomMenuBar = () => import("./components/Navbar/BottomMenuBar");
+// const CurrentLocationButton = () =>
+//   import("./components/Buttons/CurrentLocationButton");
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "App",
   components: {
     Navbar,
-    BottomMenuBar,
     GoogleMap,
-    RefreshSnackBar
+    RefreshSnackBar,
+    BottomMenuBar
+    // CurrentLocationButton
   },
   computed: {
     ...mapGetters("route", ["routerView"])
@@ -48,12 +51,8 @@ export default {
       console.error(e);
     }
   },
-  mounted() {
-    this.getMyLocation();
-  },
   methods: {
     ...mapActions("route", ["setRouterView"]),
-    ...mapActions("googleMap", ["setCenter", "getMyLocation"]),
     ...mapActions("event", ["fetchEvents"])
   },
   destroyed() {}

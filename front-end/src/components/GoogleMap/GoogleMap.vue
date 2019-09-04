@@ -18,18 +18,18 @@
       :title="searchPlaceMarker.title"
       @click="setInfoWindow(searchPlaceMarker)"
     ></gmap-marker>
-    <v-btn icon @click="resetCenterToMyLocation" slot="visible">
+    <v-btn icon small fab @click="resetCenterToMyLocation()" slot="visible">
       <v-icon>gps_fixed</v-icon>
     </v-btn>
   </gmap-map>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import { eventBus } from "@/main";
 import { gmapApi } from "vue2-google-maps";
 import GmapCluster from "vue2-google-maps/dist/components/cluster";
-// import axios from "axios";
+import { mapGetters, mapActions } from "vuex";
+import { eventBus } from "@/main";
+import checkPermission from "@/utilitys/checkPermission";
 const GoogleMapInfoWindow = () => import("./GoogleMapInfoWindow");
 export default {
   name: "GoogleMap",
@@ -66,28 +66,34 @@ export default {
     });
   },
   mounted() {
-    this.$gmapApiPromiseLazy().then(() => {
-      let trafficLayer = new this.google.maps.TrafficLayer();
+    this.$gmapApiPromiseLazy().then(async () => {
+      const trafficLayer = new this.google.maps.TrafficLayer();
       trafficLayer.setMap(this.$refs.gmap.$mapObject);
       this.directionsService = new this.google.maps.DirectionsService();
       this.directionsRenderer = new this.google.maps.DirectionsRenderer();
+      this.setMapObject(this.$refs.gmap.$mapObject);
       this.setGoogleClass(this.google);
+      if ((await checkPermission("geolocation")) == "granted") {
+        this.setMyLocation();
+      }
     });
   },
   methods: {
-    ...mapActions("googleMap", ["setCenter", "setGoogleClass"]),
+    ...mapActions("googleMap", [
+      "setMapObject",
+      "setGoogleClass",
+      "setMyLocation",
+      "resetCenterToMyLocation"
+    ]),
     ...mapActions("direction", [
       "setDirection",
       "setDirectionsRenderer",
       "selectRoute"
     ]),
     ...mapActions("infoWindow", ["setInfoWindow"]),
+
     aa: function(e) {
       console.log(JSON.stringify(e.latLng));
-    },
-    resetCenterToMyLocation: function() {
-      this.$refs.gmap.$mapObject.setCenter(this.myLocation.location);
-      this.$refs.gmap.$mapObject.setZoom(15);
     },
     getRoute: function(startLocation, stopLocation) {
       if (this.directionsService && this.directionsRenderer) {
