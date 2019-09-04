@@ -56,7 +56,7 @@
         :select-first-on-enter="true"
       ></gmap-autocomplete>
 
-      <v-btn v-if="!searchPlace" icon @click="startDirections" to="/search">
+      <v-btn v-if="!searchPlace" icon @click="startDirections">
         <v-icon>directions</v-icon>
       </v-btn>
       <v-btn v-else icon @click="clearSearch">
@@ -68,7 +68,7 @@
       <v-btn v-if="installBtn" icon @click="installer()">
         <v-icon>mobile_friendly</v-icon>
       </v-btn>
-      <v-btn v-if="!isAuthenticated" outline @click.prevent="login">Log in</v-btn>
+      <v-btn v-if="!isAuthenticated" outline @click.prevent="login" :loading="loginLoading">Log in</v-btn>
       <v-btn v-else icon to="/profile" @click="setRouterView(true)">
         <v-avatar size="35px">
           <img :src="profile.picture" alt="avatar" />
@@ -105,14 +105,15 @@ export default {
       installBtn: false,
       installer: null,
       isAuthenticated: false,
-      profile: this.$auth.profile
+      profile: this.$auth.profile,
+      loginLoading: false
     };
   },
   computed: {
     ...mapGetters("googleMap", ["myLocation"]),
     ...mapGetters("search", ["searchPlace"])
   },
-  created() {
+  async created() {
     let installPrompt;
     window.addEventListener("beforeinstallprompt", e => {
       e.preventDefault();
@@ -193,10 +194,8 @@ export default {
       }
     },
     login() {
+      this.loginLoading = true;
       this.$auth.login();
-    },
-    logout() {
-      this.$auth.logOut();
     },
     handleLoginEvent(data) {
       this.isAuthenticated = data.loggedIn;

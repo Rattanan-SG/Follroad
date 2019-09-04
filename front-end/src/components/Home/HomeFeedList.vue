@@ -11,7 +11,7 @@
 <script>
 import { mapGetters } from "vuex";
 import HomeFeedItem from "./HomeFeedItem";
-const InfiniteLoading = () => import("vue-infinite-loading");
+import InfiniteLoading from "vue-infinite-loading";
 export default {
   name: "HomeFeedList",
   components: {

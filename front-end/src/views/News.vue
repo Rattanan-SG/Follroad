@@ -9,8 +9,8 @@
 <script>
 import BackToolBar from "@/components/Navbar/BackToolBar";
 import event from "@/api/event";
+import InfiniteLoading from "vue-infinite-loading";
 const NewsFeedList = () => import("@/components/News/NewsFeedList");
-const InfiniteLoading = () => import("vue-infinite-loading");
 export default {
   name: "News",
   components: {

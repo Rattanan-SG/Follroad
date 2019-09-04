@@ -41,12 +41,12 @@ export default {
     ...mapGetters("route", ["routerView"])
   },
   async created() {
+    this.fetchEvents();
+    this.$vuetify.breakpoint.xsOnly
+      ? this.setRouterView(false)
+      : this.setRouterView(true);
     try {
       await this.$auth.renewTokens();
-      this.fetchEvents();
-      this.$vuetify.breakpoint.xsOnly
-        ? this.setRouterView(false)
-        : this.setRouterView(true);
     } catch (e) {
       console.error(e);
     }
