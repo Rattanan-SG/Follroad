@@ -8,6 +8,7 @@
     </div>
   </v-card-title>
 </template>
+
 <script>
 import { mapActions } from "vuex";
 export default {

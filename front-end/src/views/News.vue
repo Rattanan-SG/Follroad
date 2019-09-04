@@ -7,11 +7,10 @@
 </template>
 
 <script>
-const InfiniteLoading = () => import("vue-infinite-loading");
-const BackToolBar = () => import("@/components/Navbar/BackToolBar");
-const NewsFeedList = () => import("@/components/News/NewsFeedList");
+import BackToolBar from "@/components/Navbar/BackToolBar";
 import event from "@/api/event";
-
+const NewsFeedList = () => import("@/components/News/NewsFeedList");
+const InfiniteLoading = () => import("vue-infinite-loading");
 export default {
   name: "News",
   components: {

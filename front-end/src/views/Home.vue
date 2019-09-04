@@ -13,7 +13,7 @@
 </template> 
 
 <script>
-const BackToolBar = () => import("@/components/Navbar/BackToolBar");
+import BackToolBar from "@/components/Navbar/BackToolBar";
 const HomeFeedList = () => import("@/components/Home/HomeFeedList");
 const HomeFilterEventCategory = () =>
   import("@/components/Home/HomeFilterEventCategory");

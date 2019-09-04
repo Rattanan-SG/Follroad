@@ -19,9 +19,9 @@
 </template>
 
 <script>
-const InfoWindowEvent = () => import("./InfoWindowEvent");
-const InfoWindowSearchPlace = () => import("./InfoWindowSearchPlace");
 import { mapGetters, mapActions } from "vuex";
+import InfoWindowEvent from "./InfoWindowEvent";
+import InfoWindowSearchPlace from "./InfoWindowSearchPlace";
 export default {
   name: "GoogleMapInfoWindow",
   components: {

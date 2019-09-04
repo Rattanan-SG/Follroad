@@ -17,7 +17,7 @@
                   <div id="abc" class="ml-1">
                     เริ่ม
                     : {{event.start}}
-                    <br>
+                    <br />
                     สิ้นสุด
                     : {{event.stop}}
                   </div>
@@ -28,7 +28,7 @@
           <v-flex xs12>
             <div id="description">
               {{event.description}}
-              <br>
+              <br />
               <v-icon size="40px">account_circle</v-icon>
               by {{event.contributor}}
             </div>
@@ -59,6 +59,14 @@
   </v-card>
 </template>
 
+<script>
+export default {
+  name: "NewsFeedItem",
+  props: {
+    event: Object
+  }
+};
+</script>
 <style scoped>
 .abc {
   margin-top: 2px;
@@ -70,12 +78,3 @@
   font-size: 17px;
 }
 </style>
-
-<script>
-export default {
-  name: "NewsFeedItem",
-  props: {
-    event: Object
-  }
-};
-</script>

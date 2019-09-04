@@ -30,7 +30,7 @@ import GmapCluster from "vue2-google-maps/dist/components/cluster";
 import { mapGetters, mapActions } from "vuex";
 import { eventBus } from "@/main";
 import checkPermission from "@/utilitys/checkPermission";
-const GoogleMapInfoWindow = () => import("./GoogleMapInfoWindow");
+import GoogleMapInfoWindow from "./GoogleMapInfoWindow";
 export default {
   name: "GoogleMap",
   components: {

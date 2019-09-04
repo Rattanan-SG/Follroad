@@ -64,12 +64,12 @@
 </template>
 
 <script>
-const BackToolBar = () => import("@/components/Navbar/BackToolBar");
+import { mapGetters, mapActions } from "vuex";
+import { eventBus } from "@/main";
+import BackToolBar from "@/components/Navbar/BackToolBar";
 const SearchPanel = () => import("@/components/Search/SearchPanel");
 const SearchFeedPanel = () => import("@/components/Search/SearchFeedPanel");
 const SaveRoute = () => import("@/components/Search/SaveRoute");
-import { mapGetters, mapActions } from "vuex";
-import { eventBus } from "@/main";
 export default {
   name: "Search",
   components: {

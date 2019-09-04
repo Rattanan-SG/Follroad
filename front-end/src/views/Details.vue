@@ -1,11 +1,11 @@
 <template>
   <div>
-    <BackToolBar title="รายละเอียดเหตุการณ์"/>
+    <BackToolBar title="รายละเอียดเหตุการณ์" />
     <DescriptionEvent />
   </div>
 </template>
 <script>
-const BackToolBar = () => import("@/components/Navbar/BackToolBar");
+import BackToolBar from "@/components/Navbar/BackToolBar";
 const DescriptionEvent = () => import("@/components/Details/DescriptionEvent");
 export default {
   components: {
