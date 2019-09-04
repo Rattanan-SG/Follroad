@@ -25,7 +25,7 @@ export default {
     ...mapActions("infoWindow", ["setInfoWindow"]),
     ...mapActions("route", ["setRouterView"]),
     toggleInfoWindow: function() {
-      this.setInfoWindow(this.markerByEventId(this.event.id));
+      this.setInfoWindow(this.eventMarkerByEventId(this.event.id));
       if (this.$vuetify.breakpoint.xsOnly) {
         this.setRouterView(false);
       }

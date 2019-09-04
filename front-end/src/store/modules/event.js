@@ -37,7 +37,7 @@ const getters = {
     }));
   },
   eventMarkerByEventId: (state, getters) => id => {
-    return getters.markers.find(marker => marker.id == id);
+    return getters.eventMarkers.find(marker => marker.id == id);
   },
   pagingEvents: (state, getters) => (pageSize, pageNumber) => {
     return getters.events.slice(
