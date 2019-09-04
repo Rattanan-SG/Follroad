@@ -89,7 +89,7 @@ export default {
         open: false,
         clipped: false,
         fixed: false,
-        permanent: true,
+        permanent: false,
         mini: true
       },
       toolbar: {

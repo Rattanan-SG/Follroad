@@ -75,11 +75,7 @@ export default {
     });
   },
   methods: {
-    ...mapActions("googleMap", [
-      "setCenter",
-      "setMyLocation",
-      "setGoogleClass"
-    ]),
+    ...mapActions("googleMap", ["setCenter", "setGoogleClass"]),
     ...mapActions("direction", [
       "setDirection",
       "setDirectionsRenderer",

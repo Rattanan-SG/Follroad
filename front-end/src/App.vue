@@ -3,7 +3,7 @@
     <Navbar />
     <v-content>
       <v-layout row wrap fill-height>
-        <v-flex v-if="routerView" xl3 lg3 md3 sm4 xs12>
+        <v-flex v-if="routerView" xl3 lg3 md3 sm4 xs12 style="z-index: 2">
           <v-card flat height="100%">
             <keep-alive>
               <router-view></router-view>
@@ -49,47 +49,12 @@ export default {
     }
   },
   mounted() {
-    this.getGeolocation();
+    this.getMyLocation();
   },
   methods: {
     ...mapActions("route", ["setRouterView"]),
-    ...mapActions("googleMap", ["setCenter", "setMyLocation"]),
-    ...mapActions("event", ["fetchEvents"]),
-
-    getGeolocation: function() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          this.setUserLocation,
-          this.handleLocationError,
-          { enableHighAccuracy: true, timeout: 5000 }
-        );
-      }
-    },
-    setUserLocation: function(position) {
-      let lat = parseFloat(position.coords.latitude);
-      let lng = parseFloat(position.coords.longitude);
-      this.setCenter({ lat: lat, lng: lng });
-      this.setMyLocation({
-        name: "ตำแหน่งของคุณ",
-        location: { lat: lat, lng: lng }
-      });
-    },
-    handleLocationError: function(error) {
-      switch (error.code) {
-        case 3:
-          // deal with timeout
-          navigator.geolocation.getCurrentPosition(
-            this.setUserLocation,
-            this.handleLocationError
-          );
-          break;
-        case 2:
-          // device can't get data
-          break;
-        case 1:
-        // user said no
-      }
-    }
+    ...mapActions("googleMap", ["setCenter", "getMyLocation"]),
+    ...mapActions("event", ["fetchEvents"])
   },
   destroyed() {}
 };
