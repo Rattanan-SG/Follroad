@@ -31,7 +31,7 @@ export default {
       }
     },
     getIcon: function() {
-      return eventConstant.selectIcon(this.event);
+      return eventConstant.selectIcon(this.event.type);
     }
   }
 };
