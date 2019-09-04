@@ -21,7 +21,7 @@
 </template>
 
 <script>
-const Navbar = () => import("./components/Navbar/Navbar");
+import Navbar from "./components/Navbar/Navbar";
 const GoogleMap = () => import("./components/GoogleMap/GoogleMap");
 const RefreshSnackBar = () => import("./components/RefreshSnackBar.vue");
 const BottomMenuBar = () => import("./components/Navbar/BottomMenuBar");
