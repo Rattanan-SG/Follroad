@@ -19,10 +19,10 @@ export default {
     event: Object
   },
   computed: {
-    ...mapGetters("event", ["markerByEventId"])
+    ...mapGetters("event", ["eventMarkerByEventId"])
   },
   methods: {
-    ...mapActions("event", ["setInfoWindow", "setRouterView"]),
+    ...mapActions("infoWindow", ["setInfoWindow"]),
     ...mapActions("route", ["setRouterView"]),
     toggleInfoWindow: function() {
       this.setInfoWindow(this.markerByEventId(this.event.id));

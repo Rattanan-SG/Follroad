@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import event from "./modules/event";
 import route from "./modules/route";
 import googleMap from "./modules/google-map";
+import infoWindow from "./modules/info-window";
 import search from "./modules/search";
 import direction from "./modules/direction";
 
@@ -14,6 +15,7 @@ export default new Vuex.Store({
     route,
     search,
     googleMap,
+    infoWindow,
     direction
   }
 });

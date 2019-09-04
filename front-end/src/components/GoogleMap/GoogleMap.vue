@@ -1,15 +1,15 @@
 <template>
   <gmap-map ref="gmap" :center="center" :zoom="zoomLevel" :options="options" @click="aa">
-    <gmap-marker v-if="myLocation" :position="myLocation.location" :title="myLocation.name"></gmap-marker>
     <GoogleMapInfoWindow />
+    <gmap-marker v-if="myLocation" :position="myLocation.location" :title="myLocation.name"></gmap-marker>
     <gmap-cluster :max-zoom="10" :zoom-on-click="true">
       <gmap-marker
-        :key="marker.id"
-        v-for="(marker) in markers"
-        :position="marker.position"
-        :title="marker.title"
-        :icon="marker.icon"
-        @click="setInfoWindow(marker)"
+        :key="eventMarker.id"
+        v-for="eventMarker in eventMarkers"
+        :position="eventMarker.position"
+        :title="eventMarker.title"
+        :icon="eventMarker.icon"
+        @click="setInfoWindow(eventMarker)"
       ></gmap-marker>
     </gmap-cluster>
     <gmap-marker
@@ -53,7 +53,7 @@ export default {
   },
   computed: {
     ...mapGetters("googleMap", ["center", "zoomLevel", "myLocation"]),
-    ...mapGetters("event", ["markers"]),
+    ...mapGetters("event", ["eventMarkers"]),
     ...mapGetters("search", ["searchPlaceMarker"]),
     google: gmapApi
   },
@@ -85,7 +85,7 @@ export default {
       "setDirectionsRenderer",
       "selectRoute"
     ]),
-    ...mapActions("event", ["setInfoWindow"]),
+    ...mapActions("infoWindow", ["setInfoWindow"]),
     aa: function(e) {
       console.log(JSON.stringify(e.latLng));
     },

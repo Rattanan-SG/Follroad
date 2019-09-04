@@ -16,7 +16,8 @@ const getters = {
         description: searchPlace.formatted_address,
         searchPlaceCaption: {
           photo: searchPlace.photos[0].getUrl()
-        }
+        },
+        type: "searchPlace"
       };
     }
   }
