@@ -10,15 +10,12 @@
       <v-icon>save</v-icon>
     </v-btn>
     <v-layout row justify-center>
-      <v-dialog v-model="dialog" persistent max-width="600px">
+      <v-dialog v-model="dialog" persistent max-width="600px" scrollable>
         <v-card>
           <v-toolbar color="blue" dark flat>
             <v-icon>save</v-icon>
             <v-toolbar-title>บันทึกเส้นทาง</v-toolbar-title>
             <v-spacer></v-spacer>
-            <!-- <v-btn text icon @click="dialog = false">
-              <v-icon>close</v-icon>
-            </v-btn>-->
           </v-toolbar>
           <v-card-text>
             <!-- <v-container grid-list-md> -->
