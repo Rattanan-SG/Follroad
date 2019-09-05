@@ -25,12 +25,12 @@ const getters = {
 
 const actions = {
   setSearchPlace: ({ commit }, searchPlace) => {
-    commit("SET_SEARCHPLACE", searchPlace);
+    commit("SET_SEARCH_PLACE", searchPlace);
   }
 };
 
 const mutations = {
-  SET_SEARCHPLACE: (state, searchPlace) => {
+  SET_SEARCH_PLACE: (state, searchPlace) => {
     state.searchPlace = searchPlace;
   }
 };

@@ -3,7 +3,15 @@
     <Navbar />
     <v-content>
       <v-layout row wrap fill-height>
-        <v-flex v-if="routerView" xl3 lg3 md3 sm4 xs12 style="z-index: 2">
+        <v-flex
+          v-if="routerView || this.$route.path == '/callback'"
+          xl3
+          lg3
+          md3
+          sm4
+          xs12
+          style="z-index: 2"
+        >
           <v-card flat height="100%">
             <keep-alive>
               <router-view></router-view>
@@ -15,6 +23,7 @@
         </v-flex>
       </v-layout>
       <RefreshSnackBar />
+      <CurrentPositionButton />
     </v-content>
     <BottomMenuBar v-if="this.$vuetify.breakpoint.xsOnly" />
   </v-app>
@@ -25,8 +34,8 @@ import Navbar from "./components/Navbar/Navbar";
 const GoogleMap = () => import("./components/GoogleMap/GoogleMap");
 const RefreshSnackBar = () => import("./components/RefreshSnackBar.vue");
 const BottomMenuBar = () => import("./components/Navbar/BottomMenuBar");
-// const CurrentLocationButton = () =>
-//   import("./components/Buttons/CurrentLocationButton");
+const CurrentPositionButton = () =>
+  import("./components/FloatingButton/CurrentPositionButton");
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "App",
@@ -34,8 +43,8 @@ export default {
     Navbar,
     GoogleMap,
     RefreshSnackBar,
-    BottomMenuBar
-    // CurrentLocationButton
+    BottomMenuBar,
+    CurrentPositionButton
   },
   computed: {
     ...mapGetters("route", ["routerView"])

@@ -1,4 +1,5 @@
 const state = {
+  startLocation: null,
   direction: null,
   directionsRenderer: null,
   routeIndex: 0,
@@ -7,6 +8,9 @@ const state = {
 };
 
 const getters = {
+  startLocation: state => {
+    return state.startLocation;
+  },
   direction: state => {
     return state.direction;
   },
@@ -25,19 +29,22 @@ const getters = {
 };
 
 const actions = {
+  setStartLocation: ({ commit }, startLocation) => {
+    commit("SET_START_LOCATION", startLocation);
+  },
   setDirection: ({ commit }, direction) => {
     commit("SET_DIRECTION", direction);
   },
   setDirectionsRenderer: ({ commit }, directionsRenderer) => {
-    commit("SET_DIRECTIONRENDERER", directionsRenderer);
+    commit("SET_DIRECTION_RENDERER", directionsRenderer);
   },
   selectRoute: ({ commit, rootState, dispatch }, { response, index }) => {
     return new Promise(resolve => {
       let routePolyline = new rootState.googleMap.googleClass.maps.Polyline({
         path: response.routes[index].overview_path
       });
-      commit("SET_ROUTEINDEX", index);
-      commit("SET_ROUTEPOLYLINE", routePolyline);
+      commit("SET_ROUTE_INDEX", index);
+      commit("SET_ROUTE_POLYLINE", routePolyline);
       dispatch("specificEvents").then(resolve());
     });
   },
@@ -55,7 +62,7 @@ const actions = {
             0.002
           );
         });
-        commit("SET_SPECIFICEVENTS", result);
+        commit("SET_SPECIFIC_EVENTS", result);
         resolve();
       }
     });
@@ -63,19 +70,22 @@ const actions = {
 };
 
 const mutations = {
+  SET_START_LOCATION: (state, startLocation) => {
+    state.startLocation = startLocation;
+  },
   SET_DIRECTION: (state, direction) => {
     state.direction = direction;
   },
-  SET_DIRECTIONRENDERER: (state, directionsRenderer) => {
+  SET_DIRECTION_RENDERER: (state, directionsRenderer) => {
     state.directionsRenderer = directionsRenderer;
   },
-  SET_ROUTEINDEX: (state, routeIndex) => {
+  SET_ROUTE_INDEX: (state, routeIndex) => {
     state.routeIndex = routeIndex;
   },
-  SET_ROUTEPOLYLINE: (state, routePolyline) => {
+  SET_ROUTE_POLYLINE: (state, routePolyline) => {
     state.routePolyline = routePolyline;
   },
-  SET_SPECIFICEVENTS: (state, specificEvents) => {
+  SET_SPECIFIC_EVENTS: (state, specificEvents) => {
     state.specificEvents = specificEvents;
   }
 };

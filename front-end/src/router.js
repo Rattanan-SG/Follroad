@@ -18,7 +18,8 @@ const router = new Router({
     {
       path: "/details",
       name: "details",
-      component: () => import("./views/Details.vue")
+      component: () =>
+        import(/* webpackChunkName: "details" */ "./views/Details.vue")
     },
     {
       path: "/search",

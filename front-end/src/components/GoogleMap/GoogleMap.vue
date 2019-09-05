@@ -18,17 +18,14 @@
       :title="searchPlaceMarker.title"
       @click="setInfoWindow(searchPlaceMarker)"
     ></gmap-marker>
-    <v-btn icon small fab @click="resetCenterToMyLocation()" slot="visible">
-      <v-icon>gps_fixed</v-icon>
-    </v-btn>
   </gmap-map>
 </template>
 
 <script>
-import { gmapApi } from "vue2-google-maps";
-import GmapCluster from "vue2-google-maps/dist/components/cluster";
 import { mapGetters, mapActions } from "vuex";
 import { eventBus } from "@/main";
+import { gmapApi } from "vue2-google-maps";
+import GmapCluster from "vue2-google-maps/dist/components/cluster";
 import checkPermission from "@/utilitys/checkPermission";
 import GoogleMapInfoWindow from "./GoogleMapInfoWindow";
 export default {
@@ -44,8 +41,9 @@ export default {
         mapTypeControl: false,
         fullscreenControl: false,
         gestureHandling: "greedy",
-        scaleControl: true,
-        zoomControl: false
+        scaleControl: false,
+        zoomControl: false,
+        streetViewControl: false
       },
       directionsService: null,
       directionsRenderer: null
@@ -82,8 +80,7 @@ export default {
     ...mapActions("googleMap", [
       "setMapObject",
       "setGoogleClass",
-      "setMyLocation",
-      "resetCenterToMyLocation"
+      "setMyLocation"
     ]),
     ...mapActions("direction", [
       "setDirection",
@@ -152,13 +149,5 @@ export default {
 .vue-map {
   width: 100%;
   height: 100%;
-}
-.v-btn {
-  bottom: 10%;
-  right: 0.5%;
-  background-color: #4169e1;
-  color: white;
-  position: absolute;
-  z-index: 1;
 }
 </style>
