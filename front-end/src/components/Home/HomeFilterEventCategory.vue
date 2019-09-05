@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" scrollable max-width="50%" max-height="100%">
+  <v-dialog v-model="dialog" scrollable max-width="60%" max-height="100%">
     <template v-slot:activator="{ on }">
       <v-btn round color="primary" dark v-on="on">
         <v-icon>category</v-icon>หมวดหมู่
@@ -22,7 +22,7 @@
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
-        <v-layout row wrap justify-end>
+        <v-layout row justify-end>
           <v-btn color="green darken-1" flat @click="reset">รีเซ็ต</v-btn>
           <v-btn color="red darken-1" flat @click="dialog = false">ปิด</v-btn>
         </v-layout>
