@@ -13,7 +13,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
-  name: "SearchPanel",
+  name: "SearchRoutePanel",
   props: { directionsRenderer: Object },
   data() {
     return {

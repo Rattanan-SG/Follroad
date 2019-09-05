@@ -25,7 +25,6 @@
       </v-flex>
     </v-layout>
     <v-layout row wrap mt-3>
-      <!-- <v-flex xs1></v-flex> -->
       <v-flex xs1 pl-3>
         <v-btn icon small>
           <v-icon>place</v-icon>
@@ -57,7 +56,7 @@
         <SearchFeedPanel v-if="directionsRenderer" />
       </v-flex>
       <v-flex xs12 ml-1>
-        <SearchPanel v-if="directionsRenderer" :directionsRenderer="directionsRenderer" />
+        <SearchRoutePanel v-if="directionsRenderer" :directionsRenderer="directionsRenderer" />
       </v-flex>
     </v-layout>
   </div>
@@ -67,16 +66,16 @@
 import { mapGetters, mapActions } from "vuex";
 import { eventBus } from "@/main";
 import BackToolBar from "@/components/Navbar/BackToolBar";
-const SearchPanel = () => import("@/components/Search/SearchPanel");
-const SearchFeedPanel = () => import("@/components/Search/SearchFeedPanel");
 const SaveRoute = () => import("@/components/Search/SaveRoute");
+const SearchFeedPanel = () => import("@/components/Search/SearchFeedPanel");
+const SearchRoutePanel = () => import("@/components/Search/SearchRoutePanel");
 export default {
   name: "Search",
   components: {
     BackToolBar,
-    SearchPanel,
+    SaveRoute,
     SearchFeedPanel,
-    SaveRoute
+    SearchRoutePanel
   },
   data() {
     return {
@@ -155,7 +154,15 @@ export default {
       this.setSearchPlace(null);
       this.setDirection(null);
       eventBus.stopDirections();
-      this.$router.push("/");
+      this.goToThisPage("/");
+    },
+    goToThisPage: function(path) {
+      if (this.$route.path != path) {
+        this.$router.push(path);
+        this.$vuetify.breakpoint.xsOnly
+          ? this.setRouterView(false)
+          : this.setRouterView(true);
+      }
     },
     setStartToMyLocation: function() {
       this.isMyLocationActive = true;
@@ -167,7 +174,6 @@ export default {
 </script>
 <style scoped>
 .is-active {
-  background-color: #4169e1;
-  color: white;
+  color: #4169e1;
 }
 </style>
