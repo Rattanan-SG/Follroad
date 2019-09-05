@@ -3,7 +3,15 @@
     <Navbar />
     <v-content>
       <v-layout row wrap fill-height>
-        <v-flex v-if="routerView" xl3 lg3 md3 sm4 xs12 style="z-index: 2">
+        <v-flex
+          v-if="routerView || this.$route.path == '/callback'"
+          xl3
+          lg3
+          md3
+          sm4
+          xs12
+          style="z-index: 2"
+        >
           <v-card flat height="100%">
             <keep-alive>
               <router-view></router-view>
