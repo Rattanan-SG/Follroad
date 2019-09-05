@@ -1,10 +1,9 @@
 <template>
   <v-card>
-    <v-bottom-nav app :value="true">
+    <v-bottom-nav app :value="true" color="indigo" absolute dark>
       <v-btn
         flat
         router
-        color="deep-purple accent-3"
         v-for="list in lists"
         :key="list.text"
         :to="list.route"
