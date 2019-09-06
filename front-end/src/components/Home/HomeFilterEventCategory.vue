@@ -4,6 +4,9 @@
       <v-btn round color="primary" dark v-on="on">
         <v-icon>category</v-icon>หมวดหมู่
       </v-btn>
+      <v-btn round color="red" dark to="/addeventbyuser">
+        <v-icon>report</v-icon>แจ้งเหตุการณ์
+      </v-btn>
     </template>
     <v-card>
       <!-- <v-card-title>เลือกหมวดหมู่ที่ต้องการแสดง</v-card-title> -->

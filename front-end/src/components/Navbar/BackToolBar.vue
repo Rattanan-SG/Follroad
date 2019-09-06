@@ -2,7 +2,7 @@
   <v-card-title>
     <div class="title">
       <v-btn icon @click="closeRouterView">
-        <v-icon>arrow_back_ios</v-icon>
+        <v-icon>close</v-icon>
       </v-btn>
       {{title}}
     </div>

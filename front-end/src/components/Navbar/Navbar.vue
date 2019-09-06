@@ -71,13 +71,7 @@
       <!-- <v-btn text icon to="addeventbyuser" @click="setRouterView(true)" class="hidden-sm-and-up">
         <v-icon>post_add</v-icon>
       </v-btn>-->
-      <v-btn
-        v-if="!isAuthenticated"
-        outline
-        @click.prevent="login"
-        :loading="loginLoading"
-        
-      >Log in</v-btn>
+      <v-btn v-if="!isAuthenticated" outline @click.prevent="login" :loading="loginLoading">Log in</v-btn>
       <v-btn v-else icon to="/profile" @click="setRouterView(true)">
         <v-avatar size="35px">
           <img :src="profile.picture" alt="avatar" />
@@ -109,7 +103,6 @@ export default {
         { text: "Home", icon: "today", route: "/" },
         { text: "Search", icon: "directions", route: "/search" },
         { text: "Forum", icon: "forum", route: "/news" },
-        { text: "Notify", icon: "post_add", route: "/addeventbyuser" },
         { text: "Profile", icon: "person", route: "/profile" }
       ],
       installBtn: false,
