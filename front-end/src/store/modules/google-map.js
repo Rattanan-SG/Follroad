@@ -53,7 +53,7 @@ const actions = {
           });
         },
         async error => {
-          console.log(error);
+          // console.log(error);
           switch (error.code) {
             case 3:
               // deal with timeout
