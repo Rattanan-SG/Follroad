@@ -162,7 +162,6 @@ export default {
       }
     },
     search: function(place) {
-      console.log("se", place);
       if (place) {
         this.setSearchPlace(place);
         this.setCenter(place.geometry.location);
