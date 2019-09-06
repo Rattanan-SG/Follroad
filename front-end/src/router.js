@@ -45,6 +45,11 @@ const router = new Router({
       component: () => import("./views/HistoryRoute.vue")
     },
     {
+      path: "/addeventbyuser",
+      name: "addeventbyuser",
+      component: () => import("./views/AddEventByUser.vue")
+    },
+    {
       path: "/callback",
       name: "callback",
       component: Callback

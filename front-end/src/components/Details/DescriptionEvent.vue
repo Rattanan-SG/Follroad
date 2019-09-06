@@ -42,10 +42,14 @@
       </v-flex>
     </v-layout>
 
-    <v-text-field label="แสดงความคิดเห็น" outlined></v-text-field>
+    <v-layout>
+      <v-flex mr-3 ml-3>
+        <v-text-field label="แสดงความคิดเห็น" outlined></v-text-field>
+      </v-flex>
+    </v-layout>
 
     <v-layout>
-      <v-flex xs2 md2 lg2 mt-4 ml-4>
+      <v-flex xs2 md2 lg2 mt-5 ml-4>
         <v-icon>person</v-icon>
       </v-flex>
       <v-flex xs10 md10 lg10>
@@ -58,23 +62,34 @@
       </v-flex>
     </v-layout>
 
-    <!-- <v-card-actions>
-        <v-spacer></v-spacer>
+    <v-layout>
+      <v-flex xs2 md2 lg2 mt-5 ml-4>
+        <v-icon>person</v-icon>
+      </v-flex>
+      <v-flex xs10 md10 lg10>
+        <v-card-title primary-title>
+          <h3>WinnerZaza</h3>
+          <v-list-tile-sub-title>15 mins</v-list-tile-sub-title>
+          <br />
+          <h4>sadsakdjsalkdlsakld</h4>
+        </v-card-title>
+      </v-flex>
+    </v-layout>
 
-        <v-btn icon @click="show = !show">
-          <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-        </v-btn>
-      </v-card-actions>
-
-      <v-expand-transition>
-        <div v-show="show">
-          <v-card>
-            <v-icon>person</v-icon>รถยังไม่หายติดเลย
-          </v-card>
-        </div>
-    </v-expand-transition>-->
+    <v-layout>
+      <v-flex xs2 md2 lg2 mt-5 ml-4>
+        <v-icon>person</v-icon>
+      </v-flex>
+      <v-flex xs10 md10 lg10>
+        <v-card-title primary-title>
+          <h3>WinnerZaza</h3>
+          <v-list-tile-sub-title>15 mins</v-list-tile-sub-title>
+          <br />
+          <h4>sadsakdjsalkdlsakld</h4>
+        </v-card-title>
+      </v-flex>
+    </v-layout>
   </v-card>
-  <!-- </v-container> -->
 </template>
 
 <script>
