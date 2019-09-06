@@ -10,13 +10,16 @@
         <br />
         <v-text-field label="ชื่อเหตุการณ์" required box></v-text-field>
         <v-select v-model="select" :items="items" label="ประเภท" required></v-select>
-        <v-textarea label="รายละเอียด" outline color="deep-purple"></v-textarea>
         <!------add image-------->
         <input type="file" ref="file" style="display: none" />
         <v-btn block color="secondary" dark @click="$refs.file.click()">
           <v-icon>add_a_photo</v-icon>เพิ่มรูปภาพ
         </v-btn>
         <!-------------->
+        <v-textarea label="รายละเอียด" outline color="deep-purple"></v-textarea>
+        <v-btn block color="primary" dark>
+          ยืนยัน
+        </v-btn>
       </v-card>
     </v-flex>
   </v-layout>

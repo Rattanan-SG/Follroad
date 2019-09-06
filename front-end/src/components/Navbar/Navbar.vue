@@ -76,7 +76,7 @@
         outline
         @click.prevent="login"
         :loading="loginLoading"
-        class="hidden-xs-only"
+        
       >Log in</v-btn>
       <v-btn v-else icon to="/profile" @click="setRouterView(true)">
         <v-avatar size="35px">
