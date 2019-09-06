@@ -32,7 +32,6 @@ export default {
   },
   computed: {
     ...mapGetters("search", ["searchPlace"]),
-    ...mapGetters("direction", ["startPlace"])
   },
   mounted() {
     this.syncDestinationPlace();

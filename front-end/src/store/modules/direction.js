@@ -1,6 +1,6 @@
 const state = {
   startLocation: null,
-  direction: null,
+  directionsResponse: null,
   directionsRenderer: null,
   routeIndex: 0,
   routePolyline: null,
@@ -11,8 +11,8 @@ const getters = {
   startLocation: state => {
     return state.startLocation;
   },
-  direction: state => {
-    return state.direction;
+  directionsResponse: state => {
+    return state.directionsResponse;
   },
   directionsRenderer: state => {
     return state.directionsRenderer;
@@ -32,11 +32,11 @@ const actions = {
   setStartLocation: ({ commit }, startLocation) => {
     commit("SET_START_LOCATION", startLocation);
   },
-  setDirection: ({ commit }, direction) => {
-    commit("SET_DIRECTION", direction);
+  setDirectionsResponse: ({ commit }, directionsResponse) => {
+    commit("SET_DIRECTIONS_RESPONSE", directionsResponse);
   },
   setDirectionsRenderer: ({ commit }, directionsRenderer) => {
-    commit("SET_DIRECTION_RENDERER", directionsRenderer);
+    commit("SET_DIRECTIONS_RENDERER", directionsRenderer);
   },
   selectRoute: ({ commit, rootState, dispatch }, { response, index }) => {
     return new Promise(resolve => {
@@ -73,10 +73,10 @@ const mutations = {
   SET_START_LOCATION: (state, startLocation) => {
     state.startLocation = startLocation;
   },
-  SET_DIRECTION: (state, direction) => {
-    state.direction = direction;
+  SET_DIRECTIONS_RESPONSE: (state, directionsResponse) => {
+    state.directionsResponse = directionsResponse;
   },
-  SET_DIRECTION_RENDERER: (state, directionsRenderer) => {
+  SET_DIRECTIONS_RENDERER: (state, directionsRenderer) => {
     state.directionsRenderer = directionsRenderer;
   },
   SET_ROUTE_INDEX: (state, routeIndex) => {

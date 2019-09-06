@@ -2,7 +2,7 @@
   <!-- <div id="panel" ref="panel"></div> -->
   <!-- <p>{{direction.routes[0].legs[0].distance.text}}</p>--->
   <div id="panel" ref="panel">
-    <div v-for="(route, index) in direction.routes" :key="index">
+    <div v-for="(route, index) in directionsResponse.routes" :key="index">
       <!-- <p>{{route.summary}}</p> -->
 
       <!-- <v-list></v-list> -->
@@ -21,11 +21,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("direction", ["direction"])
+    ...mapGetters("direction", ["directionsResponse"])
   },
   mounted() {
     if (this.directionsRenderer) {
-      console.log(this.direction.routes[0].legs[0].distance.text);
+      console.log(this.directionsResponse.routes[0].legs[0].distance.text);
 
       this.directionsRenderer.setPanel(this.$refs.panel);
       setTimeout(() => {

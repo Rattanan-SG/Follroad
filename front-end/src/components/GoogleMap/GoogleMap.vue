@@ -66,9 +66,9 @@ export default {
   mounted() {
     this.$gmapApiPromiseLazy().then(async () => {
       const trafficLayer = new this.google.maps.TrafficLayer();
-      trafficLayer.setMap(this.$refs.gmap.$mapObject);
       this.directionsService = new this.google.maps.DirectionsService();
       this.directionsRenderer = new this.google.maps.DirectionsRenderer();
+      trafficLayer.setMap(this.$refs.gmap.$mapObject);
       this.setMapObject(this.$refs.gmap.$mapObject);
       this.setGoogleClass(this.google);
       if ((await checkPermission("geolocation")) == "granted") {
@@ -83,7 +83,7 @@ export default {
       "setMyLocation"
     ]),
     ...mapActions("direction", [
-      "setDirection",
+      "setDirectionsResponse",
       "setDirectionsRenderer",
       "selectRoute"
     ]),
@@ -125,7 +125,7 @@ export default {
             // );
             this.directionsRenderer.setMap(this.$refs.gmap.$mapObject);
             this.directionsRenderer.setDirections(response);
-            this.setDirection(response);
+            this.setDirectionsResponse(response);
             this.setDirectionsRenderer(this.directionsRenderer);
             this.selectRoute({ response: response, index: 0 });
           }
@@ -137,7 +137,7 @@ export default {
       this.directionsRenderer.setMap(null);
       this.directionsService = new this.google.maps.DirectionsService();
       this.directionsRenderer = new this.google.maps.DirectionsRenderer();
-      this.setDirection(null);
+      this.setDirectionsResponse(null);
       this.setDirectionsRenderer(null);
     }
   }
