@@ -108,7 +108,7 @@ export default {
         },
         async (response, status) => {
           if (status === "OK") {
-            // console.log(response);
+            console.log(response);
             // console.log(JSON.stringify(response));
             // const { data } = await axios.get(
             //   `${process.env.VUE_APP_DIRECTION_RECORD_URL}/record/5d5d295cd6927600422718d1`

@@ -1,19 +1,17 @@
 <template>
-  <v-card>
-    <v-bottom-nav app :value="true" color="indigo" absolute dark>
-      <v-btn
-        flat
-        router
-        v-for="list in lists"
-        :key="list.text"
-        :to="list.route"
-        @click="setRouterView(true)"
-      >
-        <span>{{list.text}}</span>
-        <v-icon>{{list.icon}}</v-icon>
-      </v-btn>
-    </v-bottom-nav>
-  </v-card>
+  <v-bottom-nav app :value="true" color="indigo" absolute dark>
+    <v-btn
+      flat
+      router
+      v-for="list in lists"
+      :key="list.text"
+      :to="list.route"
+      @click="setRouterView(true)"
+    >
+      <span>{{list.text}}</span>
+      <v-icon>{{list.icon}}</v-icon>
+    </v-btn>
+  </v-bottom-nav>
 </template>
 
 <script>
