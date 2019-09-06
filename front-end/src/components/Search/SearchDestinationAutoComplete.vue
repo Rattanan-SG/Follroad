@@ -5,7 +5,7 @@
         <v-icon>place</v-icon>
       </v-btn>
     </v-flex>
-    <v-flex xs9 ml-2 pl-3>
+    <v-flex xs8 ml-2 pl-3>
       <gmap-autocomplete
         @place_changed="setDestinationPlace"
         ref="destinationAutoComplete"
@@ -15,7 +15,7 @@
         :select-first-on-enter="true"
       ></gmap-autocomplete>
     </v-flex>
-    <v-flex xs1 mr-1>
+    <v-flex xs1 mr-2>
       <v-btn icon small flat color="red" @click="resetDestinationPlace" v-if="searchPlace">
         <v-icon>close</v-icon>
       </v-btn>
@@ -34,6 +34,9 @@ export default {
     ...mapGetters("search", ["searchPlace"]),
     ...mapGetters("direction", ["startPlace"])
   },
+  mounted() {
+    this.syncDestinationPlace();
+  },
   watch: {
     searchPlace(value) {
       if (value) this.syncDestinationPlace();
@@ -42,8 +45,10 @@ export default {
   methods: {
     ...mapActions("search", ["setSearchPlace"]),
     syncDestinationPlace: function() {
-      this.$refs.destinationAutoComplete.$el.value = this.searchPlace.name;
-      this.destinationLocation = this.searchPlace.geometry.location;
+      if (this.searchPlace) {
+        this.$refs.destinationAutoComplete.$el.value = this.searchPlace.name;
+        this.destinationLocation = this.searchPlace.geometry.location;
+      }
     },
     setDestinationPlace: function(place) {
       if (place) {

@@ -45,53 +45,27 @@ export default {
     SearchFeedPanel,
     SearchRoutePanel
   },
-  data() {
-    return {
-      startLocation: null,
-      destinationLocation: null
-    };
-  },
   computed: {
-    ...mapGetters("googleMap", ["myLocation"]),
     ...mapGetters("search", ["searchPlace"]),
-    ...mapGetters("route", ["routerView"]),
-    ...mapGetters("direction", ["directionsRenderer"])
-  },
-  // mounted() {
-  //   this.setupAutoComplete();
-  // },
-  watch: {
-    // startLocation(val) {
-    //   if (val != this.myLocation.location) this.isMyLocationActive = false;
-    // }
+    ...mapGetters("direction", ["startLocation", "directionsRenderer"])
   },
   methods: {
     ...mapActions("search", ["setSearchPlace"]),
     ...mapActions("direction", ["setDirection"]),
     ...mapActions("route", ["setRouterView"]),
     startDirections: function() {
-      if (this.startLocation && this.destinationLocation) {
-        eventBus.startDirections(this.startLocation, this.destinationLocation);
+      if (this.startLocation && this.searchPlace) {
+        const stopLocation = this.searchPlace.geometry.location;
+        eventBus.startDirections(this.startLocation, stopLocation);
         this.$vuetify.breakpoint.xsOnly
           ? this.setRouterView(false)
           : this.setRouterView(true);
       }
     },
     stopDirections: function() {
-      this.$refs.start.$el.value = null;
-      this.startLocation = null;
       this.setSearchPlace(null);
       this.setDirection(null);
       eventBus.stopDirections();
-      this.goToThisPage("/");
-    },
-    goToThisPage: function(path) {
-      if (this.$route.path != path) {
-        this.$router.push(path);
-        this.$vuetify.breakpoint.xsOnly
-          ? this.setRouterView(false)
-          : this.setRouterView(true);
-      }
     }
   }
 };

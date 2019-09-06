@@ -56,11 +56,11 @@
         :select-first-on-enter="true"
       ></gmap-autocomplete>
 
-      <v-btn v-if="!searchPlace" icon @click="startDirections">
-        <v-icon>directions</v-icon>
-      </v-btn>
-      <v-btn v-else icon @click="clearSearch">
+      <v-btn v-if="searchPlace" icon @click="clearSearch">
         <v-icon>close</v-icon>
+      </v-btn>
+      <v-btn v-if="searchPlace && !direction" icon @click="startDirections">
+        <v-icon>directions</v-icon>
       </v-btn>
 
       <v-spacer></v-spacer>
@@ -111,7 +111,8 @@ export default {
   },
   computed: {
     ...mapGetters("googleMap", ["myLocation"]),
-    ...mapGetters("search", ["searchPlace"])
+    ...mapGetters("search", ["searchPlace"]),
+    ...mapGetters("direction", ["direction"])
   },
   async created() {
     let installPrompt;

@@ -11,7 +11,7 @@
         <v-icon>my_location</v-icon>
       </v-btn>
     </v-flex>
-    <v-flex xs9 ml-2 pl-3>
+    <v-flex xs8 ml-2 pl-3>
       <gmap-autocomplete
         @place_changed="setStartPlace"
         ref="startAutoComplete"
@@ -21,7 +21,7 @@
         :select-first-on-enter="true"
       ></gmap-autocomplete>
     </v-flex>
-    <v-flex xs1 mr-1>
+    <v-flex xs1 mr-2>
       <v-btn icon small flat color="red" @click="resetStartLocation" v-if="startLocation">
         <v-icon>close</v-icon>
       </v-btn>
@@ -37,6 +37,9 @@ export default {
     return {
       isMyLocationActive: false
     };
+  },
+  mounted() {
+    this.setStartToMyLocation();
   },
   computed: {
     ...mapGetters("googleMap", ["myLocation"]),
