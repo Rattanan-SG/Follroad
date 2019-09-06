@@ -59,7 +59,7 @@
       <v-btn v-if="searchPlace" icon @click="clearSearch">
         <v-icon>close</v-icon>
       </v-btn>
-      <v-btn v-if="searchPlace && !direction" icon @click="startDirections">
+      <v-btn v-if="searchPlace && !directionsResponse" icon @click="startDirections">
         <v-icon>directions</v-icon>
       </v-btn>
 
@@ -112,7 +112,7 @@ export default {
   computed: {
     ...mapGetters("googleMap", ["myLocation"]),
     ...mapGetters("search", ["searchPlace"]),
-    ...mapGetters("direction", ["direction"])
+    ...mapGetters("direction", ["directionsResponse"])
   },
   async created() {
     let installPrompt;
@@ -142,7 +142,7 @@ export default {
   methods: {
     ...mapActions("googleMap", ["setCenter", "setZoomLevel"]),
     ...mapActions("search", ["setSearchPlace"]),
-    ...mapActions("direction", ["setDirection"]),
+    ...mapActions("direction", ["setDirectionsResponse"]),
     ...mapActions("route", ["setRouterView"]),
     makeDrawerPermanent() {
       this.drawer.permanent = true;
@@ -173,12 +173,11 @@ export default {
     clearSearch: function() {
       this.$refs.gmapAutocomplete.$el.value = null;
       this.setSearchPlace(null);
-      this.setDirection(null);
       eventBus.stopDirections();
       this.goToThisPage("/");
     },
     startDirections: function() {
-      if (this.searchPlace && this.myLocation) {
+      if (this.myLocation && this.searchPlace) {
         eventBus.startDirections(
           this.myLocation.location,
           this.searchPlace.geometry.location

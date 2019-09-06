@@ -1,11 +1,6 @@
 <template>
   <div>
-    <v-btn
-      color="secondary"
-      class="white--text"
-      @click.stop="dialog=true"
-      v-if="directionsRenderer"
-    >
+    <v-btn color="secondary" class="white--text" @click.stop="dialog=true">
       บันทึกเส้นทาง
       <v-icon>save</v-icon>
     </v-btn>
@@ -185,7 +180,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  name: "saveRoute",
+  name: "SearchSaveRouteButton",
   data() {
     return {
       dialog: false,

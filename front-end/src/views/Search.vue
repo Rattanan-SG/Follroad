@@ -4,7 +4,7 @@
     <SearchStartAutoComplete />
     <SearchDestinationAutoComplete />
     <v-layout row wrap my-3 justify-center>
-      <SaveRoute />
+      <SearchSaveRouteButton v-if="directionsRenderer" />
       <v-btn
         v-if="!directionsRenderer"
         color="blue"
@@ -32,7 +32,8 @@ const SearchStartAutoComplete = () =>
   import("@/components/Search/SearchStartAutoComplete");
 const SearchDestinationAutoComplete = () =>
   import("@/components/Search/SearchDestinationAutoComplete");
-const SaveRoute = () => import("@/components/Search/SaveRoute");
+const SearchSaveRouteButton = () =>
+  import("@/components/Search/SearchSaveRouteButton");
 const SearchFeedPanel = () => import("@/components/Search/SearchFeedPanel");
 const SearchRoutePanel = () => import("@/components/Search/SearchRoutePanel");
 export default {
@@ -41,7 +42,7 @@ export default {
     BackToolBar,
     SearchStartAutoComplete,
     SearchDestinationAutoComplete,
-    SaveRoute,
+    SearchSaveRouteButton,
     SearchFeedPanel,
     SearchRoutePanel
   },
@@ -55,8 +56,10 @@ export default {
     ...mapActions("route", ["setRouterView"]),
     startDirections: function() {
       if (this.startLocation && this.searchPlace) {
-        const stopLocation = this.searchPlace.geometry.location;
-        eventBus.startDirections(this.startLocation, stopLocation);
+        eventBus.startDirections(
+          this.startLocation,
+          this.searchPlace.geometry.location
+        );
         this.$vuetify.breakpoint.xsOnly
           ? this.setRouterView(false)
           : this.setRouterView(true);
