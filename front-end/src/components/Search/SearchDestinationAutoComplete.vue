@@ -40,8 +40,7 @@ export default {
     destinationLocationName: String
   },
   computed: {
-    ...mapGetters("search", ["searchPlace"]),
-    ...mapGetters("direction", ["destinationLocation"])
+    ...mapGetters("search", ["searchPlace"])
   },
   mounted() {
     if (this.historyMode) {

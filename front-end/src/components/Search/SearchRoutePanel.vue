@@ -18,7 +18,46 @@ export default {
   mounted() {
     if (this.directionsRenderer) {
       this.directionsRenderer.setPanel(this.$refs.panel);
+      setTimeout(() => {
+        this.setupPanel();
+      }, 2000);
     }
+  },
+  methods: {
+    ...mapActions("direction", ["selectRoute"]),
+    ...mapActions("route", ["setRouterView"]),
+    setupPanel: function() {
+      this.trDocument = this.$refs.panel.children[0].querySelectorAll(
+        "tr[jsinstance]"
+      );
+      this.trDocument.forEach(element => {
+        element.addEventListener("click", this.changeRouteIndex);
+      });
+    },
+    destroyPanel: function() {
+      this.trDocument.forEach(element => {
+        element.removeEventListener("click", this.changeRouteIndex);
+      });
+    },
+    changeRouteIndex: function(event) {
+      let found = event.path.find(element => {
+        return element.tagName == "TD";
+      });
+      this.selectRoute({
+        response: this.directionsResponse,
+        index: found.attributes[0].value
+      });
+      // this.directionsRenderer.setOptions({
+      //   polylineOptions: { strokeColor: "#8b0013" }
+      // });
+      // if (this.$vuetify.breakpoint.xsOnly) {
+      //   this.setRouterView(false);
+      // }
+      // console.log(found.attributes[0].value);
+    }
+  },
+  beforeDestroy() {
+    this.destroyPanel();
   }
 };
 </script>
