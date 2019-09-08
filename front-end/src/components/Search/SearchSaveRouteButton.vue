@@ -119,7 +119,7 @@
                     <v-layout>
                       <v-flex xs5 md5 lg5 v-if="switch1">
                         <v-menu
-                          v-model="menu3"
+                          v-model="menuDate"
                           :close-on-content-click="false"
                           :nudge-right="40"
                           lazy
@@ -129,9 +129,9 @@
                           min-width="290px"
                         >
                           <template v-slot:activator="{ on }">
-                            <v-text-field label="เลือกวัน" readonly v-on="on"></v-text-field>
+                            <v-text-field v-model="date" label="เลือกวัน" readonly v-on="on"></v-text-field>
                           </template>
-                          <v-date-picker v-model="date" @input="menu3 = false"></v-date-picker>
+                          <v-date-picker v-model="date" @input="menuDate = false"></v-date-picker>
                         </v-menu>
                       </v-flex>
                       <v-flex xs1 md1 lg1></v-flex>
@@ -224,7 +224,7 @@ export default {
       time2: null,
       menu: false,
       menu2: false,
-      menu3: false,
+      menuDate: false,
       modal2: false,
       switch1: false,
       date: new Date().toISOString().substr(0, 10),
@@ -248,7 +248,6 @@ export default {
       this.loading = true;
       if (this.$refs.form.validate()) {
         console.log(5555);
-        
       }
     }
   }
