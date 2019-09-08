@@ -7,7 +7,11 @@
       :destinationLocationName="destinationLocationName"
     />
     <v-layout row wrap my-3 justify-center>
-      <SearchSaveRouteButton v-if="directionsResponse" />
+      <SearchSaveRouteButton
+        v-if="directionsResponse"
+        :startLocationName="startLocationName"
+        :destinationLocationName="destinationLocationName"
+      />
       <v-btn
         v-if="!directionsResponse"
         color="blue"
@@ -74,6 +78,8 @@ export default {
           this.startLocation.location,
           this.destinationLocation.location
         );
+        this.startLocationName = this.startLocation.name;
+        this.destinationLocationName = this.destinationLocation.name;
         this.$vuetify.breakpoint.xsOnly
           ? this.setRouterView(false)
           : this.setRouterView(true);

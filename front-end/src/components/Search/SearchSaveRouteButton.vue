@@ -22,7 +22,7 @@
               </v-flex>
               <v-flex xs1 md1 lg1></v-flex>
               <v-flex xs10 md10 lg10 mt-2>
-                <span>KMUTT</span>
+                <span>{{startLocationName}}</span>
               </v-flex>
               <v-flex xs1 md1 lg1>
                 <v-btn icon small>
@@ -31,7 +31,7 @@
               </v-flex>
               <v-flex xs1 md1 lg1></v-flex>
               <v-flex xs10 md10 lg10 mt-2>
-                <span>Siam Paragon</span>
+                <span>{{destinationLocationName}}</span>
               </v-flex>
               <v-flex xs12 sm12 md12>
                 <v-text-field label="กรอกชื่อเส้นทางที่บันทึก*" required></v-text-field>
@@ -181,6 +181,7 @@
 import { mapGetters } from "vuex";
 export default {
   name: "SearchSaveRouteButton",
+  props: { startLocationName: String, destinationLocationName: String },
   data() {
     return {
       dialog: false,
