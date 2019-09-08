@@ -11,6 +11,7 @@
         v-if="directionsResponse"
         :startLocationName="startLocationName"
         :destinationLocationName="destinationLocationName"
+        :directionsResponse="directionsResponse"
       />
       <v-btn
         v-if="!directionsResponse"
