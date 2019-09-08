@@ -33,6 +33,8 @@
             <v-list-tile-content>
               <h4>เส้นทางที่บันทึก</h4>
             </v-list-tile-content>
+            <v-spacer />
+            <v-icon>navigate_next</v-icon>
           </v-list-tile>
         </v-flex>
       </v-layout>
@@ -46,6 +48,8 @@
             <v-list-tile-content>
               <h4>{{btnText}}</h4>
             </v-list-tile-content>
+            <v-spacer />
+            <v-icon>navigate_next</v-icon>
           </v-list-tile>
         </v-flex>
       </v-layout>
@@ -59,6 +63,8 @@
             <v-list-tile-content>
               <h3>ออกจากระบบ</h3>
             </v-list-tile-content>
+            <v-spacer />
+            <v-icon>navigate_next</v-icon>
           </v-list-tile>
         </v-flex>
       </v-layout>
