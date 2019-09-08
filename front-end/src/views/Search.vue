@@ -38,6 +38,11 @@ const SearchFeedPanel = () => import("@/components/Search/SearchFeedPanel");
 const SearchRoutePanel = () => import("@/components/Search/SearchRoutePanel");
 export default {
   name: "Search",
+  data() {
+    return {
+      historyStartPlace: { name: "dgd" }
+    };
+  },
   components: {
     BackToolBar,
     SearchStartAutoComplete,
@@ -47,18 +52,21 @@ export default {
     SearchRoutePanel
   },
   computed: {
-    ...mapGetters("search", ["searchPlace"]),
-    ...mapGetters("direction", ["startLocation", "directionsRenderer"])
+    ...mapGetters("direction", [
+      "startLocation",
+      "destinationLocation",
+      "directionsRenderer"
+    ])
   },
   methods: {
     ...mapActions("search", ["setSearchPlace"]),
-    ...mapActions("direction", ["setDirectionsResponse"]),
+    ...mapActions("direction", ["setStartLocation", "setDestinationLocation"]),
     ...mapActions("route", ["setRouterView"]),
     startDirections: function() {
-      if (this.startLocation && this.searchPlace) {
+      if (this.startLocation && this.destinationLocation) {
         eventBus.startDirections(
-          this.startLocation,
-          this.searchPlace.geometry.location
+          this.startLocation.location,
+          this.destinationLocation.location
         );
         this.$vuetify.breakpoint.xsOnly
           ? this.setRouterView(false)
@@ -67,7 +75,6 @@ export default {
     },
     stopDirections: function() {
       this.setSearchPlace(null);
-      this.setDirectionsResponse(null);
       eventBus.stopDirections();
     }
   }

@@ -13,10 +13,18 @@
         class="pl-2"
         style="background-color: #E0E0E0; width:100%; height:100%"
         :select-first-on-enter="true"
+        :disabled="historyMode"
       ></gmap-autocomplete>
     </v-flex>
     <v-flex xs1 mr-2>
-      <v-btn icon small flat color="red" @click="resetDestinationPlace" v-if="searchPlace">
+      <v-btn
+        icon
+        small
+        flat
+        color="red"
+        @click="resetDestinationPlace"
+        v-if="!historyMode && searchPlace"
+      >
         <v-icon>close</v-icon>
       </v-btn>
     </v-flex>
@@ -28,13 +36,19 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "SearchDestinationAutoComplete",
   data() {
-    return {};
+    return {
+      historyMode: false
+    };
   },
   computed: {
-    ...mapGetters("search", ["searchPlace"])
+    ...mapGetters("search", ["searchPlace"]),
+    ...mapGetters("direction", ["destinationLocation"])
   },
   mounted() {
-    this.syncDestinationPlace();
+    if (this.destinationLocation) {
+      this.historyMode = true;
+      this.$refs.destinationAutoComplete.$el.value = this.destinationLocation.name;
+    } else this.syncDestinationPlace();
   },
   watch: {
     searchPlace(value) {
@@ -44,21 +58,31 @@ export default {
   },
   methods: {
     ...mapActions("search", ["setSearchPlace"]),
+    ...mapActions("direction", ["setDestinationLocation"]),
     syncDestinationPlace: function() {
       if (this.searchPlace) {
         this.$refs.destinationAutoComplete.$el.value = this.searchPlace.name;
+        this.setDestinationLocation({
+          name: this.searchPlace.name,
+          location: this.searchPlace.geometry.location
+        });
       }
     },
     setDestinationPlace: function(place) {
       if (place) {
         if (place.geometry) {
           this.setSearchPlace(place);
+          this.setDestinationLocation({
+            name: place.name,
+            location: place.geometry.location
+          });
         }
       }
     },
     resetDestinationPlace: function() {
       this.$refs.destinationAutoComplete.$el.value = null;
       this.setSearchPlace(null);
+      this.setDestinationLocation(null);
     }
   }
 };

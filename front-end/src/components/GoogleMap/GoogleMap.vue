@@ -46,7 +46,8 @@ export default {
         streetViewControl: false
       },
       directionsService: null,
-      directionsRenderer: null
+      directionsRenderer: null,
+      isDirections: false
     };
   },
   computed: {
@@ -93,7 +94,7 @@ export default {
       console.log(JSON.stringify(e.latLng));
     },
     getRoute: function(startLocation, stopLocation) {
-      if (this.directionsService && this.directionsRenderer) {
+      if (this.isDirections) {
         this.cleanRoute();
       }
       this.directionsService.route(
@@ -127,7 +128,7 @@ export default {
             this.directionsRenderer.setDirections(response);
             this.setDirectionsResponse(response);
             this.setDirectionsRenderer(this.directionsRenderer);
-            this.selectRoute({ response: response, index: 0 });
+            this.isDirections = true;
           }
         }
       );
@@ -139,6 +140,7 @@ export default {
       this.directionsRenderer = new this.google.maps.DirectionsRenderer();
       this.setDirectionsResponse(null);
       this.setDirectionsRenderer(null);
+      this.isDirections = false;
     }
   }
 };

@@ -7,6 +7,7 @@
         flat
         @click="setStartToMyLocation"
         :class="[isMyLocationActive ? 'is-active' : null]"
+        :disabled="historyMode"
       >
         <v-icon>my_location</v-icon>
       </v-btn>
@@ -19,10 +20,18 @@
         class="pl-2"
         style="background-color: #E0E0E0; width:100%; height:100%"
         :select-first-on-enter="true"
+        :disabled="historyMode"
       ></gmap-autocomplete>
     </v-flex>
     <v-flex xs1 mr-2>
-      <v-btn icon small flat color="red" @click="resetStartLocation" v-if="startLocation">
+      <v-btn
+        icon
+        small
+        flat
+        color="red"
+        @click="resetStartLocation"
+        v-if="!historyMode && startLocation"
+      >
         <v-icon>close</v-icon>
       </v-btn>
     </v-flex>
@@ -35,11 +44,15 @@ export default {
   name: "SearchStartAutoComplete",
   data() {
     return {
+      historyMode: false,
       isMyLocationActive: false
     };
   },
   mounted() {
-    this.setStartToMyLocation();
+    if (this.startLocation) {
+      this.historyMode = true;
+      this.$refs.startAutoComplete.$el.value = this.startLocation.name;
+    } else this.setStartToMyLocation();
   },
   computed: {
     ...mapGetters("googleMap", ["myLocation"]),
@@ -49,9 +62,10 @@ export default {
     ...mapActions("direction", ["setStartLocation"]),
     setStartToMyLocation: function() {
       if (this.myLocation) {
+        const { name, location } = this.myLocation;
         this.isMyLocationActive = true;
-        this.$refs.startAutoComplete.$el.value = this.myLocation.name;
-        this.setStartLocation(this.myLocation.location);
+        this.$refs.startAutoComplete.$el.value = name;
+        this.setStartLocation(this.myLocation);
       }
     },
     setStartPlace: function(place) {
@@ -59,7 +73,10 @@ export default {
         if (place.geometry) {
           this.isMyLocationActive = false;
           this.$refs.startAutoComplete.$el.value = place.name;
-          this.setStartLocation(place.geometry.location);
+          this.setStartLocation({
+            name: place.name,
+            location: place.geometry.location
+          });
         }
       }
     },
