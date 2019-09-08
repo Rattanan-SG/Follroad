@@ -34,12 +34,16 @@ const actions = {
   setGoogleClass: ({ commit }, googleClass) => {
     commit("SET_GOOGLE_CLASS", googleClass);
   },
-  setCenter: ({ commit }, center) => {
-    state.mapObject.setCenter(center);
+  setCenter: ({ state, commit }, center) => {
+    if (state.mapObject) {
+      state.mapObject.setCenter(center);
+    }
     commit("SET_CENTER", center);
   },
-  setZoomLevel: ({ commit }, zoomLevel) => {
-    state.mapObject.setZoom(zoomLevel);
+  setZoomLevel: ({ state, commit }, zoomLevel) => {
+    if (state.mapObject) {
+      state.mapObject.setZoom(zoomLevel);
+    }
     commit("SET_ZOOM_LEVEL", zoomLevel);
   },
   setMyLocation: ({ commit, dispatch }) => {
