@@ -128,6 +128,7 @@ export default {
             this.directionsRenderer.setDirections(response);
             this.setDirectionsResponse(response);
             this.setDirectionsRenderer(this.directionsRenderer);
+            this.selectRoute({ response: response, index: 0 });
             this.isDirections = true;
           }
         }

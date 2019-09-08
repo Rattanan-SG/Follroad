@@ -143,7 +143,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions("googleMap", ["setCenter", "setZoomLevel"]),
     ...mapActions("search", ["setSearchPlace"]),
     ...mapActions("direction", ["setDirectionsResponse"]),
     ...mapActions("route", ["setRouterView"]),
@@ -167,8 +166,6 @@ export default {
     search: function(place) {
       if (place) {
         this.setSearchPlace(place);
-        this.setCenter(place.geometry.location);
-        this.setZoomLevel(17);
         this.goToThisPage("/search");
       }
     },

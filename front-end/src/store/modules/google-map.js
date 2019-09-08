@@ -35,9 +35,11 @@ const actions = {
     commit("SET_GOOGLE_CLASS", googleClass);
   },
   setCenter: ({ commit }, center) => {
+    state.mapObject.setCenter(center);
     commit("SET_CENTER", center);
   },
   setZoomLevel: ({ commit }, zoomLevel) => {
+    state.mapObject.setZoom(zoomLevel);
     commit("SET_ZOOM_LEVEL", zoomLevel);
   },
   setMyLocation: ({ commit, dispatch }) => {
@@ -77,8 +79,8 @@ const actions = {
     if (!state.myLocation) {
       await dispatch("setMyLocation");
     } else if (state.myLocation) {
-      state.mapObject.setCenter(state.myLocation.location);
-      state.mapObject.setZoom(15);
+      dispatch("setCenter", state.myLocation.location);
+      dispatch("setZoomLevel", 15);
     }
   }
 };
