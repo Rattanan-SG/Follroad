@@ -8,24 +8,24 @@
         <br />
         <v-divider></v-divider>
         <br />
-        <v-text-field label="ชื่อเหตุการณ์" required box></v-text-field>
+        <v-text-field label="ชื่อเหตุการณ์" required></v-text-field>
         <v-select v-model="select" :items="items" label="ประเภท" required></v-select>
         <!------add image-------->
-        <div v-if="!image">
+        <!-- <div v-if="!image">
           <input type="file" @change="onFileChange" />
         </div>
         <div v-else>
           <img :src="image" />
           <br />
           <v-btn color="secondary" dark @click="removeImage">ลบรูป</v-btn>
-        </div>
+        </div>-->
         <!-- <v-btn block color="secondary" dark @click="$refs.file.click()">
           <v-icon>add_a_photo</v-icon>เพิ่มรูปภาพ
         </v-btn>-->
         <!------------ -->
         <br />
         <v-textarea label="รายละเอียด" outline color="deep-purple"></v-textarea>
-        <v-btn block color="grey" dark to="/">ยกเลิก</v-btn>
+        <v-btn block color="red" dark to="/">ยกเลิก</v-btn>
         <v-btn block color="primary" dark>ยืนยัน</v-btn>
       </v-card>
     </v-flex>
@@ -58,24 +58,23 @@ export default {
     };
   },
   methods: {
-    onFileChange(e) {
-      var files = e.target.files || e.data.Transfer.files;
-      if (!files.length) return;
-      this.createImage(files[0]);
-    },
-    createImage(file) {
-      var image = new Image();
-      var reader = new FileReader();
-      var vm = this;
-
-      reader.onload = e => {
-        vm.image = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    },
-    removeImage: function(e) {
-      this.image = "";
-    }
+    // onFileChange(e) {
+    //   var files = e.target.files || e.data.Transfer.files;
+    //   if (!files.length) return;
+    //   this.createImage(files[0]);
+    // },
+    // createImage(file) {
+    //   var image = new Image();
+    //   var reader = new FileReader();
+    //   var vm = this;
+    //   reader.onload = e => {
+    //     vm.image = e.target.result;
+    //   };
+    //   reader.readAsDataURL(file);
+    // },
+    // removeImage: function(e) {
+    //   this.image = "";
+    // }
   }
 };
 </script>
