@@ -35,19 +35,17 @@
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "SearchDestinationAutoComplete",
-  data() {
-    return {
-      historyMode: false
-    };
+  props: {
+    historyMode: Boolean,
+    destinationLocationName: String
   },
   computed: {
     ...mapGetters("search", ["searchPlace"]),
     ...mapGetters("direction", ["destinationLocation"])
   },
   mounted() {
-    if (this.destinationLocation) {
-      this.historyMode = true;
-      this.$refs.destinationAutoComplete.$el.value = this.destinationLocation.name;
+    if (this.historyMode) {
+      this.$refs.destinationAutoComplete.$el.value = this.destinationLocationName;
     } else this.syncDestinationPlace();
   },
   watch: {

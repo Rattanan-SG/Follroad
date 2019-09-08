@@ -42,32 +42,35 @@ const actions = {
   },
   setMyLocation: ({ commit, dispatch }) => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async position => {
-          let lat = parseFloat(position.coords.latitude);
-          let lng = parseFloat(position.coords.longitude);
-          await dispatch("setCenter", { lat: lat, lng: lng });
-          commit("SET_MY_LOCATION", {
-            name: "ตำแหน่งปัจจุบัน",
-            location: { lat: lat, lng: lng }
-          });
-        },
-        async error => {
-          // console.log(error);
-          switch (error.code) {
-            case 3:
-              // deal with timeout
-              await dispatch("setMyLocation");
-              break;
-            case 2:
-              // device can't get data
-              break;
-            case 1:
-            // user said no
-          }
-        },
-        { enableHighAccuracy: true, timeout: 5000 }
-      );
+      return new Promise(resolve => {
+        navigator.geolocation.getCurrentPosition(
+          async position => {
+            let lat = parseFloat(position.coords.latitude);
+            let lng = parseFloat(position.coords.longitude);
+            await dispatch("setCenter", { lat: lat, lng: lng });
+            commit("SET_MY_LOCATION", {
+              name: "ตำแหน่งปัจจุบัน",
+              location: { lat: lat, lng: lng }
+            });
+            resolve();
+          },
+          async error => {
+            // console.log(error);
+            switch (error.code) {
+              case 3:
+                // deal with timeout
+                await dispatch("setMyLocation");
+                break;
+              case 2:
+                // device can't get data
+                break;
+              case 1:
+              // user said no
+            }
+          },
+          { enableHighAccuracy: true, timeout: 5000 }
+        );
+      });
     }
   },
   resetCenterToMyLocation: async ({ state, dispatch }) => {

@@ -42,31 +42,40 @@
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "SearchStartAutoComplete",
+  props: {
+    historyMode: Boolean,
+    startLocationName: String
+  },
   data() {
     return {
-      historyMode: false,
       isMyLocationActive: false
     };
-  },
-  mounted() {
-    if (this.startLocation) {
-      this.historyMode = true;
-      this.$refs.startAutoComplete.$el.value = this.startLocation.name;
-    } else this.setStartToMyLocation();
   },
   computed: {
     ...mapGetters("googleMap", ["myLocation"]),
     ...mapGetters("direction", ["startLocation"])
   },
+  mounted() {
+    if (this.historyMode) {
+      this.$refs.startAutoComplete.$el.value = this.startLocationName;
+    } else {
+      if (this.myLocation) {
+        this.setStartToMyLocation();
+      } else {
+        this.setMyLocation().then(() => {
+          this.setStartToMyLocation();
+        });
+      }
+    }
+  },
   methods: {
+    ...mapActions("googleMap", ["setMyLocation"]),
     ...mapActions("direction", ["setStartLocation"]),
     setStartToMyLocation: function() {
-      if (this.myLocation) {
-        const { name, location } = this.myLocation;
-        this.isMyLocationActive = true;
-        this.$refs.startAutoComplete.$el.value = name;
-        this.setStartLocation(this.myLocation);
-      }
+      const { name, location } = this.myLocation;
+      this.isMyLocationActive = true;
+      this.$refs.startAutoComplete.$el.value = name;
+      this.setStartLocation(this.myLocation);
     },
     setStartPlace: function(place) {
       if (place) {

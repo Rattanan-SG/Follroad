@@ -1,12 +1,15 @@
 <template>
   <div>
     <BackToolBar title="เดินทาง" />
-    <SearchStartAutoComplete />
-    <SearchDestinationAutoComplete />
+    <SearchStartAutoComplete :historyMode="historyMode" :startLocationName="startLocationName" />
+    <SearchDestinationAutoComplete
+      :historyMode="historyMode"
+      :destinationLocationName="destinationLocationName"
+    />
     <v-layout row wrap my-3 justify-center>
-      <SearchSaveRouteButton v-if="directionsRenderer" />
+      <SearchSaveRouteButton v-if="directionsResponse" />
       <v-btn
-        v-if="!directionsRenderer"
+        v-if="!directionsResponse"
         color="blue"
         class="white--text"
         @click="startDirections"
@@ -15,10 +18,10 @@
     </v-layout>
     <v-layout row wrap>
       <v-flex xs12 my-1>
-        <SearchFeedPanel v-if="directionsRenderer" />
+        <SearchFeedPanel v-if="directionsResponse" />
       </v-flex>
       <v-flex xs12>
-        <SearchRoutePanel v-if="directionsRenderer" :directionsRenderer="directionsRenderer" />
+        <SearchRoutePanel v-if="directionsResponse" :directionsRenderer="directionsRenderer" />
       </v-flex>
     </v-layout>
   </div>
@@ -40,7 +43,9 @@ export default {
   name: "Search",
   data() {
     return {
-      historyStartPlace: { name: "dgd" }
+      historyMode: false,
+      startLocationName: null,
+      destinationLocationName: null
     };
   },
   components: {
@@ -55,7 +60,8 @@ export default {
     ...mapGetters("direction", [
       "startLocation",
       "destinationLocation",
-      "directionsRenderer"
+      "directionsRenderer",
+      "directionsResponse"
     ])
   },
   methods: {
@@ -75,6 +81,7 @@ export default {
     },
     stopDirections: function() {
       this.setSearchPlace(null);
+      this.setDestinationLocation(null);
       eventBus.stopDirections();
     }
   }
