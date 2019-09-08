@@ -47,7 +47,6 @@ export default {
     syncDestinationPlace: function() {
       if (this.searchPlace) {
         this.$refs.destinationAutoComplete.$el.value = this.searchPlace.name;
-        this.destinationLocation = this.searchPlace.geometry.location;
       }
     },
     setDestinationPlace: function(place) {
