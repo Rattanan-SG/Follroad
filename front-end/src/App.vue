@@ -62,9 +62,7 @@ export default {
       : this.setRouterView(true);
     try {
       await this.$auth.renewTokens();
-    } catch (e) {
-      console.error(e);
-    }
+    } catch (e) {}
   },
   methods: {
     ...mapActions("route", ["setRouterView"]),

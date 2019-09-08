@@ -51,10 +51,7 @@ const router = new Router({
     {
       path: "/addeventbyuser",
       name: "addeventbyuser",
-      component: () =>
-        import(
-          /* webpackChunkName: "addeventbyuser" */ "./views/AddEventByUser.vue"
-        )
+      component: AddEventByUser
     },
     {
       path: "/callback",

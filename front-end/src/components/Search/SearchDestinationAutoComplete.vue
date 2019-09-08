@@ -31,7 +31,7 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters("search", ["searchPlace"]),
+    ...mapGetters("search", ["searchPlace"])
   },
   mounted() {
     this.syncDestinationPlace();
@@ -39,6 +39,7 @@ export default {
   watch: {
     searchPlace(value) {
       if (value) this.syncDestinationPlace();
+      else this.$refs.destinationAutoComplete.$el.value = null;
     }
   },
   methods: {

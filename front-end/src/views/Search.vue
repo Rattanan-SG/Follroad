@@ -17,7 +17,7 @@
       <v-flex xs12 my-1>
         <SearchFeedPanel v-if="directionsRenderer" />
       </v-flex>
-      <v-flex xs12 ml-1>
+      <v-flex xs12>
         <SearchRoutePanel v-if="directionsRenderer" :directionsRenderer="directionsRenderer" />
       </v-flex>
     </v-layout>
@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     ...mapActions("search", ["setSearchPlace"]),
-    ...mapActions("direction", ["setDirection"]),
+    ...mapActions("direction", ["setDirectionsResponse"]),
     ...mapActions("route", ["setRouterView"]),
     startDirections: function() {
       if (this.startLocation && this.searchPlace) {
@@ -67,7 +67,7 @@ export default {
     },
     stopDirections: function() {
       this.setSearchPlace(null);
-      this.setDirection(null);
+      this.setDirectionsResponse(null);
       eventBus.stopDirections();
     }
   }
