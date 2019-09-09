@@ -188,6 +188,7 @@
               >บันทึกเส้นทางสำเร็จ</v-alert>
               <v-alert :value="error" color="error" icon="warning" outline>บันทึกเส้นทางไม่สำเร็จ</v-alert>
             </v-card-text>
+            <v-divider></v-divider>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-1" flat @click="dialog = false">Close</v-btn>

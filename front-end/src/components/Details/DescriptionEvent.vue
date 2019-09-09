@@ -42,53 +42,85 @@
       </v-flex>
     </v-layout>
 
+    <br />
+    <!-- <v-flex ml-3 mr-3>
+      <v-divider></v-divider>
+    </v-flex>-->
+    <br />
+
     <v-layout>
-      <v-flex mr-3 ml-3>
-        <v-text-field label="แสดงความคิดเห็น" outlined></v-text-field>
+      <v-flex mt-3 ml-3 xs1 md1 lg1>
+        <v-avatar size="30px">
+          <img :src="profile.picture" alt="avatar" />
+        </v-avatar>
+      </v-flex>
+      <v-flex ml-3 xs9 md9 lg9>
+        <v-text-field label="แสดงความคิดเห็น" outline></v-text-field>
       </v-flex>
     </v-layout>
 
-    <v-layout>
-      <v-flex xs2 md2 lg2 mt-5 ml-4>
-        <v-icon>person</v-icon>
-      </v-flex>
-      <v-flex xs10 md10 lg10>
-        <v-card-title primary-title>
-          <h3>WinnerZaza</h3>
-          <v-list-tile-sub-title>15 mins</v-list-tile-sub-title>
-          <br />
-          <h4>sadsakdjsalkdlsakld</h4>
-        </v-card-title>
-      </v-flex>
-    </v-layout>
+    <v-flex ml-3 mr-3>
+      <v-divider></v-divider>
+    </v-flex>
 
-    <v-layout>
-      <v-flex xs2 md2 lg2 mt-5 ml-4>
-        <v-icon>person</v-icon>
-      </v-flex>
-      <v-flex xs10 md10 lg10>
-        <v-card-title primary-title>
-          <h3>WinnerZaza</h3>
-          <v-list-tile-sub-title>15 mins</v-list-tile-sub-title>
-          <br />
-          <h4>sadsakdjsalkdlsakld</h4>
-        </v-card-title>
-      </v-flex>
-    </v-layout>
+    <!-- <v-layout>
+        <v-flex mt-3 ml-3 xs1 md1 lg1>
+          <v-avatar size="30px">
+            <img :src="profile.picture" alt="avatar" />
+          </v-avatar>
+        </v-flex>
+        <v-flex ml-3 xs9 md9 lg9>
+          <v-text-field label="แสดงความคิดเห็น" outlined></v-text-field>
+        </v-flex>
+    </v-layout>-->
 
-    <v-layout>
-      <v-flex xs2 md2 lg2 mt-5 ml-4>
-        <v-icon>person</v-icon>
-      </v-flex>
-      <v-flex xs10 md10 lg10>
-        <v-card-title primary-title>
-          <h3>WinnerZaza</h3>
-          <v-list-tile-sub-title>15 mins</v-list-tile-sub-title>
-          <br />
-          <h4>sadsakdjsalkdlsakld</h4>
-        </v-card-title>
-      </v-flex>
-    </v-layout>
+    <v-list three-line>
+      <template>
+        <v-list-tile>
+          <v-flex mt-1 xs1 md1 lg1>
+            <v-avatar size="30px">
+              <img :src="profile.picture" alt="avatar" />
+            </v-avatar>
+          </v-flex>
+          <v-flex ml-3 xs9 md9 lg9>
+            <v-list-tile avatar>
+              <v-list-tile-content>
+                <h3>Profile photo</h3>
+
+                <v-list-tile-sub-title>Change your Google+ profile photo</v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-flex>
+        </v-list-tile>
+      </template>
+    </v-list>
+    <v-flex ml-3 mr-3>
+      <v-divider></v-divider>
+    </v-flex>
+
+    <v-list three-line>
+      <template>
+        <v-list-tile>
+          <v-flex mt-1 xs1 md1 lg1>
+            <v-avatar size="30px">
+              <img :src="profile.picture" alt="avatar" />
+            </v-avatar>
+          </v-flex>
+          <v-flex ml-3 xs9 md9 lg9>
+            <v-list-tile avatar>
+              <v-list-tile-content>
+                <h3>Dio Oh Oh</h3>
+
+                <v-list-tile-sub-title>ORA ORA ORA ORA</v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-flex>
+        </v-list-tile>
+      </template>
+    </v-list>
+    <v-flex ml-3 mr-3>
+      <v-divider></v-divider>
+    </v-flex>
   </v-card>
 </template>
 
@@ -96,12 +128,15 @@
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "DescriptionEvent",
-  data: () => ({
-    dialog: false,
-    show: false,
-    countLike: 0,
-    countDislike: 0
-  }),
+  data() {
+    return {
+      profile: this.$auth.profile,
+      dialog: false,
+      show: false,
+      countLike: 0,
+      countDislike: 0
+    };
+  },
   computed: {
     ...mapGetters("infoWindow", ["infoWindow"])
   },
