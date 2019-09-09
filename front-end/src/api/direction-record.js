@@ -22,7 +22,17 @@ const postRecords = data => {
     });
 };
 
+const patchRecordById = (id, data) => {
+  return record
+    .patch(`/record/${id}`, data)
+    .then(response => response.data)
+    .catch(err => {
+      throw err;
+    });
+};
+
 export default {
   getRecords,
-  postRecords
+  postRecords,
+  patchRecordById
 };

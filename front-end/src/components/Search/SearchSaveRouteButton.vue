@@ -24,18 +24,20 @@
                 <v-flex xs12 sm6 pr-1>
                   <v-text-field
                     v-model="start"
-                    label="จุดเริ่มต้น"
+                    label="ชื่อจุดเริ่มต้น"
                     prepend-inner-icon="place"
                     :rules="[rules.required]"
+                    :disabled="historyMode"
                     clearable
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 pl-1>
                   <v-text-field
                     v-model="destination"
-                    label="จุดหมาย"
+                    label="ชื่อจุดหมาย"
                     prepend-inner-icon="place"
                     :rules="[rules.required]"
+                    :disabled="historyMode"
                     clearable
                   ></v-text-field>
                 </v-flex>
@@ -45,6 +47,7 @@
                     label="กรอกชื่อเส้นทางที่บันทึก *"
                     v-model="name"
                     :rules="[rules.required]"
+                    :disabled="historyMode"
                   ></v-text-field>
                 </v-flex>
 
@@ -52,7 +55,7 @@
                   <div class="subheading">เลือกเส้นทางที่ต้องการรับแจ้งเตือน *</div>
                   <v-checkbox
                     v-for="(route, index) in directionsResponse.routes"
-                    v-model="selectedRoutes"
+                    v-model="notificationRoutes"
                     :key="index"
                     :value="index"
                     :label="`${route.summary} ระยะทาง ${route.legs[0].distance.text} ประมาณ ${route.legs[0].duration.text}`"
@@ -177,10 +180,17 @@
                 </v-flex>
                 <v-spacer></v-spacer>
               </v-layout>
+              <v-alert
+                :value="success"
+                color="success"
+                icon="check_circle"
+                outline
+              >บันทึกเส้นทางสำเร็จ</v-alert>
+              <v-alert :value="error" color="error" icon="warning" outline>บันทึกเส้นทางไม่สำเร็จ</v-alert>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red darken-1" flat :disabled="loading" @click="dialog = false">Close</v-btn>
+              <v-btn color="red darken-1" flat @click="dialog = false">Close</v-btn>
               <v-btn
                 color="blue darken-1"
                 flat
@@ -198,19 +208,21 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { postRecords } from "@/api/direction-record";
+import directionRecord from "@/api/direction-record";
 export default {
   name: "SearchSaveRouteButton",
   props: {
-    startLocationName: String,
-    destinationLocationName: String,
+    historyMode: Boolean,
+    startLocation: Object,
+    destinationLocation: Object,
     directionsResponse: Object
   },
   data() {
     return {
       valid: false,
-      start: this.startLocationName,
-      destination: this.destinationLocationName,
+      uid: this.$auth.profile.sub,
+      start: this.startLocation.name,
+      destination: this.destinationLocation.name,
       name: null,
       rules: {
         required: value => !!value || "กรุณากรอกข้อมูล",
@@ -218,8 +230,11 @@ export default {
           value.length > 0 || "กรุณาเลือกอย่างน้อย 1 ตัวเลือก"
       },
       dialog: false,
-      selectedRoutes: [],
+      notificationRoutes: [],
       loading: false,
+      success: false,
+      error: false,
+      recordId: null,
       time: null,
       time2: null,
       menu: false,
@@ -244,11 +259,44 @@ export default {
     ...mapGetters("direction", ["directionsRenderer"])
   },
   methods: {
-    submit: function() {
-      this.loading = true;
+    submit: async function() {
       if (this.$refs.form.validate()) {
-        console.log(5555);
+        this.loading = true;
+        this.success = false;
+        this.error = false;
+        const data = this.getDirectionRecordData();
+        try {
+          if (!this.recordId) {
+            const { _id } = await directionRecord.postRecords(data);
+            this.recordId = _id;
+          } else {
+            await directionRecord.patchRecordById(this.recordId, data);
+          }
+          this.success = true;
+        } catch (error) {
+          this.error = true;
+        } finally {
+          this.loading = false;
+        }
       }
+    },
+    getDirectionRecordData: function() {
+      const start = {
+        name: this.start,
+        location: this.startLocation.location
+      };
+      const destination = {
+        name: this.destination,
+        location: this.destinationLocation.location
+      };
+      return {
+        uid: this.uid,
+        name: this.name,
+        start,
+        destination,
+        notificationRoutes: this.notificationRoutes,
+        direction: this.directionsResponse
+      };
     }
   }
 };

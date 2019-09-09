@@ -24,7 +24,7 @@ const directionRecordSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    notificationRoutes: [String],
+    notificationRoutes: [Number],
     direction: {
       type: mongoose.Schema.Types.Mixed,
       required: true
@@ -41,8 +41,8 @@ const directionRecordSchema = new mongoose.Schema(
           "Thursday",
           "Friday",
           "Saturday"
-        ],
-        required: true
+        ]
+        // required: true
       }
     }
   },
