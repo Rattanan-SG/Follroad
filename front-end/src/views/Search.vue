@@ -1,12 +1,20 @@
 <template>
   <div>
     <BackToolBar title="เดินทาง" />
-    <SearchStartAutoComplete />
-    <SearchDestinationAutoComplete />
+    <SearchStartAutoComplete :historyMode="historyMode" :startLocationName="startLocationName" />
+    <SearchDestinationAutoComplete
+      :historyMode="historyMode"
+      :destinationLocationName="destinationLocationName"
+    />
     <v-layout row wrap my-3 justify-center>
-      <SearchSaveRouteButton v-if="directionsRenderer" />
+      <SearchSaveRouteButton
+        v-if="directionsResponse"
+        :startLocationName="startLocationName"
+        :destinationLocationName="destinationLocationName"
+        :directionsResponse="directionsResponse"
+      />
       <v-btn
-        v-if="!directionsRenderer"
+        v-if="!directionsResponse"
         color="blue"
         class="white--text"
         @click="startDirections"
@@ -15,10 +23,10 @@
     </v-layout>
     <v-layout row wrap>
       <v-flex xs12 my-1>
-        <SearchFeedPanel v-if="directionsRenderer" />
+        <SearchFeedPanel v-if="directionsResponse" />
       </v-flex>
-      <v-flex xs12 ml-1>
-        <SearchRoutePanel v-if="directionsRenderer" :directionsRenderer="directionsRenderer" />
+      <v-flex xs12>
+        <SearchRoutePanel v-if="directionsResponse" :directionsRenderer="directionsRenderer" />
       </v-flex>
     </v-layout>
   </div>
@@ -38,6 +46,13 @@ const SearchFeedPanel = () => import("@/components/Search/SearchFeedPanel");
 const SearchRoutePanel = () => import("@/components/Search/SearchRoutePanel");
 export default {
   name: "Search",
+  data() {
+    return {
+      historyMode: false,
+      startLocationName: null,
+      destinationLocationName: null
+    };
+  },
   components: {
     BackToolBar,
     SearchStartAutoComplete,
@@ -47,19 +62,25 @@ export default {
     SearchRoutePanel
   },
   computed: {
-    ...mapGetters("search", ["searchPlace"]),
-    ...mapGetters("direction", ["startLocation", "directionsRenderer"])
+    ...mapGetters("direction", [
+      "startLocation",
+      "destinationLocation",
+      "directionsRenderer",
+      "directionsResponse"
+    ])
   },
   methods: {
     ...mapActions("search", ["setSearchPlace"]),
-    ...mapActions("direction", ["setDirection"]),
+    ...mapActions("direction", ["setStartLocation", "setDestinationLocation"]),
     ...mapActions("route", ["setRouterView"]),
     startDirections: function() {
-      if (this.startLocation && this.searchPlace) {
+      if (this.startLocation && this.destinationLocation) {
         eventBus.startDirections(
-          this.startLocation,
-          this.searchPlace.geometry.location
+          this.startLocation.location,
+          this.destinationLocation.location
         );
+        this.startLocationName = this.startLocation.name;
+        this.destinationLocationName = this.destinationLocation.name;
         this.$vuetify.breakpoint.xsOnly
           ? this.setRouterView(false)
           : this.setRouterView(true);
@@ -67,7 +88,7 @@ export default {
     },
     stopDirections: function() {
       this.setSearchPlace(null);
-      this.setDirection(null);
+      this.setDestinationLocation(null);
       eventBus.stopDirections();
     }
   }

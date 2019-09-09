@@ -46,7 +46,8 @@ export default {
         streetViewControl: false
       },
       directionsService: null,
-      directionsRenderer: null
+      directionsRenderer: null,
+      isDirections: false
     };
   },
   computed: {
@@ -93,7 +94,7 @@ export default {
       console.log(JSON.stringify(e.latLng));
     },
     getRoute: function(startLocation, stopLocation) {
-      if (this.directionsService && this.directionsRenderer) {
+      if (this.isDirections) {
         this.cleanRoute();
       }
       this.directionsService.route(
@@ -108,7 +109,7 @@ export default {
         },
         async (response, status) => {
           if (status === "OK") {
-            // console.log(response);
+            console.log(response);
             // console.log(JSON.stringify(response));
             // const { data } = await axios.get(
             //   `${process.env.VUE_APP_DIRECTION_RECORD_URL}/record/5d5d295cd6927600422718d1`
@@ -128,6 +129,7 @@ export default {
             this.setDirectionsResponse(response);
             this.setDirectionsRenderer(this.directionsRenderer);
             this.selectRoute({ response: response, index: 0 });
+            this.isDirections = true;
           }
         }
       );
@@ -139,6 +141,7 @@ export default {
       this.directionsRenderer = new this.google.maps.DirectionsRenderer();
       this.setDirectionsResponse(null);
       this.setDirectionsRenderer(null);
+      this.isDirections = false;
     }
   }
 };

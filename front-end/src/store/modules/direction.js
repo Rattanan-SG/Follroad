@@ -1,5 +1,6 @@
 const state = {
   startLocation: null,
+  destinationLocation: null,
   directionsResponse: null,
   directionsRenderer: null,
   routeIndex: 0,
@@ -10,6 +11,9 @@ const state = {
 const getters = {
   startLocation: state => {
     return state.startLocation;
+  },
+  destinationLocation: state => {
+    return state.destinationLocation;
   },
   directionsResponse: state => {
     return state.directionsResponse;
@@ -31,6 +35,9 @@ const getters = {
 const actions = {
   setStartLocation: ({ commit }, startLocation) => {
     commit("SET_START_LOCATION", startLocation);
+  },
+  setDestinationLocation: ({ commit }, destinationLocation) => {
+    commit("SET_DESTINATION_LOCATION", destinationLocation);
   },
   setDirectionsResponse: ({ commit }, directionsResponse) => {
     commit("SET_DIRECTIONS_RESPONSE", directionsResponse);
@@ -72,6 +79,9 @@ const actions = {
 const mutations = {
   SET_START_LOCATION: (state, startLocation) => {
     state.startLocation = startLocation;
+  },
+  SET_DESTINATION_LOCATION: (state, destinationLocation) => {
+    state.destinationLocation = destinationLocation;
   },
   SET_DIRECTIONS_RESPONSE: (state, directionsResponse) => {
     state.directionsResponse = directionsResponse;

@@ -34,48 +34,57 @@ const actions = {
   setGoogleClass: ({ commit }, googleClass) => {
     commit("SET_GOOGLE_CLASS", googleClass);
   },
-  setCenter: ({ commit }, center) => {
+  setCenter: ({ state, commit }, center) => {
+    if (state.mapObject) {
+      state.mapObject.setCenter(center);
+    }
     commit("SET_CENTER", center);
   },
-  setZoomLevel: ({ commit }, zoomLevel) => {
+  setZoomLevel: ({ state, commit }, zoomLevel) => {
+    if (state.mapObject) {
+      state.mapObject.setZoom(zoomLevel);
+    }
     commit("SET_ZOOM_LEVEL", zoomLevel);
   },
   setMyLocation: ({ commit, dispatch }) => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async position => {
-          let lat = parseFloat(position.coords.latitude);
-          let lng = parseFloat(position.coords.longitude);
-          await dispatch("setCenter", { lat: lat, lng: lng });
-          commit("SET_MY_LOCATION", {
-            name: "ตำแหน่งปัจจุบัน",
-            location: { lat: lat, lng: lng }
-          });
-        },
-        async error => {
-          console.log(error);
-          switch (error.code) {
-            case 3:
-              // deal with timeout
-              await dispatch("setMyLocation");
-              break;
-            case 2:
-              // device can't get data
-              break;
-            case 1:
-            // user said no
-          }
-        },
-        { enableHighAccuracy: true, timeout: 5000 }
-      );
+      return new Promise(resolve => {
+        navigator.geolocation.getCurrentPosition(
+          async position => {
+            let lat = parseFloat(position.coords.latitude);
+            let lng = parseFloat(position.coords.longitude);
+            await dispatch("setCenter", { lat: lat, lng: lng });
+            commit("SET_MY_LOCATION", {
+              name: "ตำแหน่งปัจจุบัน",
+              location: { lat: lat, lng: lng }
+            });
+            resolve();
+          },
+          async error => {
+            // console.log(error);
+            switch (error.code) {
+              case 3:
+                // deal with timeout
+                await dispatch("setMyLocation");
+                break;
+              case 2:
+                // device can't get data
+                break;
+              case 1:
+              // user said no
+            }
+          },
+          { enableHighAccuracy: true, timeout: 5000 }
+        );
+      });
     }
   },
   resetCenterToMyLocation: async ({ state, dispatch }) => {
     if (!state.myLocation) {
       await dispatch("setMyLocation");
     } else if (state.myLocation) {
-      state.mapObject.setCenter(state.myLocation.location);
-      state.mapObject.setZoom(15);
+      dispatch("setCenter", state.myLocation.location);
+      dispatch("setZoomLevel", 15);
     }
   }
 };

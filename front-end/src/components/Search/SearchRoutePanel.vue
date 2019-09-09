@@ -1,13 +1,5 @@
 <template>
-  <!-- <div id="panel" ref="panel"></div> -->
-  <!-- <p>{{direction.routes[0].legs[0].distance.text}}</p>--->
-  <div id="panel" ref="panel">
-    <div v-for="(route, index) in directionsResponse.routes" :key="index">
-      <!-- <p>{{route.summary}}</p> -->
-
-      <!-- <v-list></v-list> -->
-    </div>
-  </div>
+  <div id="panel" ref="panel"></div>
 </template>
 
 <script>
@@ -25,12 +17,10 @@ export default {
   },
   mounted() {
     if (this.directionsRenderer) {
-      console.log(this.directionsResponse.routes[0].legs[0].distance.text);
-
       this.directionsRenderer.setPanel(this.$refs.panel);
       setTimeout(() => {
         this.setupPanel();
-      }, 1000);
+      }, 2000);
     }
   },
   methods: {
@@ -54,7 +44,7 @@ export default {
         return element.tagName == "TD";
       });
       this.selectRoute({
-        response: this.direction,
+        response: this.directionsResponse,
         index: found.attributes[0].value
       });
       // this.directionsRenderer.setOptions({

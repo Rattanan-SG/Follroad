@@ -24,8 +24,14 @@ const getters = {
 };
 
 const actions = {
-  setSearchPlace: ({ commit }, searchPlace) => {
+  setSearchPlace: ({ commit, dispatch }, searchPlace) => {
     commit("SET_SEARCH_PLACE", searchPlace);
+    if (searchPlace) {
+      dispatch("googleMap/setCenter", searchPlace.geometry.location, {
+        root: true
+      });
+      dispatch("googleMap/setZoomLevel", 17, { root: true });
+    }
   }
 };
 

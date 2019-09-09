@@ -30,12 +30,18 @@
 </template>
 
 <script>
-import Navbar from "./components/Navbar/Navbar";
-const GoogleMap = () => import("./components/GoogleMap/GoogleMap");
-const RefreshSnackBar = () => import("./components/RefreshSnackBar.vue");
-const BottomMenuBar = () => import("./components/Navbar/BottomMenuBar");
+const Navbar = () =>
+  import(/* webpackPrefetch: true */ "./components/Navbar/Navbar");
+const GoogleMap = () =>
+  import(/* webpackPrefetch: true */ "./components/GoogleMap/GoogleMap");
+const RefreshSnackBar = () =>
+  import(/* webpackPrefetch: true */ "./components/RefreshSnackBar.vue");
+const BottomMenuBar = () =>
+  import(/* webpackPrefetch: true */ "./components/Navbar/BottomMenuBar");
 const CurrentPositionButton = () =>
-  import("./components/FloatingButton/CurrentPositionButton");
+  import(
+    /* webpackPrefetch: true */ "./components/FloatingButton/CurrentPositionButton"
+  );
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "App",
@@ -56,9 +62,7 @@ export default {
       : this.setRouterView(true);
     try {
       await this.$auth.renewTokens();
-    } catch (e) {
-      console.error(e);
-    }
+    } catch (e) {}
   },
   methods: {
     ...mapActions("route", ["setRouterView"]),

@@ -7,6 +7,7 @@
         flat
         @click="setStartToMyLocation"
         :class="[isMyLocationActive ? 'is-active' : null]"
+        :disabled="historyMode"
       >
         <v-icon>my_location</v-icon>
       </v-btn>
@@ -19,10 +20,18 @@
         class="pl-2"
         style="background-color: #E0E0E0; width:100%; height:100%"
         :select-first-on-enter="true"
+        :disabled="historyMode"
       ></gmap-autocomplete>
     </v-flex>
     <v-flex xs1 mr-2>
-      <v-btn icon small flat color="red" @click="resetStartLocation" v-if="startLocation">
+      <v-btn
+        icon
+        small
+        flat
+        color="red"
+        @click="resetStartLocation"
+        v-if="!historyMode && startLocation"
+      >
         <v-icon>close</v-icon>
       </v-btn>
     </v-flex>
@@ -33,32 +42,50 @@
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "SearchStartAutoComplete",
+  props: {
+    historyMode: Boolean,
+    startLocationName: String
+  },
   data() {
     return {
       isMyLocationActive: false
     };
   },
-  mounted() {
-    this.setStartToMyLocation();
-  },
   computed: {
     ...mapGetters("googleMap", ["myLocation"]),
     ...mapGetters("direction", ["startLocation"])
   },
+  mounted() {
+    if (this.historyMode) {
+      this.$refs.startAutoComplete.$el.value = this.startLocationName;
+    } else {
+      if (this.myLocation) {
+        this.setStartToMyLocation();
+      } else {
+        this.setMyLocation().then(() => {
+          this.setStartToMyLocation();
+        });
+      }
+    }
+  },
   methods: {
+    ...mapActions("googleMap", ["setMyLocation"]),
     ...mapActions("direction", ["setStartLocation"]),
     setStartToMyLocation: function() {
-      if (this.myLocation) {
-        this.isMyLocationActive = true;
-        this.$refs.startAutoComplete.$el.value = this.myLocation.name;
-        this.setStartLocation(this.myLocation.location);
-      }
+      const { name, location } = this.myLocation;
+      this.isMyLocationActive = true;
+      this.$refs.startAutoComplete.$el.value = name;
+      this.setStartLocation(this.myLocation);
     },
     setStartPlace: function(place) {
       if (place) {
         if (place.geometry) {
           this.isMyLocationActive = false;
-          this.setStartLocation(place.geometry.location);
+          this.$refs.startAutoComplete.$el.value = place.name;
+          this.setStartLocation({
+            name: place.name,
+            location: place.geometry.location
+          });
         }
       }
     },

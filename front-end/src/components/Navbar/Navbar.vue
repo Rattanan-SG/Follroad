@@ -68,6 +68,9 @@
       <v-btn v-if="installBtn" icon @click="installer()">
         <v-icon>mobile_friendly</v-icon>
       </v-btn>
+      <!-- <v-btn text icon to="addeventbyuser" @click="setRouterView(true)" class="hidden-sm-and-up">
+        <v-icon>post_add</v-icon>
+      </v-btn>-->
       <v-btn v-if="!isAuthenticated" outline @click.prevent="login" :loading="loginLoading">Log in</v-btn>
       <v-btn v-else icon to="/profile" @click="setRouterView(true)">
         <v-avatar size="35px">
@@ -140,7 +143,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions("googleMap", ["setCenter", "setZoomLevel"]),
     ...mapActions("search", ["setSearchPlace"]),
     ...mapActions("direction", ["setDirectionsResponse"]),
     ...mapActions("route", ["setRouterView"]),
@@ -162,11 +164,8 @@ export default {
       }
     },
     search: function(place) {
-      console.log("se", place);
       if (place) {
         this.setSearchPlace(place);
-        this.setCenter(place.geometry.location);
-        this.setZoomLevel(17);
         this.goToThisPage("/search");
       }
     },
