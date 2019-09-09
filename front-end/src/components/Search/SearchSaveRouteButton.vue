@@ -111,7 +111,7 @@
                       </v-flex>
                       <!-- <v-flex xs1 lg1 md1></v-flex> -->
                       <v-flex lg1 md1 mt-3 v-if="switch1">
-                        <v-btn icon small>
+                        <v-btn icon small @click="submit">
                           <v-icon>add_circle_outline</v-icon>
                         </v-btn>
                       </v-flex>
@@ -178,6 +178,7 @@
                 <v-spacer></v-spacer>
               </v-layout>
             </v-card-text>
+            <v-divider></v-divider>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-1" flat :disabled="loading" @click="dialog = false">Close</v-btn>
