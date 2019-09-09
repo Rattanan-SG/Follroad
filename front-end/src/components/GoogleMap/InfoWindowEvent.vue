@@ -35,6 +35,7 @@
 
         <br />
         <v-divider></v-divider>
+        <br />
       </v-card-text>
       <v-card-text class="pa-0">
         <div>เกิดเหตุการณ์ขึ้น ณ : {{marker.eventCaption.startTime}}</div>
