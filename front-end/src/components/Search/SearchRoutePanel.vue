@@ -30,9 +30,10 @@ export default {
       this.trDocument = this.$refs.panel.children[0].querySelectorAll(
         "tr[jsinstance]"
       );
-      this.trDocument.forEach(element => {
-        element.addEventListener("click", this.changeRouteIndex);
-      });
+      if (this.trDocument)
+        this.trDocument.forEach(element => {
+          element.addEventListener("click", this.changeRouteIndex);
+        });
     },
     destroyPanel: function() {
       this.trDocument.forEach(element => {
@@ -57,7 +58,7 @@ export default {
     }
   },
   beforeDestroy() {
-    this.destroyPanel();
+    if (this.trDocument) this.destroyPanel();
   }
 };
 </script>

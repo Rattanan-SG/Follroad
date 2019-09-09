@@ -1,16 +1,17 @@
 <template>
   <div>
     <BackToolBar title="เดินทาง" />
-    <SearchStartAutoComplete :historyMode="historyMode" :startLocationName="startLocationName" />
+    <SearchStartAutoComplete :historyMode="historyMode" :startLocation="startLocation" />
     <SearchDestinationAutoComplete
       :historyMode="historyMode"
-      :destinationLocationName="destinationLocationName"
+      :destinationLocation="destinationLocation"
     />
     <v-layout row wrap my-3 justify-center>
       <SearchSaveRouteButton
         v-if="directionsResponse"
-        :startLocationName="startLocationName"
-        :destinationLocationName="destinationLocationName"
+        :historyMode="historyMode"
+        :startLocation="startLocation"
+        :destinationLocation="destinationLocation"
         :directionsResponse="directionsResponse"
       />
       <v-btn
@@ -18,6 +19,8 @@
         color="blue"
         class="white--text"
         @click="startDirections"
+        :disabled="loading"
+        :loading="loading"
       >ค้นหาเส้นทาง</v-btn>
       <v-btn v-else color="red" class="white--text" @click="stopDirections">ยกเลิกเส้นทาง</v-btn>
     </v-layout>
@@ -49,8 +52,7 @@ export default {
   data() {
     return {
       historyMode: false,
-      startLocationName: null,
-      destinationLocationName: null
+      loading: false
     };
   },
   components: {
