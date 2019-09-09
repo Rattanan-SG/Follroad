@@ -6,6 +6,7 @@
 
 <script>
 export default {
+  name: "Callback",
   methods: {
     handleLoginEvent(data) {
       this.$router.push(data.state.target || "/");

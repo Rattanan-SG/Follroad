@@ -3,7 +3,7 @@
     <v-btn
       color="secondary"
       class="white--text"
-      @click.stop="dialog=true"
+      @click.stop="openDialog"
       :disabled="loading"
       :loading="loading"
     >
@@ -208,7 +208,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import directionRecord from "@/api/direction-record";
 export default {
   name: "SearchSaveRouteButton",
@@ -220,8 +220,8 @@ export default {
   },
   data() {
     return {
+      dialog: false,
       valid: false,
-      uid: this.$auth.profile.sub,
       start: this.startLocation.name,
       destination: this.destinationLocation.name,
       name: null,
@@ -230,7 +230,6 @@ export default {
         listAtLeastOne: value =>
           value.length > 0 || "กรุณาเลือกอย่างน้อย 1 ตัวเลือก"
       },
-      dialog: false,
       notificationRoutes: [],
       loading: false,
       success: false,
@@ -260,6 +259,14 @@ export default {
     ...mapGetters("direction", ["directionsRenderer"])
   },
   methods: {
+    ...mapActions("globalDialog", ["setLoginDialog"]),
+    openDialog: function() {
+      if (!this.$auth.isAuthenticated()) {
+        this.setLoginDialog(true);
+      } else {
+        this.dialog = true;
+      }
+    },
     submit: async function() {
       if (this.$refs.form.validate()) {
         this.loading = true;
@@ -291,7 +298,7 @@ export default {
         location: this.destinationLocation.location
       };
       return {
-        uid: this.uid,
+        uid: this.$auth.profile.sub,
         name: this.name,
         start,
         destination,

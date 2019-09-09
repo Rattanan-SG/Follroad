@@ -20,15 +20,15 @@ const getters = {
 
 const actions = {
   setInfoWindow: ({ commit }, marker) => {
-    commit("SET_INFOWINDOW", marker);
+    commit("SET_INFO_WINDOW", marker);
   },
   closeInfoWindow: ({ commit }) => {
-    commit("CLOSE_INFOWINDOW");
+    commit("CLOSE_INFO_WINDOW");
   }
 };
 
 const mutations = {
-  SET_INFOWINDOW: (state, marker) => {
+  SET_INFO_WINDOW: (state, marker) => {
     state.infoWindow.marker = marker;
     if (state.infoWindow.currentIndex == marker.id) {
       state.infoWindow.infoWindowOpen = !state.infoWindow.infoWindowOpen;
@@ -37,7 +37,7 @@ const mutations = {
       state.infoWindow.currentIndex = marker.id;
     }
   },
-  CLOSE_INFOWINDOW: state => {
+  CLOSE_INFO_WINDOW: state => {
     state.infoWindow.infoWindowOpen = false;
   }
 };

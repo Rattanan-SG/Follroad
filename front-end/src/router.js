@@ -68,11 +68,9 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (to.path === "/" || to.path === "/callback" || auth.isAuthenticated()) {
     return next();
-  }
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  } else if (to.matched.some(record => record.meta.requiresAuth)) {
     auth.login({ target: to.path });
-  }
-  return next();
+  } else next();
 });
 
 export default router;

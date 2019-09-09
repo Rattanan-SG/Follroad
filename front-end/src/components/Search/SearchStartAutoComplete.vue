@@ -72,9 +72,8 @@ export default {
     ...mapActions("googleMap", ["setMyLocation"]),
     ...mapActions("direction", ["setStartLocation"]),
     setStartToMyLocation: function() {
-      const { name, location } = this.myLocation;
       this.isMyLocationActive = true;
-      this.$refs.startAutoComplete.$el.value = name;
+      this.$refs.startAutoComplete.$el.value = this.myLocation.name;
       this.setStartLocation(this.myLocation);
     },
     setStartPlace: function(place) {

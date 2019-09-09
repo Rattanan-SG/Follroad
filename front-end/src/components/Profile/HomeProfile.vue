@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container v-if="profile">
     <v-list>
       <v-layout grid-list-md text-xs-center>
         <v-flex xs1>

@@ -24,6 +24,7 @@
       </v-layout>
       <RefreshSnackBar />
       <CurrentPositionButton />
+      <LoginDialog />
     </v-content>
     <BottomMenuBar v-if="this.$vuetify.breakpoint.xsOnly" />
   </v-app>
@@ -42,6 +43,8 @@ const CurrentPositionButton = () =>
   import(
     /* webpackPrefetch: true */ "./components/FloatingButton/CurrentPositionButton"
   );
+const LoginDialog = () =>
+  import(/* webpackPrefetch: true */ "./components/LoginDialog");
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "App",
@@ -50,7 +53,8 @@ export default {
     GoogleMap,
     RefreshSnackBar,
     BottomMenuBar,
-    CurrentPositionButton
+    CurrentPositionButton,
+    LoginDialog
   },
   computed: {
     ...mapGetters("route", ["routerView"])
@@ -62,7 +66,9 @@ export default {
       : this.setRouterView(true);
     try {
       await this.$auth.renewTokens();
-    } catch (e) {}
+    } catch (e) {
+      console.error(e);
+    }
   },
   methods: {
     ...mapActions("route", ["setRouterView"]),
