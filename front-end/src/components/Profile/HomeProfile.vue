@@ -61,7 +61,7 @@
               <v-icon size="35px" color="indigo">logout</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <h3>ออกจากระบบ</h3>
+              <h4>ออกจากระบบ</h4>
             </v-list-tile-content>
             <v-spacer />
             <v-icon>navigate_next</v-icon>
