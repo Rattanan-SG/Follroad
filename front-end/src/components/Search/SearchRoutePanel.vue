@@ -27,9 +27,10 @@ export default {
     ...mapActions("direction", ["selectRoute"]),
     ...mapActions("route", ["setRouterView"]),
     setupPanel: function() {
-      this.trDocument = this.$refs.panel.children[0].querySelectorAll(
-        "tr[jsinstance]"
-      );
+      if (this.$refs.panel)
+        this.trDocument = this.$refs.panel.children[0].querySelectorAll(
+          "tr[jsinstance]"
+        );
       if (this.trDocument)
         this.trDocument.forEach(element => {
           element.addEventListener("click", this.changeRouteIndex);
