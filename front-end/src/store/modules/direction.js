@@ -45,6 +45,18 @@ const actions = {
   setDirectionsRenderer: ({ commit }, directionsRenderer) => {
     commit("SET_DIRECTIONS_RENDERER", directionsRenderer);
   },
+  startDirectionsRenderer: ({ state, rootState, dispatch }) => {
+    if (state.directionsResponse) {
+      state.directionsRenderer.setMap(rootState.googleMap.mapObject);
+      state.directionsRenderer.setDirections(state.directionsResponse);
+      dispatch("selectRoute", 0);
+    }
+  },
+  stopDirectionsRenderer: ({ state, dispatch }) => {
+    state.directionsRenderer.setPanel(null);
+    state.directionsRenderer.setMap(null);
+    dispatch("setDirectionsResponse", null);
+  },
   selectRoute: ({ commit, state, rootState, dispatch }, routeIndex) => {
     return new Promise(resolve => {
       const routePolyline = new rootState.googleMap.googleClass.maps.Polyline({
