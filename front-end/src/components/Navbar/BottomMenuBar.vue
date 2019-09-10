@@ -1,5 +1,9 @@
 <template>
   <v-bottom-nav app :value="true" color="indigo" absolute dark>
+    <v-btn flat router @click="closeRouterview">
+      <span>Home</span>
+      <v-icon>home</v-icon>
+    </v-btn>
     <v-btn
       flat
       router
@@ -21,7 +25,7 @@ export default {
   data() {
     return {
       lists: [
-        { text: "Home", icon: "today", route: "/" },
+        { text: "Feed", icon: "today", route: "/" },
         { text: "Search", icon: "directions", route: "/search" },
         { text: "Forum", icon: "forum", route: "/news" },
         { text: "Profile", icon: "person", route: "/profile" }
@@ -29,7 +33,10 @@ export default {
     };
   },
   methods: {
-    ...mapActions("route", ["setRouterView"])
+    ...mapActions("route", ["setRouterView"]),
+    closeRouterview: function() {
+      this.setRouterView(false);
+    }
   }
 };
 </script>
