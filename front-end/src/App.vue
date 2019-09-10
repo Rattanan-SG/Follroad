@@ -23,6 +23,7 @@
         </v-flex>
       </v-layout>
       <RefreshSnackBar />
+      <ToggleRecommendRoute v-if="directionsResponse" />
       <CurrentPositionButton />
       <LoginDialog />
     </v-content>
@@ -33,6 +34,8 @@
 <script>
 const Navbar = () =>
   import(/* webpackPrefetch: true */ "./components/Navbar/Navbar");
+const ToggleRecommendRoute = () =>
+  import("./components/HistoryRoute/ToggleRecommendRoute");
 const GoogleMap = () =>
   import(/* webpackPrefetch: true */ "./components/GoogleMap/GoogleMap");
 const RefreshSnackBar = () =>
@@ -54,10 +57,12 @@ export default {
     RefreshSnackBar,
     BottomMenuBar,
     CurrentPositionButton,
-    LoginDialog
+    LoginDialog,
+    ToggleRecommendRoute
   },
   computed: {
-    ...mapGetters("route", ["routerView"])
+    ...mapGetters("route", ["routerView"]),
+    ...mapGetters("direction", ["directionsResponse"])
   },
   async created() {
     this.fetchEvents();
