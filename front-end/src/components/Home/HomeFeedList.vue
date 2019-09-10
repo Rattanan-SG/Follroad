@@ -1,5 +1,5 @@
 <template>
-  <v-list two-line>
+  <v-list two-line scrollable>
     <template v-for="(event, index) in eventList">
       <v-divider v-if="index + 1 < event.length" :key="`divider-${index}`"></v-divider>
       <HomeFeedItem :key="index" :event="event"></HomeFeedItem>

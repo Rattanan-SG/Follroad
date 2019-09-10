@@ -1,5 +1,14 @@
 <template>
-  <v-bottom-nav app :value="true" color="indigo" absolute dark>
+  <v-bottom-nav
+    app
+    :value="true"
+    color="indigo"
+    absolute
+    dark
+    :fixed="toolbar.fixed"
+    :clipped-left="toolbar.clippedLeft"
+    scrollable
+  >
     <v-btn flat router @click="closeRouterview">
       <span>Home</span>
       <v-icon>home</v-icon>
@@ -29,7 +38,11 @@ export default {
         { text: "Search", icon: "directions", route: "/search" },
         { text: "Forum", icon: "forum", route: "/news" },
         { text: "Profile", icon: "person", route: "/profile" }
-      ]
+      ],
+      toolbar: {
+        fixed: true,
+        clippedLeft: false
+      }
     };
   },
   methods: {

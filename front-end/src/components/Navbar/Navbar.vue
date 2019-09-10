@@ -46,9 +46,9 @@
       <v-toolbar-side-icon @click.stop="toggleDrawer" class="hidden-xs-only"></v-toolbar-side-icon>
 
       <v-toolbar-title class="hidden-xs-only" style="overflow: unset; margin-left: 10px">Follroad</v-toolbar-title>
-      <v-btn icon v-model="searchRoute">
+      <!-- <v-btn icon v-model="searchRoute">
         <v-icon>search</v-icon>
-      </v-btn>
+      </v-btn>-->
       <gmap-autocomplete
         @place_changed="search"
         style="background-color: #0080FF; width:50%; height:70%"
@@ -56,7 +56,6 @@
         ref="gmapAutocomplete"
         placeholder="ค้นหาสถานที่"
         :select-first-on-enter="true"
-        v-if="searchRoute"
       ></gmap-autocomplete>
 
       <v-btn v-if="searchPlace" icon @click="clearSearch">
