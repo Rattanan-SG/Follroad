@@ -13,9 +13,7 @@
           style="z-index: 2"
         >
           <v-card flat height="100%">
-            <keep-alive>
-              <router-view></router-view>
-            </keep-alive>
+            <router-view></router-view>
           </v-card>
         </v-flex>
         <v-flex>

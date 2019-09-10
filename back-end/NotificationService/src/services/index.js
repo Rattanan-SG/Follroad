@@ -7,16 +7,20 @@ exports.subscribe = body => {
   return subscription.save();
 };
 
-exports.getSubscription = query => Subscription.find(query);
+exports.getSubscription = query => {
+  const { fields, ...where } = query;
+  return Subscription.find(where, fields).lean();
+};
 
 exports.updateOrCreateSubscription = body =>
   Subscription.updateOne({ endpoint: body.endpoint }, body, { upsert: true });
 
 exports.unSubscribe = endpoint => Subscription.deleteOne({ endpoint });
 
-exports.getSubscriptionThatUidisNull = () => Subscription.find({ uid: null });
+exports.getSubscriptionThatUidisNull = () =>
+  Subscription.find({ uid: null }).lean();
 
-exports.getSubscriptionById = id => Subscription.findById(id);
+exports.getSubscriptionById = id => Subscription.findById(id).lean();
 
 exports.renewSubscription = (oldSubscription, newSubscription) =>
   Subscription.updateOne(

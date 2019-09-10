@@ -31,8 +31,18 @@ const patchRecordById = (id, data) => {
     });
 };
 
+const deleteRecordById = (id, config) => {
+  return record
+    .patch(`/record/${id}`, config)
+    .then(response => response.data)
+    .catch(err => {
+      throw err;
+    });
+};
+
 export default {
   getRecords,
   postRecords,
-  patchRecordById
+  patchRecordById,
+  deleteRecordById
 };

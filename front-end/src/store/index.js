@@ -7,6 +7,7 @@ import infoWindow from "./modules/info-window";
 import search from "./modules/search";
 import direction from "./modules/direction";
 import globalDialog from "./modules/global-dialog";
+import directionRecord from "./modules/direction-record";
 
 Vue.use(Vuex);
 
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     googleMap,
     infoWindow,
     direction,
-    globalDialog
+    globalDialog,
+    directionRecord
   }
 });

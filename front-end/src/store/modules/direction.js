@@ -45,19 +45,30 @@ const actions = {
   setDirectionsRenderer: ({ commit }, directionsRenderer) => {
     commit("SET_DIRECTIONS_RENDERER", directionsRenderer);
   },
-  selectRoute: ({ commit, rootState, dispatch }, { response, index }) => {
+  startDirectionsRenderer: ({ state, rootState, dispatch }) => {
+    if (state.directionsResponse) {
+      state.directionsRenderer.setMap(rootState.googleMap.mapObject);
+      state.directionsRenderer.setDirections(state.directionsResponse);
+      dispatch("selectRoute", 0);
+    }
+  },
+  stopDirectionsRenderer: ({ state, dispatch }) => {
+    state.directionsRenderer.setPanel(null);
+    state.directionsRenderer.setMap(null);
+    dispatch("setDirectionsResponse", null);
+  },
+  selectRoute: ({ commit, state, rootState, dispatch }, routeIndex) => {
     return new Promise(resolve => {
-      let routePolyline = new rootState.googleMap.googleClass.maps.Polyline({
-        path: response.routes[index].overview_path
+      const routePolyline = new rootState.googleMap.googleClass.maps.Polyline({
+        path: state.directionsResponse.routes[routeIndex].overview_path
       });
-      commit("SET_ROUTE_INDEX", index);
-      commit("SET_ROUTE_POLYLINE", routePolyline);
-      dispatch("specificEvents").then(resolve());
+      commit("SET_ROUTE_INDEX", routeIndex);
+      dispatch("specificEvents", routePolyline).then(resolve());
     });
   },
-  specificEvents: ({ commit, state, rootState }) => {
+  specificEvents: ({ commit, rootState }, routePolyline) => {
     return new Promise(resolve => {
-      if (state.routePolyline) {
+      if (routePolyline) {
         let result = rootState.event.events.filter(event => {
           let latLng = new rootState.googleMap.googleClass.maps.LatLng({
             lat: event.latitude,
@@ -65,7 +76,7 @@ const actions = {
           });
           return rootState.googleMap.googleClass.maps.geometry.poly.isLocationOnEdge(
             latLng,
-            state.routePolyline,
+            routePolyline,
             0.002
           );
         });

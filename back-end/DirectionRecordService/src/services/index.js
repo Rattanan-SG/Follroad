@@ -5,9 +5,12 @@ exports.createRecord = body => {
   return directionRecord.save();
 };
 
-exports.getRecord = query => DirectionRecord.find(query);
+exports.getRecord = query => {
+  const { fields, ...where } = query;
+  return DirectionRecord.find(where, fields).lean();
+};
 
-exports.getRecordById = id => DirectionRecord.findById(id);
+exports.getRecordById = id => DirectionRecord.findById(id).lean();
 
 exports.patchRecordById = (id, directionRecord) =>
   DirectionRecord.findByIdAndUpdate(id, directionRecord, { new: true });
