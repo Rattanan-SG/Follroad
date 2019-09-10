@@ -65,11 +65,13 @@ export default {
     });
   },
   mounted() {
-    this.$gmapApiPromiseLazy().then(async () => {
-      const trafficLayer = new this.google.maps.TrafficLayer();
-      this.directionsService = new this.google.maps.DirectionsService();
-      this.directionsRenderer = new this.google.maps.DirectionsRenderer();
+    this.$gmapApiPromiseLazy().then(async gmap => {
+      const trafficLayer = new gmap.maps.TrafficLayer();
+      this.directionsService = new gmap.maps.DirectionsService();
+      this.directionsRenderer = new gmap.maps.DirectionsRenderer();
       trafficLayer.setMap(this.$refs.gmap.$mapObject);
+      this.directionsRenderer.setMap(this.$refs.gmap.$mapObject);
+      this.setDirectionsRenderer(this.directionsRenderer);
       this.setMapObject(this.$refs.gmap.$mapObject);
       this.setGoogleClass(this.google);
       if ((await checkPermission("geolocation")) == "granted") {
@@ -126,9 +128,9 @@ export default {
             // );
             this.directionsRenderer.setMap(this.$refs.gmap.$mapObject);
             this.directionsRenderer.setDirections(response);
-            this.setDirectionsResponse(response);
             this.setDirectionsRenderer(this.directionsRenderer);
-            this.selectRoute({ response: response, index: 0 });
+            this.setDirectionsResponse(response);
+            this.selectRoute(0);
             this.isDirections = true;
           }
         }
@@ -138,9 +140,7 @@ export default {
       this.directionsRenderer.setPanel(null);
       this.directionsRenderer.setMap(null);
       this.directionsService = new this.google.maps.DirectionsService();
-      this.directionsRenderer = new this.google.maps.DirectionsRenderer();
       this.setDirectionsResponse(null);
-      this.setDirectionsRenderer(null);
       this.isDirections = false;
     }
   }

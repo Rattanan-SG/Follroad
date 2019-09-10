@@ -20,7 +20,7 @@ export default {
       this.directionsRenderer.setPanel(this.$refs.panel);
       setTimeout(() => {
         this.setupPanel();
-      }, 2000);
+      }, 1500);
     }
   },
   methods: {
@@ -44,10 +44,7 @@ export default {
       let found = event.path.find(element => {
         return element.tagName == "TD";
       });
-      this.selectRoute({
-        response: this.directionsResponse,
-        index: found.attributes[0].value
-      });
+      this.selectRoute(found.attributes[0].value);
       // this.directionsRenderer.setOptions({
       //   polylineOptions: { strokeColor: "#8b0013" }
       // });
