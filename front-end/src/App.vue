@@ -31,21 +31,38 @@
 
 <script>
 const Navbar = () =>
-  import(/* webpackPrefetch: true */ "./components/Navbar/Navbar");
+  import(
+    /* webpackPrefetch: true */
+    /* webpackChunkName: "navbar" */ "./components/Navbar/Navbar"
+  );
 const ToggleRecommendRoute = () =>
   import("./components/HistoryRoute/ToggleRecommendRoute");
 const GoogleMap = () =>
-  import(/* webpackPrefetch: true */ "./components/GoogleMap/GoogleMap");
+  import(
+    /* webpackPrefetch: true */
+    /* webpackChunkName: "googlemap" */ "./components/GoogleMap/GoogleMap"
+  );
 const RefreshSnackBar = () =>
-  import(/* webpackPrefetch: true */ "./components/RefreshSnackBar.vue");
+  import(
+    /* webpackPrefetch: true */
+    /* webpackChunkName: "refreshsnackbar" */ "./components/RefreshSnackBar.vue"
+  );
 const BottomMenuBar = () =>
-  import(/* webpackPrefetch: true */ "./components/Navbar/BottomMenuBar");
+  import(
+    /* webpackPrefetch: true */
+    /* webpackChunkName: "bottommenubar" */ "./components/Navbar/BottomMenuBar"
+  );
 const CurrentPositionButton = () =>
   import(
-    /* webpackPrefetch: true */ "./components/FloatingButton/CurrentPositionButton"
+    /* webpackPrefetch: true */
+    /* webpackChunkName: "currentpositionbutton" */ "./components/FloatingButton/CurrentPositionButton"
   );
 const LoginDialog = () =>
-  import(/* webpackPrefetch: true */ "./components/LoginDialog");
+  import(
+    /* webpackPrefetch: true */
+    /* webpackChunkName: "logindialog" */
+    "./components/LoginDialog"
+  );
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "App",

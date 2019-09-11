@@ -98,8 +98,6 @@ class AuthService extends EventEmitter {
           );
         }
       });
-    } else {
-      console.log("Service workers are not supported.");
     }
     webAuth.logout({
       returnTo: window.location.origin
