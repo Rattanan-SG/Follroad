@@ -1,7 +1,7 @@
 <template>
   <v-layout row mb-3>
     <v-flex xs1 ml-3>
-      <v-btn icon small flat>
+      <v-btn icon small flat :disabled="historyMode">
         <v-icon>place</v-icon>
       </v-btn>
     </v-flex>
@@ -36,21 +36,26 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "SearchDestinationAutoComplete",
   props: {
-    historyMode: Boolean,
-    destinationLocationName: String
+    historyMode: Boolean
   },
   computed: {
-    ...mapGetters("search", ["searchPlace"])
+    ...mapGetters("search", ["searchPlace"]),
+    ...mapGetters("direction", ["destinationLocation"])
   },
   mounted() {
-    if (this.historyMode) {
-      this.$refs.destinationAutoComplete.$el.value = this.destinationLocationName;
+    if (this.historyMode && this.destinationLocation) {
+      this.$refs.destinationAutoComplete.$el.value = this.destinationLocation.name;
     } else this.syncDestinationPlace();
   },
   watch: {
     searchPlace(value) {
       if (value) this.syncDestinationPlace();
       else this.$refs.destinationAutoComplete.$el.value = null;
+    },
+    destinationLocation(value) {
+      if (!value) {
+        this.$refs.destinationAutoComplete.$el.value = null;
+      }
     }
   },
   methods: {

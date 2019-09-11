@@ -8,7 +8,7 @@ const getters = {
     return state.directionRecords;
   },
   directionRecordById: state => id => {
-    return state.directionRecords.find(record => record.id == id);
+    return state.directionRecords.find(record => record._id == id);
   }
 };
 

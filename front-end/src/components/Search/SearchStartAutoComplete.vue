@@ -56,8 +56,8 @@ export default {
     ...mapGetters("direction", ["startLocation"])
   },
   mounted() {
-    if (this.historyMode) {
-      this.$refs.startAutoComplete.$el.value = this.startLocationName;
+    if (this.historyMode && this.startLocation) {
+      this.$refs.startAutoComplete.$el.value = this.startLocation.name;
     } else {
       if (this.myLocation) {
         this.setStartToMyLocation();
@@ -65,6 +65,14 @@ export default {
         this.setMyLocation().then(() => {
           this.setStartToMyLocation();
         });
+      }
+    }
+  },
+  watch: {
+    startLocation(value) {
+      if (!value) {
+        this.isMyLocationActive = false;
+        this.$refs.startAutoComplete.$el.value = null;
       }
     }
   },

@@ -1,11 +1,8 @@
 <template>
   <div>
     <BackToolBar title="เดินทาง" />
-    <SearchStartAutoComplete :historyMode="historyMode" :startLocation="startLocation" />
-    <SearchDestinationAutoComplete
-      :historyMode="historyMode"
-      :destinationLocation="destinationLocation"
-    />
+    <SearchStartAutoComplete :historyMode="historyMode" />
+    <SearchDestinationAutoComplete :historyMode="historyMode" />
     <v-layout row wrap my-3 justify-center>
       <SearchSaveRouteButton
         v-if="directionsResponse"
@@ -13,6 +10,7 @@
         :startLocation="startLocation"
         :destinationLocation="destinationLocation"
         :directionsResponse="directionsResponse"
+        :recordId="recordId"
       />
       <v-btn
         v-if="!directionsResponse"
@@ -49,9 +47,12 @@ const SearchFeedPanel = () => import("@/components/Search/SearchFeedPanel");
 const SearchRoutePanel = () => import("@/components/Search/SearchRoutePanel");
 export default {
   name: "Search",
+  props: {
+    historyMode: { type: Boolean, default: false },
+    recordId: String
+  },
   data() {
     return {
-      historyMode: false,
       loading: false
     };
   },
@@ -89,7 +90,9 @@ export default {
       }
     },
     stopDirections: function() {
+      if (this.historyMode) this.$router.push("/historyroute");
       this.setSearchPlace(null);
+      this.setStartLocation(null);
       this.setDestinationLocation(null);
       eventBus.stopDirections();
     }

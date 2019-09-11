@@ -10,7 +10,7 @@
       บันทึกเส้นทาง
       <v-icon>save</v-icon>
     </v-btn>
-    <v-layout row justify-center>
+    <v-layout row justify-center v-if="startLocation">
       <v-dialog v-model="dialog" persistent max-width="600px" scrollable>
         <v-form ref="form" v-model="valid">
           <v-card>
@@ -27,7 +27,6 @@
                     label="ชื่อจุดเริ่มต้น"
                     prepend-inner-icon="place"
                     :rules="[rules.required]"
-                    :disabled="historyMode"
                     clearable
                   ></v-text-field>
                 </v-flex>
@@ -37,7 +36,6 @@
                     label="ชื่อจุดหมาย"
                     prepend-inner-icon="place"
                     :rules="[rules.required]"
-                    :disabled="historyMode"
                     clearable
                   ></v-text-field>
                 </v-flex>
@@ -47,7 +45,6 @@
                     label="กรอกชื่อเส้นทางที่บันทึก *"
                     v-model="name"
                     :rules="[rules.required]"
-                    :disabled="historyMode"
                   ></v-text-field>
                 </v-flex>
 
@@ -216,14 +213,16 @@ export default {
     historyMode: Boolean,
     startLocation: Object,
     destinationLocation: Object,
-    directionsResponse: Object
+    directionsResponse: Object,
+    recordId: String
   },
   data() {
     return {
       dialog: false,
       valid: false,
-      start: this.startLocation.name,
-      destination: this.destinationLocation.name,
+      id: null,
+      start: this.startLocation && this.startLocation.name,
+      destination: this.destinationLocation && this.destinationLocation.name,
       name: null,
       rules: {
         required: value => !!value || "กรุณากรอกข้อมูล",
@@ -234,7 +233,6 @@ export default {
       loading: false,
       success: false,
       error: false,
-      recordId: null,
       time: null,
       time2: null,
       menu: false,
@@ -256,7 +254,16 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("direction", ["directionsRenderer"])
+    ...mapGetters("direction", ["directionsRenderer"]),
+    ...mapGetters("directionRecord", ["directionRecordById"])
+  },
+  created() {
+    if (this.historyMode) {
+      const record = this.directionRecordById(this.recordId);
+      this.id = this.recordId;
+      this.name = record.name;
+      this.notificationRoutes = record.notificationRoutes;
+    }
   },
   methods: {
     ...mapActions("globalDialog", ["setLoginDialog"]),
@@ -274,11 +281,11 @@ export default {
         this.error = false;
         const data = this.getDirectionRecordData();
         try {
-          if (!this.recordId) {
+          if (!this.id) {
             const { _id } = await directionRecord.postRecords(data);
-            this.recordId = _id;
+            this.id = _id;
           } else {
-            await directionRecord.patchRecordById(this.recordId, data);
+            await directionRecord.patchRecordById(this.id, data);
           }
           this.success = true;
         } catch (error) {
