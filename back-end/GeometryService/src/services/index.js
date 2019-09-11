@@ -9,30 +9,36 @@ exports.isLocationOnRoute = async body => {
 };
 
 exports.handleMessageBatchCheckEvents = async messages => {
-  const records = await directionRecord.getRecord();
+  const records = await directionRecord.getRecordThatReceiveNotification();
   let trueCount = 0,
     faultCount = 0,
     summary = [];
   messages.forEach(({ MessageAttributes: event }) => {
-    const resultRecords = records.map(record => {
-      const result = geometry.checkEventIsRelatedToThisRoutes(
-        {
-          latitude: Number(event.latitude.StringValue),
-          longitude: Number(event.longitude.StringValue)
-        },
-        record.direction.routes,
-        200
-      );
-      if (result) trueCount++;
-      else faultCount++;
-      return {
-        recordId: record._id,
-        uid: record.uid,
-        result
-      };
-    });
+    const { title, description, latitude, longitude } = event;
+    const eventLatLng = {
+      latitude: Number(latitude.StringValue),
+      longitude: Number(longitude.StringValue)
+    };
+    const resultRecords = records.map(
+      ({ _id, uid, name, direction, notificationRoutes }) => {
+        const result = geometry.checkEventIsRelatedToThisRoutes(
+          eventLatLng,
+          direction.routes,
+          notificationRoutes,
+          200
+        );
+        if (result) trueCount++;
+        else faultCount++;
+        return {
+          _id,
+          uid,
+          name,
+          result
+        };
+      }
+    );
     // logDebug("Check event is related with records", {
-    //   event: event.title.StringValue,
+    //   event: title.StringValue,
     //   resultRecords
     // });
     const filterUid = resultRecords
@@ -41,16 +47,16 @@ exports.handleMessageBatchCheckEvents = async messages => {
     if (filterUid.length > 0) {
       notification.sendToSpecificUser({
         message: {
-          title: event.title.StringValue,
-          body: event.description.StringValue
+          title: title.StringValue,
+          body: description.StringValue
         },
         uid: filterUid
       });
     }
     summary.push({
-      event: event.title.StringValue,
-      latitude: event.latitude.StringValue,
-      longitude: event.longitude.StringValue,
+      event: title.StringValue,
+      latitude: latitude.StringValue,
+      longitude: longitude.StringValue,
       related: filterUid
     });
   });

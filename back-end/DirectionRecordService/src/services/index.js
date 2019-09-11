@@ -10,6 +10,14 @@ exports.getRecord = query => {
   return DirectionRecord.find(where, fields).lean();
 };
 
+exports.getRecordThatReceiveNotification = query => {
+  const { fields, ...where } = query;
+  return DirectionRecord.find(
+    { "notificationRoutes.0": { $exists: true }, ...where },
+    fields
+  ).lean();
+};
+
 exports.getRecordById = id => DirectionRecord.findById(id).lean();
 
 exports.patchRecordById = (id, directionRecord) =>

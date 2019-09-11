@@ -8,7 +8,7 @@ const { logInfo, logDebug } = require("../utils/logger");
 
 exports.createEvent = async body => {
   const result = await event.create(body);
-  logInfo("Create event complete", result);
+  logInfo("Create event complete", result.dataValues);
   sendEventToMessageQueue([result]);
   return result;
 };

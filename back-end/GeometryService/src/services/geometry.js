@@ -19,15 +19,13 @@ exports.checkLatLngAndRoute = (latLng, route, toleranceInMeters) => {
 exports.checkEventIsRelatedToThisRoutes = (
   eventLatLng,
   routes,
+  routeIndexs,
   toleranceInMeters
 ) => {
-  const result = routes.some(({ overview_path }) =>
-    overview_path.some(path =>
-      checkDistanceIsWithinMeters(
-        eventLatLng,
-        { latitude: path.lat, longitude: path.lng },
-        toleranceInMeters
-      )
+  const checkRoutes = routeIndexs.map(i => routes[i]);
+  const result = checkRoutes.some(({ overview_path }) =>
+    overview_path.some(({ lat, lng }) =>
+      checkDistanceIsWithinMeters(eventLatLng, { lat, lng }, toleranceInMeters)
     )
   );
   return result;
