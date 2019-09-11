@@ -10,7 +10,6 @@
         :startLocation="startLocation"
         :destinationLocation="destinationLocation"
         :directionsResponse="directionsResponse"
-        :recordId="recordId"
       />
       <v-btn
         v-if="!directionsResponse"
@@ -47,10 +46,6 @@ const SearchFeedPanel = () => import("@/components/Search/SearchFeedPanel");
 const SearchRoutePanel = () => import("@/components/Search/SearchRoutePanel");
 export default {
   name: "Search",
-  props: {
-    historyMode: { type: Boolean, default: false },
-    recordId: String
-  },
   data() {
     return {
       loading: false
@@ -70,12 +65,15 @@ export default {
       "destinationLocation",
       "directionsRenderer",
       "directionsResponse"
-    ])
+    ]),
+    ...mapGetters("directionRecord", ["historyMode"])
   },
   methods: {
     ...mapActions("search", ["setSearchPlace"]),
     ...mapActions("direction", ["setStartLocation", "setDestinationLocation"]),
     ...mapActions("route", ["setRouterView"]),
+    ...mapActions("directionRecord", ["setHistoryMode"]),
+
     startDirections: function() {
       if (this.startLocation && this.destinationLocation) {
         eventBus.startDirections(
@@ -90,7 +88,10 @@ export default {
       }
     },
     stopDirections: function() {
-      if (this.historyMode) this.$router.push("/historyroute");
+      if (this.historyMode) {
+        this.$router.push("/historyroute");
+        this.setHistoryMode(null);
+      }
       this.setSearchPlace(null);
       this.setStartLocation(null);
       this.setDestinationLocation(null);

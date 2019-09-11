@@ -7,7 +7,7 @@
         flat
         @click="setStartToMyLocation"
         :class="[isMyLocationActive ? 'is-active' : null]"
-        :disabled="historyMode"
+        :disabled="!!historyMode"
       >
         <v-icon>my_location</v-icon>
       </v-btn>
@@ -20,7 +20,7 @@
         class="pl-2"
         style="background-color: #E0E0E0; width:100%; height:100%"
         :select-first-on-enter="true"
-        :disabled="historyMode"
+        :disabled="!!historyMode"
       ></gmap-autocomplete>
     </v-flex>
     <v-flex xs1 mr-2>
@@ -43,8 +43,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "SearchStartAutoComplete",
   props: {
-    historyMode: Boolean,
-    startLocationName: String
+    historyMode: Object
   },
   data() {
     return {

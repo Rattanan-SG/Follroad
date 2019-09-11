@@ -210,11 +210,10 @@ import directionRecord from "@/api/direction-record";
 export default {
   name: "SearchSaveRouteButton",
   props: {
-    historyMode: Boolean,
+    historyMode: Object,
     startLocation: Object,
     destinationLocation: Object,
-    directionsResponse: Object,
-    recordId: String
+    directionsResponse: Object
   },
   data() {
     return {
@@ -259,14 +258,15 @@ export default {
   },
   created() {
     if (this.historyMode) {
-      const record = this.directionRecordById(this.recordId);
-      this.id = this.recordId;
+      this.id = this.historyMode.recordId;
+      const record = this.directionRecordById(this.id);
       this.name = record.name;
       this.notificationRoutes = record.notificationRoutes;
     }
   },
   methods: {
     ...mapActions("globalDialog", ["setLoginDialog"]),
+    ...mapActions("directionRecord", ["updateDirectionRecordById"]),
     openDialog: function() {
       if (!this.$auth.isAuthenticated()) {
         this.setLoginDialog(true);
@@ -285,6 +285,7 @@ export default {
             const { _id } = await directionRecord.postRecords(data);
             this.id = _id;
           } else {
+            this.updateDirectionRecordById({ id: this.id, data });
             await directionRecord.patchRecordById(this.id, data);
           }
           this.success = true;

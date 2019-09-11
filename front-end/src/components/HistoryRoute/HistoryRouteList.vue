@@ -31,7 +31,6 @@
   </div>
 </template>
 <script>
-import { DateTime } from "luxon";
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "HistoryRouteList",
@@ -60,7 +59,10 @@ export default {
   },
   methods: {
     ...mapActions("route", ["setRouterView"]),
-    ...mapActions("directionRecord", ["fetchDirectionRecordsByUid"]),
+    ...mapActions("directionRecord", [
+      "fetchDirectionRecordsByUid",
+      "setHistoryMode"
+    ]),
     ...mapActions("direction", [
       "setStartLocation",
       "setDestinationLocation",
@@ -69,10 +71,8 @@ export default {
     ]),
 
     startHistoryRoute: function(record) {
-      this.$router.push({
-        name: "search",
-        params: { historyMode: true, recordId: record._id }
-      });
+      this.setHistoryMode({ recordId: record._id });
+      this.$router.push("/search");
       this.$vuetify.breakpoint.xsOnly
         ? this.setRouterView(false)
         : this.setRouterView(true);
@@ -82,7 +82,7 @@ export default {
       this.startDirectionsRenderer();
     },
     formatUpdatedAt: function(updatedAt) {
-      return DateTime.fromISO(updatedAt).toFormat("yyyy-MM-dd HH:mm:ss");
+      return new Date(updatedAt).toLocaleString("en-GB");
     },
     handleLoginEvent(data) {
       this.uid = data.profile.sub;

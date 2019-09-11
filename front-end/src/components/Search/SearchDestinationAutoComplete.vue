@@ -1,7 +1,7 @@
 <template>
   <v-layout row mb-3>
     <v-flex xs1 ml-3>
-      <v-btn icon small flat :disabled="historyMode">
+      <v-btn icon small flat :disabled="!!historyMode">
         <v-icon>place</v-icon>
       </v-btn>
     </v-flex>
@@ -13,7 +13,7 @@
         class="pl-2"
         style="background-color: #E0E0E0; width:100%; height:100%"
         :select-first-on-enter="true"
-        :disabled="historyMode"
+        :disabled="!!historyMode"
       ></gmap-autocomplete>
     </v-flex>
     <v-flex xs1 mr-2>
@@ -36,7 +36,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "SearchDestinationAutoComplete",
   props: {
-    historyMode: Boolean
+    historyMode: Object
   },
   computed: {
     ...mapGetters("search", ["searchPlace"]),
