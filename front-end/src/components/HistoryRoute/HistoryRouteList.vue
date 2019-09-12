@@ -1,19 +1,9 @@
 <template>
   <div>
-    <v-layout>
-      <v-flex xs6 lg6 md6>
-        <v-btn flat to="/profile">
-          <v-icon blue>arrow_back_ios</v-icon>โปรไฟล์
-        </v-btn>
-      </v-flex>
-      <v-flex xs10 lg10 md10 mt-2>
-        <h3>เส้นทางที่บันทึก</h3>
-      </v-flex>
-    </v-layout>
     <div v-if="loading" class="text-xs-center">
       <v-progress-circular :size="100" :width="7" color="primary" indeterminate></v-progress-circular>
     </div>
-    <v-list v-if="directionRecords" three-line>
+    <v-list v-if="!!directionRecords.length" three-line>
       <template v-for="(record, index) in directionRecords">
         <v-list-tile class="mt-1" :key="index" avatar ripple @click="startHistoryRoute(record)">
           <v-list-tile-content>
@@ -27,7 +17,9 @@
         <v-divider :key="`d${index}`"></v-divider>
       </template>
     </v-list>
-    <div v-else>ไม่มีๆๆๆๆๆๆๆๆๆๆๆ</div>
+    <div v-if="!loading && !directionRecords.length">
+      <p>user นี้ไม่เคยมีการบันทึก ไปหาไรมาใส่ให้ด้วยนะ</p>
+    </div>
   </div>
 </template>
 <script>

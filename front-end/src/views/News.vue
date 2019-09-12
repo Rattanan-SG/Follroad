@@ -1,20 +1,20 @@
 <template>
   <div>
-    <BackToolBar title="ข่าว" />
+    <CloseViewToolBar title="ข่าว" />
     <NewsFeedList :events="events"></NewsFeedList>
     <infinite-loading @infinite="getEvents"></infinite-loading>
   </div>
 </template>
 
 <script>
-import BackToolBar from "@/components/Navbar/BackToolBar";
+import CloseViewToolBar from "@/components/Navbar/CloseViewToolBar";
 import event from "@/api/event";
 import InfiniteLoading from "vue-infinite-loading";
 const NewsFeedList = () => import("@/components/News/NewsFeedList");
 export default {
   name: "News",
   components: {
-    BackToolBar,
+    CloseViewToolBar,
     NewsFeedList,
     InfiniteLoading
   },

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BackToolBar title="เดินทาง" />
+    <CloseViewToolBar title="เดินทาง" />
     <SearchStartAutoComplete :historyMode="historyMode" />
     <SearchDestinationAutoComplete :historyMode="historyMode" />
     <v-layout row wrap my-3 justify-center>
@@ -35,7 +35,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { eventBus } from "@/main";
-import BackToolBar from "@/components/Navbar/BackToolBar";
+import CloseViewToolBar from "@/components/Navbar/CloseViewToolBar";
 const SearchStartAutoComplete = () =>
   import("@/components/Search/SearchStartAutoComplete");
 const SearchDestinationAutoComplete = () =>
@@ -52,7 +52,7 @@ export default {
     };
   },
   components: {
-    BackToolBar,
+    CloseViewToolBar,
     SearchStartAutoComplete,
     SearchDestinationAutoComplete,
     SearchSaveRouteButton,

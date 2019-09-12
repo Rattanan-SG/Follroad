@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BackToolBar title="เหตุการณ์" />
+    <CloseViewToolBar title="เหตุการณ์" />
     <!-- <v-flex xs12 mx-2>
         <HomeSearchEvent />
     </v-flex>-->
@@ -13,7 +13,7 @@
 </template> 
 
 <script>
-import BackToolBar from "@/components/Navbar/BackToolBar";
+import CloseViewToolBar from "@/components/Navbar/CloseViewToolBar";
 const HomeFeedList = () => import("@/components/Home/HomeFeedList");
 const HomeFilterEventCategory = () =>
   import("@/components/Home/HomeFilterEventCategory");
@@ -21,7 +21,7 @@ const HomeFilterEventCategory = () =>
 export default {
   name: "Home",
   components: {
-    BackToolBar,
+    CloseViewToolBar,
     HomeFeedList,
     HomeFilterEventCategory
     // HomeSearchEvent
