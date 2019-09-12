@@ -3,21 +3,9 @@
     <GoogleMapInfoWindow />
     <gmap-marker v-if="myLocation" :position="myLocation.location" :title="myLocation.name"></gmap-marker>
     <gmap-cluster :max-zoom="10" :zoom-on-click="true">
-      <gmap-marker
-        :key="eventMarker.id"
-        v-for="eventMarker in eventMarkers"
-        :position="eventMarker.position"
-        :title="eventMarker.title"
-        :icon="eventMarker.icon"
-        @click="setInfoWindow(eventMarker)"
-      ></gmap-marker>
+      <MarkerEvent />
     </gmap-cluster>
-    <gmap-marker
-      v-if="searchPlaceMarker"
-      :position="searchPlaceMarker.position"
-      :title="searchPlaceMarker.title"
-      @click="setInfoWindow(searchPlaceMarker)"
-    ></gmap-marker>
+    <MarkerSearchPlace />
   </gmap-map>
 </template>
 
@@ -28,11 +16,15 @@ import { gmapApi } from "vue2-google-maps";
 import GmapCluster from "vue2-google-maps/dist/components/cluster";
 import checkPermission from "@/utilitys/checkPermission";
 import GoogleMapInfoWindow from "./GoogleMapInfoWindow";
+import MarkerEvent from "./MarkerEvent";
+import MarkerSearchPlace from "./MarkerSearchPlace";
 export default {
   name: "GoogleMap",
   components: {
     GmapCluster,
-    GoogleMapInfoWindow
+    GoogleMapInfoWindow,
+    MarkerEvent,
+    MarkerSearchPlace
   },
   data() {
     return {
@@ -51,8 +43,6 @@ export default {
   },
   computed: {
     ...mapGetters("googleMap", ["center", "zoomLevel", "myLocation"]),
-    ...mapGetters("event", ["eventMarkers"]),
-    ...mapGetters("search", ["searchPlaceMarker"]),
     ...mapGetters("direction", ["directionsRenderer"]),
     google: gmapApi
   },
@@ -91,7 +81,6 @@ export default {
       "startDirectionsRenderer",
       "stopDirectionsRenderer"
     ]),
-    ...mapActions("infoWindow", ["setInfoWindow"]),
 
     aa: function(e) {
       console.log(JSON.stringify(e.latLng));
