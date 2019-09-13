@@ -25,8 +25,9 @@
         <!------------ -->
         <br />
         <v-textarea label="รายละเอียด" outline color="deep-purple"></v-textarea>
-        <v-btn block color="red" dark to="/">ยกเลิก</v-btn>
         <v-btn block color="primary" dark>ยืนยัน</v-btn>
+        <v-btn block color="red" dark to="/">ยกเลิก</v-btn>
+        
       </v-card>
     </v-flex>
   </v-layout>
