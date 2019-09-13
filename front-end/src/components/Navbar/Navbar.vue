@@ -80,7 +80,7 @@
         <v-icon>post_add</v-icon>
       </v-btn>-->
       <v-btn v-if="!isAuthenticated" outline @click.prevent="login" :loading="loginLoading">Log in</v-btn>
-      <v-btn v-else icon to="/profile" @click="setRouterView(true)">
+      <v-btn v-else icon to="/profile" @click="setRouterView(true)" class="hidden-xs-only">
         <v-avatar size="35px">
           <img :src="profile.picture" alt="avatar" />
         </v-avatar>
