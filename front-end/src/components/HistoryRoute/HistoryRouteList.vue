@@ -18,7 +18,46 @@
       </template>
     </v-list>
     <div v-if="!loading && !directionRecords.length">
-      <p>user นี้ไม่เคยมีการบันทึก ไปหาไรมาใส่ให้ด้วยนะ</p>
+      <v-list two-line>
+        <template>
+          <v-divider></v-divider>
+          <v-layout>
+            <v-flex mt-3 ml-3 xs1 md1 lg1>
+              <v-icon size="40px">home</v-icon>
+            </v-flex>
+            <v-flex ml-1 xs9 md9 lg9>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <h4>บ้านไปมอ</h4>
+                  <v-list-tile-sub-title
+                    class="text--primary"
+                  >จากตำแหน่งปัจจุบัน --> เซ็นทรัลพลาซา พระราม 2</v-list-tile-sub-title>
+                  <v-list-tile-sub-title>แก้ไขล่าสุด ณ 13/09/2019, 10:13:16</v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-flex>
+          </v-layout>
+          <v-divider></v-divider>
+
+          <v-layout>
+            <v-flex mt-3 ml-3 xs1 md1 lg1>
+              <v-icon size="40px">home</v-icon>
+            </v-flex>
+            <v-flex ml-1 xs9 md9 lg9>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <h4>บ้านไปมอ</h4>
+                  <v-list-tile-sub-title
+                    class="text--primary"
+                  >จากตำแหน่งปัจจุบัน --> เซ็นทรัลพลาซา พระราม 2</v-list-tile-sub-title>
+                  <v-list-tile-sub-title>แก้ไขล่าสุด ณ 13/09/2019, 10:13:16</v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-flex>
+          </v-layout>
+          <v-divider></v-divider>
+        </template>
+      </v-list>
     </div>
   </div>
 </template>
