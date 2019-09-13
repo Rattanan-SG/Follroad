@@ -27,10 +27,10 @@ const actions = {
   setSearchPlace: ({ commit, dispatch }, searchPlace) => {
     commit("SET_SEARCH_PLACE", searchPlace);
     if (searchPlace) {
+      dispatch("googleMap/setZoomLevel", 17, { root: true });
       dispatch("googleMap/setCenter", searchPlace.geometry.location, {
         root: true
       });
-      dispatch("googleMap/setZoomLevel", 17, { root: true });
     }
   }
 };

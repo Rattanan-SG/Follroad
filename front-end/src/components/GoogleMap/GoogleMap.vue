@@ -1,11 +1,11 @@
 <template>
   <gmap-map ref="gmap" :center="center" :zoom="zoomLevel" :options="options" @click="aa">
     <GoogleMapInfoWindow />
-    <gmap-marker v-if="myLocation" :position="myLocation.location" :title="myLocation.name"></gmap-marker>
     <gmap-cluster :max-zoom="10" :zoom-on-click="true">
       <MarkerEvent />
     </gmap-cluster>
     <MarkerSearchPlace />
+    <gmap-marker v-if="myLocation" :position="myLocation.location" :title="myLocation.name"></gmap-marker>
   </gmap-map>
 </template>
 

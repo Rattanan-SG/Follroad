@@ -36,7 +36,7 @@ const actions = {
   },
   setCenter: ({ state, commit }, center) => {
     if (state.mapObject) {
-      state.mapObject.setCenter(center);
+      state.mapObject.panTo(center);
     }
     commit("SET_CENTER", center);
   },
@@ -83,8 +83,8 @@ const actions = {
     if (!state.myLocation) {
       await dispatch("setMyLocation");
     } else if (state.myLocation) {
-      dispatch("setCenter", state.myLocation.location);
       dispatch("setZoomLevel", 15);
+      dispatch("setCenter", state.myLocation.location);
     }
   }
 };
