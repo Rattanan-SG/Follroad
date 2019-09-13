@@ -45,19 +45,22 @@
     >
       <v-toolbar-side-icon @click.stop="toggleDrawer" class="hidden-xs-only"></v-toolbar-side-icon>
 
-      <v-toolbar-title class="hidden-xs-only" style="overflow: unset; margin-left: 10px">Follroad</v-toolbar-title>
-      <!-- <v-btn icon v-model="searchRoute">
-        <v-icon>search</v-icon>
-      </v-btn>-->
+      <v-toolbar-title v-if="!showSearchInput" style="overflow: unset; margin-left: 10px">Follroad</v-toolbar-title>
+      <v-btn v-else icon @click="showSearchInput=false" class="ml-0">
+        <v-icon>arrow_back</v-icon>
+      </v-btn>
+
+      <v-spacer></v-spacer>
+
       <gmap-autocomplete
         @place_changed="search"
-        style="background-color: #0080FF; width:50%; height:70%"
-        class="pa-2 ml-4 subheading"
-        ref="gmapAutocomplete"
+        v-if="showSearchInput || this.$vuetify.breakpoint.smAndUp"
+        style="background-color: #0080FF; width:100%; height:70%"
+        ref="gmapAutoComplete"
         placeholder="ค้นหาสถานที่"
+        :class="this.$vuetify.breakpoint.smAndUp ? autoCompleteClass.normal : autoCompleteClass.mobile"
         :select-first-on-enter="true"
       ></gmap-autocomplete>
-
       <v-btn v-if="searchPlace" icon @click="clearSearch">
         <v-icon>close</v-icon>
       </v-btn>
@@ -67,6 +70,9 @@
 
       <v-spacer></v-spacer>
 
+      <v-btn icon v-if="!showSearchInput" @click="showSearchInput=true" class="hidden-sm-and-up">
+        <v-icon>search</v-icon>
+      </v-btn>
       <v-btn v-if="installBtn" icon @click="installer()">
         <v-icon>mobile_friendly</v-icon>
       </v-btn>
@@ -74,7 +80,7 @@
         <v-icon>post_add</v-icon>
       </v-btn>-->
       <v-btn v-if="!isAuthenticated" outline @click.prevent="login" :loading="loginLoading">Log in</v-btn>
-      <v-btn v-else icon to="/profile" @click="setRouterView(true)">
+      <v-btn v-else icon to="/profile" @click="setRouterView(true)" class="hidden-xs-only">
         <v-avatar size="35px">
           <img :src="profile.picture" alt="avatar" />
         </v-avatar>
@@ -112,7 +118,11 @@ export default {
       isAuthenticated: false,
       profile: this.$auth.profile,
       loginLoading: false,
-      searchRoute: false
+      showSearchInput: false,
+      autoCompleteClass: {
+        normal: "pa-2 ml-4 subheading",
+        mobile: "pa-2 subheading"
+      }
     };
   },
   computed: {
@@ -138,10 +148,10 @@ export default {
   watch: {
     searchPlace(newValue, oldValue) {
       if (newValue && newValue != oldValue) {
-        this.$refs.gmapAutocomplete.$el.value = newValue.name;
+        this.$refs.gmapAutoComplete.$el.value = newValue.name;
         if (oldValue) this.search(newValue);
       } else {
-        this.$refs.gmapAutocomplete.$el.value = null;
+        this.$refs.gmapAutoComplete.$el.value = null;
       }
     }
   },
@@ -173,7 +183,7 @@ export default {
       }
     },
     clearSearch: function() {
-      this.$refs.gmapAutocomplete.$el.value = null;
+      this.$refs.gmapAutoComplete.$el.value = null;
       this.setSearchPlace(null);
       eventBus.stopDirections();
       this.goToThisPage("/");
