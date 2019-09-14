@@ -9,6 +9,7 @@
           sm5
           xs12
           style="z-index: 2"
+          fill-height
         >
           <v-card flat tile height="100%">
             <router-view></router-view>

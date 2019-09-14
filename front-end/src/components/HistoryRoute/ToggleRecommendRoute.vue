@@ -46,8 +46,8 @@ export default {
 </script>
 <style scoped>
 .ToggleRecommendRoute {
-  bottom: 3vh;
-  right: 25vh;
+  bottom: 3%;
+  right: 25%;
   position: absolute;
   z-index: 1;
 }
