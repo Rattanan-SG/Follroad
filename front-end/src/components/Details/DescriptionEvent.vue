@@ -1,8 +1,5 @@
 <template>
-  <!-- <v-container flat> -->
-  <v-card max-width="100%" flat>
-    <!-- <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px"></v-img> -->
-
+  <div>
     <v-layout>
       <v-flex xs12 md12 lg12>
         <v-layout>
@@ -121,7 +118,7 @@
     <v-flex ml-3 mr-3>
       <v-divider></v-divider>
     </v-flex>
-  </v-card>
+  </div>
 </template>
 
 <script>

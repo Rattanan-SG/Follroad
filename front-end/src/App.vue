@@ -10,7 +10,9 @@
           xs12
           style="z-index: 2"
         >
-          <router-view></router-view>
+          <v-card flat tile height="100%">
+            <router-view></router-view>
+          </v-card>
         </v-flex>
         <v-flex>
           <GoogleMap />
