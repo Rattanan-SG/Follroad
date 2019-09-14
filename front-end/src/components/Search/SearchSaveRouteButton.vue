@@ -285,8 +285,8 @@ export default {
             const { _id } = await directionRecord.postRecords(data);
             this.id = _id;
           } else {
-            this.updateDirectionRecordById({ id: this.id, data });
-            await directionRecord.patchRecordById(this.id, data);
+            const record = await directionRecord.patchRecordById(this.id, data);
+            this.updateDirectionRecordById({ id: this.id, record });
           }
           this.success = true;
         } catch (error) {

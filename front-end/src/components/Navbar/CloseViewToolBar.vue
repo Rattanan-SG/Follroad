@@ -1,16 +1,20 @@
 <template>
-  <v-container text-xs-center>
-  <v-card-actions class="px-0" >
-    <v-btn icon v-if="!!leftIcon" @click="leftAction">
-      <v-icon medium>{{leftIcon}}</v-icon>
-    </v-btn>
-    <v-spacer></v-spacer>
-    <span class="title font-weight-light">{{title}}</span>
-    <v-spacer></v-spacer>
-    <v-btn icon @click="closeRouterView">
-      <v-icon medium>close</v-icon>
-    </v-btn>
-  </v-card-actions>
+  <v-container text-xs-center class="pa-3">
+    <v-layout row wrap justify-center align-center>
+      <v-flex xs2>
+        <v-btn icon v-if="!!leftIcon" @click="leftAction">
+          <v-icon medium>{{leftIcon}}</v-icon>
+        </v-btn>
+      </v-flex>
+      <v-flex xs8>
+        <span class="title font-weight-light">{{title}}</span>
+      </v-flex>
+      <v-flex xs2>
+        <v-btn icon @click="closeRouterView">
+          <v-icon medium>close</v-icon>
+        </v-btn>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 

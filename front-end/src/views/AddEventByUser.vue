@@ -5,11 +5,16 @@
         <div class="headline">
           <v-icon>post_add</v-icon>แจ้งเหตุการณ์
         </div>
-        <br />
         <v-divider></v-divider>
-        <br />
-        <v-text-field label="ชื่อเหตุการณ์" required></v-text-field>
-        <v-select v-model="select" :items="items" label="ประเภท" required></v-select>
+        <v-text-field label="ชื่อเหตุการณ์" v-model="title" required></v-text-field>
+        <v-select
+          label="ประเภทเหตุการณ์"
+          v-model="type"
+          :items="items"
+          item-text="label"
+          item-value="value"
+          required
+        ></v-select>
         <!------add image-------->
         <!-- <div v-if="!image">
           <input type="file" @change="onFileChange" />
@@ -23,45 +28,25 @@
           <v-icon>add_a_photo</v-icon>เพิ่มรูปภาพ
         </v-btn>-->
         <!------------ -->
-        <br />
-        <v-textarea label="รายละเอียด" outline color="deep-purple"></v-textarea>
-        
-          <v-card-actions>
-            <v-spacer/>
-         
-            <v-btn color="red" dark to="/">ยกเลิก</v-btn>
-           
-            <v-btn color="primary" dark>ยืนยัน</v-btn>
-
+        <v-textarea label="รายละเอียดเหตุการณ์" v-model="description" outline color="deep-purple"></v-textarea>
+        <v-card-actions>
+          <v-btn color="red" dark to="/">ยกเลิก</v-btn>
+          <v-btn color="primary" dark>ยืนยัน</v-btn>
         </v-card-actions>
-        
       </v-card>
     </v-flex>
   </v-layout>
 </template>
 <script>
+import eventConstant from "@/utilitys/eventConstant";
 export default {
   name: "AddEventByUser",
   data() {
     return {
-      select: null,
-      items: [
-        "รถเสีย",
-        "อุบัติเหตุ",
-        "น้ำท่วม",
-        "ประกาศข่าว",
-        "การจราจรติดขัด",
-        "ประกาศเตือน",
-        "ลดราคา",
-        "ร้องเรียน",
-        "ก่อสร้าง",
-        "ฝนตก",
-        "สาธิต",
-        "ด่านตรวจ",
-        "เบ็ดเตล็ด",
-        "กิจกรรม-เทศกาล",
-        "ไฟไหม่"
-      ],
+      title: null,
+      type: null,
+      description: null,
+      items: eventConstant.EVENT_CATEGORY_OBJECT,
       image: ""
     };
   },
