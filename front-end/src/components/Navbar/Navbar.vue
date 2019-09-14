@@ -1,12 +1,12 @@
 <template>
   <div>
     <v-navigation-drawer
+      app
       :clipped="drawer.clipped"
       :fixed="drawer.fixed"
       :permanent="drawer.permanent"
       :mini-variant="drawer.mini"
       v-model="drawer.open"
-      app
     >
       <v-list>
         <v-list-tile v-if="!drawer.permanent" @click="makeDrawerPermanent">
@@ -35,56 +35,57 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
+
     <v-toolbar
-      color="blue darken-3"
-      dark
       app
+      dark
       flat
       :fixed="toolbar.fixed"
       :clipped-left="toolbar.clippedLeft"
+      color="blue darken-3"
     >
       <v-toolbar-side-icon @click.stop="toggleDrawer" class="hidden-xs-only"></v-toolbar-side-icon>
-
       <v-toolbar-title v-if="!showSearchInput" style="overflow: unset; margin-left: 10px">Follroad</v-toolbar-title>
+
       <v-btn v-else icon @click="showSearchInput=false" class="ml-0">
         <v-icon>arrow_back</v-icon>
       </v-btn>
 
       <v-spacer></v-spacer>
 
-      <gmap-autocomplete
-        @place_changed="search"
-        v-if="showSearchInput || this.$vuetify.breakpoint.smAndUp"
-        style="background-color: #0080FF; width:100%; height:70%"
-        ref="gmapAutoComplete"
-        placeholder="ค้นหาสถานที่"
-        :class="this.$vuetify.breakpoint.smAndUp ? autoCompleteClass.normal : autoCompleteClass.mobile"
-        :select-first-on-enter="true"
-      ></gmap-autocomplete>
-      <v-btn v-if="searchPlace" icon @click="clearSearch">
-        <v-icon>close</v-icon>
-      </v-btn>
-      <v-btn v-if="searchPlace && !directionsResponse" icon @click="startDirections">
-        <v-icon>directions</v-icon>
-      </v-btn>
+      <template v-if="showSearchInput || this.$vuetify.breakpoint.smAndUp">
+        <gmap-autocomplete
+          @place_changed="search"
+          style="background-color: #0080FF; width:100%; height:70%"
+          ref="gmapAutoComplete"
+          placeholder="ค้นหาสถานที่"
+          :class="this.$vuetify.breakpoint.smAndUp ? autoCompleteClass.normal : autoCompleteClass.mobile"
+          :select-first-on-enter="true"
+        ></gmap-autocomplete>
+        <v-btn v-if="searchPlace" icon @click="clearSearch">
+          <v-icon>close</v-icon>
+        </v-btn>
+        <v-btn v-if="searchPlace && !directionsResponse" icon @click="startDirections">
+          <v-icon>directions</v-icon>
+        </v-btn>
+      </template>
 
       <v-spacer></v-spacer>
 
-      <v-btn icon v-if="!showSearchInput" @click="showSearchInput=true" class="hidden-sm-and-up">
-        <v-icon>search</v-icon>
-      </v-btn>
-      <v-btn v-if="installBtn" icon @click="installer()">
-        <v-icon>mobile_friendly</v-icon>
-      </v-btn>
-      <!-- <v-btn text icon to="addeventbyuser" @click="setRouterView(true)" class="hidden-sm-and-up">
-        <v-icon>post_add</v-icon>
-      </v-btn>-->
-      <v-btn v-if="!isAuthenticated" outline @click.prevent="login" :loading="loginLoading">Log in</v-btn>
-      <v-btn v-if="!showSearchInput" icon to="/profile" @click="setRouterView(true)" >
-        <v-avatar size="35px">
-          <img :src="profile.picture" alt="avatar" />
-        </v-avatar>
-      </v-btn>
+      <template v-if="!showSearchInput">
+        <v-btn icon @click="showSearchInput=true" class="hidden-sm-and-up">
+          <v-icon>search</v-icon>
+        </v-btn>
+        <v-btn v-if="installBtn" icon @click="installer()">
+          <v-icon>mobile_friendly</v-icon>
+        </v-btn>
+        <v-btn v-if="!isAuthenticated" outline @click.prevent="login" :loading="loginLoading">Log in</v-btn>
+        <v-btn v-if="isAuthenticated" icon to="/profile" @click="setRouterView(true)">
+          <v-avatar size="35px">
+            <img :src="profile.picture" alt="avatar" />
+          </v-avatar>
+        </v-btn>
+      </template>
     </v-toolbar>
   </div>
 </template>

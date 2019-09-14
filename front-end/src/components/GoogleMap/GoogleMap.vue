@@ -132,9 +132,7 @@ export default {
 };
 </script>
 <style scoped>
-.v-content,
-.vue-map-container,
-.vue-map {
+.vue-map-container {
   width: 100%;
   height: 100%;
 }

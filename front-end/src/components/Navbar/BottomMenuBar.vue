@@ -1,20 +1,10 @@
 <template>
-  <v-bottom-nav
-    app
-    :value="true"
-    color="indigo"
-    absolute
-    dark
-    :fixed="toolbar.fixed"
-    :clipped-left="toolbar.clippedLeft"
-    scrollable
-  >
-    <v-btn flat router @click="closeRouterview">
+  <v-bottom-nav app absolute :value="true" dark color="indigo">
+    <v-btn @click="closeRouterview">
       <span>Home</span>
       <v-icon>home</v-icon>
     </v-btn>
     <v-btn
-      flat
       router
       v-for="list in lists"
       :key="list.text"
@@ -38,11 +28,7 @@ export default {
         { text: "Search", icon: "directions", route: "/search" },
         { text: "Forum", icon: "forum", route: "/news" },
         { text: "Profile", icon: "person", route: "/profile" }
-      ],
-      toolbar: {
-        fixed: true,
-        clippedLeft: false
-      }
+      ]
     };
   },
   methods: {
