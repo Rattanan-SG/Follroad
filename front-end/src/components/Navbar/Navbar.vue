@@ -73,7 +73,7 @@
         </v-btn>
         <v-btn v-if="!isAuthenticated" outline @click.prevent="login" :loading="loginLoading">Log in</v-btn>
         <v-btn v-if="isAuthenticated" icon to="/profile" @click="setRouterView(true)">
-          <v-avatar size="35px">
+          <v-avatar size="36px">
             <img :src="profile.picture" alt="avatar" />
           </v-avatar>
         </v-btn>
@@ -111,8 +111,8 @@ export default {
       loginLoading: false,
       showSearchInput: false,
       autoCompleteClass: {
-        normal: "pa-2 ml-4 subheading",
-        mobile: "pa-2 subheading"
+        normal: "ml-4 mr-2 pa-2 subheading",
+        mobile: "mr-1 pa-2 subheading"
       }
     };
   },
