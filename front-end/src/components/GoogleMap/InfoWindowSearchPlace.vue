@@ -2,20 +2,20 @@
   <div>
     <v-toolbar
       absolute
-      color="blue-grey darken-2"
+      flat
       dark
       scroll-off-screen
+      color="blue-grey darken-2"
       scroll-target="#scrolling-techniques"
-      height="40%"
+      height="35%"
     >
-      <v-flex lg12 xs12>
-        <v-btn icon dark @click="closeInfoWindow">
-          <v-icon>close</v-icon>
-        </v-btn>
-      </v-flex>
+      <v-spacer></v-spacer>
+      <v-btn icon dark @click="closeInfoWindow">
+        <v-icon>close</v-icon>
+      </v-btn>
     </v-toolbar>
 
-    <v-card max-width="100%" class="mx-auto" flat>
+    <v-card flat max-width="100%" class="mx-auto pt-4">
       <v-layout>
         <v-flex xs12 md12 lg12>
           <v-list>

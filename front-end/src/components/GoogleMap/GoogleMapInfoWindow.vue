@@ -10,6 +10,11 @@
       :marker="infoWindow.marker"
       :closeInfoWindow="closeInfoWindow"
     />
+    <InfoWindowPostEvent
+      v-if="infoWindow.marker.type === 'postEvent'"
+      :marker="infoWindow.marker"
+      :closeInfoWindow="closeInfoWindow"
+    />
     <InfoWindowSearchPlace
       v-if="infoWindow.marker.type === 'searchPlace'"
       :marker="infoWindow.marker"
@@ -21,11 +26,13 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import InfoWindowEvent from "./InfoWindowEvent";
+import InfoWindowPostEvent from "./InfoWindowPostEvent";
 import InfoWindowSearchPlace from "./InfoWindowSearchPlace";
 export default {
   name: "GoogleMapInfoWindow",
   components: {
     InfoWindowEvent,
+    InfoWindowPostEvent,
     InfoWindowSearchPlace
   },
   data() {

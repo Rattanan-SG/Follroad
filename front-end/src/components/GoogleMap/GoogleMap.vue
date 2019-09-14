@@ -4,6 +4,7 @@
     <gmap-cluster :max-zoom="10" :zoom-on-click="true">
       <MarkerEvent />
     </gmap-cluster>
+    <MarkerPostEvent />
     <MarkerSearchPlace />
     <gmap-marker v-if="myLocation" :position="myLocation.location" :title="myLocation.name"></gmap-marker>
   </gmap-map>
@@ -17,6 +18,7 @@ import GmapCluster from "vue2-google-maps/dist/components/cluster";
 import checkPermission from "@/utilitys/checkPermission";
 import GoogleMapInfoWindow from "./GoogleMapInfoWindow";
 import MarkerEvent from "./MarkerEvent";
+import MarkerPostEvent from "./MarkerPostEvent";
 import MarkerSearchPlace from "./MarkerSearchPlace";
 export default {
   name: "GoogleMap",
@@ -24,6 +26,7 @@ export default {
     GmapCluster,
     GoogleMapInfoWindow,
     MarkerEvent,
+    MarkerPostEvent,
     MarkerSearchPlace
   },
   data() {
@@ -81,9 +84,14 @@ export default {
       "startDirectionsRenderer",
       "stopDirectionsRenderer"
     ]),
+    ...mapActions("postEvent", ["setPostEventLocation"]),
 
     aa: function(e) {
       console.log(JSON.stringify(e.latLng));
+      this.setPostEventLocation({
+        name: "ตำแหน่งที่จะทำการแจ้งเหตุ",
+        location: { lat: e.latLng.lat(), lng: e.latLng.lng() }
+      });
     },
     getRoute: function(startLocation, stopLocation) {
       if (this.isDirections) {

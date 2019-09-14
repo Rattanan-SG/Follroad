@@ -8,6 +8,7 @@ import search from "./modules/search";
 import direction from "./modules/direction";
 import globalDialog from "./modules/global-dialog";
 import directionRecord from "./modules/direction-record";
+import postEvent from "./modules/post-event";
 
 Vue.use(Vuex);
 
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     infoWindow,
     direction,
     globalDialog,
-    directionRecord
+    directionRecord,
+    postEvent
   }
 });
