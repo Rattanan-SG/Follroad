@@ -83,38 +83,6 @@
                 placeholder="ค่าเริ่มต้นระบบจะคำนวนให้"
                 :rules="[rules.maxHours]"
               />
-              <!-- <v-menu
-                ref="stopMenu"
-                v-model="stopMenu"
-                :close-on-content-click="false"
-                :nudge-right="40"
-                :return-value.sync="stop"
-                lazy
-                transition="scale-transition"
-                offset-y
-                full-width
-                max-width="230px"
-                min-width="230px"
-              >
-                <template v-slot:activator="{ on }">
-                  <v-text-field
-                    v-model="stop"
-                    label="เวลาสิ้นสุดเหตุการณ์"
-                    prepend-icon="timelapse"
-                    placeholder="ค่าเริ่มต้นระบบจะคำนวนให้"
-                    readonly
-                    clearable
-                    v-on="on"
-                  ></v-text-field>
-                </template>
-                <v-time-picker
-                  v-if="stopMenu"
-                  v-model="stop"
-                  full-width
-                  format="24hr"
-                  @click:minute="$refs.stopMenu.save(stop)"
-                ></v-time-picker>
-              </v-menu>-->
             </v-flex>
           </v-layout>
           <!------add image-------->
@@ -138,7 +106,7 @@
             :rules="[rules.required]"
           ></v-textarea>
         </v-card-text>
-        
+
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="red white--text" @click="dialog = false">ยกเลิก</v-btn>
@@ -169,15 +137,14 @@ export default {
       items: eventConstant.EVENT_CATEGORY_OBJECT,
       title: null,
       eventType: null,
+      startMenu: false,
       startTime: null,
       stopHours: null,
-      startMenu: false,
-      stopMenu: false,
       description: null,
       image: "",
       rules: {
         required: value => !!value || "กรุณากรอกข้อมูล",
-        maxHours: value => value < 24 || "ระยะเวลาไม่เกิน 24 ชั่วโมง"
+        maxHours: value => value <= 24 || "ระยะเวลาไม่เกิน 24 ชั่วโมง"
       },
       loading: false,
       success: false,
@@ -231,34 +198,34 @@ export default {
       const { value: icon, type } = eventConstant.EVENT_CATEGORY_OBJECT.find(
         element => element.value === this.eventType
       );
-      let startDate, stopDate;
-      this.calculateDateTime(this.startTime);
-      this.startTime
-        ? (startDate = new Date(this.startTime))
-        : (startDate = new Date());
-      this.stop ? (stopDate = new Date(this.stop)) : (stopDate = null);
+      const { start, stop } = this.calculateStartAndStopFromData();
+      console.log(this.$auth.profile);
+
       return {
         title: this.title,
         description: this.description,
         latitude,
         longitude,
-        start: startDate,
-        stop: stopDate,
+        start,
+        stop,
         contributor: this.$auth.profile.sub,
         icon,
         type,
         source: "follroad"
       };
     },
-    calculateTimePicker: function(dateString) {
-      const date = new Date();
-      if (typeof dateString === "string") {
-        const hours = dateString.match(/^(\d+)/)[1];
-        const minutes = dateString.match(/:(\d+)/)[1];
-        date.setHours(hours);
-        date.setMinutes(minutes);
+    calculateStartAndStopFromData: function() {
+      const start = new Date();
+      if (typeof this.startTime === "string") {
+        const hours = this.startTime.match(/^(\d+)/)[1];
+        const minutes = this.startTime.match(/:(\d+)/)[1];
+        start.setHours(hours);
+        start.setMinutes(minutes);
       }
-      return date;
+      let stop = new Date(start);
+      if (!this.stopHours) stop = null;
+      else stop.setHours(stop.getHours() + Number(this.stopHours));
+      return { start, stop };
     }
   }
 };
