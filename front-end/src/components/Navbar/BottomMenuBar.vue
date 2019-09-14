@@ -1,11 +1,12 @@
 <template>
-  <v-bottom-nav app absolute :value="true" dark color="indigo">
-    <v-btn @click="closeRouterview">
+  <v-bottom-nav app fixed dark :value="true" color="indigo">
+    <v-btn flat @click="closeRouterview">
       <span>Home</span>
       <v-icon>home</v-icon>
     </v-btn>
     <v-btn
       router
+      flat
       v-for="list in lists"
       :key="list.text"
       :to="list.route"

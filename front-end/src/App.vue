@@ -10,9 +10,7 @@
           xs12
           style="z-index: 2"
         >
-          <v-card flat height="100%">
-            <router-view></router-view>
-          </v-card>
+          <router-view></router-view>
         </v-flex>
         <v-flex>
           <GoogleMap />
@@ -33,8 +31,6 @@ const Navbar = () =>
     /* webpackPrefetch: true */
     /* webpackChunkName: "navbar" */ "./components/Navbar/Navbar"
   );
-const ToggleRecommendRoute = () =>
-  import("./components/HistoryRoute/ToggleRecommendRoute");
 const GoogleMap = () =>
   import(
     /* webpackPrefetch: true */
@@ -54,6 +50,11 @@ const CurrentPositionButton = () =>
   import(
     /* webpackPrefetch: true */
     /* webpackChunkName: "currentpositionbutton" */ "./components/FloatingButton/CurrentPositionButton"
+  );
+const ToggleRecommendRoute = () =>
+  import(
+    /* webpackPrefetch: true */
+    /* webpackChunkName: "togglerecommendroute" */ "./components/HistoryRoute/ToggleRecommendRoute"
   );
 const LoginDialog = () =>
   import(

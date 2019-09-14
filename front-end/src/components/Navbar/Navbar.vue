@@ -2,8 +2,8 @@
   <div>
     <v-navigation-drawer
       app
+      fixed
       :clipped="drawer.clipped"
-      :fixed="drawer.fixed"
       :permanent="drawer.permanent"
       :mini-variant="drawer.mini"
       v-model="drawer.open"
@@ -35,15 +35,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-
-    <v-toolbar
-      app
-      dark
-      flat
-      :fixed="toolbar.fixed"
-      :clipped-left="toolbar.clippedLeft"
-      color="blue darken-3"
-    >
+    <v-toolbar app flat fixed dark color="blue darken-3" :clipped-left="toolbar.clippedLeft">
       <v-toolbar-side-icon @click.stop="toggleDrawer" class="hidden-xs-only"></v-toolbar-side-icon>
       <v-toolbar-title v-if="!showSearchInput" style="overflow: unset; margin-left: 10px">Follroad</v-toolbar-title>
 
@@ -100,12 +92,10 @@ export default {
       drawer: {
         open: false,
         clipped: false,
-        fixed: false,
         permanent: false,
         mini: true
       },
       toolbar: {
-        fixed: true,
         clippedLeft: false
       },
       lists: [
