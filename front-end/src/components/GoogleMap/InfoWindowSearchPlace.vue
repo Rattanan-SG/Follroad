@@ -2,34 +2,29 @@
   <div>
     <v-toolbar
       absolute
-      flat
+      color="blue-grey darken-2"
       dark
       scroll-off-screen
-      color="blue-grey darken-2"
       scroll-target="#scrolling-techniques"
-      height="35%"
+      height="40%"
+      flat
     >
-      <v-spacer></v-spacer>
+    <!-- <v-icon>map</v-icon> -->
+    <v-toolbar-title>สถานที่</v-toolbar-title>
+    <v-spacer></v-spacer>
       <v-btn icon dark @click="closeInfoWindow">
         <v-icon>close</v-icon>
       </v-btn>
     </v-toolbar>
-
-    <v-card flat max-width="100%" class="mx-auto pt-4">
-      <v-layout>
-        <v-flex xs12 md12 lg12>
-          <v-list>
-            <v-list-tile>
-              <v-list-tile-content>
-                <v-list-tile-title>{{marker.title}}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list>
-          <v-card-text>
-            <div>{{marker.description}}</div>
-          </v-card-text>
-        </v-flex>
-      </v-layout>
+    <br />
+    <br/>
+    
+    <v-card flat max-width="100%" class="mx-auto white--text" color="blue-grey darken-2" >
+      <v-img :src="marker.searchPlaceCaption.photo" max-width="100%" max-height="10%"></v-img>
+      <v-card-text>
+        <h3 class="headline mb-0">{{marker.title}}</h3>
+        <div>{{marker.description}}</div>
+      </v-card-text>
     </v-card>
   </div>
 </template>
@@ -42,7 +37,8 @@ export default {
     closeInfoWindow: Function
   },
   data() {
-    return {};
+    return {
+    };
   }
 };
 </script>
