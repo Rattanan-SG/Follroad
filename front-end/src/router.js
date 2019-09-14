@@ -2,7 +2,6 @@ import Vue from "vue";
 import Router from "vue-router";
 import auth from "./auth/authService";
 import Home from "./views/Home.vue";
-import AddEventByUser from "./views/AddEventByUser.vue";
 import Callback from "./components/Callback";
 
 Vue.use(Router);
@@ -47,11 +46,6 @@ const router = new Router({
         import(
           /* webpackChunkName: "historyroute" */ "./views/HistoryRoute.vue"
         )
-    },
-    {
-      path: "/addeventbyuser",
-      name: "addeventbyuser",
-      component: AddEventByUser
     },
     {
       path: "/callback",

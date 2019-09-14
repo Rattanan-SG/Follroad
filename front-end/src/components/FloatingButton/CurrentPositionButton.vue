@@ -22,7 +22,7 @@ export default {
 </script>
 <style scoped>
 .currentPositionButton {
-  bottom: 8%;
+  bottom: 7%;
   right: 1%;
   position: absolute;
   z-index: 1;
