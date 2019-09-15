@@ -18,7 +18,28 @@
       </template>
     </v-list>
     <div v-if="!loading && !directionRecords.length">
-      <v-list two-line>
+      <v-flex xs12 lg12 md12 pa-2>
+        <!-- <v-alert
+        :value="true"
+        color="info"
+        icon="info"
+        outline
+      >
+        ไม่มีประวัติการบันทึกเส้นทาง
+      </v-alert> -->
+      <v-card class="mx-auto" color="#26c6da" dark flat>
+        <v-card-title>
+      <v-icon
+        large
+        left
+      >
+      info
+      </v-icon>
+      <span class="title font-weight-light">ไม่มีประวัติการบันทึกเส้นทาง</span>
+    </v-card-title>
+      </v-card>
+    </v-flex>
+      <!-- <v-list two-line>
         <template>
           <v-divider></v-divider>
           <v-layout>
@@ -31,7 +52,7 @@
                   <h4>บ้านไปมอ</h4>
                   <v-list-tile-sub-title
                     class="text--primary"
-                  >จากตำแหน่งปัจจุบัน --> เซ็นทรัลพลาซา พระราม 2</v-list-tile-sub-title>
+                  >จากตำแหน่งปัจจุบัน ไป เซ็นทรัลพลาซา พระราม 2</v-list-tile-sub-title>
                   <v-list-tile-sub-title>แก้ไขล่าสุด ณ 13/09/2019, 10:13:16</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
@@ -49,7 +70,7 @@
                   <h4>บ้านไปมอ</h4>
                   <v-list-tile-sub-title
                     class="text--primary"
-                  >จากตำแหน่งปัจจุบัน --> เซ็นทรัลพลาซา พระราม 2</v-list-tile-sub-title>
+                  >จากตำแหน่งปัจจุบัน ไป เซ็นทรัลพลาซา พระราม 2</v-list-tile-sub-title>
                   <v-list-tile-sub-title>แก้ไขล่าสุด ณ 13/09/2019, 10:13:16</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
@@ -57,7 +78,8 @@
           </v-layout>
           <v-divider></v-divider>
         </template>
-      </v-list>
+      </v-list> -->
+
     </div>
   </div>
 </template>
