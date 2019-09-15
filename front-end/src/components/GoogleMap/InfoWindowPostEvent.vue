@@ -109,7 +109,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red white--text" @click="dialog = false">ยกเลิก</v-btn>
+          <v-btn color="red white--text" @click="closeInfoWindow">ยกเลิก</v-btn>
           <v-btn
             color="blue white--text"
             :disabled="loading"
@@ -123,7 +123,7 @@
 </template>
 
 <script>
-// import { mapActions } from "vuex";
+import { mapActions } from "vuex";
 import eventConstant from "@/utilitys/eventConstant";
 export default {
   name: "InfoWindowPostEvent",
@@ -152,6 +152,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions("globalDialog", ["setLoginDialog"]),
     // onFileChange(e) {
     //   var files = e.target.files || e.data.Transfer.files;
     //   if (!files.length) return;
@@ -170,6 +171,9 @@ export default {
     //   this.image = "";
     // }
     submit: async function() {
+      if (!this.$auth.isAuthenticated()) {
+        this.setLoginDialog(true);
+      }
       if (this.$refs.form.validate()) {
         this.loading = true;
         this.success = false;
@@ -177,9 +181,8 @@ export default {
         const data = this.getEventData();
         try {
           console.log(data);
-
           // if (!this.id) {
-          //   const { _id } = await directionRecord.postRecords(data);
+          //   const { _id } = await directionRecord.postRecord(data);
           //   this.id = _id;
           // } else {
           //   const record = await directionRecord.patchRecordById(this.id, data);
@@ -194,13 +197,12 @@ export default {
       }
     },
     getEventData: function() {
+      const { name, sub } = this.$auth.profile;
       const { lat: latitude, lng: longitude } = this.marker.position;
       const { value: icon, type } = eventConstant.EVENT_CATEGORY_OBJECT.find(
         element => element.value === this.eventType
       );
       const { start, stop } = this.calculateStartAndStopFromData();
-      console.log(this.$auth.profile);
-
       return {
         title: this.title,
         description: this.description,
@@ -208,7 +210,8 @@ export default {
         longitude,
         start,
         stop,
-        contributor: this.$auth.profile.sub,
+        contributor: name,
+        uid: sub,
         icon,
         type,
         source: "follroad"

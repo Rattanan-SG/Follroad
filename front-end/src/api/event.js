@@ -13,6 +13,16 @@ const getEvents = params => {
     });
 };
 
+const postEvent = data => {
+  return event
+    .post("/event", data)
+    .then(response => response.data)
+    .catch(err => {
+      throw err;
+    });
+};
+
 export default {
-  getEvents
+  getEvents,
+  postEvent
 };

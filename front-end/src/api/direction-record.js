@@ -13,7 +13,7 @@ const getRecords = params => {
     });
 };
 
-const postRecords = data => {
+const postRecord = data => {
   return record
     .post("/record", data)
     .then(response => response.data)
@@ -42,7 +42,7 @@ const deleteRecordById = (id, config) => {
 
 export default {
   getRecords,
-  postRecords,
+  postRecord,
   patchRecordById,
   deleteRecordById
 };

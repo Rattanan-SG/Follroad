@@ -282,7 +282,7 @@ export default {
         const data = this.getDirectionRecordData();
         try {
           if (!this.id) {
-            const { _id } = await directionRecord.postRecords(data);
+            const { _id } = await directionRecord.postRecord(data);
             this.id = _id;
           } else {
             const record = await directionRecord.patchRecordById(this.id, data);
