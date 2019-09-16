@@ -124,6 +124,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import event from "@/api/event";
 import eventConstant from "@/utilitys/eventConstant";
 export default {
   name: "InfoWindowPostEvent",
@@ -173,22 +174,17 @@ export default {
     submit: async function() {
       if (!this.$auth.isAuthenticated()) {
         this.setLoginDialog(true);
-      }
-      if (this.$refs.form.validate()) {
+      } else if (this.$refs.form.validate()) {
         this.loading = true;
         this.success = false;
         this.error = false;
         const data = this.getEventData();
         try {
           console.log(data);
-          // if (!this.id) {
-          //   const { _id } = await directionRecord.postRecord(data);
-          //   this.id = _id;
-          // } else {
-          //   const record = await directionRecord.patchRecordById(this.id, data);
-          //   this.updateDirectionRecordById({ id: this.id, record });
-          // }
-          // this.success = true;
+          const newEvent = await event.postEvent(data);
+          console.log(newEvent);
+          // this.updateDirectionRecordById({ id: this.id, record });
+          this.success = true;
         } catch (error) {
           this.error = true;
         } finally {

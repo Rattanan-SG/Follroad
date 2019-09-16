@@ -1,13 +1,18 @@
 const { Op } = require("sequelize");
+const { DateTime } = require("luxon");
 const itic = require("../clients/itic");
 const messageQueue = require("../clients/message-queue");
 const { event } = require("../domains");
-const { EVENT_SOURCE } = require("../utils/constant");
+const { EVENT_SOURCE, EVENT_MAPPING } = require("../utils/constant");
 const { formatEventToSendMessageQueue } = require("../utils/format-event");
 const { logInfo, logDebug } = require("../utils/logger");
 
 exports.createEvent = async body => {
-  const result = await event.create(body);
+  let stop = body.stop;
+  if (!stop) {
+    stop = calculateDefaultStopFromType(body);
+  }
+  const result = await event.create({ ...body, stop });
   logInfo("Create event complete", result.dataValues);
   sendEventToMessageQueue([result]);
   return result;
@@ -71,6 +76,15 @@ exports.syncIticEvent = async () => {
     logInfo("Not have event to update");
     return { message: "Not have event to update" };
   }
+};
+
+const calculateDefaultStopFromType = ({ start, type }) => {
+  let stop = DateTime.fromISO(start);
+  const { defaultDuration } = EVENT_MAPPING.find(
+    element => element.type === type
+  );
+  stop = stop.plus(defaultDuration);
+  return stop;
 };
 
 const sendEventToMessageQueue = events => {
