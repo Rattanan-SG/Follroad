@@ -148,12 +148,13 @@ export default {
         maxHours: value => value <= 24 || "ระยะเวลาไม่เกิน 24 ชั่วโมง"
       },
       loading: false,
-      success: false,
       error: false
     };
   },
   methods: {
     ...mapActions("globalDialog", ["setLoginDialog"]),
+    ...mapActions("event", ["addNewEvent"]),
+    ...mapActions("postEvent", ["completePostEvent"]),
     // onFileChange(e) {
     //   var files = e.target.files || e.data.Transfer.files;
     //   if (!files.length) return;
@@ -176,15 +177,13 @@ export default {
         this.setLoginDialog(true);
       } else if (this.$refs.form.validate()) {
         this.loading = true;
-        this.success = false;
         this.error = false;
         const data = this.getEventData();
         try {
-          console.log(data);
           const newEvent = await event.postEvent(data);
-          console.log(newEvent);
-          // this.updateDirectionRecordById({ id: this.id, record });
-          this.success = true;
+          this.addNewEvent(newEvent);
+          this.completePostEvent();
+          this.closeInfoWindow();
         } catch (error) {
           this.error = true;
         } finally {
