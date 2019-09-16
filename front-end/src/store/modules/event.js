@@ -55,12 +55,22 @@ const actions = {
     event.getEvents().then(data => {
       commit("SET_EVENTS", data);
     });
+  },
+  addNewEvent: ({ commit }, newEvent) => {
+    if (Array.isArray(newEvent))
+      newEvent.forEach(element => {
+        commit("ADD_NEW_EVENT", element);
+      });
+    else commit("ADD_NEW_EVENT", newEvent);
   }
 };
 
 const mutations = {
   SET_EVENTS: (state, events) => {
     state.events = events;
+  },
+  ADD_NEW_EVENT: (state, newEvent) => {
+    state.events.unshift(newEvent);
   },
   SET_EVENT_CATEGORY_SELECTED: (state, eventCategorySelected) => {
     state.eventCategorySelected = eventCategorySelected;

@@ -26,6 +26,10 @@ const actions = {
   },
   setPostEventLocation: ({ commit }, postEventLocation) => {
     commit("SET_POST_EVENT_LOCATION", postEventLocation);
+  },
+  completePostEvent: ({ commit }) => {
+    commit("SET_ACTIVE_POST_EVENT", false);
+    commit("SET_POST_EVENT_LOCATION", null);
   }
 };
 
