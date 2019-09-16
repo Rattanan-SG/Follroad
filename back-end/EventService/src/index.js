@@ -21,6 +21,10 @@ app.use(route);
 app.use(errorMiddleware);
 
 const PORT = global.gConfig.node_port || 3000;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}...`);
+});
+const io = require("./socket/io").init(server);
+io.on("connection", socker => {
+  console.log(socker);
 });
