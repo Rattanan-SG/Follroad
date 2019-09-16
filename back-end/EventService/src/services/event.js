@@ -43,12 +43,15 @@ exports.deleteEventById = id => event.deleteByPk(id);
 
 exports.syncIticEvent = async () => {
   const response = await Promise.all([
-    event.findAll({ source: EVENT_SOURCE.ITIC }, { attributes: ["eid"] }),
+    event.findAll(
+      { source: EVENT_SOURCE.ITIC },
+      { scope: ["activeEvent"], attributes: ["eid"] }
+    ),
     itic.getExternalEvent()
   ]);
   const databaseEventEid = response[0].map(({ eid }) => eid);
   const eventFilter = response[1].filter(
-    event => !databaseEventEid.includes(event.eid)
+    item => !databaseEventEid.includes(item.eid)
   );
   const dataList = eventFilter.map(event => ({ ...event, source: "itic" }));
   if (eventFilter.length > 0) {
