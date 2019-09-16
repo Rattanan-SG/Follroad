@@ -98,16 +98,20 @@
           <v-icon>add_a_photo</v-icon>เพิ่มรูปภาพ
           </v-btn>-->
           <!------------ -->
-          <v-textarea
-            label="รายละเอียดเหตุการณ์"
-            v-model="description"
-            outline
-            clearable
-            :rules="[rules.required]"
-          ></v-textarea>
+          <v-layout row wrap>
+            <v-flex xs12 pl-1>
+              <v-textarea
+                label="รายละเอียดเหตุการณ์"
+                v-model="description"
+                outline
+                rows="2"
+                :rules="[rules.required]"
+              ></v-textarea>
+            </v-flex>
+          </v-layout>
         </v-card-text>
 
-        <v-card-actions>
+        <v-card-actions class="pt-0">
           <v-spacer></v-spacer>
           <v-btn color="red white--text" @click="closeInfoWindow">ยกเลิก</v-btn>
           <v-btn
