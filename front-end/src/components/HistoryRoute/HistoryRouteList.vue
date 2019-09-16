@@ -19,26 +19,17 @@
     </v-list>
     <div v-if="!loading && !directionRecords.length">
       <v-flex xs12 lg12 md12 pa-2>
-        <!-- <v-alert
-        :value="true"
-        color="info"
-        icon="info"
-        outline
-      >
-        ไม่มีประวัติการบันทึกเส้นทาง
-      </v-alert> -->
-      <v-card class="mx-auto" color="#26c6da" dark flat>
-        <v-card-title>
-      <v-icon
-        large
-        left
-      >
-      info
-      </v-icon>
-      <span class="title font-weight-light">ไม่มีประวัติการบันทึกเส้นทาง</span>
-    </v-card-title>
-      </v-card>
-    </v-flex>
+        <v-card class="mx-auto" color="#26c6da" dark flat>
+          <v-card-title>
+            <v-flex xs2 lg2 md2>
+              <v-icon medium left>info</v-icon>
+            </v-flex>
+            <v-flex xs10 lg10 md10>
+              <h3 class="font-weight-light">ไม่มีประวัติการบันทึกเส้นทาง</h3>
+            </v-flex>
+          </v-card-title>
+        </v-card>
+      </v-flex>
       <!-- <v-list two-line>
         <template>
           <v-divider></v-divider>
@@ -78,8 +69,7 @@
           </v-layout>
           <v-divider></v-divider>
         </template>
-      </v-list> -->
-
+      </v-list>-->
     </div>
   </div>
 </template>
