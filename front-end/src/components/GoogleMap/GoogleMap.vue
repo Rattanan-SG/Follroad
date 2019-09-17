@@ -93,7 +93,6 @@ export default {
     ...mapActions("postEvent", ["setPostEventLocation"]),
 
     initPostEvent: function(e) {
-      console.log(JSON.stringify(e.latLng));
       const location = { lat: e.latLng.lat(), lng: e.latLng.lng() };
       this.geocoder.geocode({ location }, (response, status) => {
         let title = "";

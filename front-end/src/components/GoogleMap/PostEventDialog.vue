@@ -2,6 +2,7 @@
   <div>
     <v-btn
       color="blue white--text"
+      outline
       @click.stop="openDialog"
       :disabled="loading"
       :loading="loading"
@@ -17,7 +18,7 @@
 
             <v-card-text>
               <v-layout wrap>
-                <v-flex xs12 sm6 px-1>
+                <v-flex xs12 sm6 pr-1>
                   <v-text-field
                     label="ชื่อเหตุการณ์"
                     prepend-icon="textsms"
@@ -26,7 +27,7 @@
                     clearable
                   ></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm6 px-1>
+                <v-flex xs12 sm6 pr-1>
                   <v-select
                     label="ประเภทเหตุการณ์"
                     prepend-icon="category"
@@ -40,7 +41,7 @@
               </v-layout>
 
               <v-layout row wrap>
-                <v-flex xs12 sm6 px-1>
+                <v-flex xs12 sm6 pr-1>
                   <v-menu
                     ref="startMenu"
                     v-model="startMenu"
@@ -74,7 +75,7 @@
                     ></v-time-picker>
                   </v-menu>
                 </v-flex>
-                <v-flex xs12 sm6 px-1>
+                <v-flex xs12 sm6 pr-1>
                   <v-text-field
                     v-model="stopHours"
                     type="number"
@@ -88,7 +89,7 @@
               </v-layout>
 
               <v-layout row wrap>
-                <v-flex xs12 px-1>
+                <v-flex xs12 pr-1>
                   <v-textarea
                     label="รายละเอียดเหตุการณ์"
                     v-model="description"

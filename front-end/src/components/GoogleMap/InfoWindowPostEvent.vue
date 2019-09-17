@@ -15,15 +15,20 @@
       </v-btn>
     </v-toolbar>
 
-    <v-card flat max-width="100%" class="mx-auto pt-4">
-      <v-card-title class="pb-1 px-0">
-        <div class="title">
-          <v-icon>post_add</v-icon>แจ้งเหตุการณ์
+    <v-card flat max-width="400px" class="mx-auto pt-4">
+      <v-card-title class="px-0">
+        <div>
+          <v-icon medium>post_add</v-icon>
+          <span class="headline">แจ้งเหตุการณ์</span>
+          <div
+            class="pt-1 subheading grey--text text--darken-1"
+          >คุณต้องการที่จะแจ้งเหตุการณ์ที่ตำแหน่งนี้หรือไม่?</div>
         </div>
       </v-card-title>
-      <v-card-actions class="pt-0">
+      <v-card-text class="px-0 pt-1">{{marker.title}}</v-card-text>
+      <v-card-actions class="px-0 pt-0">
         <v-spacer></v-spacer>
-        <v-btn color="red white--text" @click="cancel">ยกเลิก</v-btn>
+        <v-btn outline color="red white--text" @click="cancel" class="mx-2">ยกเลิก</v-btn>
         <PostEventDialog
           :marker="marker"
           :closeInfoWindow="closeInfoWindow"
