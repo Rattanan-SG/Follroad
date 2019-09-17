@@ -57,10 +57,14 @@ const actions = {
     });
   },
   socket_event: ({ dispatch, commit }, data) => {
-    console.log(5555555);
     const { action, event } = data;
     if (action === "create") {
       commit("ADD_NEW_EVENT", event);
+      dispatch(
+        "globalFeedback/setMessageSnackbarOption",
+        { text: `เกิดเหตุการณ์ ${event.title}` },
+        { root: true }
+      );
     }
   }
 };

@@ -15,8 +15,10 @@ exports.createEvent = async body => {
   }
   const result = await event.create({ ...body, stop });
   logInfo("Create event complete", result.dataValues);
-  sendEventToMessageQueue([result]);
-  emitSocketCreateEvent(result);
+  if (new Date(event.stop) > new Date()) {
+    sendEventToMessageQueue([result]);
+    io.getIO().emit("event", { action: "create", event });
+  }
   return result;
 };
 
@@ -95,10 +97,4 @@ const calculateDefaultStopFromType = ({ start, type }) => {
 const sendEventToMessageQueue = events => {
   const data = formatEventToSendMessageQueue(events);
   messageQueue.sendMessage(global.gConfig.notification_queue_name, data);
-};
-
-const emitSocketCreateEvent = event => {
-  if (new Date(event.stop) > new Date()) {
-    io.getIO().emit("event", { action: "create", event });
-  }
 };

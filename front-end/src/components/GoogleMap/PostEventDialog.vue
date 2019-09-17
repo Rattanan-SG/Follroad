@@ -100,6 +100,7 @@
                   ></v-textarea>
                 </v-flex>
               </v-layout>
+              <v-alert :value="error" color="error" icon="warning" outline>แจ้งเหตุการณ์ไม่สำเร็จ</v-alert>
             </v-card-text>
 
             <v-card-actions>
@@ -147,13 +148,15 @@ export default {
         required: value => !!value || "กรุณากรอกข้อมูล",
         maxHours: value => value <= 24 || "ระยะเวลาไม่เกิน 24 ชั่วโมง"
       },
-      success: false,
       loading: false,
       error: false
     };
   },
   methods: {
-    ...mapActions("globalFeedback", ["setLoginDialog"]),
+    ...mapActions("globalFeedback", [
+      "setLoginDialog",
+      "setMessageSnackbarOption"
+    ]),
 
     openDialog: function() {
       if (!this.$auth.isAuthenticated()) {
@@ -192,11 +195,13 @@ export default {
         const data = this.getEventData();
         try {
           const responseEvent = await event.postEvent(data);
+          this.checkEventIsNotActive(responseEvent);
           this.completePostEvent();
           this.closeInfoWindow();
         } catch (error) {
           this.error = true;
         } finally {
+          this.$refs.form.reset();
           this.loading = false;
           this.dialog = false;
         }
@@ -235,6 +240,14 @@ export default {
       if (!this.stopHours) stop = null;
       else stop.setHours(stop.getHours() + Number(this.stopHours));
       return { start, stop };
+    },
+    checkEventIsNotActive: function(event) {
+      if (new Date() > new Date(event.stop)) {
+        this.setMessageSnackbarOption({
+          text: `แจ้งเหตุสำเร็จแต่ ${event.title} นั้นสิ้นสุดเหตุการณ์แล้ว`,
+          color: "cyan darken-2"
+        });
+      } else return;
     }
   }
 };
