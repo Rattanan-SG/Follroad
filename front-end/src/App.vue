@@ -23,6 +23,7 @@
       <ToggleRecommendRoute v-if="directionsResponse" />
       <CurrentPositionButton />
       <LoginDialog />
+      <MessageSnackbar />
     </v-content>
     <BottomMenuBar v-if="this.$vuetify.breakpoint.xsOnly" />
   </v-app>
@@ -63,7 +64,13 @@ const LoginDialog = () =>
   import(
     /* webpackPrefetch: true */
     /* webpackChunkName: "logindialog" */
-    "./components/LoginDialog"
+    "./components/Feedback/LoginDialog"
+  );
+const MessageSnackbar = () =>
+  import(
+    /* webpackPrefetch: true */
+    /* webpackChunkName: "messagesnackbar" */
+    "./components/Feedback/MessageSnackbar"
   );
 import { mapGetters, mapActions } from "vuex";
 export default {
@@ -74,8 +81,9 @@ export default {
     RefreshSnackBar,
     BottomMenuBar,
     CurrentPositionButton,
+    ToggleRecommendRoute,
     LoginDialog,
-    ToggleRecommendRoute
+    MessageSnackbar
   },
   computed: {
     ...mapGetters("route", ["routerView"]),
