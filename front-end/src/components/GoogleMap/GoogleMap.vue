@@ -78,7 +78,9 @@ export default {
     ...mapActions("googleMap", [
       "setMapObject",
       "setGoogleClass",
-      "setMyLocation"
+      "setMyLocation",
+      "setCenter",
+      "setZoomLevel"
     ]),
     ...mapActions("direction", [
       "setDirectionsResponse",
@@ -100,6 +102,8 @@ export default {
           title,
           location
         });
+        this.setZoomLevel(20);
+        this.setCenter(location);
       });
     },
     getRoute: function(startLocation, stopLocation) {
