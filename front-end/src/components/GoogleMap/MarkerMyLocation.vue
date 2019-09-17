@@ -7,6 +7,7 @@
       @click="toggleInfoWindow()"
     ></gmap-marker>
     <gmap-info-window
+      v-if="myLocation"
       :options="infoOptions"
       :position="infoWindowPos"
       :opened="infoWinOpen"
