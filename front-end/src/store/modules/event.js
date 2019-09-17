@@ -56,12 +56,12 @@ const actions = {
       commit("SET_EVENTS", data);
     });
   },
-  addNewEvent: ({ commit }, newEvent) => {
-    if (Array.isArray(newEvent))
-      newEvent.forEach(element => {
-        commit("ADD_NEW_EVENT", element);
-      });
-    else commit("ADD_NEW_EVENT", newEvent);
+  socket_event: ({ dispatch, commit }, data) => {
+    console.log(5555555);
+    const { action, event } = data;
+    if (action === "create") {
+      commit("ADD_NEW_EVENT", event);
+    }
   }
 };
 

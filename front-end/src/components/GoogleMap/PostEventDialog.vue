@@ -154,7 +154,6 @@ export default {
   },
   methods: {
     ...mapActions("globalDialog", ["setLoginDialog"]),
-    ...mapActions("event", ["addNewEvent"]),
 
     openDialog: function() {
       if (!this.$auth.isAuthenticated()) {
@@ -192,8 +191,7 @@ export default {
         this.error = false;
         const data = this.getEventData();
         try {
-          const newEvent = await event.postEvent(data);
-          this.addNewEvent(newEvent);
+          await event.postEvent(data);
           this.completePostEvent();
           this.closeInfoWindow();
         } catch (error) {

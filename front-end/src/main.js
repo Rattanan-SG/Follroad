@@ -2,13 +2,16 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import io from "socket.io-client";
+import VueSocketIOExt from "vue-socket.io-extended";
 import AuthPlugin from "./plugins/auth";
 import * as VueGoogleMaps from "vue2-google-maps";
 import "./plugins/vuetify";
 import "./registerServiceWorker";
-
 Vue.config.productionTip = false;
 
+const socket = io("http://localhost:3000");
+Vue.use(VueSocketIOExt, socket, { store });
 Vue.use(AuthPlugin);
 Vue.use(VueGoogleMaps, {
   load: {

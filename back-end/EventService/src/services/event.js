@@ -2,6 +2,7 @@ const { Op } = require("sequelize");
 const { DateTime } = require("luxon");
 const itic = require("../clients/itic");
 const messageQueue = require("../clients/message-queue");
+const io = require("../socket/io");
 const { event } = require("../domains");
 const { EVENT_SOURCE, EVENT_MAPPING } = require("../utils/constant");
 const { formatEventToSendMessageQueue } = require("../utils/format-event");
@@ -15,6 +16,7 @@ exports.createEvent = async body => {
   const result = await event.create({ ...body, stop });
   logInfo("Create event complete", result.dataValues);
   sendEventToMessageQueue([result]);
+  emitSocketCreateEvent(result);
   return result;
 };
 
@@ -93,4 +95,10 @@ const calculateDefaultStopFromType = ({ start, type }) => {
 const sendEventToMessageQueue = events => {
   const data = formatEventToSendMessageQueue(events);
   messageQueue.sendMessage(global.gConfig.notification_queue_name, data);
+};
+
+const emitSocketCreateEvent = event => {
+  if (new Date(event.stop) > new Date()) {
+    io.getIO().emit("event", { action: "create", event });
+  }
 };
