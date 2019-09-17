@@ -1,12 +1,12 @@
 <template>
   <gmap-map ref="gmap" :center="center" :zoom="zoomLevel" :options="options" @click="initPostEvent">
+    <MarkerMyLocation :myLocation="myLocation" />
     <GoogleMapInfoWindow />
     <gmap-cluster :max-zoom="10" :zoom-on-click="true">
       <MarkerEvent />
     </gmap-cluster>
     <MarkerPostEvent />
     <MarkerSearchPlace />
-    <gmap-marker v-if="myLocation" :position="myLocation.location" :title="myLocation.name"></gmap-marker>
   </gmap-map>
 </template>
 
@@ -18,6 +18,7 @@ import GmapCluster from "vue2-google-maps/dist/components/cluster";
 import checkPermission from "@/utilitys/checkPermission";
 import GoogleMapInfoWindow from "./GoogleMapInfoWindow";
 import MarkerEvent from "./MarkerEvent";
+import MarkerMyLocation from "./MarkerMyLocation";
 import MarkerPostEvent from "./MarkerPostEvent";
 import MarkerSearchPlace from "./MarkerSearchPlace";
 export default {
@@ -26,6 +27,7 @@ export default {
     GmapCluster,
     GoogleMapInfoWindow,
     MarkerEvent,
+    MarkerMyLocation,
     MarkerPostEvent,
     MarkerSearchPlace
   },
