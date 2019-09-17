@@ -62,7 +62,7 @@ const actions = {
       commit("ADD_NEW_EVENT", event);
       dispatch(
         "globalFeedback/setMessageSnackbarOption",
-        { text: `เกิดเหตุการณ์ ${event.title}` },
+        { text: `เกิดเหตุการณ์ ${event.title}`, color: "success" },
         { root: true }
       );
     }
