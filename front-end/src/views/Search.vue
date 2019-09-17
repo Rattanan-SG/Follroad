@@ -4,7 +4,7 @@
     <SearchStartAutoComplete :historyMode="historyMode" />
     <SearchDestinationAutoComplete :historyMode="historyMode" />
     <v-layout row wrap my-3 justify-center>
-      <SearchSaveRouteButton
+      <SearchSaveRouteDialog
         v-if="directionsResponse"
         :historyMode="historyMode"
         :startLocation="startLocation"
@@ -40,8 +40,8 @@ const SearchStartAutoComplete = () =>
   import("@/components/Search/SearchStartAutoComplete");
 const SearchDestinationAutoComplete = () =>
   import("@/components/Search/SearchDestinationAutoComplete");
-const SearchSaveRouteButton = () =>
-  import("@/components/Search/SearchSaveRouteButton");
+const SearchSaveRouteDialog = () =>
+  import("@/components/Search/SearchSaveRouteDialog");
 const SearchFeedPanel = () => import("@/components/Search/SearchFeedPanel");
 const SearchRoutePanel = () => import("@/components/Search/SearchRoutePanel");
 export default {
@@ -55,7 +55,7 @@ export default {
     CloseViewToolBar,
     SearchStartAutoComplete,
     SearchDestinationAutoComplete,
-    SearchSaveRouteButton,
+    SearchSaveRouteDialog,
     SearchFeedPanel,
     SearchRoutePanel
   },

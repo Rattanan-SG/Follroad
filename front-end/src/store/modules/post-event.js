@@ -13,10 +13,10 @@ const getters = {
       return {
         id: JSON.stringify(postEventLocation.location.lat),
         position: postEventLocation.location,
-        title: postEventLocation.name,
+        title: postEventLocation.title,
         type: "postEvent"
       };
-    }
+    } else return null;
   }
 };
 

@@ -1,12 +1,12 @@
 <template>
-  <gmap-map ref="gmap" :center="center" :zoom="zoomLevel" :options="options" @click="aa">
+  <gmap-map ref="gmap" :center="center" :zoom="zoomLevel" :options="options" @click="initPostEvent">
+    <MarkerMyLocation :myLocation="myLocation" />
     <GoogleMapInfoWindow />
     <gmap-cluster :max-zoom="10" :zoom-on-click="true">
       <MarkerEvent />
     </gmap-cluster>
     <MarkerPostEvent />
     <MarkerSearchPlace />
-    <gmap-marker v-if="myLocation" :position="myLocation.location" :title="myLocation.name"></gmap-marker>
   </gmap-map>
 </template>
 
@@ -18,6 +18,7 @@ import GmapCluster from "vue2-google-maps/dist/components/cluster";
 import checkPermission from "@/utilitys/checkPermission";
 import GoogleMapInfoWindow from "./GoogleMapInfoWindow";
 import MarkerEvent from "./MarkerEvent";
+import MarkerMyLocation from "./MarkerMyLocation";
 import MarkerPostEvent from "./MarkerPostEvent";
 import MarkerSearchPlace from "./MarkerSearchPlace";
 export default {
@@ -26,6 +27,7 @@ export default {
     GmapCluster,
     GoogleMapInfoWindow,
     MarkerEvent,
+    MarkerMyLocation,
     MarkerPostEvent,
     MarkerSearchPlace
   },
@@ -41,6 +43,7 @@ export default {
         streetViewControl: false
       },
       directionsService: null,
+      geocoder: null,
       isDirections: false
     };
   },
@@ -61,6 +64,7 @@ export default {
     this.$gmapApiPromiseLazy().then(async gmap => {
       const trafficLayer = new gmap.maps.TrafficLayer();
       trafficLayer.setMap(this.$refs.gmap.$mapObject);
+      this.geocoder = new gmap.maps.Geocoder();
       this.directionsService = new gmap.maps.DirectionsService();
       const directionsRenderer = new gmap.maps.DirectionsRenderer();
       directionsRenderer.setMap(this.$refs.gmap.$mapObject);
@@ -76,7 +80,9 @@ export default {
     ...mapActions("googleMap", [
       "setMapObject",
       "setGoogleClass",
-      "setMyLocation"
+      "setMyLocation",
+      "setCenter",
+      "setZoomLevel"
     ]),
     ...mapActions("direction", [
       "setDirectionsResponse",
@@ -86,11 +92,19 @@ export default {
     ]),
     ...mapActions("postEvent", ["setPostEventLocation"]),
 
-    aa: function(e) {
-      console.log(JSON.stringify(e.latLng));
-      this.setPostEventLocation({
-        name: "ตำแหน่งที่จะทำการแจ้งเหตุ",
-        location: { lat: e.latLng.lat(), lng: e.latLng.lng() }
+    initPostEvent: function(e) {
+      const location = { lat: e.latLng.lat(), lng: e.latLng.lng() };
+      this.geocoder.geocode({ location }, (response, status) => {
+        let title = "";
+        if (status === "OK") {
+          if (response[0]) title = response[0].formatted_address;
+        }
+        this.setPostEventLocation({
+          title,
+          location
+        });
+        this.setZoomLevel(20);
+        this.setCenter(location);
       });
     },
     getRoute: function(startLocation, stopLocation) {
@@ -109,7 +123,7 @@ export default {
         },
         async (response, status) => {
           if (status === "OK") {
-            console.log(response);
+            // console.log(response);
             // console.log(JSON.stringify(response));
             // const { data } = await axios.get(
             //   `${process.env.VUE_APP_DIRECTION_RECORD_URL}/record/5d5d295cd6927600422718d1`
@@ -140,7 +154,8 @@ export default {
 };
 </script>
 <style scoped>
-.vue-map-container {
+.vue-map-container,
+.vue-map-container .vue-map {
   width: 100%;
   height: 100%;
 }
