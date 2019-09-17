@@ -84,6 +84,7 @@
                     placeholder="ค่าเริ่มต้นระบบจะคำนวนให้"
                     suffix="ชั่วโมง"
                     :rules="[rules.maxHours]"
+                    clearable
                   />
                 </v-flex>
               </v-layout>
@@ -237,7 +238,7 @@ export default {
         start.setMinutes(minutes);
       }
       let stop = new Date(start);
-      if (!this.stopHours) stop = null;
+      if (!Number(this.stopHours)) stop = null;
       else stop.setHours(stop.getHours() + Number(this.stopHours));
       return { start, stop };
     },

@@ -11,7 +11,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
-  name: "MarkerSearchPlace",
+  name: "MarkerPostEvent",
   computed: {
     ...mapGetters("postEvent", ["postEventMarker"])
   },

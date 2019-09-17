@@ -15,9 +15,9 @@ exports.createEvent = async body => {
   }
   const result = await event.create({ ...body, stop });
   logInfo("Create event complete", result.dataValues);
-  if (new Date(event.stop) > new Date()) {
+  if (new Date(result.stop) > new Date()) {
     sendEventToMessageQueue([result]);
-    io.getIO().emit("event", { action: "create", event });
+    io.getIO().emit("event", { action: "create", event: result });
   }
   return result;
 };
