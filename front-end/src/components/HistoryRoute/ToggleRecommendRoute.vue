@@ -2,7 +2,7 @@
   <div>
     <v-layout row justify-center class="hidden-sm-and-up">
       <v-flex xs12 lg12 md12 class="ToggleRecommendRoute">
-        <v-btn color="green" dark @click.stop="dialog = true">ดูเส้นทางที่แนะนำอื่นๆ</v-btn>
+        <v-btn round color="green" dark @click.stop="dialog = true">ดูเส้นทางที่แนะนำอื่นๆ</v-btn>
       </v-flex>
       <v-dialog v-model="dialog" max-width="290">
         <v-card>
@@ -46,8 +46,8 @@ export default {
 </script>
 <style scoped>
 .ToggleRecommendRoute {
-  bottom: 3%;
-  right: 25%;
+  bottom: 7%;
+  right: 12%;
   position: absolute;
   z-index: 1;
 }

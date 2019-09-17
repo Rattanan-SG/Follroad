@@ -21,6 +21,7 @@
       </v-layout>
       <RefreshSnackBar />
       <ToggleRecommendRoute v-if="directionsResponse" />
+      <ToggleSpecificEvent v-if="directionsResponse"/>
       <CurrentPositionButton />
       <LoginDialog />
       <MessageSnackbar />
@@ -60,6 +61,11 @@ const ToggleRecommendRoute = () =>
     /* webpackPrefetch: true */
     /* webpackChunkName: "togglerecommendroute" */ "./components/HistoryRoute/ToggleRecommendRoute"
   );
+const ToggleSpecificEvent = () =>
+  import(
+    /* webpackPrefetch: true */
+    /* webpackChunkName: "togglerecommendroute" */ "./components/HistoryRoute/ToggleSpecificEvent"
+  );
 const LoginDialog = () =>
   import(
     /* webpackPrefetch: true */
@@ -82,6 +88,7 @@ export default {
     BottomMenuBar,
     CurrentPositionButton,
     ToggleRecommendRoute,
+    ToggleSpecificEvent,
     LoginDialog,
     MessageSnackbar
   },

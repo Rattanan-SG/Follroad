@@ -23,7 +23,7 @@ export default {
 <style scoped>
 .currentPositionButton {
   bottom: 7%;
-  right: 1%;
+  right: 0%;
   position: absolute;
   z-index: 1;
 }
