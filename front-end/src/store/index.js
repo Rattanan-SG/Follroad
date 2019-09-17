@@ -6,7 +6,7 @@ import googleMap from "./modules/google-map";
 import infoWindow from "./modules/info-window";
 import search from "./modules/search";
 import direction from "./modules/direction";
-import globalDialog from "./modules/global-dialog";
+import globalFeedback from "./modules/global-feedback";
 import directionRecord from "./modules/direction-record";
 import postEvent from "./modules/post-event";
 
@@ -20,7 +20,7 @@ export default new Vuex.Store({
     googleMap,
     infoWindow,
     direction,
-    globalDialog,
+    globalFeedback,
     directionRecord,
     postEvent
   }

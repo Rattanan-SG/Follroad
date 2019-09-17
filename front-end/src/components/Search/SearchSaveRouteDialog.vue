@@ -265,7 +265,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("globalDialog", ["setLoginDialog"]),
+    ...mapActions("globalFeedback", ["setLoginDialog"]),
     ...mapActions("directionRecord", ["updateDirectionRecordById"]),
     openDialog: function() {
       if (!this.$auth.isAuthenticated()) {

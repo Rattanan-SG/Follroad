@@ -28,10 +28,10 @@ export default {
   computed: {
     loginDialog: {
       get() {
-        return this.$store.state.globalDialog.loginDialog;
+        return this.$store.state.globalFeedback.loginDialog;
       },
       set(value) {
-        this.$store.commit("globalDialog/SET_LOGIN_DIALOG", value);
+        this.$store.commit("globalFeedback/SET_LOGIN_DIALOG", value);
       }
     }
   },

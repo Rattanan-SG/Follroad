@@ -153,7 +153,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions("globalDialog", ["setLoginDialog"]),
+    ...mapActions("globalFeedback", ["setLoginDialog"]),
 
     openDialog: function() {
       if (!this.$auth.isAuthenticated()) {
@@ -191,7 +191,7 @@ export default {
         this.error = false;
         const data = this.getEventData();
         try {
-          await event.postEvent(data);
+          const responseEvent = await event.postEvent(data);
           this.completePostEvent();
           this.closeInfoWindow();
         } catch (error) {
