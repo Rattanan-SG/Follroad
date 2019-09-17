@@ -3,6 +3,7 @@
     v-if="postEventMarker"
     :position="postEventMarker.position"
     :title="postEventMarker.title"
+    :animation="2"
     @click="setInfoWindow(postEventMarker)"
   ></gmap-marker>
 </template>

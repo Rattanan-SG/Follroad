@@ -3,6 +3,7 @@
     v-if="searchPlaceMarker"
     :position="searchPlaceMarker.position"
     :title="searchPlaceMarker.title"
+    :animation="2"
     @click="setInfoWindow(searchPlaceMarker)"
   ></gmap-marker>
 </template>

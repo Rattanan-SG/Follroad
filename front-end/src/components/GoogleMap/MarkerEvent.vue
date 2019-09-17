@@ -6,6 +6,7 @@
       :position="eventMarker.position"
       :title="eventMarker.title"
       :icon="eventMarker.icon"
+      :animation="2"
       @click="setInfoWindow(eventMarker)"
     ></gmap-marker>
   </div>

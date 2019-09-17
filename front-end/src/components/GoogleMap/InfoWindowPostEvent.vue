@@ -113,7 +113,7 @@
 
         <v-card-actions class="pt-0">
           <v-spacer></v-spacer>
-          <v-btn color="red white--text" @click="closeInfoWindow">ยกเลิก</v-btn>
+          <v-btn color="red white--text" @click="cancel">ยกเลิก</v-btn>
           <v-btn
             color="blue white--text"
             :disabled="loading"
@@ -194,6 +194,10 @@ export default {
           this.loading = false;
         }
       }
+    },
+    cancel: function() {
+      this.completePostEvent();
+      this.closeInfoWindow();
     },
     getEventData: function() {
       const { name, sub } = this.$auth.profile;

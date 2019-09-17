@@ -1,5 +1,5 @@
 <template>
-  <gmap-map ref="gmap" :center="center" :zoom="zoomLevel" :options="options" @click="aa">
+  <gmap-map ref="gmap" :center="center" :zoom="zoomLevel" :options="options" @click="initPostEvent">
     <GoogleMapInfoWindow />
     <gmap-cluster :max-zoom="10" :zoom-on-click="true">
       <MarkerEvent />
@@ -41,6 +41,7 @@ export default {
         streetViewControl: false
       },
       directionsService: null,
+      geocoder: null,
       isDirections: false
     };
   },
@@ -61,6 +62,7 @@ export default {
     this.$gmapApiPromiseLazy().then(async gmap => {
       const trafficLayer = new gmap.maps.TrafficLayer();
       trafficLayer.setMap(this.$refs.gmap.$mapObject);
+      this.geocoder = new gmap.maps.Geocoder();
       this.directionsService = new gmap.maps.DirectionsService();
       const directionsRenderer = new gmap.maps.DirectionsRenderer();
       directionsRenderer.setMap(this.$refs.gmap.$mapObject);
@@ -86,11 +88,18 @@ export default {
     ]),
     ...mapActions("postEvent", ["setPostEventLocation"]),
 
-    aa: function(e) {
+    initPostEvent: function(e) {
       console.log(JSON.stringify(e.latLng));
-      this.setPostEventLocation({
-        name: "ตำแหน่งที่จะทำการแจ้งเหตุ",
-        location: { lat: e.latLng.lat(), lng: e.latLng.lng() }
+      const location = { lat: e.latLng.lat(), lng: e.latLng.lng() };
+      this.geocoder.geocode({ location }, (response, status) => {
+        let title = "";
+        if (status === "OK") {
+          if (response[0]) title = response[0].formatted_address;
+        }
+        this.setPostEventLocation({
+          title,
+          location
+        });
       });
     },
     getRoute: function(startLocation, stopLocation) {
@@ -140,7 +149,8 @@ export default {
 };
 </script>
 <style scoped>
-.vue-map-container {
+.vue-map-container,
+.vue-map-container .vue-map {
   width: 100%;
   height: 100%;
 }
