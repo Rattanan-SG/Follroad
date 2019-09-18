@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import io from "socket.io-client";
 import VueSocketIOExt from "vue-socket.io-extended";
+import VueLuxon from "vue-luxon";
 import AuthPlugin from "./plugins/auth";
 import * as VueGoogleMaps from "vue2-google-maps";
 import "./plugins/vuetify";
@@ -12,6 +13,7 @@ Vue.config.productionTip = false;
 
 const socket = io(process.env.VUE_APP_SOCKET_URL);
 Vue.use(VueSocketIOExt, socket, { store });
+Vue.use(VueLuxon)
 Vue.use(AuthPlugin);
 Vue.use(VueGoogleMaps, {
   load: {
