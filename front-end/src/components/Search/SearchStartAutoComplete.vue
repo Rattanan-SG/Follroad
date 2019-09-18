@@ -80,7 +80,7 @@ export default {
     ...mapActions("direction", ["setStartLocation"]),
     setStartToMyLocation: function() {
       this.isMyLocationActive = true;
-      this.$refs.startAutoComplete.$el.value = this.myLocation.title;
+      this.$refs.startAutoComplete.$el.value = this.myLocation.name;
       this.setStartLocation(this.myLocation);
     },
     setStartPlace: function(place) {
@@ -89,7 +89,7 @@ export default {
           this.isMyLocationActive = false;
           this.$refs.startAutoComplete.$el.value = place.name;
           this.setStartLocation({
-            title: place.name,
+            name: place.name,
             location: place.geometry.location
           });
         }

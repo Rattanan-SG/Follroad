@@ -3,7 +3,7 @@
     <gmap-marker
       v-if="myLocation"
       :position="myLocation.location"
-      :title="myLocation.title"
+      :title="myLocation.name"
       @click="toggleInfoWindow()"
     ></gmap-marker>
     <gmap-info-window
@@ -37,9 +37,9 @@ export default {
   },
   methods: {
     toggleInfoWindow: function() {
-      const { location, title } = this.myLocation;
+      const { location, name } = this.myLocation;
       this.infoWindowPos = location;
-      this.infoOptions.content = title;
+      this.infoOptions.content = name;
       this.infoWinOpen = !this.infoWinOpen;
     }
   }
