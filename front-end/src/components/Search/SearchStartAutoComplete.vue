@@ -89,7 +89,7 @@ export default {
           this.isMyLocationActive = false;
           this.$refs.startAutoComplete.$el.value = place.name;
           this.setStartLocation({
-            name: place.name,
+            title: place.name,
             location: place.geometry.location
           });
         }

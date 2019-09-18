@@ -65,7 +65,7 @@ export default {
       if (this.searchPlace) {
         this.$refs.destinationAutoComplete.$el.value = this.searchPlace.name;
         this.setDestinationLocation({
-          name: this.searchPlace.name,
+          title: this.searchPlace.name,
           location: this.searchPlace.geometry.location
         });
       }
@@ -75,7 +75,7 @@ export default {
         if (place.geometry) {
           this.setSearchPlace(place);
           this.setDestinationLocation({
-            name: place.name,
+            title: place.name,
             location: place.geometry.location
           });
         }

@@ -220,8 +220,8 @@ export default {
       dialog: false,
       valid: false,
       id: null,
-      start: this.startLocation && this.startLocation.name,
-      destination: this.destinationLocation && this.destinationLocation.name,
+      start: this.startLocation && this.startLocation.title,
+      destination: this.destinationLocation && this.destinationLocation.title,
       name: null,
       rules: {
         required: value => !!value || "กรุณากรอกข้อมูล",
