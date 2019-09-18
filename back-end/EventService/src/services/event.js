@@ -57,7 +57,12 @@ exports.syncIticEvent = async () => {
   const eventFilter = response[1].filter(
     item => !databaseEventEid.includes(item.eid)
   );
-  const dataList = eventFilter.map(event => ({ ...event, source: "itic" }));
+  const dataList = eventFilter.map(event => ({
+    ...event,
+    start: DateTime.fromSQL(event.start).toUTC(),
+    stop: DateTime.fromSQL(event.stop).toUTC(),
+    source: "itic"
+  }));
   if (eventFilter.length > 0) {
     logDebug("New Event to insert", {
       length: eventFilter.length,

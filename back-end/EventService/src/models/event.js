@@ -1,12 +1,11 @@
 "use strict";
 const Sequelize = require("sequelize");
-const { DateTime } = require("luxon");
+const Op = Sequelize.Op;
 const {
   EVENT_CATEGORY,
   EVENT_SOURCE,
   EVENT_MAPPING
 } = require("../utils/constant");
-const Op = Sequelize.Op;
 
 module.exports = (sequelize, DataTypes) => {
   const event = sequelize.define(
@@ -62,22 +61,11 @@ module.exports = (sequelize, DataTypes) => {
       start: {
         allowNull: false,
         type: DataTypes.DATE,
-        defaultValue: Sequelize.NOW,
-        get() {
-          return DateTime.fromJSDate(this.getDataValue("start")).toFormat(
-            "yyyy-LL-dd HH:mm:ss"
-          );
-        }
+        defaultValue: Sequelize.NOW
       },
       stop: {
         allowNull: false,
-        type: DataTypes.DATE,
-        defaultValue: Sequelize.NOW,
-        get() {
-          return DateTime.fromJSDate(this.getDataValue("stop")).toFormat(
-            "yyyy-LL-dd HH:mm:ss"
-          );
-        }
+        type: DataTypes.DATE
       },
       contributor: {
         allowNull: false,
