@@ -12,9 +12,9 @@ import "./registerServiceWorker";
 Vue.config.productionTip = false;
 
 const socket = io(process.env.VUE_APP_SOCKET_URL);
-Vue.use(VueSocketIOExt, socket, { store });
-Vue.use(VueLuxon)
 Vue.use(AuthPlugin);
+Vue.use(VueSocketIOExt, socket, { store });
+Vue.use(VueLuxon);
 Vue.use(VueGoogleMaps, {
   load: {
     libraries: "places,geometry,directions",

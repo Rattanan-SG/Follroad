@@ -16,10 +16,10 @@
                   </div>
                   <div id="abc" class="ml-1">
                     เริ่ม
-                    : {{event.start}}
+                    : {{ event.start | luxon:locale('shortS') }}
                     <br />
                     สิ้นสุด
-                    : {{event.stop}}
+                    : {{ event.stop | luxon:locale('shortS') }}
                   </div>
                 </div>
               </v-card-title>
