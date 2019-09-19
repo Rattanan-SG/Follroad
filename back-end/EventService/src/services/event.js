@@ -59,8 +59,12 @@ exports.syncIticEvent = async () => {
   );
   const dataList = eventFilter.map(event => ({
     ...event,
-    start: DateTime.fromSQL(event.start).toUTC(),
-    stop: DateTime.fromSQL(event.stop).toUTC(),
+    start: DateTime.fromSQL(event.start, {
+      zone: "Asia/Bangkok"
+    }).toUTC(),
+    stop: DateTime.fromSQL(event.stop, {
+      zone: "Asia/Bangkok"
+    }).toUTC(),
     source: "itic"
   }));
   if (eventFilter.length > 0) {
