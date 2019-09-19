@@ -34,8 +34,8 @@
         <br />
       </v-card-text>
       <v-card-text class="pa-0">
-        <div>เกิดขึ้น ณ {{marker.eventCaption.startTime | luxon:locale('shortS')}}</div>
-        <div>จะสิ้นสุดใน {{marker.eventCaption.stopTime | luxon:locale('shortS')}}</div>
+        <div class="body-1">เกิดขึ้น ณ {{marker.eventCaption.startTime | luxon:locale('short')}}</div>
+        <div class="body-1">จะสิ้นสุดใน {{marker.eventCaption.stopTime | luxon:locale('short')}}</div>
       </v-card-text>
       <v-card-actions>
         <v-btn flat icon color="blue lighten-2" v-on:click="countLike++">

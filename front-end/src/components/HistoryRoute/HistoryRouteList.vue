@@ -13,7 +13,7 @@
             <v-list-tile-sub-title
               class="text--primary"
             >จาก {{ record.start.name }} --> {{ record.destination.name }}</v-list-tile-sub-title>
-            <v-list-tile-sub-title>แก้ไข้ล่าสุดเมื่อ {{ record.updatedAt | luxon:locale('shortS') }}</v-list-tile-sub-title>
+            <v-list-tile-sub-title>แก้ไข้ล่าสุดเมื่อ {{ record.updatedAt | luxon:locale('short') }}</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-divider :key="`d${index}`"></v-divider>
@@ -35,7 +35,7 @@
               <v-list-tile-sub-title
                 class="text--primary"
               >จาก {{ record.start.name }} ไป {{ record.destination.name }}</v-list-tile-sub-title>
-              <v-list-tile-sub-title>แก้ไข้ล่าสุดเมื่อ {{ record.updatedAt | luxon:locale('shortS') }}</v-list-tile-sub-title>
+              <v-list-tile-sub-title>แก้ไข้ล่าสุดเมื่อ {{ record.updatedAt | luxon:locale('short') }}</v-list-tile-sub-title>
             </v-flex>
           </v-list-tile-content>
         </v-list-tile>

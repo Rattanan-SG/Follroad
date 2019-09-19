@@ -22,8 +22,12 @@
           <v-divider></v-divider>
         </v-card-text>
         <v-card-text>
-          <div>เกิดขึ้น ณ {{infoWindow.marker.eventCaption.startTime | luxon:locale('shortS')}}</div>
-          <div>จะสิ้นสุดใน {{infoWindow.marker.eventCaption.stopTime | luxon:locale('shortS')}}</div>
+          <div
+            class="body-1"
+          >เกิดขึ้น ณ {{infoWindow.marker.eventCaption.startTime | luxon:locale('short')}}</div>
+          <div
+            class="body-1"
+          >จะสิ้นสุดใน {{infoWindow.marker.eventCaption.stopTime | luxon:locale('short')}}</div>
         </v-card-text>
 
         <v-flex xs12 md12 lg12>
