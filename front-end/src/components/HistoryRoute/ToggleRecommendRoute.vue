@@ -12,12 +12,14 @@
             <v-spacer></v-spacer>
           </v-toolbar>
           <div class="recommendRoute">
-            <v-checkbox
-              v-for="(route, index) in directionsResponse.routes"
-              :key="index"
-              :value="index"
-              :label="`${route.summary} ระยะทาง ${route.legs[0].distance.text} ประมาณ ${route.legs[0].duration.text}`"
-            ></v-checkbox>
+            <v-radio-group v-model="radios" :mandatory="false">
+              <v-radio
+                v-for="(route, index) in directionsResponse.routes"
+                :key="index"
+                :value="index"
+                :label="`${route.summary} ระยะทาง ${route.legs[0].distance.text} ประมาณ ${route.legs[0].duration.text}`"
+              ></v-radio>
+            </v-radio-group>
           </div>
           <v-divider />
           <v-card-actions>
@@ -36,7 +38,8 @@ export default {
   name: "ToggleRecommendRoute",
   data() {
     return {
-      dialog: false
+      dialog: false,
+      radios: 'radio-1'
     };
   },
   computed: {
