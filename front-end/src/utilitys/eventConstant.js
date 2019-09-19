@@ -39,7 +39,7 @@ function selectIcon(event) {
   switch (event.type) {
     case 1:
       icon =
-        "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/carbreakdown.png";
+        "https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/carbreakdown2.png";
       break;
     case 2:
       icon =
@@ -47,7 +47,7 @@ function selectIcon(event) {
       break;
     case 3:
       icon =
-        "https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/accident.png";
+        "https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/accident2.png";
       break;
     case 5:
       icon =
@@ -55,7 +55,7 @@ function selectIcon(event) {
       break;
     case 6:
       icon =
-        "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/flood.png";
+        "https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/flood2.png";
       break;
     case 7:
       icon =
