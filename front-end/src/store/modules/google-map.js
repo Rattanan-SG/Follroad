@@ -6,7 +6,8 @@ const state = {
     lng: 100.5018
   },
   zoomLevel: 15,
-  myLocation: null
+  myLocation: null,
+  watchId: null
 };
 
 const getters = {
@@ -24,6 +25,9 @@ const getters = {
   },
   myLocation: state => {
     return state.myLocation;
+  },
+  watchId: state => {
+    return state.watchId;
   }
 };
 
@@ -74,9 +78,38 @@ const actions = {
               // user said no
             }
           },
-          { enableHighAccuracy: true, timeout: 5000 }
+          { enableHighAccuracy: false, timeout: 5000, maximumAge: 0 }
         );
+        dispatch("startWatchMyLocation");
       });
+    }
+  },
+  startWatchMyLocation: ({ commit, dispatch }) => {
+    if (navigator.geolocation) {
+      return new Promise(resolve => {
+        const watchId = navigator.geolocation.watchPosition(
+          async position => {
+            let lat = parseFloat(position.coords.latitude);
+            let lng = parseFloat(position.coords.longitude);
+            commit("SET_MY_LOCATION", {
+              name: "ตำแหน่งปัจจุบัน",
+              location: { lat: lat, lng: lng }
+            });
+            resolve();
+          },
+          error => {
+            console.warn("ERROR(" + error.code + "): " + error.message);
+          },
+          { enableHighAccuracy: false, timeout: 5000, maximumAge: 0 }
+        );
+        commit("SET_WATCH_ID", watchId);
+      });
+    }
+  },
+  stopWatchMyLocation: ({ state, commit }) => {
+    if (state.watchId && navigator.geolocation) {
+      navigator.geolocation.clearWatch(state.watchId);
+      commit("SET_WATCH_ID", null);
     }
   },
   resetCenterToMyLocation: async ({ state, dispatch }) => {
@@ -104,6 +137,9 @@ const mutations = {
   },
   SET_MY_LOCATION: (state, myLocation) => {
     state.myLocation = myLocation;
+  },
+  SET_WATCH_ID: (state, watchId) => {
+    state.watchId = watchId;
   }
 };
 

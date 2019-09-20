@@ -21,7 +21,7 @@
       </v-layout>
       <RefreshSnackBar />
       <ToggleRecommendRoute v-if="directionsResponse" />
-      <ToggleSpecificEvent v-if="directionsResponse"/>
+      <ToggleSpecificEvent v-if="directionsResponse" />
       <CurrentPositionButton />
       <LoginDialog />
       <MessageSnackbar />
@@ -109,9 +109,12 @@ export default {
   },
   methods: {
     ...mapActions("route", ["setRouterView"]),
-    ...mapActions("event", ["fetchEvents"])
+    ...mapActions("event", ["fetchEvents"]),
+    ...mapActions("googleMap", ["stopWatchMyLocation"])
   },
-  destroyed() {}
+  beforeDestroy() {
+    this.stopWatchMyLocation();
+  }
 };
 </script>
 <style scoped>
