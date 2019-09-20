@@ -2,11 +2,8 @@ const state = {
   loginDialog: false,
   messageSnackbar: false,
   messageSnackbarOption: {
-    y: "top",
-    x: "right",
     color: "success",
-    mode: "multi-line",
-    timeout: 5000,
+    timeout: 8000,
     text: "Message"
   }
 };

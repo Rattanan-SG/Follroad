@@ -69,7 +69,7 @@ const actions = {
       dispatch("fetchEvents");
       dispatch(
         "globalFeedback/setMessageSnackbarOption",
-        { text: `มีเหตุการณ์ใหม่เกิดขึ้น ${event} จุด`, color: "success" },
+        { text: `อัพเดทเหตุการณ์ใหม่จาก ITIC ${event} จุด`, color: "success" },
         { root: true }
       );
     }

@@ -1,13 +1,10 @@
 <template>
   <v-snackbar
     v-model="messageSnackbar"
-    :top="messageSnackbarOption.y === 'top'"
-    :bottom="messageSnackbarOption.y === 'bottom'"
-    :left="messageSnackbarOption.x === 'left'"
-    :right="messageSnackbarOption.x === 'right'"
+    top
+    right
+    multi-line
     :timeout="messageSnackbarOption.timeout"
-    :multi-line="messageSnackbarOption.mode === 'multi-line'"
-    :vertical="messageSnackbarOption.mode === 'vertical'"
     :color="messageSnackbarOption.color"
   >
     {{ messageSnackbarOption.text }}
