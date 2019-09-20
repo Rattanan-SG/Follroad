@@ -7,20 +7,31 @@
     <v-list v-if="!!directionRecords.length" three-line>
       <template v-for="(record, index) in directionRecords">
         <v-list-tile class="mt-1" :key="index" avatar ripple @click="startHistoryRoute(record)">
-          <v-list-tile-content>
+          <v-flex mr-2 xs1 md1 lg1>
             <v-card-actions>
-              <v-flex mt-3 ml-3 xs1 md1 lg1>
-                <v-icon size="40px">home</v-icon>
-              </v-flex>
+              <v-btn flat icon color="red lighten-1">
+                <v-icon size="35px">place</v-icon>
+              </v-btn>
             </v-card-actions>
-            <v-flex ml-1 xs9 md9 lg9>
-              <v-list-tile-title>{{ record.name }}</v-list-tile-title>
-              <v-list-tile-sub-title
-                class="text--primary"
-              >จาก {{ record.start.name }} --> {{ record.destination.name }}</v-list-tile-sub-title>
+          </v-flex>
+          <v-flex ml-4 xs10 md10 lg10>
+            <v-list-tile-content>
+              <h3>{{ record.name }}</h3>
+              <v-list-tile-sub-title class="text--primary">
+                จาก {{ record.start.name }}
+                <v-icon size="20px">arrow_right_alt</v-icon>
+                {{ record.destination.name }}
+              </v-list-tile-sub-title>
               <v-list-tile-sub-title>แก้ไข้ล่าสุด ณ {{ formatUpdatedAt(record.updatedAt) }}</v-list-tile-sub-title>
-            </v-flex>
-          </v-list-tile-content>
+            </v-list-tile-content>
+          </v-flex>
+          <v-flex mr-2 xs1 md1 lg1>
+            <v-card-actions>
+              <v-btn flat icon color="grey">
+                <v-icon size="30px">delete</v-icon>
+              </v-btn>
+            </v-card-actions>
+          </v-flex>
         </v-list-tile>
         <v-divider :key="`d${index}`"></v-divider>
       </template>
