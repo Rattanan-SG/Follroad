@@ -25,7 +25,8 @@
       </v-layout>
 
       <v-layout>
-        <v-flex xs12 lg12 mt-5>
+        <v-flex xs12 lg12 md12 mt-5>
+          <!-- <transition name="slide"> -->
           <v-list-tile avatar ripple to="/historyroute">
             <v-list-tile-action>
               <v-icon size="35px" color="orange">save</v-icon>
@@ -36,11 +37,13 @@
             <v-spacer />
             <v-icon>navigate_next</v-icon>
           </v-list-tile>
+          <!-- </transition> -->
         </v-flex>
       </v-layout>
+
       <v-divider></v-divider>
       <v-layout>
-        <v-flex xs12 lg12>
+        <v-flex xs12 lg12 md12>
           <v-list-tile avatar ripple :disabled="btnDisabled" @click="handleClick">
             <v-list-tile-action>
               <v-icon size="35px" color="indigo">settings</v-icon>
@@ -55,7 +58,7 @@
       </v-layout>
       <v-divider></v-divider>
       <v-layout>
-        <v-flex xs12 lg12>
+        <v-flex xs12 lg12 md12>
           <v-list-tile avatar ripple @click="logout">
             <v-list-tile-action>
               <v-icon size="35px" color="indigo">logout</v-icon>
@@ -72,6 +75,7 @@
     </v-list>
   </v-container>
 </template>
+
 <script>
 import axios from "axios";
 import urlB64ToUint8Array from "@/utilitys/urlB64ToUint8Array";

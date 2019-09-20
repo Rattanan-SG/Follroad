@@ -80,8 +80,6 @@ export default {
           this.startLocation.location,
           this.destinationLocation.location
         );
-        this.startLocationName = this.startLocation.name;
-        this.destinationLocationName = this.destinationLocation.name;
         this.$vuetify.breakpoint.xsOnly
           ? this.setRouterView(false)
           : this.setRouterView(true);

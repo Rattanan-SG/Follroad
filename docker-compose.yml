@@ -10,8 +10,6 @@ services:
     volumes:
       - ./back-end/EventService:/app
       - /app/node_modules
-    environment:
-      TZ: Asia/Bangkok
   message-queue:
     build: ./back-end/MessageQueueServiceProducer
     command: ["npm", "run", "dev"]
@@ -61,7 +59,6 @@ services:
       MYSQL_USER: admin
       MYSQL_PASSWORD: dev
       MYSQL_DATABASE: dev
-      TZ: Asia/Bangkok
   mongodb:
     image: mongo
     restart: always

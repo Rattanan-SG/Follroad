@@ -14,12 +14,12 @@
                   <div id="title" class="ml-1">
                     <h3>{{event.title}}</h3>
                   </div>
-                  <div id="abc" class="ml-1">
+                  <div id="abc" class="ml-1 body-1">
                     เริ่ม
-                    : {{event.start}}
+                    : {{ event.start | luxon:locale('short') }}
                     <br />
                     สิ้นสุด
-                    : {{event.stop}}
+                    : {{ event.stop | luxon:locale('short') }}
                   </div>
                 </div>
               </v-card-title>

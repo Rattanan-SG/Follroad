@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-layout>
+    <v-layout v-if="!!infoWindow.marker">
       <v-flex xs12 md12 lg12>
         <v-layout>
           <v-flex xs2 md2 lg2 mt-4 ml-4>
@@ -22,8 +22,12 @@
           <v-divider></v-divider>
         </v-card-text>
         <v-card-text>
-          <div>เกิดเหตุการณ์ขึ้น ณ : {{infoWindow.marker.eventCaption.startTime}}</div>
-          <div>จะสิ้นสุดใน : {{infoWindow.marker.eventCaption.stopTime}}</div>
+          <div
+            class="body-1"
+          >เกิดขึ้น ณ {{infoWindow.marker.eventCaption.startTime | luxon:locale('short')}}</div>
+          <div
+            class="body-1"
+          >จะสิ้นสุดใน {{infoWindow.marker.eventCaption.stopTime | luxon:locale('short')}}</div>
         </v-card-text>
 
         <v-flex xs12 md12 lg12>
@@ -43,12 +47,11 @@
     <!-- <v-flex ml-3 mr-3>
       <v-divider></v-divider>
     </v-flex>-->
-    <br />
 
-    <v-layout>
+    <v-layout v-if="!!infoWindow.marker">
       <v-flex mt-3 ml-3 xs1 md1 lg1>
         <v-avatar size="30px">
-          <img :src="profile.picture" alt="avatar" />
+          <img :src="profile ? profile.picture : '../assets/logo.svg'" alt="avatar" />
         </v-avatar>
       </v-flex>
       <v-flex ml-3 xs9 md9 lg9>
@@ -71,7 +74,7 @@
         </v-flex>
     </v-layout>-->
 
-    <v-list three-line>
+    <v-list three-line v-if="!!infoWindow.marker">
       <template>
         <v-list-tile>
           <v-flex mt-1 xs1 md1 lg1>
@@ -95,7 +98,7 @@
       <v-divider></v-divider>
     </v-flex>
 
-    <v-list three-line>
+    <v-list three-line v-if="!!infoWindow.marker">
       <template>
         <v-list-tile>
           <v-flex mt-1 xs1 md1 lg1>
