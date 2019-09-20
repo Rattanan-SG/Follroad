@@ -8,7 +8,7 @@
     <v-list v-if="!!directionRecords.length" three-line>
       <template v-for="(record, index) in directionRecords">
         <v-list-tile class="mt-1" :key="index" avatar ripple @click="startHistoryRoute(record)">
-          <v-flex mr-2 xs1 md1 lg1>
+          <v-flex mr-2 mb-1 xs1 md1 lg1>
             <v-card-actions>
               <v-btn flat icon color="red lighten-1">
                 <v-icon size="35px">place</v-icon>
