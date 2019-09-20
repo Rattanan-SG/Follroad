@@ -87,6 +87,7 @@ exports.syncIticEvent = async () => {
     });
     logInfo("Update event complete", { affectedRows: result.length });
     sendEventToMessageQueue(dataList);
+    io.getIO().emit("event", { action: "sync", event: result.length });
     return result;
   } else {
     logInfo("Not have event to update");

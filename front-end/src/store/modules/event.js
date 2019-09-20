@@ -65,6 +65,13 @@ const actions = {
         { text: `เกิดเหตุการณ์ ${event.title}`, color: "success" },
         { root: true }
       );
+    } else if (action === "sync") {
+      dispatch("fetchEvents");
+      dispatch(
+        "globalFeedback/setMessageSnackbarOption",
+        { text: `มีเหตุการณ์ใหม่เกิดขึ้น ${event} จุด`, color: "success" },
+        { root: true }
+      );
     }
   }
 };
