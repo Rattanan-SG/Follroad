@@ -84,7 +84,7 @@ const actions = {
       });
     }
   },
-  startWatchMyLocation: ({ commit, dispatch }) => {
+  startWatchMyLocation: ({ commit }) => {
     if (navigator.geolocation) {
       return new Promise(resolve => {
         const watchId = navigator.geolocation.watchPosition(

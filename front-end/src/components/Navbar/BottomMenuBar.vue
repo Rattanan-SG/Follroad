@@ -1,16 +1,15 @@
 <template>
-  <v-bottom-nav app fixed dark :value="true" color="indigo">
-    <v-btn flat @click="closeRouterview">
+  <v-bottom-nav app fixed dark :active.sync="bottomNav" :value="true" color="indigo">
+    <v-btn flat key="Home" value="Home" @click="setRouterView(false)">
       <span>Home</span>
       <v-icon>home</v-icon>
     </v-btn>
     <v-btn
-      router
-      flat
       v-for="list in lists"
+      flat
       :key="list.text"
-      :to="list.route"
-      @click="setRouterView(true)"
+      :value="list.text"
+      @click="changeRoute(list.path)"
     >
       <span>{{list.text}}</span>
       <v-icon>{{list.icon}}</v-icon>
@@ -24,18 +23,20 @@ export default {
   name: "BottomMenuBar",
   data() {
     return {
+      bottomNav: "Home",
       lists: [
-        { text: "Feed", icon: "today", route: "/" },
-        { text: "Search", icon: "directions", route: "/search" },
-        { text: "Forum", icon: "forum", route: "/news" },
-        { text: "Profile", icon: "person", route: "/profile" }
+        { text: "Feed", icon: "today", path: "/" },
+        { text: "Search", icon: "directions", path: "/search" },
+        { text: "Forum", icon: "forum", path: "/news" },
+        { text: "Profile", icon: "person", path: "/profile" }
       ]
     };
   },
   methods: {
     ...mapActions("route", ["setRouterView"]),
-    closeRouterview: function() {
-      this.setRouterView(false);
+    changeRoute: function(path) {
+      if (this.$route.path != path) this.$router.push(path);
+      this.setRouterView(true);
     }
   }
 };

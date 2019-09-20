@@ -10,7 +10,7 @@
         <span class="title font-weight-light">{{title}}</span>
       </v-flex>
       <v-flex xs2>
-        <v-btn icon @click="closeRouterView">
+        <v-btn icon @click="setRouterView(false)">
           <v-icon medium>close</v-icon>
         </v-btn>
       </v-flex>
@@ -29,10 +29,7 @@ export default {
   },
   computed: {},
   methods: {
-    ...mapActions("route", ["setRouterView"]),
-    closeRouterView: function() {
-      this.setRouterView(false);
-    }
+    ...mapActions("route", ["setRouterView"])
   }
 };
 </script>
