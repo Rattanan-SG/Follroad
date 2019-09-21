@@ -24,7 +24,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="red darken-1" flat="flat" @click="dialog = false">ปิด</v-btn>
-            <v-btn color="green darken-1" flat="flat" @click="dialog = false">ตกลง</v-btn>
+            <v-btn color="green darken-1" flat="flat" @click="submit">ตกลง</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -32,7 +32,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "ToggleRecommendRoute",
   data() {
@@ -42,7 +42,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("direction", ["directionsResponse"])
+    ...mapGetters("direction", ["directionsRenderer", "directionsResponse"])
+  },
+  methods: {
+    ...mapActions("direction", ["selectRoute"]),
+    submit: function() {
+      this.directionsRenderer.setRouteIndex(this.radios);
+      this.selectRoute(this.radios);
+      this.dialog = false;
+    }
   }
 };
 </script>
