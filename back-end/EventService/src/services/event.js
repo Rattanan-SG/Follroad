@@ -23,12 +23,20 @@ exports.createEvent = async body => {
 };
 
 exports.getEvent = query => {
-  const { limit, startFrom, ...where } = query;
+  const { limit, startFrom, lastId, ...where } = query;
   if (limit) {
-    let time;
-    startFrom ? (time = new Date(startFrom)) : (time = new Date());
+    let start, id;
+    startFrom
+      ? (start = DateTime.fromISO(startFrom).toUTC())
+      : (start = DateTime.local().toUTC());
+    lastId ? (id = lastId) : (id = 0);
+    console.log(555);
+
     return event.findAll(
-      { ...where, start: { [Op.lt]: time } },
+      {
+        ...where,
+        [Op.or]: [{ start: { [Op.lt]: +start } }, { id: { [Op.gt]: id } }]
+      },
       {
         scope: ["activeEvent"],
         limit: Number(limit)

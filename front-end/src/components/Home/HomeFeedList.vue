@@ -4,7 +4,7 @@
       <v-divider v-if="index + 1 < event.length" :key="`divider-${index}`"></v-divider>
       <HomeFeedItem :key="index" :event="event"></HomeFeedItem>
     </template>
-    <infinite-loading :identifier="infiniteId" @infinite="getEvents"></infinite-loading>
+    <infinite-loading spinner="spiral" :identifier="infiniteId" @infinite="getEvents"></infinite-loading>
   </v-list>
 </template>
 
