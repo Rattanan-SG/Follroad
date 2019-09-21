@@ -20,9 +20,6 @@
         </v-flex>
       </v-layout>
       <RefreshSnackBar />
-      <ToggleRecommendRoute v-if="directionsResponse" />
-      <ToggleSpecificEvent v-if="directionsResponse" />
-      <CurrentPositionButton />
       <LoginDialog />
       <ConfirmDialog />
       <MessageSnackbar />
@@ -52,21 +49,6 @@ const BottomMenuBar = () =>
     /* webpackPrefetch: true */
     /* webpackChunkName: "bottommenubar" */ "./components/Navbar/BottomMenuBar"
   );
-const CurrentPositionButton = () =>
-  import(
-    /* webpackPrefetch: true */
-    /* webpackChunkName: "currentpositionbutton" */ "./components/FloatingButton/CurrentPositionButton"
-  );
-const ToggleRecommendRoute = () =>
-  import(
-    /* webpackPrefetch: true */
-    /* webpackChunkName: "togglerecommendroute" */ "./components/HistoryRoute/ToggleRecommendRoute"
-  );
-const ToggleSpecificEvent = () =>
-  import(
-    /* webpackPrefetch: true */
-    /* webpackChunkName: "togglerecommendroute" */ "./components/HistoryRoute/ToggleSpecificEvent"
-  );
 const LoginDialog = () =>
   import(
     /* webpackPrefetch: true */
@@ -93,16 +75,12 @@ export default {
     GoogleMap,
     RefreshSnackBar,
     BottomMenuBar,
-    CurrentPositionButton,
-    ToggleRecommendRoute,
-    ToggleSpecificEvent,
     LoginDialog,
     ConfirmDialog,
     MessageSnackbar
   },
   computed: {
-    ...mapGetters("route", ["routerView"]),
-    ...mapGetters("direction", ["directionsResponse"])
+    ...mapGetters("route", ["routerView"])
   },
   async created() {
     this.fetchEvents();

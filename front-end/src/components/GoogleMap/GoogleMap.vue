@@ -7,6 +7,9 @@
     </gmap-cluster>
     <MarkerPostEvent />
     <MarkerSearchPlace />
+    <CurrentPositionButton slot="visible" />
+    <ToggleRecommendRoute v-if="isDirections" slot="visible" />
+    <ToggleSpecificEvent v-if="isDirections" slot="visible" />
   </gmap-map>
 </template>
 
@@ -21,6 +24,9 @@ import MarkerEvent from "./MarkerEvent";
 import MarkerMyLocation from "./MarkerMyLocation";
 import MarkerPostEvent from "./MarkerPostEvent";
 import MarkerSearchPlace from "./MarkerSearchPlace";
+import CurrentPositionButton from "@/components/FloatingButton/CurrentPositionButton";
+import ToggleRecommendRoute from "@/components/FloatingButton/ToggleRecommendRoute";
+import ToggleSpecificEvent from "@/components/FloatingButton/ToggleSpecificEvent";
 export default {
   name: "GoogleMap",
   components: {
@@ -29,7 +35,10 @@ export default {
     MarkerEvent,
     MarkerMyLocation,
     MarkerPostEvent,
-    MarkerSearchPlace
+    MarkerSearchPlace,
+    CurrentPositionButton,
+    ToggleRecommendRoute,
+    ToggleSpecificEvent
   },
   data() {
     return {
