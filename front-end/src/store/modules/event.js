@@ -52,9 +52,7 @@ const getters = {
 
 const actions = {
   fetchEvents: ({ commit }) => {
-    event.getEvents().then(data => {
-      commit("SET_EVENTS", data);
-    });
+    return event.getEvents().then(data => commit("SET_EVENTS", data));
   },
   socket_event: ({ dispatch, commit }, data) => {
     const { action, event } = data;
