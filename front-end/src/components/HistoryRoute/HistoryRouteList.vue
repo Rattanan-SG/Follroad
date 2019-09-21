@@ -5,7 +5,7 @@
     </div>
 
     <!-- ต้นฉบับ จะแสดงเมื่อ user เคยมีบันทึกเส้นทางไว้ -->
-    <v-list v-if="!!directionRecords.length" three-line>
+    <v-list v-if="!loading && !!directionRecords.length" three-line>
       <template v-for="(record, index) in directionRecords">
         <v-list-tile class="mt-1" :key="index" avatar ripple @click="startHistoryRoute(record)">
           <v-flex mr-2 mb-1 xs1 md1 lg1>
@@ -28,7 +28,7 @@
           </v-flex>
           <v-flex mr-2 xs1 md1 lg1>
             <v-card-actions>
-              <v-btn flat icon color="grey">
+              <v-btn flat icon color="grey" @click.stop="openConfirmDialog">
                 <v-icon size="30px">delete</v-icon>
               </v-btn>
             </v-card-actions>
@@ -69,18 +69,18 @@ export default {
     ...mapGetters("directionRecord", ["directionRecords"])
   },
   watch: {
-    uid(value) {
-      if (value)
-        this.fetchDirectionRecordsByUid(this.uid).then(() => {
-          this.loading = false;
-        });
+    async uid(value) {
+      if (value) {
+        await this.fetchDirectionRecordsByUid(this.uid);
+        this.loading = false;
+      }
     }
   },
-  created() {
-    if (this.$auth.profile)
-      this.fetchDirectionRecordsByUid(this.$auth.profile.sub).then(() => {
-        this.loading = false;
-      });
+  async created() {
+    if (this.$auth.profile) {
+      await this.fetchDirectionRecordsByUid(this.$auth.profile.sub);
+      this.loading = false;
+    }
   },
   methods: {
     ...mapActions("route", ["setRouterView"]),
@@ -106,7 +106,7 @@ export default {
       this.setDirectionsResponse(record.direction);
       this.startDirectionsRenderer();
     },
-    handleLoginEvent(data) {
+    handleLoginEvent: function(data) {
       this.uid = data.profile.sub;
     }
   }

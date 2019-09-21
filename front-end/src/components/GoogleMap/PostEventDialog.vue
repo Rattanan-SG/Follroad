@@ -156,7 +156,7 @@ export default {
   methods: {
     ...mapActions("globalFeedback", [
       "setLoginDialog",
-      "setMessageSnackbarOption"
+      "openMessageSnackbar"
     ]),
 
     openDialog: function() {
@@ -244,7 +244,7 @@ export default {
     },
     checkEventIsNotActive: function(event) {
       if (new Date() > new Date(event.stop)) {
-        this.setMessageSnackbarOption({
+        this.openMessageSnackbar({
           text: `แจ้งเหตุสำเร็จแต่ ${event.title} นั้นสิ้นสุดเหตุการณ์แล้ว`,
           color: "cyan darken-2"
         });

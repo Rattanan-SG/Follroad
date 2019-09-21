@@ -8,7 +8,7 @@
     :color="messageSnackbarOption.color"
   >
     {{ messageSnackbarOption.text }}
-    <v-btn dark flat @click="snackbar = false">ปิด</v-btn>
+    <v-btn dark flat @click="messageSnackbar = false">ปิด</v-btn>
   </v-snackbar>
 </template>
 

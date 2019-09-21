@@ -18,8 +18,11 @@ const getters = {
 
 const actions = {
   fetchDirectionRecordsByUid: ({ commit }, uid) => {
-    directionRecord.getRecords({ uid }).then(data => {
-      commit("SET_DIRECTION_RECORDS", data);
+    return new Promise(resolve => {
+      directionRecord.getRecords({ uid }).then(data => {
+        commit("SET_DIRECTION_RECORDS", data);
+        resolve();
+      });
     });
   },
   updateDirectionRecordById: ({ commit }, payloadWithId) => {

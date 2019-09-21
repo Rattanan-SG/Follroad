@@ -61,14 +61,14 @@ const actions = {
     if (action === "create") {
       commit("ADD_NEW_EVENT", event);
       dispatch(
-        "globalFeedback/setMessageSnackbarOption",
+        "globalFeedback/openMessageSnackbar",
         { text: `เกิดเหตุการณ์ ${event.title}`, color: "success" },
         { root: true }
       );
     } else if (action === "sync") {
       dispatch("fetchEvents");
       dispatch(
-        "globalFeedback/setMessageSnackbarOption",
+        "globalFeedback/openMessageSnackbar",
         { text: `อัปเดตเหตุการณ์ใหม่จาก ITIC ${event} จุด`, color: "success" },
         { root: true }
       );
