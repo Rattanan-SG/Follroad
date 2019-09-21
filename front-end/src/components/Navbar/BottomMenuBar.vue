@@ -1,14 +1,14 @@
 <template>
   <v-bottom-nav app fixed dark :active.sync="bottomNav" :value="true" color="indigo">
     <v-btn flat key="Home" value="Home" @click="setRouterView(false)">
-      <span>Home</span>
+      <span>แผนที่</span>
       <v-icon>home</v-icon>
     </v-btn>
     <v-btn
       v-for="list in lists"
       flat
       :key="list.text"
-      :value="list.text"
+      :value="list.value"
       @click="changeRoute(list.path)"
     >
       <span>{{list.text}}</span>
@@ -25,10 +25,15 @@ export default {
     return {
       bottomNav: "Home",
       lists: [
-        { text: "Feed", icon: "today", path: "/" },
-        { text: "Search", icon: "directions", path: "/search" },
-        { text: "Forum", icon: "forum", path: "/news" },
-        { text: "Profile", icon: "person", path: "/profile" }
+        { value: "Feed", text: "เหตุการณ์", icon: "today", path: "/" },
+        {
+          value: "Directions",
+          text: "เดินทาง",
+          icon: "directions",
+          path: "/search"
+        },
+        { value: "Forum", text: "ข่าว", icon: "forum", path: "/news" },
+        { value: "Profile", text: "โปรไฟล์", icon: "person", path: "/profile" }
       ]
     };
   },
