@@ -1,10 +1,14 @@
 const { logError } = require("../utils/logger");
 
-module.exports = async (err, req, res, next) => {
-  const { status, statusCode } = err;
-  logError("error-middleware", {
+module.exports = async (error, req, res, next) => {
+  console.log(error);
+  logError("Unplanned Error happen", {
     req: req.originalUrl,
-    error: err
+    error: error.toString()
   });
-  return res.status(status || statusCode || 500).json(err);
+  return res.status(500).send({
+    error: "GENERIC",
+    description: "Something went wrong. Please try again or contact support.",
+    message: error.toString()
+  });
 };
