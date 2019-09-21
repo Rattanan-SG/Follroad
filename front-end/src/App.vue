@@ -24,6 +24,7 @@
       <ToggleSpecificEvent v-if="directionsResponse" />
       <CurrentPositionButton />
       <LoginDialog />
+      <ConfirmDialog />
       <MessageSnackbar />
     </v-content>
     <BottomMenuBar v-if="this.$vuetify.breakpoint.xsOnly" />
@@ -72,6 +73,12 @@ const LoginDialog = () =>
     /* webpackChunkName: "logindialog" */
     "./components/Feedback/LoginDialog"
   );
+const ConfirmDialog = () =>
+  import(
+    /* webpackPrefetch: true */
+    /* webpackChunkName: "confirmdialog" */
+    "./components/Feedback/ConfirmDialog"
+  );
 const MessageSnackbar = () =>
   import(
     /* webpackPrefetch: true */
@@ -90,6 +97,7 @@ export default {
     ToggleRecommendRoute,
     ToggleSpecificEvent,
     LoginDialog,
+    ConfirmDialog,
     MessageSnackbar
   },
   computed: {

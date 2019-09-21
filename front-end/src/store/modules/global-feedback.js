@@ -2,6 +2,7 @@ const state = {
   loginDialog: false,
   confirmDialog: false,
   confirmDialogOption: {
+    id: null,
     text: "Message",
     submitActions: null
   },

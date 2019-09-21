@@ -189,13 +189,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red darken-1" flat @click="dialog = false">ยกเลิก</v-btn>
-              <v-btn
-                color="blue darken-1"
-                flat
-                :disabled="loading"
-                :loading="loading"
-                @click="submit"
-              >บันทึก</v-btn>
+              <v-btn color="blue darken-1" flat :loading="loading" @click="submit">บันทึก</v-btn>
             </v-card-actions>
           </v-card>
         </v-form>
@@ -285,8 +279,7 @@ export default {
             const { _id } = await directionRecord.postRecord(data);
             this.id = _id;
           } else {
-            const record = await directionRecord.patchRecordById(this.id, data);
-            this.updateDirectionRecordById({ id: this.id, record });
+            await this.updateDirectionRecordById({ _id: this.id, data });
           }
           this.success = true;
         } catch (error) {

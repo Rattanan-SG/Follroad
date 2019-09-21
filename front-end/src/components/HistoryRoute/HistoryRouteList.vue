@@ -28,7 +28,7 @@
           </v-flex>
           <v-flex mr-2 xs1 md1 lg1>
             <v-card-actions>
-              <v-btn flat icon color="grey" @click.stop="openConfirmDialog">
+              <v-btn flat icon color="grey" @click.stop="deleteHistoryRoute(record._id)">
                 <v-icon size="30px">delete</v-icon>
               </v-btn>
             </v-card-actions>
@@ -86,6 +86,7 @@ export default {
     ...mapActions("route", ["setRouterView"]),
     ...mapActions("directionRecord", [
       "fetchDirectionRecordsByUid",
+      "deleteDirectionRecordById",
       "setHistoryMode"
     ]),
     ...mapActions("direction", [
@@ -94,6 +95,7 @@ export default {
       "setDirectionsResponse",
       "startDirectionsRenderer"
     ]),
+    ...mapActions("globalFeedback", ["openConfirmDialog"]),
 
     startHistoryRoute: function(record) {
       this.setHistoryMode({ recordId: record._id });
@@ -105,6 +107,13 @@ export default {
       this.setDestinationLocation(record.destination);
       this.setDirectionsResponse(record.direction);
       this.startDirectionsRenderer();
+    },
+    deleteHistoryRoute: function(id) {
+      this.openConfirmDialog({
+        id,
+        text: `ลบบันทึกเส้นทางนี้`,
+        submitActions: this.deleteDirectionRecordById
+      });
     },
     handleLoginEvent: function(data) {
       this.uid = data.profile.sub;
