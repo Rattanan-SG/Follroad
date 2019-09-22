@@ -8,16 +8,16 @@
     <v-list v-if="!loading && !!directionRecords.length" three-line>
       <template v-for="(record, index) in directionRecords">
         <v-list-tile class="mt-1" :key="index" avatar ripple @click="startHistoryRoute(record)">
-          <v-flex mr-2 mb-1 xs1 md1 lg1>
+          <v-flex mb-1 mr-2 xs1 md1 lg1>
             <v-card-actions>
               <v-btn flat icon color="red lighten-1">
                 <v-icon size="35px">place</v-icon>
               </v-btn>
             </v-card-actions>
           </v-flex>
-          <v-flex ml-4 xs10 md10 lg10>
+          <v-flex ml-4 xs8 md7 lg8>
             <v-list-tile-content>
-              <h3>{{ record.name }}</h3>
+              <v-list-tile-title class="font-weight-black">{{ record.name }}</v-list-tile-title>
               <v-list-tile-sub-title class="text--primary">
                 จาก {{ record.start.name }}
                 <v-icon size="20px">arrow_right_alt</v-icon>
@@ -26,7 +26,8 @@
               <v-list-tile-sub-title>แก้ไข้ล่าสุดเมื่อ {{ record.updatedAt | luxon:locale('shortS') }}</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-flex>
-          <v-flex mr-2 xs1 md1 lg1>
+
+          <v-flex ml-2 xs1 md1 lg1>
             <v-card-actions>
               <v-btn flat icon color="grey" @click.stop="deleteHistoryRoute(record._id)">
                 <v-icon size="30px">delete</v-icon>
@@ -34,6 +35,7 @@
             </v-card-actions>
           </v-flex>
         </v-list-tile>
+
         <v-divider :key="`d${index}`"></v-divider>
       </template>
     </v-list>
