@@ -1,41 +1,64 @@
 <template>
-  <v-card flat class="mb-2" color="deep-orange lighten-1 black--text">
+  <v-card flat class="mb-2" color="#26c6da" dark>
     <v-layout row wrap align-start justify-center fill-height>
       <v-layout>
-        <v-flex>
+        <v-flex xs1 md1 lg1 mt-4 ml-3>
+          <v-img :src="getIcon()" max-width="40" max-height="40" left></v-img>
+        </v-flex>
+        <v-flex xs10 md10 lg10 mt-1 mr-3>
+          <!-- <v-list-tile>
+            <v-list-tile-avatar>
+              <v-img :src="getIcon()" max-width="40" max-height="40" left></v-img>
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <span class="font-weight-light">{{event.title}}</span>
+            </v-list-tile-content>
+          </v-list-tile>-->
           <v-card-title primary-title>
             <div>
-              <div id="title" class="ml-1">
-                <h3>{{event.title}}</h3>
-              </div>
-              <div id="abc" class="ml-1 body-1">
-                เริ่ม
-                : {{ event.start | luxon:locale('short') }}
-                <br />
-                สิ้นสุด
-                : {{ event.stop | luxon:locale('short') }}
-              </div>
+              <h3>{{event.title}}</h3>
             </div>
           </v-card-title>
         </v-flex>
       </v-layout>
+
       <v-flex xs12>
-        <div id="description">
+        <!-- <div id="description">
           {{event.description}}
-          <br />
-          <v-icon size="40px">account_circle</v-icon>
-          by {{event.contributor}}
-        </div>
+        </div>-->
+        <v-card-text>{{event.description}}</v-card-text>
+        <v-card-title>
+          <span class="font-weight-light">
+            เกิดขึ้น ณ
+            : {{ event.start | luxon:locale('short') }}
+            <br />
+            จะสิ้นสุดใน
+            : {{ event.stop | luxon:locale('short') }}
+            <br />
+            <v-icon medium>person_pin</v-icon>
+            โดย {{event.contributor}}
+          </span>
+        </v-card-title>
       </v-flex>
     </v-layout>
   </v-card>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import eventConstant from "@/utilitys/eventConstant";
 export default {
   name: "NewsFeedItem",
   props: {
     event: Object
+  },
+  computed: {
+    ...mapGetters("event", ["eventMarkerByEventId"])
+  },
+  methods: {
+    getIcon: function() {
+      return eventConstant.selectIcon(this.event);
+    }
   }
 };
 </script>
