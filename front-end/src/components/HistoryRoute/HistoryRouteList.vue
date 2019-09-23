@@ -23,7 +23,7 @@
                 <v-icon size="20px">arrow_right_alt</v-icon>
                 {{ record.destination.name }}
               </v-list-tile-sub-title>
-              <v-list-tile-sub-title>แก้ไข้ล่าสุดเมื่อ {{ record.updatedAt | luxon:locale('shortS') }}</v-list-tile-sub-title>
+              <v-list-tile-sub-title>แก้ไขล่าสุดเมื่อ {{ record.updatedAt | luxon:locale('shortS') }}</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-flex>
 
