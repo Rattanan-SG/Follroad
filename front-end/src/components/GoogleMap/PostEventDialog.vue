@@ -62,6 +62,7 @@
                         prepend-icon="access_time"
                         placeholder="ค่าเริ่มต้นคือเวลาปัจจุบัน"
                         readonly
+                        :rules="[rules.notMoreThanNow]"
                         clearable
                         v-on="on"
                       ></v-text-field>
@@ -83,7 +84,7 @@
                     label="สิ้นสุดในอีกกี่ชั่วโมง"
                     placeholder="ค่าเริ่มต้นระบบจะคำนวนให้"
                     suffix="ชั่วโมง"
-                    :rules="[rules.maxHours]"
+                    :rules="[rules.maxDuration]"
                     clearable
                   />
                 </v-flex>
@@ -147,17 +148,18 @@ export default {
       image: "",
       rules: {
         required: value => !!value || "กรุณากรอกข้อมูล",
-        maxHours: value => value <= 24 || "ระยะเวลาไม่เกิน 24 ชั่วโมง"
+        notMoreThanNow: value => {
+          const date = this.getDateFromTimeString(value);
+          return +date <= +new Date() || "เวลาต้องไม่เกินเวลาปัจจุบัน";
+        },
+        maxDuration: value => value <= 24 || "ระยะเวลาไม่เกิน 24 ชั่วโมง"
       },
       loading: false,
       error: false
     };
   },
   methods: {
-    ...mapActions("globalFeedback", [
-      "setLoginDialog",
-      "openMessageSnackbar"
-    ]),
+    ...mapActions("globalFeedback", ["setLoginDialog", "openMessageSnackbar"]),
 
     openDialog: function() {
       if (!this.$auth.isAuthenticated()) {
@@ -196,7 +198,7 @@ export default {
         const data = this.getEventData();
         try {
           const responseEvent = await event.postEvent(data);
-          this.checkEventIsNotActive(responseEvent);
+          this.checkEventStatus(responseEvent);
           this.completePostEvent();
           this.closeInfoWindow();
         } catch (error) {
@@ -229,26 +231,31 @@ export default {
         source: "follroad"
       };
     },
-    calculateStartAndStopFromData: function() {
-      const start = new Date();
-      if (typeof this.startTime === "string") {
-        const hours = this.startTime.match(/^(\d+)/)[1];
-        const minutes = this.startTime.match(/:(\d+)/)[1];
-        start.setHours(hours);
-        start.setMinutes(minutes);
+    getDateFromTimeString: function(timeString) {
+      const date = new Date();
+      if (typeof timeString === "string") {
+        const hours = timeString.match(/^(\d+)/)[1];
+        const minutes = timeString.match(/:(\d+)/)[1];
+        date.setHours(hours);
+        date.setMinutes(minutes);
       }
+      return date;
+    },
+    calculateStartAndStopFromData: function() {
+      const start = this.getDateFromTimeString(this.startTime);
       let stop = new Date(start);
       if (!Number(this.stopHours)) stop = null;
       else stop.setHours(stop.getHours() + Number(this.stopHours));
       return { start, stop };
     },
-    checkEventIsNotActive: function(event) {
+    checkEventStatus: function(event) {
       if (new Date() > new Date(event.stop)) {
         this.openMessageSnackbar({
           text: `แจ้งเหตุสำเร็จแต่ ${event.title} นั้นสิ้นสุดเหตุการณ์แล้ว`,
           color: "cyan darken-2"
         });
-      } else return;
+        return false;
+      } else return true;
     }
   }
 };
