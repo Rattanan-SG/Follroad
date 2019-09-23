@@ -15,10 +15,6 @@ const subscriptionSchema = new mongoose.Schema(
     keys: {
       p256dh: { type: String, required: true },
       auth: { type: String, required: true }
-    },
-    option: {
-      all: { type: Boolean, default: true },
-      specific: { type: Boolean, default: false }
     }
   },
   { timestamps: true }
