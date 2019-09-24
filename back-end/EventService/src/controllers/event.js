@@ -17,12 +17,12 @@ exports.getEventById = asyncWrapper(async (req, res) => {
 });
 
 exports.patchEventById = asyncWrapper(async (req, res) => {
-  const result = await event.patchEventById(req.params.id, req.body);
+  const result = await event.patchEventById(req.params.id, req.user, req.body);
   res.send(result);
 });
 
 exports.deleteEventById = asyncWrapper(async (req, res) => {
-  const result = await event.deleteEventById(req.params.id);
+  const result = await event.deleteEventById(req.params.id, req.user);
   res.send(result);
 });
 

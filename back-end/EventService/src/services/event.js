@@ -7,6 +7,7 @@ const { event } = require("../domains");
 const { EVENT_SOURCE, EVENT_MAPPING } = require("../utils/constant");
 const { formatEventToSendMessageQueue } = require("../utils/format-event");
 const { logInfo, logDebug } = require("../utils/logger");
+const CustomError = require("../utils/custom-error");
 
 exports.createEvent = async body => {
   let stop = body.stop;
@@ -49,9 +50,15 @@ exports.getEvent = query => {
 
 exports.getEventById = id => event.findByPk(id);
 
-exports.patchEventById = (id, body) => event.updateByPk(id, body);
+exports.patchEventById = async (id, user, body) => {
+  await checkEventKeyAndOwner(id, user);
+  return event.updateByPk(id, body);
+};
 
-exports.deleteEventById = id => event.deleteByPk(id);
+exports.deleteEventById = async (id, user) => {
+  await checkEventKeyAndOwner(id, user);
+  return event.deleteByPk(id);
+};
 
 exports.syncIticEvent = async () => {
   const response = await Promise.all([
@@ -101,6 +108,23 @@ exports.syncIticEvent = async () => {
     logInfo("Not have event to update");
     return { message: "Not have event to update" };
   }
+};
+
+const checkEventKeyAndOwner = async (id, user) => {
+  const { sub: uid } = user;
+  const result = await event.findByPk(id);
+  if (!result)
+    throw new CustomError(
+      "EVENT_NOT_FOUND",
+      400,
+      `Not found event with this id: ${id}`
+    );
+  if (result.uid != uid)
+    throw new CustomError(
+      "FORBIDDEN",
+      403,
+      `You do not have rights for this resource`
+    );
 };
 
 const calculateDefaultStopFromType = ({ start, type }) => {
