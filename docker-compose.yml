@@ -66,26 +66,6 @@ services:
       - "27017:27017"
     volumes:
       - mongodb:/data/db
-  # external-event:
-  #   build: ./back-end/ExternalEventService
-  #   command: ["npm", "run", "dev"]
-  #   ports:
-  #     - "3000:3000"
-  #   links:
-  #     - mariadb:database
-  #   volumes:
-  #     - ./back-end/ExternalEventService:/app
-  #     - /app/node_modules
-  #   environment:
-  #     TZ: Asia/Bangkok
-  # test:
-  #   build: ./back-end/Test
-  #   command: ["npm", "run", "dev"]
-  #   ports:
-  #     - "9000:9000"
-  #   volumes:
-  #     - ./back-end/Test:/app
-  #     - /app/node_modules
   # web:
   #   build: ./front-end
   #   ports:
