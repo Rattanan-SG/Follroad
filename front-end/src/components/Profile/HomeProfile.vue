@@ -70,7 +70,7 @@ export default {
       const subscription = await registration.pushManager.getSubscription();
       this.isSubscribed = !(subscription === null);
       if (this.isSubscribed) {
-        this.syncSubscription(subscription);
+        await this.syncSubscription(subscription);
       }
       this.updateBtn();
     } catch (err) {
