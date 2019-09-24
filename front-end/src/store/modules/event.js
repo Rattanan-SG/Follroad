@@ -1,4 +1,4 @@
-import event from "@/api/event";
+import eventApi from "@/api/event";
 import eventConstant from "@/utilitys/eventConstant";
 
 const state = {
@@ -52,7 +52,7 @@ const getters = {
 
 const actions = {
   fetchEvents: ({ commit }) => {
-    return event.getEvents().then(data => commit("SET_EVENTS", data));
+    return eventApi.getEvents().then(data => commit("SET_EVENTS", data));
   },
   socket_event: ({ dispatch, commit }, data) => {
     const { action, event } = data;

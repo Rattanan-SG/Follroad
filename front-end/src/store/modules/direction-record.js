@@ -1,4 +1,4 @@
-import directionRecord from "@/api/direction-record";
+import directionRecordApi from "@/api/direction-record";
 const state = {
   directionRecords: [],
   historyMode: null
@@ -18,18 +18,18 @@ const getters = {
 
 const actions = {
   fetchDirectionRecordsByUid: ({ commit }, uid) => {
-    return directionRecord
+    return directionRecordApi
       .getRecords({ uid })
       .then(data => commit("SET_DIRECTION_RECORDS", data));
   },
-  updateDirectionRecordById: ({ commit }, { _id, data }) => {
-    return directionRecord
-      .patchRecordById(_id, data)
+  updateDirectionRecordById: ({ commit }, { _id, data, config }) => {
+    return directionRecordApi
+      .patchRecordById(_id, data, config)
       .then(data => commit("UPDATE_DIRECTION_RECORD_BY_ID", data));
   },
-  deleteDirectionRecordById: ({ commit }, _id) => {
-    return directionRecord
-      .deleteRecordById(_id)
+  deleteDirectionRecordById: ({ commit }, { _id, config }) => {
+    return directionRecordApi
+      .deleteRecordById(_id, config)
       .then(({ _id }) => commit("DELETE_DIRECTION_RECORD_BY_ID", _id));
   },
   setHistoryMode: ({ commit }, historyMode) => {

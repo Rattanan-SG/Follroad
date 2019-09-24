@@ -1,23 +1,31 @@
 import axios from "axios";
 
-const event = axios.create({
+const eventService = axios.create({
   baseURL: process.env.VUE_APP_EVENT_URL
 });
 
-const getEvents = params => {
-  return event.get("/event", { params }).then(response => response.data);
+const getEvents = (params, config) => {
+  return eventService
+    .get("/event", { params, ...config })
+    .then(response => response.data);
 };
 
-const postEvent = data => {
-  return event.post("/event", data).then(response => response.data);
+const postEvent = (data, config) => {
+  return eventService
+    .post("/event", data, config)
+    .then(response => response.data);
 };
 
-const patchEventById = (id, data) => {
-  return event.patch(`/event/${id}`, data).then(response => response.data);
+const patchEventById = (id, data, config) => {
+  return eventService
+    .patch(`/event/${id}`, data, config)
+    .then(response => response.data);
 };
 
 const deleteEventById = (id, config) => {
-  return event.delete(`/event/${id}`, config).then(response => response.data);
+  return eventService
+    .delete(`/event/${id}`, config)
+    .then(response => response.data);
 };
 
 export default {
