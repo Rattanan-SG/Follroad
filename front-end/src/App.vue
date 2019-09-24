@@ -39,28 +39,31 @@ const GoogleMap = () =>
     /* webpackPrefetch: true */
     /* webpackChunkName: "googlemap" */ "./components/GoogleMap/GoogleMap"
   );
-const RefreshSnackBar = () =>
-  import(
-    /* webpackPrefetch: true */
-    /* webpackChunkName: "refreshsnackbar" */ "./components/RefreshSnackBar.vue"
-  );
 const BottomMenuBar = () =>
   import(
     /* webpackPrefetch: true */
     /* webpackChunkName: "bottommenubar" */ "./components/Navbar/BottomMenuBar"
   );
+const RefreshSnackBar = () =>
+  import(
+    /* webpackPrefetch: true */
+    /* webpackChunkName: "refreshsnackbar" */ "./components/RefreshSnackBar.vue"
+  );
 const LoginDialog = () =>
   import(
+    /* webpackPrefetch: true */
     /* webpackChunkName: "logindialog" */
     "./components/Feedback/LoginDialog"
   );
 const ConfirmDialog = () =>
   import(
+    /* webpackPrefetch: true */
     /* webpackChunkName: "confirmdialog" */
     "./components/Feedback/ConfirmDialog"
   );
 const MessageSnackbar = () =>
   import(
+    /* webpackPrefetch: true */
     /* webpackChunkName: "messagesnackbar" */
     "./components/Feedback/MessageSnackbar"
   );

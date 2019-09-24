@@ -36,7 +36,7 @@ const checkDirectionRecordKeyAndOwner = async (id, user) => {
   const result = await DirectionRecord.findById(id).lean();
   if (!result)
     throw new CustomError(
-      "EVENT_NOT_FOUND",
+      "DIRECTION_RECORD_NOT_FOUND",
       400,
       `Not found direction record with this id: ${id}`
     );
