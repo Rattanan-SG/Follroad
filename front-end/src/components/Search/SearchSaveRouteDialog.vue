@@ -200,7 +200,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import directionRecord from "@/api/direction-record";
+import directionRecordApi from "@/api/direction-record";
 export default {
   name: "SearchSaveRouteDialog",
   props: {
@@ -275,11 +275,24 @@ export default {
         this.error = false;
         const data = this.getDirectionRecordData();
         try {
+          const accessToken = await this.$auth.getAccessToken();
           if (!this.id) {
-            const { _id } = await directionRecord.postRecord(data);
+            const { _id } = await directionRecordApi.postRecord(data, {
+              headers: {
+                Authorization: `Bearer ${accessToken}`
+              }
+            });
             this.id = _id;
           } else {
-            await this.updateDirectionRecordById({ _id: this.id, data });
+            await this.updateDirectionRecordById({
+              _id: this.id,
+              data,
+              config: {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`
+                }
+              }
+            });
           }
           this.success = true;
         } catch (error) {

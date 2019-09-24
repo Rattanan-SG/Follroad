@@ -110,11 +110,22 @@ export default {
       this.setDirectionsResponse(record.direction);
       this.startDirectionsRenderer();
     },
-    deleteHistoryRoute: function(id) {
+    deleteHistoryRoute: function(_id) {
       this.openConfirmDialog({
-        id,
+        _id,
         text: `ลบบันทึกเส้นทางนี้`,
-        submitActions: this.deleteDirectionRecordById
+        submitActions: () => this.handleDeleteHistoryRoute(_id)
+      });
+    },
+    handleDeleteHistoryRoute: async function(_id) {
+      const accessToken = await this.$auth.getAccessToken();
+      return this.deleteDirectionRecordById({
+        _id,
+        config: {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        }
       });
     },
     handleLoginEvent: function(data) {

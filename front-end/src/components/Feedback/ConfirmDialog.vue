@@ -40,8 +40,8 @@ export default {
   methods: {
     submit: async function() {
       this.confirmLoading = true;
-      const { id, submitActions } = this.confirmDialogOption;
-      if (submitActions) await submitActions(id);
+      const { submitActions } = this.confirmDialogOption;
+      if (submitActions) await submitActions();
       this.confirmLoading = false;
       this.confirmDialog = false;
     }

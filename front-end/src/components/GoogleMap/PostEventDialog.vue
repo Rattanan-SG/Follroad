@@ -125,7 +125,7 @@
 
 <script>
 import { mapActions } from "vuex";
-import event from "@/api/event";
+import eventApi from "@/api/event";
 import eventConstant from "@/utilitys/eventConstant";
 export default {
   name: "PostEventDialog",
@@ -197,7 +197,12 @@ export default {
         this.error = false;
         const data = this.getEventData();
         try {
-          const responseEvent = await event.postEvent(data);
+          const accessToken = await this.$auth.getAccessToken();
+          const responseEvent = await eventApi.postEvent(data, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`
+            }
+          });
           this.checkEventStatus(responseEvent);
           this.completePostEvent();
           this.closeInfoWindow();

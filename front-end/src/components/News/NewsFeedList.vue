@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import event from "@/api/event";
 import NewsFeedItem from "./NewsFeedItem.vue";
 import InfiniteLoading from "vue-infinite-loading";
+import eventApi from "@/api/event";
 export default {
   components: {
     NewsFeedItem,
@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     getEvents: async function($state) {
-      const events = await event.getEvents({
+      const events = await eventApi.getEvents({
         limit: this.limit,
         startFrom: this.startFrom,
         lastId: this.lastId

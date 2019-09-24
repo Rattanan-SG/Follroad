@@ -1,7 +1,8 @@
 <template>
   <v-list two-line>
     <template v-for="(event, index) in eventList">
-      <v-divider v-if="index + 1 < event.length" :key="`divider-${index}`"></v-divider>
+      <v-subheader v-if="index == 0" :key="`header-${index}`" inset>เหตุการณ์ที่ยังคงเกิดขึ้น</v-subheader>
+      <v-divider v-if="index == 0" :key="`divider-${index}`" inset></v-divider>
       <HomeFeedItem :key="index" :event="event"></HomeFeedItem>
     </template>
     <infinite-loading spinner="spiral" :identifier="infiniteId" @infinite="getEvents"></infinite-loading>
