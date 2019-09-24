@@ -51,19 +51,16 @@ const BottomMenuBar = () =>
   );
 const LoginDialog = () =>
   import(
-    /* webpackPrefetch: true */
     /* webpackChunkName: "logindialog" */
     "./components/Feedback/LoginDialog"
   );
 const ConfirmDialog = () =>
   import(
-    /* webpackPrefetch: true */
     /* webpackChunkName: "confirmdialog" */
     "./components/Feedback/ConfirmDialog"
   );
 const MessageSnackbar = () =>
   import(
-    /* webpackPrefetch: true */
     /* webpackChunkName: "messagesnackbar" */
     "./components/Feedback/MessageSnackbar"
   );
