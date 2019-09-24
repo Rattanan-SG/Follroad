@@ -4,8 +4,8 @@
     <v-layout justify-center mb-2>
       <HomeFilterEventCategory />
     </v-layout>
-    <HomeShowRecommendAddEvent />
     <HomeFeedList />
+    <HomeShowRecommendAddEvent />
   </div>
 </template> 
 
