@@ -22,11 +22,15 @@ exports.getRecordById = asyncWrapper(async (req, res) => {
 });
 
 exports.patchRecordById = asyncWrapper(async (req, res) => {
-  const result = await service.patchRecordById(req.params.id, req.body);
+  const result = await service.patchRecordById(
+    req.params.id,
+    req.user,
+    req.body
+  );
   res.send(result);
 });
 
 exports.deleteRecordById = asyncWrapper(async (req, res) => {
-  const result = await service.deleteRecordById(req.params.id);
+  const result = await service.deleteRecordById(req.params.id, req.user);
   res.send(result);
 });
