@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       eid: {
         unique: true,
+        allowNull: true,
         type: DataTypes.STRING
       },
       uid: {
@@ -114,8 +115,10 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   );
-  event.associate = function(models) {
-    // associations can be defined here
+  event.associate = models => {
+    event.hasMany(models.comment, { foreignKey: "eventId" });
+    event.hasMany(models.feedback, { foreignKey: "eventId" });
+    event.hasMany(models.picture, { foreignKey: "eventId" });
   };
   return event;
 };
