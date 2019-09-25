@@ -57,8 +57,13 @@
             <img :src="profile ? profile.picture : '../assets/logo.svg'" alt="avatar" />
           </v-avatar>
         </v-flex>
-        <v-flex ml-3 xs9 md9 lg9>
-          <v-text-field label="แสดงความคิดเห็น" outline></v-text-field>
+        <v-flex ml-3 xs8 md7 lg7>
+          <v-textarea label="แสดงความคิดเห็น" outline height="90px"></v-textarea>
+        </v-flex>
+        <v-flex mt-5 xs1 md1 lg1>
+          <v-btn icon>
+            <v-icon color="primary">send</v-icon>
+          </v-btn>
         </v-flex>
       </v-layout>
 
@@ -88,9 +93,9 @@
             <v-flex ml-3 xs9 md9 lg9>
               <v-list-tile avatar>
                 <v-list-tile-content>
-                  <h3>Profile photo</h3>
+                  <h3>ยังติดอยู่เลย</h3>
 
-                  <v-list-tile-sub-title>Change your Google+ profile photo</v-list-tile-sub-title>
+                  <v-list-tile-sub-title>ไม่ขยับมา 1 ชั่วโมงแล้ว</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
             </v-flex>
@@ -112,9 +117,9 @@
             <v-flex ml-3 xs9 md9 lg9>
               <v-list-tile avatar>
                 <v-list-tile-content>
-                  <h3>Dio Oh Oh</h3>
+                  <h3>ยังติดอยู่เลย</h3>
 
-                  <v-list-tile-sub-title>ORA ORA ORA ORA</v-list-tile-sub-title>
+                  <v-list-tile-sub-title>ไม่ขยับมา 1 ชั่วโมงแล้ว</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
             </v-flex>
