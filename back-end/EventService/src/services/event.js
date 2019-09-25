@@ -1,13 +1,13 @@
 const { Op } = require("sequelize");
 const { DateTime } = require("luxon");
-const itic = require("../clients/itic");
-const messageQueue = require("../clients/message-queue");
-const io = require("../socket/io");
 const { event } = require("../domains");
 const { EVENT_SOURCE, EVENT_MAPPING } = require("../utils/constant");
 const { formatEventToSendMessageQueue } = require("../utils/format-event");
 const { logInfo, logDebug } = require("../utils/logger");
 const CustomError = require("../utils/custom-error");
+const itic = require("../clients/itic");
+const messageQueue = require("../clients/message-queue");
+const io = require("../socket/io");
 
 exports.createEvent = async body => {
   let stop = body.stop;

@@ -1,6 +1,6 @@
 const express = require("express");
-const { event } = require("../controllers");
-const checkJwt = require("../auth");
+const checkJwt = require("../../auth");
+const { event } = require("../../controllers");
 
 const router = express.Router();
 
