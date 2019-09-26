@@ -1,41 +1,41 @@
-const Subscription = require("../models/subscription");
+const subscription = require("../domains/subscription");
 const webpush = require("../config/webpush");
 const { logInfo } = require("../utils/logger");
 
-exports.subscribe = body => {
-  const subscription = new Subscription(body);
-  return subscription.save();
-};
+exports.subscribe = body => subscription.create(body);
 
 exports.getSubscription = query => {
   const { fields, ...where } = query;
-  return Subscription.find(where, fields).lean();
+  return subscription.findAll(where, fields);
 };
 
 exports.updateOrCreateSubscription = body =>
-  Subscription.updateOne({ endpoint: body.endpoint }, body, { upsert: true });
+  subscription.updateOne({ endpoint: body.endpoint }, body, { upsert: true });
 
-exports.unsubscribe = endpoint => Subscription.deleteOne({ endpoint });
+exports.unsubscribe = endpoint => subscription.deleteOne({ endpoint });
 
 exports.getSubscriptionThatUidisNull = () =>
-  Subscription.find({ uid: null }).lean();
+  subscription.findAll({ uid: null });
 
-exports.getSubscriptionById = id => Subscription.findById(id).lean();
+exports.getSubscriptionById = id => subscription.findByPk(id);
 
 exports.renewSubscription = (oldSubscription, newSubscription) =>
-  Subscription.updateOne(
+  subscription.updateOne(
     { endpoint: oldSubscription.endpoint },
     newSubscription
   );
 
-exports.updateSubscriptionById = (id, subscription) =>
-  Subscription.findByIdAndUpdate(id, subscription, { new: true });
+exports.updateSubscriptionById = (id, body) =>
+  subscription.updateByPk(id, body, { new: true });
 
-exports.unsubscribeById = id => Subscription.findByIdAndDelete(id);
+exports.unsubscribeById = id => subscription.deleteByPk(id);
 
 exports.sendNotificationToSpecificUser = async body => {
   const { uid, message } = body;
-  const qurey = await Subscription.find({ uid: { $in: uid } }, "endpoint keys");
+  const qurey = await subscription.findAll(
+    { uid: { $in: uid } },
+    "endpoint keys"
+  );
   const result = await sendMutipleNotification(qurey, message);
   logInfo("Send notification to specific user", { uid, result });
   return result;
@@ -43,7 +43,7 @@ exports.sendNotificationToSpecificUser = async body => {
 
 exports.sendNotificationToAllUser = async body => {
   const { message } = body;
-  const qurey = await Subscription.find({}, "endpoint keys");
+  const qurey = await subscription.findAll({}, "endpoint keys");
   const result = sendMutipleNotification(qurey, message);
   logInfo("Send notification to all user", result);
   return result;
