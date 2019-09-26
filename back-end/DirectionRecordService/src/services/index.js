@@ -1,39 +1,36 @@
-const DirectionRecord = require("../models/direction-record");
+const directionRecord = require("../domains/direction-record");
 const CustomError = require("../utils/custom-error");
 
-exports.createRecord = body => {
-  const directionRecord = new DirectionRecord(body);
-  return directionRecord.save();
-};
+exports.createRecord = body => directionRecord.create(body);
 
 exports.getRecord = query => {
   const { fields, ...where } = query;
-  return DirectionRecord.find(where, fields).lean();
+  return directionRecord.findAll(where, fields);
 };
 
 exports.getRecordThatReceiveNotification = query => {
   const { fields, ...where } = query;
-  return DirectionRecord.find(
+  return directionRecord.findAll(
     { "notificationRoutes.0": { $exists: true }, ...where },
     fields
-  ).lean();
+  );
 };
 
-exports.getRecordById = id => DirectionRecord.findById(id).lean();
+exports.getRecordById = id => directionRecord.findByPk(id);
 
 exports.patchRecordById = async (id, user, body) => {
   await checkDirectionRecordKeyAndOwner(id, user);
-  return DirectionRecord.findByIdAndUpdate(id, body, { new: true });
+  return directionRecord.updateByPk(id, body, { new: true });
 };
 
 exports.deleteRecordById = async (id, user) => {
   await checkDirectionRecordKeyAndOwner(id, user);
-  return DirectionRecord.findByIdAndDelete(id);
+  return directionRecord.deleteByPk(id);
 };
 
 const checkDirectionRecordKeyAndOwner = async (id, user) => {
   const { sub: uid } = user;
-  const result = await DirectionRecord.findById(id).lean();
+  const result = await directionRecord.findByPk(id, "uid");
   if (!result)
     throw new CustomError(
       "DIRECTION_RECORD_NOT_FOUND",
