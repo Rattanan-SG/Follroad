@@ -1,11 +1,11 @@
 const axios = require("axios");
 
-const itic = axios.create({
+const iticApi = axios.create({
   baseURL: global.gConfig.itic_api
 });
 
 exports.getExternalEvent = () => {
-  return itic
+  return iticApi
     .get()
     .then(response => response.data)
     .catch(err => {

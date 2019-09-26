@@ -31,7 +31,6 @@ exports.getEvent = query => {
       ? (start = DateTime.fromISO(startFrom).toUTC())
       : (start = DateTime.local().toUTC());
     lastId ? (id = lastId) : (id = 0);
-    console.log(555);
 
     return event.findAll(
       {

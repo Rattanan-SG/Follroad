@@ -1,11 +1,11 @@
 const axios = require("axios");
 
-const notification = axios.create({
+const notificationApi = axios.create({
   baseURL: global.gConfig.notification_api
 });
 
 exports.getSubscription = params => {
-  return notification
+  return notificationApi
     .get("/subscription", { params })
     .then(response => response.data)
     .catch(err => {
@@ -14,7 +14,7 @@ exports.getSubscription = params => {
 };
 
 exports.sendToSpecificUser = data => {
-  return notification
+  return notificationApi
     .post("/subscription/send", data)
     .then(response => response.data)
     .catch(err => {
@@ -23,7 +23,7 @@ exports.sendToSpecificUser = data => {
 };
 
 exports.sendToAllUser = data => {
-  return notification
+  return notificationApi
     .post("/subscription/send/all", data)
     .then(response => response.data)
     .catch(err => {
