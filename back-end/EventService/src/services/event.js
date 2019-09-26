@@ -5,8 +5,8 @@ const { EVENT_SOURCE, EVENT_MAPPING } = require("../utils/constant");
 const { formatEventToSendMessageQueue } = require("../utils/format-event");
 const { logInfo, logDebug } = require("../utils/logger");
 const CustomError = require("../utils/custom-error");
-const itic = require("../clients/itic");
-const messageQueue = require("../clients/message-queue");
+const iticApi = require("../clients/itic");
+const messageQueueApi = require("../clients/message-queue");
 const io = require("../socket/io");
 
 exports.createEvent = async body => {
@@ -65,7 +65,7 @@ exports.syncIticEvent = async () => {
       { source: EVENT_SOURCE.ITIC },
       { scope: ["activeEvent"], attributes: ["eid"] }
     ),
-    itic.getExternalEvent()
+    iticApi.getExternalEvent()
   ]);
   const databaseEventEid = response[0].map(({ eid }) => eid);
   const eventFilter = response[1].filter(
@@ -137,5 +137,5 @@ const calculateDefaultStopFromType = ({ start, type }) => {
 
 const sendEventToMessageQueue = events => {
   const data = formatEventToSendMessageQueue(events);
-  messageQueue.sendMessage(global.gConfig.notification_queue_name, data);
+  messageQueueApi.sendMessage(global.gConfig.notification_queue_name, data);
 };
