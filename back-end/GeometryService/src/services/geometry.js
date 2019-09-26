@@ -5,7 +5,7 @@ const checkDistanceIsWithinMeters = (start, end, toleranceInMeters = 100) => {
   return geolib.getDistance(start, end) <= toleranceInMeters;
 };
 
-exports.checkLatLngAndRoute = (latLng, route, toleranceInMeters) => {
+const checkLatLngAndRoute = (latLng, route, toleranceInMeters) => {
   const result = route.some(path =>
     checkDistanceIsWithinMeters(
       latLng,
@@ -14,6 +14,11 @@ exports.checkLatLngAndRoute = (latLng, route, toleranceInMeters) => {
     )
   );
   return result;
+};
+
+exports.isLocationOnRoute = async body => {
+  const { latLng, route, toleranceInMeters } = body;
+  return checkLatLngAndRoute(latLng, route, toleranceInMeters);
 };
 
 exports.checkEventIsRelatedToThisRoutes = (
