@@ -42,7 +42,7 @@ services:
     build: ./back-end/GeometryService
     command: ["npm", "run", "dev"]
     ports:
-      - "3005:3005"
+      - "3004:3004"
     volumes:
       - ./back-end/GeometryService:/app
       - /app/node_modules
