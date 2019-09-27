@@ -37,7 +37,14 @@
     </v-navigation-drawer>
     <v-toolbar app flat fixed dark color="blue darken-3" :clipped-left="toolbar.clippedLeft">
       <v-toolbar-side-icon @click.stop="toggleDrawer" class="hidden-xs-only"></v-toolbar-side-icon>
-      <v-toolbar-title v-if="!showSearchInput" style="overflow: unset; margin-left: 10px">Follroad</v-toolbar-title>
+      <!-- <v-toolbar-title v-if="!showSearchInput" style="overflow: unset; margin-left: 10px"> -->
+      <img
+        src="https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/Logo+%E0%B8%9E%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B8%84%E0%B8%B3+2.png"
+        v-if="!showSearchInput"
+        height="70%"
+        style="overflow: unset;"
+      />
+      <!-- </v-toolbar-title> -->
 
       <v-btn v-else icon @click="showSearchInput=false" class="ml-0">
         <v-icon>arrow_back</v-icon>
