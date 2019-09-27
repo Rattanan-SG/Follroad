@@ -1,5 +1,5 @@
 <template>
-  <v-bottom-nav app fixed dark :active.sync="bottomNav" :value="true" color="indigo">
+  <v-bottom-nav app dark :active.sync="bottomNav" :value="true" color="indigo">
     <v-btn flat key="Home" value="Home" @click="setRouterView(false)">
       <span>แผนที่</span>
       <v-icon>home</v-icon>
