@@ -8,14 +8,14 @@
     <v-list v-if="!loading && !!directionRecords.length" three-line>
       <template v-for="(record, index) in directionRecords">
         <v-list-tile class="mt-1" :key="index" avatar ripple @click="startHistoryRoute(record)">
-          <v-flex mb-1 mr-2 xs1 md1 lg1>
+          <v-flex xs1 md1 lg1 sm1>
             <v-card-actions>
               <v-btn flat icon color="red lighten-1">
                 <v-icon size="35px">place</v-icon>
               </v-btn>
             </v-card-actions>
           </v-flex>
-          <v-flex ml-4 xs8 md7 lg8>
+          <v-flex xs9 md9 lg9 sm9 ml-4>
             <v-list-tile-content>
               <v-list-tile-title class="font-weight-black">{{ record.name }}</v-list-tile-title>
               <v-list-tile-sub-title class="text--primary">
@@ -27,7 +27,7 @@
             </v-list-tile-content>
           </v-flex>
 
-          <v-flex ml-2 xs1 md1 lg1>
+          <v-flex xs1 md1 lg1 sm1>
             <v-card-actions>
               <v-btn flat icon color="grey" @click.stop="deleteHistoryRoute(record._id)">
                 <v-icon size="30px">delete</v-icon>
