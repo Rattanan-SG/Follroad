@@ -9,8 +9,8 @@
     <MarkerSearchPlace />
     <CurrentPositionButton slot="visible" />
     <EnablePostEventButton slot="visible" />
-    <ToggleRecommendRoute v-if="isDirections" slot="visible" />
-    <ToggleSpecificEvent v-if="isDirections" slot="visible" />
+    <ToggleRecommendRoute v-if="directionsRenderer" slot="visible" />
+    <ToggleSpecificEvent v-if="directionsRenderer" slot="visible" />
   </gmap-map>
 </template>
 
