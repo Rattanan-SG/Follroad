@@ -1,5 +1,5 @@
 <template>
-  <v-card flat class="mb-2" color="#26c6da" dark>
+  <v-card flat class="mb-2">
     <v-layout row wrap align-start justify-center fill-height>
       <v-layout>
         <v-flex xs1 md1 lg1 mt-4 ml-3>
@@ -16,7 +16,7 @@
           </v-list-tile>-->
           <v-card-title primary-title>
             <div>
-              <h3>{{event.title}}</h3>
+              <h3 class="blue--text">{{event.title}}</h3>
             </div>
           </v-card-title>
         </v-flex>
@@ -28,7 +28,7 @@
         </div>-->
         <v-card-text>{{event.description}}</v-card-text>
         <v-card-title>
-          <span class="font-weight-light">
+          <span class="red--text">
             เกิดขึ้น ณ
             : {{ event.start | luxon:locale('short') }}
             <br />

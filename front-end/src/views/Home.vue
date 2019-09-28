@@ -1,6 +1,8 @@
 <template>
   <div>
-    <CloseViewToolBar title="เหตุการณ์" />
+    <v-card color="blue darken-3" flat>
+      <CloseViewToolBar title="เหตุการณ์" />
+    </v-card>
     <v-layout justify-center mb-2>
       <HomeFilterEventCategory />
     </v-layout>

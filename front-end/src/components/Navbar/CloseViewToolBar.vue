@@ -7,11 +7,11 @@
         </v-btn>
       </v-flex>
       <v-flex xs8>
-        <span class="title font-weight-light">{{title}}</span>
+        <span class="title font-weight-light white--text">{{title}}</span>
       </v-flex>
       <v-flex xs2>
         <v-btn icon @click="setRouterView(false)">
-          <v-icon medium>close</v-icon>
+          <v-icon medium color="white">close</v-icon>
         </v-btn>
       </v-flex>
     </v-layout>

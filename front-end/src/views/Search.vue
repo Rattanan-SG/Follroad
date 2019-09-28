@@ -1,6 +1,9 @@
 <template>
   <div>
-    <CloseViewToolBar title="เดินทาง" />
+    <v-card flat color="blue darken-3">
+      <CloseViewToolBar title="เดินทาง" />
+    </v-card>
+    <v-card flat height="20px"></v-card>
     <SearchStartAutoComplete :historyMode="historyMode" />
     <SearchDestinationAutoComplete :historyMode="historyMode" />
     <v-layout row wrap my-3 justify-center>

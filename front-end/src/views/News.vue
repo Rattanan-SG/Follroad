@@ -1,6 +1,8 @@
 <template>
   <div>
-    <CloseViewToolBar title="ข่าว" />
+    <v-card color="blue darken-3" flat>
+      <CloseViewToolBar title="ข่าว" />
+    </v-card>
     <NewsFeedList />
   </div>
 </template>

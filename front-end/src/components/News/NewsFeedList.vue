@@ -2,7 +2,9 @@
   <v-list class="pa-0">
     <template v-for="(event, index) in eventList">
       <NewsFeedItem :key="index" :event="event"></NewsFeedItem>
+      <v-divider :key="'divider'+index"></v-divider>
     </template>
+
     <infinite-loading spinner="spiral" :identifier="infiniteId" @infinite="getEvents"></infinite-loading>
   </v-list>
 </template>
