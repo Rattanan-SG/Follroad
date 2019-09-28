@@ -4,7 +4,7 @@
       <v-layout row wrap justify-center align-center>
         <v-flex xs2>
           <v-btn icon v-if="!!leftIcon" @click="leftAction">
-            <v-icon medium color="white">{{leftIcon}}</v-icon>
+            <v-icon color="white">{{leftIcon}}</v-icon>
           </v-btn>
         </v-flex>
         <v-flex xs8>
@@ -12,7 +12,7 @@
         </v-flex>
         <v-flex xs2>
           <v-btn icon @click="setRouterView(false)">
-            <v-icon medium color="white">close</v-icon>
+            <v-icon color="white">close</v-icon>
           </v-btn>
         </v-flex>
       </v-layout>

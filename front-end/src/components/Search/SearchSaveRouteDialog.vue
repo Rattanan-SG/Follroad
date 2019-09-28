@@ -60,7 +60,7 @@
                 </v-flex>
 
                 <v-flex xs12 md12>
-                  <v-switch v-model="switch1" label="รับการแจ้งเตือนในเส้นทางนี้ ?"></v-switch>
+                  <v-switch v-model="switch1" label="ต้องการตั้งเวลาตรวจสอบเส้นทางล่วงหน้าหรือไม่?"></v-switch>
                 </v-flex>
 
                 <v-flex xs12 md12 lg12>
