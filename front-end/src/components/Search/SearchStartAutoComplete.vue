@@ -55,7 +55,7 @@ export default {
     ...mapGetters("direction", ["startLocation"])
   },
   mounted() {
-    if (this.historyMode && this.startLocation) {
+    if (this.historyMode || this.startLocation) {
       this.$refs.startAutoComplete.$el.value = this.startLocation.name;
     } else {
       if (this.myLocation) {

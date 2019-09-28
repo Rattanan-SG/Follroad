@@ -52,8 +52,9 @@
 
       <v-spacer></v-spacer>
 
-      <template v-if="showSearchInput || this.$vuetify.breakpoint.smAndUp">
+      <template v-show="showSearchInput || this.$vuetify.breakpoint.smAndUp">
         <gmap-autocomplete
+          v-show="showSearchInput || this.$vuetify.breakpoint.smAndUp"
           @place_changed="search"
           style="background-color: #0080FF; width:100%; height:65%"
           ref="gmapAutoComplete"
@@ -146,6 +147,7 @@ export default {
   watch: {
     searchPlace(newValue, oldValue) {
       if (newValue && newValue != oldValue) {
+        this.showSearchInput = true;
         this.$refs.gmapAutoComplete.$el.value = newValue.name;
         if (oldValue) this.search(newValue);
       } else {
