@@ -42,7 +42,7 @@
         src="https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/Logo+%E0%B8%9E%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B8%84%E0%B8%B3+2.png"
         v-if="!showSearchInput"
         height="65%"
-        style="overflow: unset;"
+        alt="logo"
       />
       <!-- </v-toolbar-title> -->
 
