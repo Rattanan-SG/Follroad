@@ -5,11 +5,11 @@
         <!-- <v-card height="50vh"> -->
         <v-flex xs12 md12 lg12>
           <v-layout>
-            <v-flex xs2 md2 lg2 mt-4 ml-4>
-              <v-img :src="infoWindow.marker.icon" max-width="40" max-height="40"></v-img>
+            <v-flex xs2 md2 lg2 pl-3>
+              <v-img :src="infoWindow.marker.icon" max-width="35" max-height="35"></v-img>
             </v-flex>
             <v-flex xs10 md10 lg10>
-              <v-card-title primary-title>
+              <v-card-title primary-title class="pt-0 pl-1">
                 <div>
                   <h3>{{infoWindow.marker.title}}</h3>
                   <div>โดย {{infoWindow.marker.eventCaption.contributor}}</div>
@@ -32,7 +32,7 @@
             >จะสิ้นสุดใน {{infoWindow.marker.eventCaption.stopTime | luxon:locale('short')}}</div>
           </v-card-text>
 
-          <v-flex xs12 md12 lg12>
+          <v-flex xs12 md12 lg12 pl-1>
             <v-btn flat icon color="blue lighten-2" v-on:click="countLike++">
               <v-icon>thumb_up</v-icon>
             </v-btn>
@@ -52,15 +52,26 @@
       </v-flex>-->
 
       <v-layout v-if="!!infoWindow.marker">
-        <v-flex mt-3 ml-3 xs1 md1 lg1>
+        <v-flex xs2 pt-3 pl-3>
           <v-avatar size="30px">
-            <img :src="profile ? profile.picture : '../assets/logo.svg'" alt="avatar" />
+            <img v-if="isAuthenticated" :src="profile.picture" alt="avatar" />
+            <v-btn icon v-else>
+              <v-icon color="primary" medium>person</v-icon>
+            </v-btn>
           </v-avatar>
         </v-flex>
-        <v-flex ml-3 xs8 md7 lg7>
-          <v-textarea label="แสดงความคิดเห็น" outline height="90px"></v-textarea>
+        <v-flex grow>
+          <v-textarea
+            v-model="comment"
+            label="แสดงความคิดเห็น"
+            rows="1"
+            outline
+            clearable
+            auto-grow
+            :disabled="!isAuthenticated"
+          ></v-textarea>
         </v-flex>
-        <v-flex mt-5 xs1 md1 lg1>
+        <v-flex xs2 pt-1 pl-1>
           <v-btn icon>
             <v-icon color="primary">send</v-icon>
           </v-btn>
@@ -87,7 +98,7 @@
           <v-list-tile>
             <v-flex mt-1 xs1 md1 lg1>
               <v-avatar size="30px">
-                <img :src="profile.picture" alt="avatar" />
+                <img src="@/assets/logo.svg" alt="avatar" />
               </v-avatar>
             </v-flex>
             <v-flex ml-3 xs9 md9 lg9>
@@ -111,7 +122,7 @@
           <v-list-tile>
             <v-flex mt-1 xs1 md1 lg1>
               <v-avatar size="30px">
-                <img :src="profile.picture" alt="avatar" />
+                <img src="@/assets/logo.svg" alt="avatar" />
               </v-avatar>
             </v-flex>
             <v-flex ml-3 xs9 md9 lg9>
@@ -141,10 +152,12 @@ export default {
   data() {
     return {
       profile: this.$auth.profile,
+      isAuthenticated: this.$auth.isAuthenticated(),
       dialog: false,
       show: false,
       countLike: 0,
-      countDislike: 0
+      countDislike: 0,
+      comment: ""
     };
   },
   computed: {

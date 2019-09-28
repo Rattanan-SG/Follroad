@@ -41,7 +41,7 @@
       <img
         src="https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/Logo+%E0%B8%9E%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B8%84%E0%B8%B3+2.png"
         v-if="!showSearchInput"
-        height="70%"
+        height="65%"
         style="overflow: unset;"
       />
       <!-- </v-toolbar-title> -->
@@ -55,7 +55,7 @@
       <template v-if="showSearchInput || this.$vuetify.breakpoint.smAndUp">
         <gmap-autocomplete
           @place_changed="search"
-          style="background-color: #0080FF; width:100%; height:70%"
+          style="background-color: #0080FF; width:100%; height:65%"
           ref="gmapAutoComplete"
           placeholder="ค้นหาสถานที่"
           :class="this.$vuetify.breakpoint.smAndUp ? autoCompleteClass.normal : autoCompleteClass.mobile"
