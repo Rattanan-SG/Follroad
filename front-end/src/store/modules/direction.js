@@ -52,10 +52,10 @@ const actions = {
       dispatch("selectRoute", 0);
     }
   },
-  stopDirectionsRenderer: ({ state, dispatch }) => {
+  stopDirectionsRenderer: ({ state, commit }) => {
     state.directionsRenderer.setPanel(null);
     state.directionsRenderer.setMap(null);
-    dispatch("setDirectionsResponse", null);
+    commit("SET_DIRECTIONS_RESPONSE", null);
   },
   selectRoute: ({ commit, state, rootState, dispatch }, routeIndex) => {
     return new Promise(resolve => {
