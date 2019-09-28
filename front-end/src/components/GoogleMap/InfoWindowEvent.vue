@@ -5,7 +5,7 @@
       flat
       dark
       scroll-off-screen
-      color="blue-grey darken-2"
+      color="blue darken-3"
       scroll-target="#scrolling-techniques"
       height="35%"
     >
@@ -22,8 +22,8 @@
             <img :src="marker.icon" max-width="40" max-height="40" />
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title>{{marker.title}}</v-list-tile-title>
-            <v-list-tile-sub-title>โดย {{marker.eventCaption.contributor}}</v-list-tile-sub-title>
+            <v-list-tile-title class="blue--text">{{marker.title}}</v-list-tile-title>
+            <v-list-tile-sub-title class="red--text">โดย {{marker.eventCaption.contributor}}</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -34,8 +34,12 @@
         <br />
       </v-card-text>
       <v-card-text class="pa-0">
-        <div class="body-1">เกิดขึ้น ณ {{marker.eventCaption.startTime | luxon:locale('short')}}</div>
-        <div class="body-1">จะสิ้นสุดใน {{marker.eventCaption.stopTime | luxon:locale('short')}}</div>
+        <div
+          class="body-1 red--text"
+        >เกิดขึ้น ณ {{marker.eventCaption.startTime | luxon:locale('short')}}</div>
+        <div
+          class="body-1 red--text"
+        >จะสิ้นสุดใน {{marker.eventCaption.stopTime | luxon:locale('short')}}</div>
       </v-card-text>
       <v-card-actions>
         <v-btn flat icon color="blue lighten-2" v-on:click="countLike++">

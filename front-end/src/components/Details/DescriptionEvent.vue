@@ -11,8 +11,8 @@
             <v-flex xs10 md10 lg10>
               <v-card-title primary-title class="pt-0 pl-1">
                 <div>
-                  <h3>{{infoWindow.marker.title}}</h3>
-                  <div>โดย {{infoWindow.marker.eventCaption.contributor}}</div>
+                  <h3 class="blue--text">{{infoWindow.marker.title}}</h3>
+                  <div class="red--text">โดย {{infoWindow.marker.eventCaption.contributor}}</div>
                 </div>
               </v-card-title>
             </v-flex>
@@ -25,10 +25,10 @@
           </v-card-text>
           <v-card-text>
             <div
-              class="body-1"
+              class="body-1 red--text"
             >เกิดขึ้น ณ {{infoWindow.marker.eventCaption.startTime | luxon:locale('short')}}</div>
             <div
-              class="body-1"
+              class="body-1 red--text"
             >จะสิ้นสุดใน {{infoWindow.marker.eventCaption.stopTime | luxon:locale('short')}}</div>
           </v-card-text>
 
