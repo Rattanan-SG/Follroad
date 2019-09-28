@@ -52,15 +52,13 @@
       </v-flex>-->
 
       <v-layout v-if="!!infoWindow.marker">
-        <v-flex xs2 pt-3 pl-3>
+        <v-flex xs2 md2 lg2 pt-3 pl-3 mr-2>
           <v-avatar size="30px">
             <img v-if="isAuthenticated" :src="profile.picture" alt="avatar" />
-            <v-btn icon v-else>
-              <v-icon color="primary" medium>person</v-icon>
-            </v-btn>
+            <v-icon v-else color="primary" medium>person</v-icon>
           </v-avatar>
         </v-flex>
-        <v-flex grow>
+        <v-flex xs7 md7 lg7>
           <v-textarea
             v-model="comment"
             label="แสดงความคิดเห็น"
@@ -71,8 +69,8 @@
             :disabled="!isAuthenticated"
           ></v-textarea>
         </v-flex>
-        <v-flex xs2 pt-1 pl-1>
-          <v-btn icon>
+        <v-flex xs2 md2 lg2 pt-2 ml-3>
+          <v-btn icon class="ma-0">
             <v-icon color="primary">send</v-icon>
           </v-btn>
         </v-flex>
