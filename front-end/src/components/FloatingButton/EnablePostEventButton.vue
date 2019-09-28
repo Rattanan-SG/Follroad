@@ -11,7 +11,7 @@
       <v-icon>add_comment</v-icon>
     </v-btn>
     <v-snackbar v-model="activePostEvent" top color="error" :timeout="0">
-      กดบนแผนที่เพื่อแจ้งเหตุการณ์
+      <v-icon color="white" medium left>touch_app</v-icon>กดบนแผนที่เพื่อแจ้งเหตุการณ์
       <v-btn dark flat @click="toggleActivePostEvent">ปิด</v-btn>
     </v-snackbar>
   </div>
