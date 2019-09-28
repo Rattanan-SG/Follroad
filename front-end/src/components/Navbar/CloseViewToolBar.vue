@@ -1,5 +1,5 @@
 <template>
-  <v-container text-xs-center class="pa-3">
+  <v-container text-xs-center class="pa-0">
     <v-layout row wrap justify-center align-center>
       <v-flex xs2>
         <v-btn icon v-if="!!leftIcon" @click="leftAction">
