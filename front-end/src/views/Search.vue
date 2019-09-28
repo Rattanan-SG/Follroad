@@ -1,8 +1,7 @@
 <template>
   <div>
-    <v-card flat color="blue darken-3">
-      <CloseViewToolBar title="เดินทาง" />
-    </v-card>
+    <CloseViewToolBar title="เดินทาง" />
+
     <v-card flat height="20px"></v-card>
     <SearchStartAutoComplete :historyMode="historyMode" />
     <SearchDestinationAutoComplete :historyMode="historyMode" />

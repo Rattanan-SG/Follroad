@@ -1,8 +1,7 @@
 <template>
   <div>
-    <v-card color="blue darken-3" flat>
-      <CloseViewToolBar title="ข้อมูลส่วนตัว" />
-    </v-card>
+    <CloseViewToolBar title="ข้อมูลส่วนตัว" />
+
     <ProfileDetail :profile="profile" />
     <HomeProfile />
   </div>
