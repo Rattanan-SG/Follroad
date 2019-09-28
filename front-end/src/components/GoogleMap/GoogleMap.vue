@@ -8,6 +8,7 @@
     <MarkerPostEvent />
     <MarkerSearchPlace />
     <CurrentPositionButton slot="visible" />
+    <EnablePostEventButton slot="visible" />
     <ToggleRecommendRoute v-if="isDirections" slot="visible" />
     <ToggleSpecificEvent v-if="isDirections" slot="visible" />
   </gmap-map>
@@ -25,6 +26,7 @@ import MarkerMyLocation from "./MarkerMyLocation";
 import MarkerPostEvent from "./MarkerPostEvent";
 import MarkerSearchPlace from "./MarkerSearchPlace";
 import CurrentPositionButton from "@/components/FloatingButton/CurrentPositionButton";
+import EnablePostEventButton from "@/components/FloatingButton/EnablePostEventButton";
 import ToggleRecommendRoute from "@/components/FloatingButton/ToggleRecommendRoute";
 import ToggleSpecificEvent from "@/components/FloatingButton/ToggleSpecificEvent";
 export default {
@@ -37,6 +39,7 @@ export default {
     MarkerPostEvent,
     MarkerSearchPlace,
     CurrentPositionButton,
+    EnablePostEventButton,
     ToggleRecommendRoute,
     ToggleSpecificEvent
   },
@@ -59,6 +62,7 @@ export default {
   computed: {
     ...mapGetters("googleMap", ["center", "zoomLevel", "myLocation"]),
     ...mapGetters("direction", ["directionsRenderer"]),
+    ...mapGetters("postEvent", ["activePostEvent"]),
     google: gmapApi
   },
   created() {
@@ -102,19 +106,21 @@ export default {
     ...mapActions("postEvent", ["setPostEventLocation"]),
 
     initPostEvent: function(e) {
-      const location = { lat: e.latLng.lat(), lng: e.latLng.lng() };
-      this.geocoder.geocode({ location }, (response, status) => {
-        let title = "";
-        if (status === "OK") {
-          if (response[0]) title = response[0].formatted_address;
-        }
-        this.setPostEventLocation({
-          title,
-          location
+      if (this.activePostEvent) {
+        const location = { lat: e.latLng.lat(), lng: e.latLng.lng() };
+        this.geocoder.geocode({ location }, (response, status) => {
+          let title = "";
+          if (status === "OK") {
+            if (response[0]) title = response[0].formatted_address;
+          }
+          this.setPostEventLocation({
+            title,
+            location
+          });
+          this.setZoomLevel(20);
+          this.setCenter(location);
         });
-        this.setZoomLevel(20);
-        this.setCenter(location);
-      });
+      }
     },
     getRoute: function(startLocation, stopLocation) {
       if (this.isDirections) {

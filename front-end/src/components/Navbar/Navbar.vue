@@ -76,7 +76,7 @@
           <v-icon>search</v-icon>
         </v-btn>
         <v-btn v-if="installBtn" icon @click="installer()">
-          <v-icon>mobile_friendly</v-icon>
+          <v-icon>system_update</v-icon>
         </v-btn>
         <v-btn v-if="!isAuthenticated" outline @click.prevent="login" :loading="loginLoading">Log in</v-btn>
         <v-btn v-if="isAuthenticated" icon to="/profile" @click="setRouterView(true)">

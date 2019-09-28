@@ -4,14 +4,12 @@
     <v-layout justify-center mb-2>
       <HomeFilterEventCategory />
     </v-layout>
-    <HomeShowRecommendAddEvent />
     <HomeFeedList />
   </div>
 </template> 
 
 <script>
 import CloseViewToolBar from "@/components/Navbar/CloseViewToolBar";
-import HomeShowRecommendAddEvent from "@/components/Home/HomeShowRecommendAddEvent";
 const HomeFeedList = () => import("@/components/Home/HomeFeedList");
 const HomeFilterEventCategory = () =>
   import("@/components/Home/HomeFilterEventCategory");
@@ -21,8 +19,7 @@ export default {
   components: {
     CloseViewToolBar,
     HomeFeedList,
-    HomeFilterEventCategory,
-    HomeShowRecommendAddEvent
+    HomeFilterEventCategory
     // HomeSearchEvent
   }
 };
