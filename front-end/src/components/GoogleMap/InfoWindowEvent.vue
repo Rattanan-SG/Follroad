@@ -23,7 +23,7 @@
           </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title class="blue--text">{{marker.title}}</v-list-tile-title>
-            <v-list-tile-sub-title class="red--text">โดย {{marker.eventCaption.contributor}}</v-list-tile-sub-title>
+            <v-list-tile-sub-title>โดย {{marker.eventCaption.contributor}}</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
