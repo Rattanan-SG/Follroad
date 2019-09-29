@@ -82,9 +82,9 @@
                     type="number"
                     prepend-icon="timelapse"
                     label="สิ้นสุดในอีกกี่ชั่วโมง"
-                    placeholder="ค่าเริ่มต้นระบบจะคำนวนให้"
+                    placeholder="ถ้า 0 ระบบจะคำนวนให้"
                     suffix="ชั่วโมง"
-                    :rules="[rules.maxDuration]"
+                    :rules="[rules.minDuration, rules.maxDuration]"
                     clearable
                   />
                 </v-flex>
@@ -152,7 +152,10 @@ export default {
           const date = this.getDateFromTimeString(value);
           return +date <= +new Date() || "เวลาต้องไม่เกินเวลาปัจจุบัน";
         },
-        maxDuration: value => value <= 24 || "ระยะเวลาไม่เกิน 24 ชั่วโมง"
+        minDuration: value =>
+          !value || value >= 0 || "ระยะเวลาน้อยกว่า 0 ไม่ได้",
+        maxDuration: value =>
+          !value || value <= 24 || "ระยะเวลาไม่เกิน 24 ชั่วโมง"
       },
       loading: false,
       error: false
