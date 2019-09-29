@@ -12,7 +12,7 @@
               <v-card-title primary-title class="pt-0 pl-1">
                 <div>
                   <h3 class="blue--text">{{infoWindow.marker.title}}</h3>
-                  <div class="red--text">โดย {{infoWindow.marker.eventCaption.contributor}}</div>
+                  <div>โดย {{infoWindow.marker.eventCaption.contributor}}</div>
                 </div>
               </v-card-title>
             </v-flex>
