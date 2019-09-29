@@ -83,7 +83,7 @@ function selectIcon(event) {
       break;
     case 13:
       icon =
-        "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/event.png";
+        "https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/event2.png";
       break;
     case 14:
       icon = "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/sale.png";
