@@ -2,7 +2,7 @@
   <div>
     <v-navigation-drawer
       app
-      fixed
+      :fixed="drawer.fixed"
       :clipped="drawer.clipped"
       :permanent="drawer.permanent"
       :mini-variant="drawer.mini"
@@ -100,6 +100,7 @@ export default {
       drawer: {
         open: false,
         clipped: false,
+        fixed: false,
         permanent: false,
         mini: true
       },
@@ -152,6 +153,7 @@ export default {
         if (oldValue) this.search(newValue);
       } else {
         this.$refs.gmapAutoComplete.$el.value = null;
+        this.showSearchInput = false;
       }
     }
   },
