@@ -19,7 +19,7 @@
     </v-container>
   </v-card> -->
   <div>
-    <v-toolbar color="blue darken-3" flat>
+    <v-toolbar color="blue darken-3" flat height="40%">
       <v-layout align-center>
         <v-flex xs2 md2 lg2 sm2>
           <v-btn icon v-if="!!leftIcon" @click="leftAction">
