@@ -21,7 +21,10 @@
         :disabled="loading"
         :loading="loading"
       >ค้นหาเส้นทาง</v-btn>
-      <v-btn v-else color="red" class="white--text" @click="stopDirections">ยกเลิกเส้นทาง</v-btn>
+      <v-btn v-else color="red" class="white--text" @click="stopDirections" depressed>
+        ยกเลิกเส้นทาง
+        <v-icon>close</v-icon>
+      </v-btn>
     </v-layout>
     <v-layout row wrap>
       <v-flex xs12 my-1>

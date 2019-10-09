@@ -46,7 +46,7 @@
       />
       <!-- </v-toolbar-title> -->
 
-      <v-btn v-else icon @click="showSearchInput=false" class="ml-0">
+      <v-btn v-else icon @click="showSearchInput=false" class="ml-0 hidden-sm-and-up">
         <v-icon>arrow_back</v-icon>
       </v-btn>
 
@@ -56,7 +56,7 @@
         <gmap-autocomplete
           v-show="showSearchInput || this.$vuetify.breakpoint.smAndUp"
           @place_changed="search"
-          style="background-color: #0080FF; width:100%; height:65%"
+          style="background-color: #0080FF; width:50%; height:60%"
           ref="gmapAutoComplete"
           placeholder="ค้นหาสถานที่"
           :class="this.$vuetify.breakpoint.smAndUp ? autoCompleteClass.normal : autoCompleteClass.mobile"

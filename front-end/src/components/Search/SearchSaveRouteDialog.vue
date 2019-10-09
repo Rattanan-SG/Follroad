@@ -1,11 +1,12 @@
 <template>
   <div>
     <v-btn
-      color="secondary"
+      color="success"
       class="white--text"
       @click.stop="openDialog"
       :disabled="loading"
       :loading="loading"
+      depressed
     >
       บันทึกเส้นทาง
       <v-icon>save</v-icon>
