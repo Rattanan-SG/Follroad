@@ -1,7 +1,6 @@
 <template>
   <div>
     <CloseViewToolBar title="ข้อมูลส่วนตัว" />
-
     <ProfileDetail :profile="profile" />
     <HomeProfile />
   </div>

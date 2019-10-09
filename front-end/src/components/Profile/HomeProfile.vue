@@ -1,52 +1,49 @@
 <template>
-  <v-list>
-    <v-layout>
-      <v-flex xs12 lg12 md12 mt-5>
-        <v-list-tile avatar ripple to="/historyroute">
-          <v-list-tile-action>
-            <v-icon size="35px" color="orange">save</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <h4>เส้นทางที่บันทึก</h4>
-          </v-list-tile-content>
-          <v-spacer />
-          <v-icon>navigate_next</v-icon>
-        </v-list-tile>
-      </v-flex>
-    </v-layout>
+  <div>
+    <v-subheader>เมนู</v-subheader>
+    <!-- <v-layout> -->
+    <v-flex xs12 lg12 md12>
+      <v-list-tile avatar ripple to="/historyroute">
+        <v-list-tile-avatar>
+          <v-icon size="25px" class="orange white--text">save</v-icon>
+        </v-list-tile-avatar>
+        <v-list-tile-content>เส้นทางที่บันทึก</v-list-tile-content>
+        <v-spacer />
+        <v-icon>navigate_next</v-icon>
+      </v-list-tile>
+    </v-flex>
+    <!-- </v-layout> -->
 
-    <v-divider></v-divider>
-    <v-layout>
-      <v-flex xs12 lg12 md12>
-        <v-list-tile avatar ripple :disabled="btnDisabled" @click="handleClick">
-          <v-list-tile-action>
-            <v-icon size="35px" color="indigo">settings</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <h4>{{btnText}}</h4>
-          </v-list-tile-content>
-          <v-spacer />
-          <v-icon>navigate_next</v-icon>
-        </v-list-tile>
-      </v-flex>
-    </v-layout>
-    <v-divider></v-divider>
-    <v-layout>
-      <v-flex xs12 lg12 md12>
-        <v-list-tile avatar ripple @click="logout">
-          <v-list-tile-action>
-            <v-icon size="35px" color="indigo">logout</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <h4>ออกจากระบบ</h4>
-          </v-list-tile-content>
-          <v-spacer />
-          <v-icon>navigate_next</v-icon>
-        </v-list-tile>
-      </v-flex>
-    </v-layout>
-    <v-divider></v-divider>
-  </v-list>
+    <!-- <v-divider></v-divider> -->
+    <!-- <v-layout> -->
+    <v-flex xs12 lg12 md12>
+      <v-list-tile avatar ripple :disabled="btnDisabled" @click="handleClick">
+        <v-list-tile-avatar>
+          <v-icon size="25px" class="blue white--text">settings</v-icon>
+        </v-list-tile-avatar>
+        <v-list-tile-content>{{btnText}}</v-list-tile-content>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-switch v-model="tempSwitch1"></v-switch>
+      </v-list-tile>
+    </v-flex>
+    <!-- </v-layout> -->
+    <!-- <v-divider></v-divider> -->
+    <!-- <v-layout> -->
+    <v-flex xs12 lg12 md12>
+      <v-list-tile avatar ripple @click="logout">
+        <v-list-tile-avatar>
+          <v-icon size="25px" class="red white--text">lock_open</v-icon>
+        </v-list-tile-avatar>
+        <v-list-tile-content>ออกจากระบบ</v-list-tile-content>
+        <v-spacer />
+        <v-icon>navigate_next</v-icon>
+      </v-list-tile>
+    </v-flex>
+    <!-- </v-layout> -->
+  </div>
+  <!-- <v-divider></v-divider> -->
 </template>
 
 <script>
@@ -60,7 +57,8 @@ export default {
       registration: null,
       isSubscribed: false,
       btnDisabled: true,
-      btnText: "กรุณาเปิดรับการแจ้งเตือน"
+      btnText: "รับการแจ้งเตือน",
+      tempSwitch1: false
     };
   },
   async created() {
