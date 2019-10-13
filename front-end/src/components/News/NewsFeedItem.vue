@@ -17,6 +17,7 @@
           <v-card-title primary-title>
             <div>
               <h3 class="blue--text">{{event.title}}</h3>
+              <div>โดย {{event.contributor}}</div>
             </div>
           </v-card-title>
         </v-flex>
@@ -35,11 +36,26 @@
             จะสิ้นสุดใน
             : {{ event.stop | luxon:locale('short') }}
             <br />
-            <v-icon medium>person_pin</v-icon>
-            โดย {{event.contributor}}
           </span>
         </v-card-title>
       </v-flex>
+
+      <v-card-actions>
+        <v-flex xs8 md8 lg8>
+          <v-btn flat icon color="blue lighten-2" v-on:click="countLike++">
+            <v-icon>thumb_up</v-icon>
+          </v-btn>
+          {{countLike}}
+          <v-btn flat icon color="red lighten-2" v-on:click="countDislike++">
+            <v-icon>thumb_down</v-icon>
+          </v-btn>
+          {{countDislike}}
+        </v-flex>
+        <v-spacer></v-spacer>
+        <v-flex xs2 md2 lg2>
+          <v-btn outline color="blue" to="/details" @click="setRouterView(true)">แสดงความคิดเห็น</v-btn>
+        </v-flex>
+      </v-card-actions>
     </v-layout>
   </v-card>
 </template>
