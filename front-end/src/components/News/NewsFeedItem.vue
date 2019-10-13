@@ -109,9 +109,16 @@ import { mapGetters } from "vuex";
 import eventConstant from "@/utilitys/eventConstant";
 export default {
   name: "NewsFeedItem",
-  data: () => ({
-    show: false
-  }),
+  data() {
+    return {
+    show: false,
+    countLike: 0,
+    countDislike: 0,
+    comment: "",
+    profile: this.$auth.profile,
+    isAuthenticated: this.$auth.isAuthenticated()
+    }
+ },
   props: {
     event: Object
   },
