@@ -2,19 +2,19 @@
   <div>
     <CloseViewToolBar title="ข้อมูลส่วนตัว" />
     <ProfileDetail :profile="profile" />
-    <HomeProfile />
+    <ProfileMenu />
   </div>
 </template>
 <script>
 import CloseViewToolBar from "@/components/Navbar/CloseViewToolBar";
-const HomeProfile = () => import("@/components/Profile/HomeProfile");
 const ProfileDetail = () => import("@/components/Profile/ProfileDetail");
+const ProfileMenu = () => import("@/components/Profile/ProfileMenu");
 export default {
   name: "Profile",
   components: {
     CloseViewToolBar,
     ProfileDetail,
-    HomeProfile
+    ProfileMenu
   },
   data() {
     return {
