@@ -61,7 +61,7 @@
         <v-flex xs7 md7 lg7>
           <v-textarea
             v-model="comment"
-            label="แสดงความคิดเห็น"
+            label="เขียนความคิดเห็น"
             rows="1"
             outline
             clearable
