@@ -1,7 +1,15 @@
 const { feedback } = require("../domains");
 const CustomError = require("../utils/custom-error");
 
-exports.createFeedback = body => feedback.create(body);
+exports.createFeedback = (user, body) => {
+  const { sub: uid } = user;
+  return feedback.create({ ...body, uid });
+};
+
+exports.createOrUpdateFeedback = (user, body) => {
+  const { sub: uid } = user;
+  return feedback.upsert({ ...body, uid });
+};
 
 exports.getFeedback = query => feedback.findAll(query);
 
@@ -9,6 +17,7 @@ exports.getFeedbackById = id => feedback.findByPk(id);
 
 exports.patchFeedbackById = async (id, user, body) => {
   await checkFeedbackKeyAndOwner(id, user);
+  delete body.uid;
   return feedback.updateByPk(id, body);
 };
 

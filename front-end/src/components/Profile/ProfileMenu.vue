@@ -8,57 +8,51 @@
             <v-icon size="25px" class="orange white--text">save</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>เส้นทางที่บันทึก</v-list-tile-content>
-          <v-spacer />
-          <v-icon>navigate_next</v-icon>
+          <v-list-tile-action>
+            <v-icon>navigate_next</v-icon>
+          </v-list-tile-action>
         </v-list-tile>
       </v-flex>
-      <!-- </v-layout> -->
 
-      <!-- <v-divider></v-divider> -->
-      <!-- <v-layout> -->
       <v-flex xs12 lg12 md12>
-        <v-list-tile avatar ripple :disabled="btnDisabled" @click="handleClick">
+        <v-list-tile avatar ripple :disabled="notificationDisabled" @click="handleSubscribe">
           <v-list-tile-avatar>
             <v-icon size="25px" class="blue white--text">settings</v-icon>
           </v-list-tile-avatar>
-          <v-list-tile-content>{{btnText}}</v-list-tile-content>
-          <v-spacer></v-spacer>
-          <v-spacer></v-spacer>
-          <v-spacer></v-spacer>
-          <v-switch v-model="tempSwitch1"></v-switch>
+          <v-list-tile-content>{{notificationText}}</v-list-tile-content>
+          <v-list-tile-action style="margin-right: -15px;">
+            <v-switch :value="isSubscribed"></v-switch>
+          </v-list-tile-action>
         </v-list-tile>
       </v-flex>
-      <!-- </v-layout> -->
-      <!-- <v-divider></v-divider> -->
-      <!-- <v-layout> -->
+
       <v-flex xs12 lg12 md12>
         <v-list-tile avatar ripple @click="logout">
           <v-list-tile-avatar>
             <v-icon size="25px" class="red white--text">lock_open</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>ออกจากระบบ</v-list-tile-content>
-          <v-spacer />
-          <v-icon>navigate_next</v-icon>
+          <v-list-tile-action>
+            <v-icon>navigate_next</v-icon>
+          </v-list-tile-action>
         </v-list-tile>
       </v-flex>
     </v-layout>
   </div>
-  <!-- <v-divider></v-divider> -->
 </template>
 
 <script>
-import axios from "axios";
+import notificationApi from "@/api/notification";
 import urlB64ToUint8Array from "@/utilitys/urlB64ToUint8Array";
 export default {
-  name: "HomeProfile",
+  name: "ProfileMenu",
   data() {
     return {
       profile: this.$auth.profile,
       registration: null,
-      isSubscribed: false,
-      btnDisabled: true,
-      btnText: "รับการแจ้งเตือน",
-      tempSwitch1: false
+      notificationDisabled: true,
+      notificationText: "อุปกรณ์ไม่รองรับการแจ้งเตือน",
+      isSubscribed: false
     };
   },
   async created() {
@@ -70,7 +64,7 @@ export default {
       if (this.isSubscribed) {
         await this.syncSubscription(subscription);
       }
-      this.updateBtn();
+      this.updateNoti();
     } catch (err) {
       console.log("Service Worker not ready");
     }
@@ -79,40 +73,30 @@ export default {
     logout() {
       this.$auth.logOut();
     },
-
-    handleClick() {
-      this.btnDisabled = true;
+    handleSubscribe() {
+      this.notificationDisabled = true;
       if (this.isSubscribed) {
         this.unsubscribeUser();
       } else {
         this.subscribeUser();
       }
     },
-
-    updateBtn() {
+    updateNoti() {
       if (Notification.permission === "denied") {
-        this.btnText = "ไม่อนุญาตรับการแจ้งเตือน";
-        this.btnDisabled = true;
+        this.notificationText = "คุณไม่อนุญาตรับการแจ้งเตือน";
+        this.notificationDisabled = true;
         return;
-      }
-      if (this.isSubscribed) {
-        this.btnText = "ปิดรับการแจ้งเตือน";
       } else {
-        this.btnText = "เปิดรับการแจ้งเตือน";
+        this.notificationText = "รับการแจ้งเตือน";
+        this.notificationDisabled = false;
       }
-      this.btnDisabled = false;
     },
-
     async syncSubscription(subscription) {
       const uid = this.profile && this.profile.sub;
       const subscribe = subscription.toJSON();
       const body = { ...subscribe, uid };
-      await axios.put(
-        `${process.env.VUE_APP_NOTIFICATION_URL}/subscription`,
-        body
-      );
+      await notificationApi.putSubscription(body);
     },
-
     async subscribeUser() {
       const applicationServerKey = urlB64ToUint8Array(
         process.env.VUE_APP_WEB_PUSH_KEY
@@ -125,30 +109,23 @@ export default {
         const uid = this.profile && this.profile.sub;
         const subscribe = subscription.toJSON();
         const body = { ...subscribe, uid };
-        await axios.post(
-          `${process.env.VUE_APP_NOTIFICATION_URL}/subscription`,
-          body
-        );
+        await notificationApi.postSubscription(body);
         this.isSubscribed = true;
-        this.updateBtn();
+        this.updateNoti();
       } catch (err) {
         this.unsubscribeUser();
         console.log("Failed to subscribe");
       }
     },
-
     async unsubscribeUser() {
       try {
         const subscription = await this.registration.pushManager.getSubscription();
         if (subscription) {
           await subscription.unsubscribe();
           const subscribe = subscription.toJSON();
-          await axios.delete(
-            `${process.env.VUE_APP_NOTIFICATION_URL}/subscription`,
-            { data: subscribe }
-          );
+          await notificationApi.deleteSubscription({ data: subscribe });
           this.isSubscribed = false;
-          this.updateBtn();
+          this.updateNoti();
         }
       } catch (err) {
         console.log("Failed to unsubscribe");
@@ -158,7 +135,4 @@ export default {
 };
 </script>
 <style scoped>
-.v-list-tile {
-  overflow: auto;
-}
 </style>

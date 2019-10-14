@@ -2,7 +2,7 @@ const asyncWrapper = require("../middleware/async-wrapper");
 const { comment } = require("../services");
 
 exports.createComment = asyncWrapper(async (req, res) => {
-  const result = await comment.createComment(req.body);
+  const result = await comment.createComment(req.user, req.body);
   res.send(result);
 });
 

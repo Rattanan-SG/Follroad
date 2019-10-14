@@ -1,7 +1,10 @@
 const { comment } = require("../domains");
 const CustomError = require("../utils/custom-error");
 
-exports.createComment = body => comment.create(body);
+exports.createComment = (user, body) => {
+  const { sub: uid } = user;
+  return comment.create({ ...body, uid });
+};
 
 exports.getComment = query => comment.findAll(query);
 
@@ -9,6 +12,7 @@ exports.getCommentById = id => comment.findByPk(id);
 
 exports.patchCommentById = async (id, user, body) => {
   await checkCommentKeyAndOwner(id, user);
+  delete body.uid;
   return comment.updateByPk(id, body);
 };
 

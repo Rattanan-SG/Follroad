@@ -2,7 +2,7 @@ const asyncWrapper = require("../middleware/async-wrapper");
 const { event } = require("../services");
 
 exports.createEvent = asyncWrapper(async (req, res) => {
-  const result = await event.createEvent(req.body);
+  const result = await event.createEvent(req.user, req.body);
   res.send(result);
 });
 

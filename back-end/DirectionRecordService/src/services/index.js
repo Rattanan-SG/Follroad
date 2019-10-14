@@ -1,7 +1,10 @@
 const directionRecord = require("../domains/direction-record");
 const CustomError = require("../utils/custom-error");
 
-exports.createRecord = body => directionRecord.create(body);
+exports.createRecord = (user, body) => {
+  const { sub: uid } = user;
+  return directionRecord.create({ ...body, uid });
+};
 
 exports.getRecord = query => {
   const { fields, ...where } = query;
@@ -20,6 +23,7 @@ exports.getRecordById = id => directionRecord.findByPk(id);
 
 exports.patchRecordById = async (id, user, body) => {
   await checkDirectionRecordKeyAndOwner(id, user);
+  delete body.uid;
   return directionRecord.updateByPk(id, body, { new: true });
 };
 

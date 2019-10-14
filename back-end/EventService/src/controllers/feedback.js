@@ -2,7 +2,12 @@ const asyncWrapper = require("../middleware/async-wrapper");
 const { feedback } = require("../services");
 
 exports.createFeedback = asyncWrapper(async (req, res) => {
-  const result = await feedback.createFeedback(req.body);
+  const result = await feedback.createFeedback(req.user, req.body);
+  res.send(result);
+});
+
+exports.putFeedback = asyncWrapper(async (req, res) => {
+  const result = await feedback.createOrUpdateFeedback(req.user, req.body);
   res.send(result);
 });
 

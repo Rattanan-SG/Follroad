@@ -1,6 +1,6 @@
 import auth0 from "auth0-js";
-import axios from "axios";
 import { EventEmitter } from "events";
+import notificationApi from "@/api/notification";
 
 const webAuth = new auth0.WebAuth({
   domain: process.env.VUE_APP_AUTH0_DOMAIN,
@@ -93,10 +93,7 @@ class AuthService extends EventEmitter {
         if (subscription) {
           await subscription.unsubscribe();
           const subscribe = subscription.toJSON();
-          await axios.delete(
-            `${process.env.VUE_APP_NOTIFICATION_URL}/subscription`,
-            { data: subscribe }
-          );
+          await notificationApi.deleteSubscription({ data: subscribe });
         }
       });
     }
