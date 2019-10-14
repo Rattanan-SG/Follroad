@@ -50,7 +50,7 @@
                 </v-flex>
 
                 <v-flex xs12>
-                  <div class="subheading">เลือกเส้นทางที่ต้องการรับแจ้งเตือน *</div>
+                  <div class="subheading">เลือกเส้นทางที่ต้องการรับแจ้งเตือน</div>
                   <v-checkbox
                     v-for="(route, index) in directionsResponse.routes"
                     v-model="notificationRoutes"
@@ -178,6 +178,9 @@
                 </v-flex>
                 <v-spacer></v-spacer>
               </v-layout>
+              <div
+                class="subheading red--text"
+              >* ตรวจสอบการรับแจ้งเตือนว่าเปิดหรือปิดอยู่ได้ที่หน้า โปรไฟล์ *</div>
               <v-alert
                 :value="success"
                 color="success"
