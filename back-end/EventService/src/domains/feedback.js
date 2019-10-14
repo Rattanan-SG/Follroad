@@ -31,3 +31,8 @@ exports.deleteByPk = (id, options) =>
     .then(response => ({
       response
     }));
+
+exports.upsert = (data, options) =>
+  feedback.upsert(data, {
+    ...options
+  });

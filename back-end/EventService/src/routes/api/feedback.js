@@ -5,6 +5,7 @@ const { feedback } = require("../../controllers");
 const router = express.Router();
 
 router.post("/feedback", checkJwt, feedback.createFeedback);
+router.put("/feedback", checkJwt, feedback.putFeedback);
 router.get("/feedback", feedback.getFeedback);
 router.get("/feedback/:id", feedback.getFeedbackById);
 router.patch("/feedback/:id", checkJwt, feedback.patchFeedbackById);

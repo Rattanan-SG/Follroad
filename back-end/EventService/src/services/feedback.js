@@ -6,6 +6,11 @@ exports.createFeedback = (user, body) => {
   return feedback.create({ ...body, uid });
 };
 
+exports.createOrUpdateFeedback = (user, body) => {
+  const { sub: uid } = user;
+  return feedback.upsert({ ...body, uid });
+};
+
 exports.getFeedback = query => feedback.findAll(query);
 
 exports.getFeedbackById = id => feedback.findByPk(id);

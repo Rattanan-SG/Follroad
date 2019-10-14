@@ -6,6 +6,11 @@ exports.createFeedback = asyncWrapper(async (req, res) => {
   res.send(result);
 });
 
+exports.putFeedback = asyncWrapper(async (req, res) => {
+  const result = await feedback.createOrUpdateFeedback(req.user, req.body);
+  res.send(result);
+});
+
 exports.getFeedback = asyncWrapper(async (req, res) => {
   const result = await feedback.getFeedback(req.query);
   res.send(result);
