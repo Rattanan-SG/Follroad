@@ -1,6 +1,7 @@
 const { Op } = require("sequelize");
 const { DateTime } = require("luxon");
 const { event } = require("../domains");
+const { picture, comment, feedback } = require("../models");
 const { EVENT_SOURCE, EVENT_MAPPING } = require("../utils/constant");
 const { formatEventToSendMessageQueue } = require("../utils/format-event");
 const { logInfo, logDebug } = require("../utils/logger");
@@ -48,7 +49,8 @@ exports.getEvent = query => {
   }
 };
 
-exports.getEventById = id => event.findByPk(id);
+exports.getEventById = id =>
+  event.findByPk(id, { include: [picture, comment, feedback] });
 
 exports.patchEventById = async (id, user, body) => {
   await checkEventKeyAndOwner(id, user);
