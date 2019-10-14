@@ -9,12 +9,13 @@ const iticApi = require("../clients/itic");
 const messageQueueApi = require("../clients/message-queue");
 const io = require("../socket/io");
 
-exports.createEvent = async body => {
+exports.createEvent = async (user, body) => {
+  const { sub: uid } = user;
   let stop = body.stop;
   if (!stop) {
     stop = calculateDefaultStopFromType(body);
   }
-  const result = await event.create({ ...body, stop });
+  const result = await event.create({ ...body, uid, stop });
   logInfo("Create event complete", result.dataValues);
   if (new Date(result.stop) > new Date()) {
     sendEventToMessageQueue([result]);
@@ -51,6 +52,8 @@ exports.getEventById = id => event.findByPk(id);
 
 exports.patchEventById = async (id, user, body) => {
   await checkEventKeyAndOwner(id, user);
+  delete body.eid;
+  delete body.uid;
   return event.updateByPk(id, body);
 };
 

@@ -2,7 +2,7 @@ const asyncWrapper = require("../middleware/async-wrapper");
 const service = require("../services");
 
 exports.createRecord = asyncWrapper(async (req, res) => {
-  const result = await service.createRecord(req.body);
+  const result = await service.createRecord(req.user, req.body);
   res.send(result);
 });
 
