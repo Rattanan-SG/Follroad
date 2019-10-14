@@ -5,7 +5,7 @@
         <v-flex xs1 md1 lg1 mt-4 ml-3>
           <v-img :src="getIcon()" max-width="40" max-height="40" left></v-img>
         </v-flex>
-        <v-flex xs11 md11 lg11 mt-1 mr-3>
+        <v-flex xs11 md11 lg11 mr-3>
           <!-- <v-list-tile>
             <v-list-tile-avatar>
               <v-img :src="getIcon()" max-width="40" max-height="40" left></v-img>
@@ -41,21 +41,21 @@
       </v-flex>
 
       <!-- <v-card-actions> -->
-        <v-flex xs3 md5 lg3>
+        <v-flex xs3 md3 lg3 sm4>
           <v-btn flat icon color="blue lighten-2" v-on:click="countLike++">
             <v-icon>thumb_up</v-icon>
           </v-btn>
           {{countLike}}
         </v-flex>
-        <v-flex xs3 md5 lg3>
+        <v-flex xs3 md3 lg3 sm3>
           <v-btn flat icon color="red lighten-2" v-on:click="countDislike++">
             <v-icon>thumb_down</v-icon>
           </v-btn>
           {{countDislike}}
         </v-flex>
         <!-- <v-spacer></v-spacer> -->
-        <v-flex xs5 md8 lg5>
-          <v-btn flat color="blue" @click="show = !show">แสดงความคิดเห็น</v-btn>
+        <v-flex xs5 md6 lg5 sm4>
+          <v-btn flat small color="blue" @click="show = !show">แสดงความคิดเห็น</v-btn>
         </v-flex>
       <!-- </v-card-actions> -->
       <v-slide-y-transition>
