@@ -42,9 +42,8 @@
 </template>
 
 <script>
-import axios from "axios";
-import urlB64ToUint8Array from "@/utilitys/urlB64ToUint8Array";
 import notificationApi from "@/api/notification";
+import urlB64ToUint8Array from "@/utilitys/urlB64ToUint8Array";
 export default {
   name: "ProfileMenu",
   data() {
