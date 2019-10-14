@@ -37,31 +37,28 @@
     </v-navigation-drawer>
     <v-toolbar app flat fixed dark color="blue darken-3" :clipped-left="toolbar.clippedLeft">
       <v-toolbar-side-icon @click.stop="toggleDrawer" class="hidden-xs-only"></v-toolbar-side-icon>
-      <!-- <v-toolbar-title v-if="!showSearchInput" style="overflow: unset; margin-left: 10px"> -->
       <img
         src="https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/Logo+%E0%B8%9E%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B8%84%E0%B8%B3+2.png"
-        v-if="!showSearchInput"
+        v-if="!showSearchInput || this.$vuetify.breakpoint.smAndUp"
         height="65%"
         alt="logo"
       />
-      <!-- </v-toolbar-title> -->
-
       <v-btn v-else icon @click="showSearchInput=false" class="ml-0 hidden-sm-and-up">
         <v-icon>arrow_back</v-icon>
       </v-btn>
 
       <v-spacer></v-spacer>
 
-      <template v-show="showSearchInput || this.$vuetify.breakpoint.smAndUp">
-        <gmap-autocomplete
-          v-show="showSearchInput || this.$vuetify.breakpoint.smAndUp"
-          @place_changed="search"
-          style="background-color: #0080FF; width:50%; height:60%"
-          ref="gmapAutoComplete"
-          placeholder="ค้นหาสถานที่"
-          :class="this.$vuetify.breakpoint.smAndUp ? autoCompleteClass.normal : autoCompleteClass.mobile"
-          :select-first-on-enter="true"
-        ></gmap-autocomplete>
+      <gmap-autocomplete
+        v-show="showSearchInput || this.$vuetify.breakpoint.smAndUp"
+        @place_changed="search"
+        ref="gmapAutoComplete"
+        placeholder="ค้นหาสถานที่"
+        style="border-radius:15px; background-color: #0080FF; width:60%; height:60%"
+        class="ml-2 py-2 px-3 subheading"
+        :select-first-on-enter="true"
+      ></gmap-autocomplete>
+      <template v-if="showSearchInput">
         <v-btn v-if="searchPlace" icon @click="clearSearch">
           <v-icon>close</v-icon>
         </v-btn>
@@ -72,7 +69,7 @@
 
       <v-spacer></v-spacer>
 
-      <template v-if="!showSearchInput">
+      <template v-if="!showSearchInput || this.$vuetify.breakpoint.smAndUp">
         <v-btn icon @click="showSearchInput=true" class="hidden-sm-and-up">
           <v-icon>search</v-icon>
         </v-btn>
@@ -118,11 +115,7 @@ export default {
       isAuthenticated: false,
       profile: this.$auth.profile,
       loginLoading: false,
-      showSearchInput: false,
-      autoCompleteClass: {
-        normal: "ml-4 mr-2 pa-2 subheading",
-        mobile: "mr-1 pa-2 subheading"
-      }
+      showSearchInput: false
     };
   },
   computed: {
