@@ -1,5 +1,5 @@
 <template>
-  <!-- <v-card color="blue darken-3" flat>
+  <v-card color="blue darken-3" flat>
     <v-container text-xs-center class="pa-0">
       <v-layout row wrap justify-center align-center>
         <v-flex xs2>
@@ -17,8 +17,8 @@
         </v-flex>
       </v-layout>
     </v-container>
-  </v-card>-->
-  <div>
+  </v-card>
+  <!-- <div>
     <v-toolbar color="blue darken-3" flat height="40%">
       <v-layout align-center>
         <v-flex xs3 md2 lg3 sm2>
@@ -37,7 +37,7 @@
         </v-flex>
       </v-layout>
     </v-toolbar>
-  </div>
+  </div> -->
 </template>
 
 <script>
