@@ -17,9 +17,9 @@
 
     <v-card flat max-width="100%" class="mx-auto pt-4">
       <v-list>
-        <v-list-tile>
-          <v-list-tile-avatar>
-            <img :src="marker.icon" max-width="40" max-height="40" />
+        <v-list-tile avatar class="my-tile">
+          <v-list-tile-avatar tile>
+            <v-img :src="marker.icon" max-width="25" max-height="25"></v-img>
           </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title class="blue--text">{{marker.title}}</v-list-tile-title>
@@ -28,7 +28,7 @@
         </v-list-tile>
       </v-list>
       <v-card-text class="pa-0">
-        <div>{{marker.description}}</div>
+        <div class="body-2">{{marker.description}}</div>
         <br />
         <v-divider></v-divider>
         <br />
@@ -76,5 +76,9 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
+>>> .my-tile .v-list__tile {
+  padding-left: 3px;
+  padding-right: 0px;
+}
 </style>

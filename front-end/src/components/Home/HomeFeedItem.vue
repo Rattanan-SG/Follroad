@@ -1,7 +1,7 @@
 <template>
   <v-list-tile avatar @click="toggleInfoWindow" v-ripple>
-    <v-list-tile-avatar>
-      <v-img :src="getIcon()" max-width="40" max-height="40"></v-img>
+    <v-list-tile-avatar tile>
+      <v-img :src="getIcon()" max-width="25" max-height="25"></v-img>
     </v-list-tile-avatar>
     <v-list-tile-content>
       <v-list-tile-title>{{event.title}}</v-list-tile-title>

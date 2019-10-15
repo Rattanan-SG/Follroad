@@ -16,7 +16,7 @@
     </v-toolbar>
 
     <v-card flat max-width="400px" class="mx-auto pt-4">
-      <v-card-title class="px-0">
+      <v-card-title class="px-1">
         <div>
           <v-icon medium>post_add</v-icon>
           <span class="headline">แจ้งเหตุการณ์</span>
@@ -25,7 +25,7 @@
           >คุณต้องการที่จะแจ้งเหตุการณ์ที่ตำแหน่งนี้หรือไม่?</div>
         </div>
       </v-card-title>
-      <v-card-text class="px-0 pt-1">{{marker.title}}</v-card-text>
+      <v-card-text class="px-1 pt-1 body-2">{{marker.title}}</v-card-text>
       <v-card-actions class="px-0 pt-0">
         <v-spacer></v-spacer>
         <v-btn outline color="red white--text" @click="cancel" class="mx-2">ยกเลิก</v-btn>
