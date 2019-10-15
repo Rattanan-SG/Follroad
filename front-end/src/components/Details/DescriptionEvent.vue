@@ -73,7 +73,7 @@
         </v-flex>
     </v-layout>-->
     <!-- <v-card height="15vh"> -->
-    <v-list three-line v-if="!!infoWindow.marker">
+    <!-- <v-list three-line v-if="!!infoWindow.marker">
       <template>
         <v-list-tile>
           <v-flex mt-1 xs1 md1 lg1>
@@ -95,7 +95,7 @@
     </v-list>
     <v-flex ml-3 mr-3>
       <v-divider></v-divider>
-    </v-flex>
+    </v-flex> -->
 
     <v-list three-line v-if="!!infoWindow.marker">
       <template>
@@ -105,14 +105,8 @@
               <img src="@/assets/logo.svg" alt="avatar" />
             </v-avatar>
           </v-flex>
-          <v-flex ml-3 xs9 md9 lg9>
-            <v-list-tile avatar>
-              <v-list-tile-content>
-                <h3>ยังติดอยู่เลย</h3>
-
-                <v-list-tile-sub-title>ไม่ขยับมา 1 ชั่วโมงแล้ว</v-list-tile-sub-title>
-              </v-list-tile-content>
-            </v-list-tile>
+          <v-flex ml-3 xs11 md11 lg11>
+            <v-textarea :value="`${author.toUpperCase()} ${commentDetail}`" rows="3" disabled font-size="20pt"></v-textarea>
           </v-flex>
         </v-list-tile>
       </template>
@@ -121,54 +115,7 @@
     <v-flex ml-3 mr-3>
       <v-divider></v-divider>
     </v-flex>
-    <v-list three-line v-if="!!infoWindow.marker">
-      <template>
-        <v-list-tile>
-          <v-flex mt-1 xs1 md1 lg1>
-            <v-avatar size="30px">
-              <img src="@/assets/logo.svg" alt="avatar" />
-            </v-avatar>
-          </v-flex>
-          <v-flex ml-3 xs9 md9 lg9>
-            <v-list-tile avatar>
-              <v-list-tile-content>
-                <h3>ยังติดอยู่เลย</h3>
-
-                <v-list-tile-sub-title>ไม่ขยับมา 1 ชั่วโมงแล้ว</v-list-tile-sub-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-flex>
-        </v-list-tile>
-      </template>
-    </v-list>
-
-    <v-flex ml-3 mr-3>
-      <v-divider></v-divider>
-    </v-flex>
-    <v-list three-line v-if="!!infoWindow.marker">
-      <template>
-        <v-list-tile>
-          <v-flex mt-1 xs1 md1 lg1>
-            <v-avatar size="30px">
-              <img src="@/assets/logo.svg" alt="avatar" />
-            </v-avatar>
-          </v-flex>
-          <v-flex ml-3 xs9 md9 lg9>
-            <v-list-tile avatar>
-              <v-list-tile-content>
-                <h3>ยังติดอยู่เลย</h3>
-
-                <v-list-tile-sub-title>ไม่ขยับมา 1 ชั่วโมงแล้ว</v-list-tile-sub-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-flex>
-        </v-list-tile>
-      </template>
-    </v-list>
-
-    <v-flex ml-3 mr-3>
-      <v-divider></v-divider>
-    </v-flex>
+    
   </v-card>
 </template>
 
@@ -188,7 +135,9 @@ export default {
       show: false,
       countLike: 0,
       countDislike: 0,
-      comment: ""
+      comment: "",
+      commentDetail: "รถติดโคตรๆๆๆ",
+      author: "Rattanan Nuan"
     };
   },
   computed: {
