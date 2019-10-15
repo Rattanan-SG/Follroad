@@ -1,4 +1,5 @@
-const { Op } = require("sequelize");
+const sequelize = require("sequelize");
+const { Op } = sequelize;
 const { DateTime } = require("luxon");
 const { event } = require("../domains");
 const { picture, comment, feedback } = require("../models");
@@ -25,15 +26,18 @@ exports.createEvent = async (user, body) => {
   return result;
 };
 
-exports.getEvent = query => {
-  const { limit, startFrom, lastId, ...where } = query;
+exports.getEvent = async query => {
+  const { fields, limit, startFrom, lastId, countFeedback, ...where } = query;
+  let include;
+  countFeedback
+    ? (include = [getIncludeCountFeedbackObject()])
+    : (include = null);
   if (limit) {
     let start, id;
     startFrom
       ? (start = DateTime.fromISO(startFrom).toUTC())
       : (start = DateTime.local().toUTC());
     lastId ? (id = lastId) : (id = 0);
-
     return event.findAll(
       {
         ...where,
@@ -41,16 +45,24 @@ exports.getEvent = query => {
       },
       {
         scope: ["activeEvent"],
-        limit: Number(limit)
+        limit: Number(limit),
+        attributes: fields,
+        include
       }
     );
   } else {
-    return event.findAll(where, { scope: ["activeEvent"] });
+    return event.findAll(where, {
+      scope: ["activeEvent"],
+      attributes: fields,
+      include
+    });
   }
 };
 
 exports.getEventById = id =>
-  event.findByPk(id, { include: [picture, comment, feedback] });
+  event.findByPk(id, {
+    include: [picture, comment, getIncludeCountFeedbackObject()]
+  });
 
 exports.patchEventById = async (id, user, body) => {
   await checkEventKeyAndOwner(id, user);
@@ -144,3 +156,25 @@ const sendEventToMessageQueue = events => {
   const data = formatEventToSendMessageQueue(events);
   messageQueueApi.sendMessage(global.gConfig.notification_queue_name, data);
 };
+
+const getIncludeCountFeedbackObject = () => ({
+  model: feedback,
+  attributes: [
+    [
+      sequelize.fn(
+        "SUM",
+        sequelize.literal("CASE WHEN react = true THEN 1 ELSE 0 END")
+      ),
+      "like"
+    ],
+    [
+      sequelize.fn(
+        "SUM",
+        sequelize.literal("CASE WHEN react = false THEN 1 ELSE 0 END")
+      ),
+      "dislike"
+    ]
+  ],
+  separate: true,
+  required: true
+});

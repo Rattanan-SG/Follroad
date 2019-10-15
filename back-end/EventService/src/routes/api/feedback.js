@@ -11,5 +11,6 @@ router.delete("/feedback", checkJwt, feedback.deleteFeedback);
 router.get("/feedback/:id", feedback.getFeedbackById);
 router.patch("/feedback/:id", checkJwt, feedback.patchFeedbackById);
 router.delete("/feedback/:id", checkJwt, feedback.deleteFeedbackById);
+router.get("/feedback/event/:eventId", feedback.getCountFeedbackOfEventId);
 
 module.exports = router;

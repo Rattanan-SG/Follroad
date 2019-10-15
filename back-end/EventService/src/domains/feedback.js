@@ -46,3 +46,9 @@ exports.upsert = (data, options) =>
   feedback.upsert(data, {
     ...options
   });
+
+exports.count = (where, options) =>
+  feedback.count({
+    where,
+    ...options
+  });

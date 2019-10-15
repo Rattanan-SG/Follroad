@@ -7,7 +7,8 @@ exports.createEvent = asyncWrapper(async (req, res) => {
 });
 
 exports.getEvent = asyncWrapper(async (req, res) => {
-  const result = await event.getEvent(req.query);
+  const fields = req.query.fields && req.query.fields.split(" ");
+  const result = await event.getEvent({ ...req.query, fields });
   res.send(result);
 });
 

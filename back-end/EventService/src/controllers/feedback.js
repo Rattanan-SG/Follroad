@@ -42,3 +42,8 @@ exports.deleteFeedbackById = asyncWrapper(async (req, res) => {
   const result = await feedback.deleteFeedbackById(req.params.id, req.user);
   res.send(result);
 });
+
+exports.getCountFeedbackOfEventId = asyncWrapper(async (req, res) => {
+  const result = await feedback.countLikeAndDislikeOfEventId(req.params.eventId);
+  res.send(result);
+});

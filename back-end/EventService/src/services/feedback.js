@@ -31,6 +31,12 @@ exports.deleteFeedbackById = async (id, user) => {
   return feedback.deleteByPk(id);
 };
 
+exports.countLikeAndDislikeOfEventId = async eventId => {
+  const countLike = await feedback.count({ eventId, react: true });
+  const countDislike = await feedback.count({ eventId, react: false });
+  return { countLike, countDislike };
+};
+
 const checkFeedbackKeyAndOwner = async (id, user) => {
   const { sub: uid } = user;
   const result = await feedback.findByPk(id);
