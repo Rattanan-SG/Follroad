@@ -1,8 +1,6 @@
 <template>
   <div>
     <CloseViewToolBar title="รายละเอียดเหตุการณ์" />
-
-    <v-card flat height="20px"></v-card>
     <DescriptionEvent />
   </div>
 </template>

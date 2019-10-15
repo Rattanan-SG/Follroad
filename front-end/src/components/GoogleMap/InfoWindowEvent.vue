@@ -31,9 +31,8 @@
         <div class="body-2">{{marker.description}}</div>
         <br />
         <v-divider></v-divider>
-        <br />
       </v-card-text>
-      <v-card-text class="pa-0">
+      <v-card-text class="px-0">
         <div
           class="body-1 red--text"
         >เกิดขึ้น ณ {{marker.eventCaption.startTime | luxon:locale('short')}}</div>
@@ -41,15 +40,8 @@
           class="body-1 red--text"
         >จะสิ้นสุดใน {{marker.eventCaption.stopTime | luxon:locale('short')}}</div>
       </v-card-text>
-      <v-card-actions>
-        <v-btn flat icon color="blue lighten-2" v-on:click="countLike++">
-          <v-icon>thumb_up</v-icon>
-        </v-btn>
-        {{countLike}}
-        <v-btn flat icon color="red lighten-2" v-on:click="countDislike++">
-          <v-icon>thumb_down</v-icon>
-        </v-btn>
-        {{countDislike}}
+      <v-card-actions class="px-0">
+        <LikeDislikeControl />
         <v-spacer></v-spacer>
         <v-btn outline color="blue" to="/details" @click="setRouterView(true)">ดูเพิ่มเติม</v-btn>
       </v-card-actions>
@@ -59,8 +51,12 @@
 
 <script>
 import { mapActions } from "vuex";
+import LikeDislikeControl from "../Feedback/LikeDislikeControl";
 export default {
   name: "InfoWindowEvent",
+  components: {
+    LikeDislikeControl
+  },
   props: {
     marker: Object,
     closeInfoWindow: Function
