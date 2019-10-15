@@ -16,6 +16,14 @@ exports.getFeedback = asyncWrapper(async (req, res) => {
   res.send(result);
 });
 
+exports.deleteFeedback = asyncWrapper(async (req, res) => {
+  const result = await feedback.deleteFeedbackByUniqueKey(
+    req.user,
+    req.body.eventId
+  );
+  res.send(result);
+});
+
 exports.getFeedbackById = asyncWrapper(async (req, res) => {
   const result = await feedback.getFeedbackById(req.params.id);
   res.send(result);

@@ -8,10 +8,15 @@ exports.createFeedback = (user, body) => {
 
 exports.createOrUpdateFeedback = (user, body) => {
   const { sub: uid } = user;
-  return feedback.upsert({ ...body, uid });
+  return feedback.upsert({ ...body, deletedAt: null, uid });
 };
 
 exports.getFeedback = query => feedback.findAll(query);
+
+exports.deleteFeedbackByUniqueKey = async (user, eventId) => {
+  const { sub: uid } = user;
+  return feedback.delete({ uid, eventId });
+};
 
 exports.getFeedbackById = id => feedback.findByPk(id);
 

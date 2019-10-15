@@ -32,6 +32,16 @@ exports.deleteByPk = (id, options) =>
       response
     }));
 
+exports.delete = (where, options) =>
+  feedback
+    .destroy({
+      where,
+      ...options
+    })
+    .then(response => ({
+      response
+    }));
+
 exports.upsert = (data, options) =>
   feedback.upsert(data, {
     ...options
