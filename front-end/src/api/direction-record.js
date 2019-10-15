@@ -1,7 +1,18 @@
 import axios from "axios";
+import authService from "@/auth/authService";
 
 const directionRecordService = axios.create({
   baseURL: process.env.VUE_APP_DIRECTION_RECORD_URL
+});
+
+directionRecordService.interceptors.request.use(async config => {
+  try {
+    const accessToken = await authService.getAccessToken();
+    config.headers.common["Authorization"] = `Bearer ${accessToken}`;
+    return config;
+  } catch (error) {
+    return config;
+  }
 });
 
 const getRecords = (params, config) => {

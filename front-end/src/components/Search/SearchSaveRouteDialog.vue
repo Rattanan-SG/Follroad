@@ -279,23 +279,13 @@ export default {
         this.error = false;
         const data = this.getDirectionRecordData();
         try {
-          const accessToken = await this.$auth.getAccessToken();
           if (!this.id) {
-            const { _id } = await directionRecordApi.postRecord(data, {
-              headers: {
-                Authorization: `Bearer ${accessToken}`
-              }
-            });
+            const { _id } = await directionRecordApi.postRecord(data);
             this.id = _id;
           } else {
             await this.updateDirectionRecordById({
               _id: this.id,
-              data,
-              config: {
-                headers: {
-                  Authorization: `Bearer ${accessToken}`
-                }
-              }
+              data
             });
           }
           this.success = true;

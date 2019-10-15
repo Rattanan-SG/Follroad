@@ -1,7 +1,18 @@
 import axios from "axios";
+import authService from "@/auth/authService";
 
 const eventService = axios.create({
   baseURL: process.env.VUE_APP_EVENT_URL
+});
+
+eventService.interceptors.request.use(async config => {
+  try {
+    const accessToken = await authService.getAccessToken();
+    config.headers.common["Authorization"] = `Bearer ${accessToken}`;
+    return config;
+  } catch (error) {
+    return config;
+  }
 });
 
 const getEvents = (params, config) => {
@@ -28,9 +39,23 @@ const deleteEventById = (id, config) => {
     .then(response => response.data);
 };
 
+const putFeedback = (data, config) => {
+  return eventService
+    .put("/feedback", data, config)
+    .then(response => response.data);
+};
+
+const deleteFeedback = config => {
+  return eventService
+    .delete("/feedback", config)
+    .then(response => response.data);
+};
+
 export default {
   getEvents,
   postEvent,
   patchEventById,
-  deleteEventById
+  deleteEventById,
+  putFeedback,
+  deleteFeedback
 };

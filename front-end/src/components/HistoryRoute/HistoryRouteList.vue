@@ -118,15 +118,7 @@ export default {
       });
     },
     handleDeleteHistoryRoute: async function(_id) {
-      const accessToken = await this.$auth.getAccessToken();
-      return this.deleteDirectionRecordById({
-        _id,
-        config: {
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
-        }
-      });
+      return this.deleteDirectionRecordById({ _id });
     },
     handleLoginEvent: function(data) {
       this.uid = data.profile.sub;

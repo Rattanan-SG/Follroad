@@ -1,7 +1,18 @@
 import axios from "axios";
+import authService from "@/auth/authService";
 
 const notificationService = axios.create({
   baseURL: process.env.VUE_APP_NOTIFICATION_URL
+});
+
+notificationService.interceptors.request.use(async config => {
+  try {
+    const accessToken = await authService.getAccessToken();
+    config.headers.common["Authorization"] = `Bearer ${accessToken}`;
+    return config;
+  } catch (error) {
+    return config;
+  }
 });
 
 const postSubscription = (data, config) => {

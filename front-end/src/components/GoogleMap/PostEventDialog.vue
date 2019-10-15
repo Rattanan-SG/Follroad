@@ -200,12 +200,7 @@ export default {
         this.error = false;
         const data = this.getEventData();
         try {
-          const accessToken = await this.$auth.getAccessToken();
-          const responseEvent = await eventApi.postEvent(data, {
-            headers: {
-              Authorization: `Bearer ${accessToken}`
-            }
-          });
+          const responseEvent = await eventApi.postEvent(data);
           this.checkEventStatus(responseEvent);
           this.completePostEvent();
           this.closeInfoWindow();
