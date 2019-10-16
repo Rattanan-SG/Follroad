@@ -8,31 +8,36 @@
     <v-list v-if="!loading && !!directionRecords.length" three-line>
       <template v-for="(record, index) in directionRecords">
         <v-list-tile class="mt-1" :key="index" avatar ripple @click="startHistoryRoute(record)">
-          <v-flex xs1 md1 lg1 sm1>
+          <!-- <v-flex xs1 md1 lg1 sm1 class="hidden-sm-only">
             <v-card-actions>
               <v-btn flat icon color="red lighten-1">
                 <v-icon size="35px">place</v-icon>
               </v-btn>
             </v-card-actions>
-          </v-flex>
-          <v-flex xs9 md9 lg9 sm9 ml-4>
+          </v-flex> -->
+          <v-flex xs11 md10 lg11 sm10>
             <v-list-tile-content>
-              <v-list-tile-title class="font-weight-black">{{ record.name }}</v-list-tile-title>
+              <v-list-tile-title class="font-weight-black">
+                <!-- <v-btn flat icon color="red lighten-1"> -->
+                  <v-icon size="20px" color="red">place</v-icon>
+                <!-- </v-btn> -->
+                {{ record.name }}
+              </v-list-tile-title>
               <v-list-tile-sub-title class="text--primary">
-                จาก {{ record.start.name }}
+                {{ record.start.name }}
                 <v-icon size="20px">arrow_right_alt</v-icon>
                 {{ record.destination.name }}
               </v-list-tile-sub-title>
-              <v-list-tile-sub-title>แก้ไขล่าสุดเมื่อ {{ record.updatedAt | luxon:locale('shortS') }}</v-list-tile-sub-title>
+              <v-list-tile-title>แก้ไขล่าสุด {{ record.updatedAt | luxon:locale('shortS') }}</v-list-tile-title>
             </v-list-tile-content>
           </v-flex>
 
           <v-flex xs1 md1 lg1 sm1>
-            <v-card-actions>
+            <!-- <v-card-actions> -->
               <v-btn flat icon color="grey" @click.stop="deleteHistoryRoute(record._id)">
                 <v-icon size="30px">delete</v-icon>
               </v-btn>
-            </v-card-actions>
+            <!-- </v-card-actions> -->
           </v-flex>
         </v-list-tile>
 
