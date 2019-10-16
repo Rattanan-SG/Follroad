@@ -34,3 +34,8 @@ exports.deleteRecordById = asyncWrapper(async (req, res) => {
   const result = await service.deleteRecordById(req.params.id, req.user);
   res.send(result);
 });
+
+exports.scheduleCheckRecord = asyncWrapper(async (req, res) => {
+  const result = await service.sendRecordToCheckNotification();
+  res.send(result);
+});

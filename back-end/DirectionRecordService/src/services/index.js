@@ -8,6 +8,8 @@ exports.createRecord = (user, body) => {
 
 exports.getRecord = query => {
   const { fields, ...where } = query;
+  console.log(fields);
+
   return directionRecord.findAll(where, fields);
 };
 
@@ -30,6 +32,20 @@ exports.patchRecordById = async (id, user, body) => {
 exports.deleteRecordById = async (id, user) => {
   await checkDirectionRecordKeyAndOwner(id, user);
   return directionRecord.deleteByPk(id);
+};
+
+exports.sendRecordToCheckNotification = async () => {
+  const record = await directionRecord.findAll(
+    {
+      "notificationRoutes.0": { $exists: true },
+      notificationTime: { $elemMatch: { ongoing: true } }
+    },
+    "id uid name notificationRoutes notificationTime"
+  );
+  record.filter()
+  console.log(record);
+
+  return record;
 };
 
 const checkDirectionRecordKeyAndOwner = async (id, user) => {
