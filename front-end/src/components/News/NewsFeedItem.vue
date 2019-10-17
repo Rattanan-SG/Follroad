@@ -41,22 +41,22 @@
       </v-flex>
 
       <!-- <v-card-actions> -->
-        <v-flex xs3 md5 lg3>
-          <v-btn flat icon color="blue lighten-2" v-on:click="countLike++">
-            <v-icon>thumb_up</v-icon>
-          </v-btn>
-          {{countLike}}
-        </v-flex>
-        <v-flex xs3 md5 lg3>
-          <v-btn flat icon color="red lighten-2" v-on:click="countDislike++">
-            <v-icon>thumb_down</v-icon>
-          </v-btn>
-          {{countDislike}}
-        </v-flex>
-        <!-- <v-spacer></v-spacer> -->
-        <v-flex xs5 md8 lg5>
-          <v-btn flat color="blue" @click="show = !show">แสดงความคิดเห็น</v-btn>
-        </v-flex>
+      <v-flex xs3 md5 lg3>
+        <v-btn flat icon color="blue lighten-2" v-on:click="countLike++">
+          <v-icon>thumb_up</v-icon>
+        </v-btn>
+        {{countLike}}
+      </v-flex>
+      <v-flex xs3 md5 lg3>
+        <v-btn flat icon color="red lighten-2" v-on:click="countDislike++">
+          <v-icon>thumb_down</v-icon>
+        </v-btn>
+        {{countDislike}}
+      </v-flex>
+      <!-- <v-spacer></v-spacer> -->
+      <v-flex xs5 md8 lg6>
+        <v-btn flat color="blue" @click="show = !show">แสดงความคิดเห็น</v-btn>
+      </v-flex>
       <!-- </v-card-actions> -->
       <v-slide-y-transition>
         <v-layout v-show="show">
@@ -113,14 +113,14 @@ export default {
   name: "NewsFeedItem",
   data() {
     return {
-    show: false,
-    countLike: 0,
-    countDislike: 0,
-    comment: "",
-    profile: this.$auth.profile,
-    isAuthenticated: this.$auth.isAuthenticated()
-    }
- },
+      show: false,
+      countLike: 0,
+      countDislike: 0,
+      comment: "",
+      profile: this.$auth.profile,
+      isAuthenticated: this.$auth.isAuthenticated()
+    };
+  },
   props: {
     event: Object
   },

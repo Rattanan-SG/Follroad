@@ -55,45 +55,45 @@ function selectIcon(event) {
       break;
     case 6:
       icon =
-        "https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/flood2.png";
+        "https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/flood.png";
       break;
     case 7:
       icon =
-        "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/demonstration.png";
+        "https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/demonstration.png";
       break;
     case 8:
       icon =
-        "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/information.png";
+        "https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/information.png";
       break;
     case 9:
       icon =
-        "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/checkpoint.png";
+        "https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/checkpoint.png";
       break;
     case 10:
       icon =
-        "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/traffic+jam.png";
+        "https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/traffic+jam.png";
       break;
     case 11:
       icon =
-        "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/miscellaneous.png";
+        "https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/miscellaneous2.png";
       break;
     case 12:
       icon =
-        "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/warning.png";
+        "https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/warning.png";
       break;
     case 13:
       icon =
-        "https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/event2.png";
+        "https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/event.png";
       break;
     case 14:
-      icon = "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/sale.png";
+      icon = "https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/sale.png";
       break;
     case 15:
-      icon = "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/fire.png";
+      icon = "https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/fire.png";
       break;
     case 16:
       icon =
-        "https://s3-ap-southeast-1.amazonaws.com/follroad-bucket/complaint.png";
+        "https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/complaint.png";
       break;
   }
   return icon;
