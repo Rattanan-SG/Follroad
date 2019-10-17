@@ -40,12 +40,11 @@
           <v-icon v-else color="primary" medium>person</v-icon>
         </v-avatar>
       </v-flex>
-      <v-flex xs7 md7 lg7>
+      <v-flex xs10 md10 lg10>
         <v-textarea
           v-model="comment"
-          label="เขียนความคิดเห็น"
+          label="แสดงความคิดเห็น"
           rows="1"
-          outline
           clearable
           auto-grow
           :disabled="!isAuthenticated"
@@ -53,7 +52,7 @@
       </v-flex>
       <v-flex xs2 md2 lg2 pt-2 ml-3>
         <v-btn icon class="ma-0">
-          <v-icon color="primary">send</v-icon>
+          <v-icon color="primary" medium>send</v-icon>
         </v-btn>
       </v-flex>
     </v-layout>
@@ -62,17 +61,6 @@
       <v-divider></v-divider>
     </v-flex>
 
-    <!-- <v-layout>
-        <v-flex mt-3 ml-3 xs1 md1 lg1>
-          <v-avatar size="30px">
-            <img :src="profile.picture" alt="avatar" />
-          </v-avatar>
-        </v-flex>
-        <v-flex ml-3 xs9 md9 lg9>
-          <v-text-field label="แสดงความคิดเห็น" outlined></v-text-field>
-        </v-flex>
-    </v-layout>-->
-    <!-- <v-card height="15vh"> -->
     <!-- <v-list three-line v-if="!!infoWindow.marker">
       <template>
         <v-list-tile>
@@ -81,41 +69,43 @@
               <img src="@/assets/logo.svg" alt="avatar" />
             </v-avatar>
           </v-flex>
-          <v-flex ml-3 xs9 md9 lg9>
-            <v-list-tile avatar>
-              <v-list-tile-content>
-                <h3>ยังติดอยู่เลย</h3>
-
-                <v-list-tile-sub-title>ไม่ขยับมา 1 ชั่วโมงแล้ว</v-list-tile-sub-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-flex>
-        </v-list-tile>
-      </template>
-    </v-list>
-    <v-flex ml-3 mr-3>
-      <v-divider></v-divider>
-    </v-flex> -->
-
-    <v-list three-line v-if="!!infoWindow.marker">
-      <template>
-        <v-list-tile>
-          <v-flex mt-1 xs1 md1 lg1>
-            <v-avatar size="30px">
-              <img src="@/assets/logo.svg" alt="avatar" />
-            </v-avatar>
-          </v-flex>
           <v-flex ml-3 xs11 md11 lg11>
-            <v-textarea :value="`${author.toUpperCase()} ${commentDetail}`" rows="3" disabled font-size="20pt"></v-textarea>
+            <v-textarea :value="`${author.toUpperCase()} : ${commentDetail}`" rows="3" disabled outline></v-textarea>
           </v-flex>
         </v-list-tile>
       </template>
-    </v-list>
-
-    <v-flex ml-3 mr-3>
+    </v-list> -->
+    <v-layout>
+      <v-flex lg1 mt-4 ml-2>
+        <img src="@/assets/logo.svg" alt="avatar" width="30px" height="30px"/>
+      </v-flex>
+      <v-flex xs11 md11 lg11>
+        <v-card-text>
+          <div>
+            <h3 class="blue--text">{{author}}</h3>
+            <div>{{commentDetail}}</div>
+            <div class="red--text">{{postTime}}</div>
+            </div>
+        </v-card-text>
+      </v-flex>
+    </v-layout>
+    <v-flex>
       <v-divider></v-divider>
     </v-flex>
-    
+    <v-layout>
+      <v-flex lg1 mt-4 ml-2>
+        <img src="@/assets/logo.svg" alt="avatar" width="30px" height="30px"/>
+      </v-flex>
+      <v-flex xs11 md11 lg11>
+        <v-card-text>
+          <div>
+            <h3 class="blue--text">{{author}}</h3>
+            <div>{{commentDetail}}</div>
+            <div class="red--text">{{postTime}}</div>
+          </div>
+        </v-card-text>
+      </v-flex>
+    </v-layout>
   </v-card>
 </template>
 
@@ -136,8 +126,9 @@ export default {
       countLike: 0,
       countDislike: 0,
       comment: "",
-      commentDetail: "รถติดโคตรๆๆๆ",
-      author: "Rattanan Nuan"
+      commentDetail: "รถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะ",
+      author: "CEO Rattanan Nuan",
+      postTime: "11.00"
     };
   },
   computed: {

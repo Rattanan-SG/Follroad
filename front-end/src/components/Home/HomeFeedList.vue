@@ -1,7 +1,7 @@
 <template>
   <v-list two-line>
     <template v-for="(event, index) in eventList">
-      <v-subheader v-if="index == 0" :key="`header-${index}`" inset>เหตุการณ์ที่ยังคงเกิดขึ้น</v-subheader>
+      <v-subheader v-if="index == 0" :key="`header-${index}`" inset>เหตุการณ์ปัจจุบัน</v-subheader>
       <v-divider v-if="index == 0" :key="`divider-${index}`" inset></v-divider>
       <HomeFeedItem :key="index" :event="event"></HomeFeedItem>
     </template>
