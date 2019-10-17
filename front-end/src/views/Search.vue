@@ -27,9 +27,9 @@
       </v-btn>
     </v-layout>
     <v-layout row wrap>
-      <v-flex xs12 my-1>
+      <!-- <v-flex xs12 my-1>
         <SearchFeedPanel v-if="directionsResponse" />
-      </v-flex>
+      </v-flex> -->
       <v-flex xs12>
         <SearchRoutePanel v-if="directionsResponse" :directionsRenderer="directionsRenderer" />
       </v-flex>
@@ -47,7 +47,7 @@ const SearchDestinationAutoComplete = () =>
   import("@/components/Search/SearchDestinationAutoComplete");
 const SearchSaveRouteDialog = () =>
   import("@/components/Search/SearchSaveRouteDialog");
-const SearchFeedPanel = () => import("@/components/Search/SearchFeedPanel");
+// const SearchFeedPanel = () => import("@/components/Search/SearchFeedPanel");
 const SearchRoutePanel = () => import("@/components/Search/SearchRoutePanel");
 export default {
   name: "Search",
@@ -61,7 +61,7 @@ export default {
     SearchStartAutoComplete,
     SearchDestinationAutoComplete,
     SearchSaveRouteDialog,
-    SearchFeedPanel,
+    // SearchFeedPanel,
     SearchRoutePanel
   },
   computed: {

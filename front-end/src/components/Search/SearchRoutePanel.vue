@@ -1,11 +1,27 @@
 <template>
-  <div id="panel" ref="panel"></div>
+  <div>
+    <v-card flat v-if="specificEvents">
+      <div >
+          <!-- <v-card-text>{{specificEvents.length}} เหตุการณ์ที่เกี่ยวข้องกับเส้นทางนี้</v-card-text> -->
+        <v-list two-line>
+          <template v-for="(event, index) in specificEvents">
+            <HomeFeedItem :key="index" :event="event"></HomeFeedItem>
+          </template>
+        </v-list>
+      </div>
+      <div id="panel" ref="panel"></div>
+    </v-card>
+  </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import HomeFeedItem from "../Home/HomeFeedItem";
 export default {
   name: "SearchRoutePanel",
+  components: {
+    HomeFeedItem
+  },
   props: { directionsRenderer: Object },
   data() {
     return {
@@ -13,7 +29,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("direction", ["directionsResponse"])
+    ...mapGetters("direction", ["directionsResponse"]),
+    ...mapGetters("direction", ["specificEvents"])
   },
   mounted() {
     if (this.directionsRenderer) {
@@ -61,9 +78,9 @@ export default {
 };
 </script>
 <style scoped>
-#panel {
+.v-card {
   line-height: 30px;
-  max-height: 26vh;
+  max-height: 55vh;
   overflow: auto;
 }
 </style>
