@@ -3,12 +3,12 @@ const { consumer } = require("../services");
 const { logInfo, logError } = require("../utils/logger");
 
 const eventConsumer = Consumer.create({
-  queueUrl: global.gConfig.sqs_notification_url,
+  queueUrl: global.gConfig.sqs_new_event_notification_url,
   messageAttributeNames: ["All"],
   handleMessageBatch: async messages =>
-    consumer.handleMessageBatchCheckEvents(messages),
+    consumer.handleBatchCheckNewEvents(messages),
   batchSize: 10,
-  visibilityTimeout: 10
+  visibilityTimeout: 30
 });
 
 eventConsumer.on("error", err => {
@@ -41,8 +41,5 @@ exports.stop = () => {
 };
 
 exports.isRunning = () => {
-  if (eventConsumer.isRunning) {
-    return { status: "start" };
-  }
-  return { status: "stop" };
+  return eventConsumer.isRunning ? { status: "start" } : { status: "stop" };
 };

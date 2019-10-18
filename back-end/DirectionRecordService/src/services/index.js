@@ -1,3 +1,4 @@
+const { DateTime } = require("luxon");
 const directionRecord = require("../domains/direction-record");
 const CustomError = require("../utils/custom-error");
 
@@ -35,17 +36,35 @@ exports.deleteRecordById = async (id, user) => {
 };
 
 exports.sendRecordToCheckNotification = async () => {
-  const record = await directionRecord.findAll(
+  const records = await directionRecord.findAll(
     {
       "notificationRoutes.0": { $exists: true },
       notificationTime: { $elemMatch: { ongoing: true } }
     },
     "id uid name notificationRoutes notificationTime"
   );
-  record.filter()
-  console.log(record);
+  const notificationRecords = records.filter(record => {
+    const { notificationTime } = record;
+    const now = DateTime.local().toUTC();
+    return notificationTime.some(element => {
+      const { time, type, days } = element;
+      const dt = DateTime.fromJSDate(time).toUTC();
+      if (type === "Onetime") {
+        // console.log(now <= dt && dt <= now.plus({ minutes: 5 }));
+        return now <= dt && dt <= now.plus({ minutes: 5 });
+      } else if (type === "Schedule") {
+        // console.log(now.weekdayLong);
+        if (days.includes(now.weekdayLong)) {
+          // console.log(now <= dt && dt <= now.plus({ minutes: 5 }));
+          return now <= dt && dt <= now.plus({ minutes: 5 });
+        }
+      }
+    });
+  });
+  console.log(notificationRecords);
+  
 
-  return record;
+  return records;
 };
 
 const checkDirectionRecordKeyAndOwner = async (id, user) => {

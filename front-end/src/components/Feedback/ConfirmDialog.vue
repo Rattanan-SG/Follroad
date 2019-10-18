@@ -14,8 +14,8 @@
         <!-- <v-divider></v-divider> -->
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn outline color="red" flat @click="confirmDialog = false"><v-icon>close</v-icon>ยกเลิก</v-btn>
-          <v-btn outline color="green darken-1" flat @click="submit" :loading="confirmLoading"><v-icon>check</v-icon>ตกลง</v-btn>
+          <v-btn color="red" flat @click="confirmDialog = false">ยกเลิก</v-btn>
+          <v-btn color="green darken-1" flat @click="submit" :loading="confirmLoading">ตกลง</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

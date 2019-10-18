@@ -9,7 +9,7 @@ const config = {
     node_port: env.NODE_PORT || 3000,
     itic_api: env.ITIC_API,
     message_queue_api: env.MESSAGE_QUEUE_API,
-    notification_queue_name: env.NOTIFICATION_QUEUE_NAME,
+    message_queue_name: env.MESSAGE_QUEUE_NAME,
     auth0_domain: env.AUTH0_DOMAIN,
     auth0_audience: env.AUTH0_AUDIENCE
   },
@@ -21,7 +21,7 @@ const config = {
     node_port: env.NODE_PORT || 3000,
     itic_api: env.ITIC_API,
     message_queue_api: env.MESSAGE_QUEUE_API,
-    notification_queue_name: env.NOTIFICATION_QUEUE_NAME,
+    message_queue_name: env.MESSAGE_QUEUE_NAME,
     auth0_domain: env.AUTH0_DOMAIN,
     auth0_audience: env.AUTH0_AUDIENCE
   },
@@ -30,7 +30,7 @@ const config = {
     node_port: env.NODE_PORT || 3000,
     itic_api: env.ITIC_API,
     message_queue_api: env.MESSAGE_QUEUE_API,
-    notification_queue_name: env.NOTIFICATION_QUEUE_NAME,
+    message_queue_name: env.MESSAGE_QUEUE_NAME,
     auth0_domain: env.AUTH0_DOMAIN,
     auth0_audience: env.AUTH0_AUDIENCE
   }

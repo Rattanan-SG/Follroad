@@ -14,12 +14,12 @@
                 <v-icon size="35px">place</v-icon>
               </v-btn>
             </v-card-actions>
-          </v-flex> -->
+          </v-flex>-->
           <v-flex xs11 md10 lg11 sm10>
             <v-list-tile-content>
               <v-list-tile-title class="font-weight-black">
                 <!-- <v-btn flat icon color="red lighten-1"> -->
-                  <v-icon size="20px" color="red">place</v-icon>
+                <v-icon size="20px" color="red">place</v-icon>
                 <!-- </v-btn> -->
                 {{ record.name }}
               </v-list-tile-title>
@@ -28,15 +28,17 @@
                 <v-icon size="20px">arrow_right_alt</v-icon>
                 {{ record.destination.name }}
               </v-list-tile-sub-title>
-              <v-list-tile-title>แก้ไขล่าสุด {{ record.updatedAt | luxon:locale('shortS') }}</v-list-tile-title>
+              <v-list-tile-title
+                class="caption"
+              >แก้ไขล่าสุด {{ record.updatedAt | luxon:locale('shortS') }}</v-list-tile-title>
             </v-list-tile-content>
           </v-flex>
 
           <v-flex xs1 md1 lg1 sm1>
             <!-- <v-card-actions> -->
-              <v-btn flat icon color="grey" @click.stop="deleteHistoryRoute(record._id)">
-                <v-icon size="30px">delete</v-icon>
-              </v-btn>
+            <v-btn flat icon color="grey" @click.stop="deleteHistoryRoute(record._id)">
+              <v-icon size="30px">delete</v-icon>
+            </v-btn>
             <!-- </v-card-actions> -->
           </v-flex>
         </v-list-tile>

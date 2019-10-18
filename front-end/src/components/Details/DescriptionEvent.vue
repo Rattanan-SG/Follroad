@@ -61,20 +61,6 @@
       <v-divider></v-divider>
     </v-flex>
 
-    <!-- <v-list three-line v-if="!!infoWindow.marker">
-      <template>
-        <v-list-tile>
-          <v-flex mt-1 xs1 md1 lg1>
-            <v-avatar size="30px">
-              <img src="@/assets/logo.svg" alt="avatar" />
-            </v-avatar>
-          </v-flex>
-          <v-flex ml-3 xs11 md11 lg11>
-            <v-textarea :value="`${author.toUpperCase()} : ${commentDetail}`" rows="3" disabled outline></v-textarea>
-          </v-flex>
-        </v-list-tile>
-      </template>
-    </v-list> -->
     <v-layout>
       <v-flex lg1 mt-4 ml-2>
         <img src="@/assets/logo.svg" alt="avatar" width="30px" height="30px"/>
