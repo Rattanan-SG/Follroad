@@ -55,53 +55,56 @@
       </v-flex>
       <!-- <v-spacer></v-spacer> -->
       <v-flex xs5 md8 lg6>
-        <v-btn flat color="blue" @click="show = !show">แสดงความคิดเห็น</v-btn>
+        <v-btn flat icon color="grey" @click="show = !show">
+          <v-icon>feedback</v-icon>
+        </v-btn>
       </v-flex>
       <!-- </v-card-actions> -->
-      <v-slide-y-transition>
-        <v-layout v-show="show">
-          <v-flex xs2 md2 lg2 pt-3 pl-3 mr-2>
-            <v-avatar size="30px">
-              <img v-if="isAuthenticated" :src="profile.picture" alt="avatar" />
-              <v-icon v-else color="primary" medium>person</v-icon>
-            </v-avatar>
-          </v-flex>
-          <v-flex xs7 md7 lg7>
-            <v-textarea
-              v-model="comment"
-              label="แสดงความคิดเห็น"
-              rows="1"
-              outline
-              clearable
-              auto-grow
-              :disabled="!isAuthenticated"
-            ></v-textarea>
-          </v-flex>
-          <v-flex xs2 md2 lg2 pt-2 ml-3>
-            <v-btn icon class="ma-0">
-              <v-icon color="primary">send</v-icon>
-            </v-btn>
-          </v-flex>
-          <v-flex xs12 md12 lg12>
-            <v-list-tile>
-              <v-flex mt-1 xs1 md1 lg1>
-                <v-avatar size="30px">
-                  <img src="@/assets/logo.svg" alt="avatar" />
-                </v-avatar>
-              </v-flex>
-              <v-flex ml-3 xs9 md9 lg9>
-                <v-list-tile avatar>
-                  <v-list-tile-content>
-                    <h3>ยังติดอยู่เลย</h3>
 
-                    <v-list-tile-sub-title>ไม่ขยับมา 1 ชั่วโมงแล้ว</v-list-tile-sub-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-              </v-flex>
-            </v-list-tile>
-          </v-flex>
-        </v-layout>
-      </v-slide-y-transition>
+      <!-- <v-slide-y-transition> -->
+      <v-layout v-show="show">
+        <v-flex xs2 md2 lg2 pt-3 pl-3 mr-2>
+          <v-avatar size="30px">
+            <img v-if="isAuthenticated" :src="profile.picture" alt="avatar" />
+            <v-icon v-else color="primary" medium>person</v-icon>
+          </v-avatar>
+        </v-flex>
+        <v-flex xs10 md10 lg10>
+          <v-textarea
+            v-model="comment"
+            label="แสดงความคิดเห็น"
+            rows="1"
+            clearable
+            auto-grow
+            :disabled="!isAuthenticated"
+          ></v-textarea>
+        </v-flex>
+        <v-flex xs2 md2 lg2 pt-2 ml-4>
+          <v-btn icon class="ma-0">
+            <v-icon color="primary" medium>send</v-icon>
+          </v-btn>
+        </v-flex>
+
+        <v-flex ml-3 mr-3>
+          <v-divider></v-divider>
+        </v-flex>
+      </v-layout>
+
+      <v-layout v-show="show">
+        <v-flex lg1 mt-4 ml-2>
+          <img src="@/assets/logo.svg" alt="avatar" width="30px" height="30px" />
+        </v-flex>
+        <v-flex xs11 md11 lg11>
+          <v-card-text>
+            <div>
+              <h3 class="blue--text">{{author}}</h3>
+              <div>{{commentDetail}}</div>
+              <div class="red--text">{{postTime}}</div>
+            </div>
+          </v-card-text>
+        </v-flex>
+      </v-layout>
+      <!-- </v-slide-y-transition> -->
     </v-layout>
   </v-card>
 </template>
@@ -118,7 +121,11 @@ export default {
       countDislike: 0,
       comment: "",
       profile: this.$auth.profile,
-      isAuthenticated: this.$auth.isAuthenticated()
+      isAuthenticated: this.$auth.isAuthenticated(),
+      commentDetail:
+        "รถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะ",
+      author: "CEO Rattanan Nuan",
+      postTime: "แสดงความเห็นตอน 11.00"
     };
   },
   props: {
