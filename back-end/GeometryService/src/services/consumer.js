@@ -3,7 +3,7 @@ const notificationApi = require("../clients/notification");
 const directionRecordApi = require("../clients/direction-record");
 const { logInfo, logDebug } = require("../utils/logger");
 
-exports.handleMessageBatchCheckEvents = async messages => {
+exports.handleBatchCheckNewEvents = async messages => {
   const records = await directionRecordApi.getRecordThatReceiveNotification();
   let trueCount = 0,
     faultCount = 0,

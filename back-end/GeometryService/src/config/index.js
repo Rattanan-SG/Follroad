@@ -10,7 +10,8 @@ const config = {
     event_api: env.EVENT_API,
     notification_api: env.NOTIFICATION_API,
     direction_record_api: env.DIRECTION_RECORD_API,
-    sqs_notification_url: env.SQS_NOTIFICATION_URL
+    sqs_new_event_notification_url: env.SQS_NEW_EVENT_NOTIFICATION_URL,
+    sqs_schedule_check_notification_url: env.SQS_SCHEDULE_CHECK_NOTIFICATION_URL
   },
   testing: {
     config_id: "testing"
@@ -21,7 +22,8 @@ const config = {
     event_api: env.EVENT_API,
     notification_api: env.NOTIFICATION_API,
     direction_record_api: env.DIRECTION_RECORD_API,
-    sqs_notification_url: env.SQS_NOTIFICATION_URL
+    sqs_new_event_notification_url: env.SQS_NEW_EVENT_NOTIFICATION_URL,
+    sqs_schedule_check_notification_url: env.SQS_SCHEDULE_CHECK_NOTIFICATION_URL
   },
   production: {
     config_id: "production",
@@ -29,7 +31,8 @@ const config = {
     event_api: env.EVENT_API,
     notification_api: env.NOTIFICATION_API,
     direction_record_api: env.DIRECTION_RECORD_API,
-    sqs_notification_url: env.SQS_NOTIFICATION_URL
+    sqs_new_event_notification_url: env.SQS_NEW_EVENT_NOTIFICATION_URL,
+    sqs_schedule_check_notification_url: env.SQS_SCHEDULE_CHECK_NOTIFICATION_URL
   }
 };
 
