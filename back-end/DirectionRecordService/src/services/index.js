@@ -1,6 +1,8 @@
 const { DateTime } = require("luxon");
 const directionRecord = require("../domains/direction-record");
 const CustomError = require("../utils/custom-error");
+const messageQueueApi = require("../clients/message-queue");
+const { formatRecordToSendMessageQueue } = require("../utils/format-record");
 
 exports.createRecord = (user, body) => {
   const { sub: uid } = user;
@@ -9,8 +11,6 @@ exports.createRecord = (user, body) => {
 
 exports.getRecord = query => {
   const { fields, ...where } = query;
-  console.log(fields);
-
   return directionRecord.findAll(where, fields);
 };
 
@@ -36,13 +36,10 @@ exports.deleteRecordById = async (id, user) => {
 };
 
 exports.sendRecordToCheckNotification = async () => {
-  const records = await directionRecord.findAll(
-    {
-      "notificationRoutes.0": { $exists: true },
-      notificationTime: { $elemMatch: { ongoing: true } }
-    },
-    "id uid name notificationRoutes notificationTime"
-  );
+  const records = await directionRecord.findAll({
+    "notificationRoutes.0": { $exists: true },
+    notificationTime: { $elemMatch: { ongoing: true } }
+  });
   const notificationRecords = records.filter(record => {
     const { notificationTime } = record;
     const now = DateTime.local().toUTC();
@@ -61,10 +58,9 @@ exports.sendRecordToCheckNotification = async () => {
       }
     });
   });
-  console.log(notificationRecords);
-  
-
-  return records;
+  if (notificationRecords.length > 0)
+    sendRecordToMessageQueue(notificationRecords);
+  return notificationRecords;
 };
 
 const checkDirectionRecordKeyAndOwner = async (id, user) => {
@@ -82,4 +78,9 @@ const checkDirectionRecordKeyAndOwner = async (id, user) => {
       403,
       `You do not have rights for this resource`
     );
+};
+
+const sendRecordToMessageQueue = records => {
+  const data = formatRecordToSendMessageQueue(records);
+  messageQueueApi.sendMessage(global.gConfig.message_queue_name, data);
 };

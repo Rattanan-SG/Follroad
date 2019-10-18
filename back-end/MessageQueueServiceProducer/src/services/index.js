@@ -1,28 +1,8 @@
 const AWS = require("../config/aws");
-const { logInfo } = require("../utils/logger");
 const { chunk, mapValues } = require("lodash/fp");
+const { logInfo } = require("../utils/logger");
 
 const sqs = new AWS.SQS();
-
-const getQueueUrlByName = async queueName => {
-  const params = { QueueName: queueName };
-  const { QueueUrl } = await sqs.getQueueUrl(params).promise();
-  return QueueUrl;
-};
-
-const parseDataToEntrie = (data, index) => {
-  const MessageAttributes = mapValues(object => {
-    return {
-      DataType: "String",
-      StringValue: object.toString()
-    };
-  })(data);
-  return {
-    Id: index.toString(),
-    MessageBody: data.title.toString(),
-    MessageAttributes
-  };
-};
 
 exports.createQueue = body => {
   const params = {
@@ -42,11 +22,11 @@ exports.sendMessageToQueueByName = async (queueName, body) => {
   const QueueUrl = await getQueueUrlByName(queueName);
   if (Array.isArray(body)) {
     const size = 10;
-    const chunkData = chunk(size)(body);
+    const chunkBody = chunk(size)(body);
     const result = await Promise.all(
-      chunkData.map((array, i) => {
-        const Entries = array.map((data, index) =>
-          parseDataToEntrie(data, index + size * i)
+      chunkBody.map(array => {
+        const Entries = array.map((object, index) =>
+          parseBodyToEntriesItems(object, index)
         );
         const payload = {
           QueueUrl,
@@ -58,7 +38,7 @@ exports.sendMessageToQueueByName = async (queueName, body) => {
     logInfo("Sent data to queue complete", result);
     return result;
   } else {
-    const Entries = parseDataToEntrie(body, 0);
+    const Entries = parseBodyToEntriesItems(body, 0);
     const payload = {
       QueueUrl,
       Entries
@@ -67,4 +47,28 @@ exports.sendMessageToQueueByName = async (queueName, body) => {
     logInfo("Sent data to queue complete", result);
     return result;
   }
+};
+
+const getQueueUrlByName = async queueName => {
+  const params = { QueueName: queueName };
+  const { QueueUrl } = await sqs.getQueueUrl(params).promise();
+  return QueueUrl;
+};
+
+const parseBodyToEntriesItems = (body, index) => {
+  const { messageBody, messageAttributes, delaySeconds } = body;
+  const MessageBody = messageBody || "Not have name";
+  const DelaySeconds = Number(delaySeconds);
+  const MessageAttributes = mapValues(object => {
+    return {
+      DataType: "String",
+      StringValue: object.toString()
+    };
+  })(messageAttributes);
+  return {
+    Id: index.toString(),
+    MessageBody,
+    DelaySeconds,
+    MessageAttributes
+  };
 };
