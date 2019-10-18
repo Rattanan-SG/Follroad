@@ -154,7 +154,7 @@ const calculateDefaultStopFromType = ({ start, type }) => {
 
 const sendEventToMessageQueue = events => {
   const data = formatEventToSendMessageQueue(events);
-  messageQueueApi.sendMessage(global.gConfig.notification_queue_name, data);
+  messageQueueApi.sendMessage(global.gConfig.message_queue_name, data);
 };
 
 const getIncludeCountFeedbackObject = () => ({
