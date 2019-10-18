@@ -1,16 +1,16 @@
-const consumer = require("../consumers/notification");
+const newEventConsumer = require("../consumers/new-event-notification");
 const asyncWrapper = require("../middleware/async-wrapper");
 
-exports.consumerStatus = asyncWrapper(async (req, res) => {
-  const result = await consumer.isRunning();
+exports.newEventConsumerStatus = asyncWrapper(async (req, res) => {
+  const result = await newEventConsumer.isRunning();
   res.send(result);
 });
 
-exports.consumerStart = asyncWrapper(async (req, res) => {
-  const result = await consumer.start();
+exports.newEventConsumerStart = asyncWrapper(async (req, res) => {
+  const result = await newEventConsumer.start();
   res.send(result);
 });
-exports.consumerStop = asyncWrapper(async (req, res) => {
-  const result = await consumer.stop();
+exports.newEventConsumerStop = asyncWrapper(async (req, res) => {
+  const result = await newEventConsumer.stop();
   res.send(result);
 });

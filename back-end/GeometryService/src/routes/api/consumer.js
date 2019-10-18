@@ -3,8 +3,8 @@ const { consumer } = require("../../controllers");
 
 const router = express.Router();
 
-router.get("/consumer/status", consumer.consumerStatus);
-router.post("/consumer/start", consumer.consumerStart);
-router.post("/consumer/stop", consumer.consumerStop);
+router.get("/consumer/newEvent/status", consumer.newEventConsumerStatus);
+router.post("/consumer/newEvent/start", consumer.newEventConsumerStart);
+router.post("/consumer/newEvent/stop", consumer.newEventConsumerStop);
 
 module.exports = router;
