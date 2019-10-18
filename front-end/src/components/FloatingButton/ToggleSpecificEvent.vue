@@ -1,4 +1,4 @@
-<template>
+<template >
   <v-layout row justify-center class="hidden-sm-and-up">
     <v-flex xs12 lg12 md12 class="ToggleSpecificEvent">
       <v-btn round color="blue" dark @click.stop="dialog = true">เหตุการณ์ที่เกี่ยวข้อง</v-btn>
@@ -21,8 +21,10 @@
         </div>
         <v-divider />
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="red darken-1" flat="flat" @click="dialog = false">ปิด</v-btn>
+          <v-layout row justify-end>
+            <v-spacer></v-spacer>
+            <v-btn color="red darken-1" flat="flat" @click="dialog = false">ปิด</v-btn>
+          </v-layout>
         </v-card-actions>
       </v-card>
     </v-dialog>
