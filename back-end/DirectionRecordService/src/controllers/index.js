@@ -17,7 +17,7 @@ exports.getRecordThatReceiveNotification = asyncWrapper(async (req, res) => {
 });
 
 exports.getRecordById = asyncWrapper(async (req, res) => {
-  const result = await service.getRecordById(req.params.id);
+  const result = await service.getRecordById(req.params.id, req.query);
   res.send(result);
 });
 

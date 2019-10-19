@@ -22,7 +22,10 @@ exports.getRecordThatReceiveNotification = query => {
   );
 };
 
-exports.getRecordById = id => directionRecord.findByPk(id);
+exports.getRecordById = (id, query) => {
+  const { fields } = query;
+  return directionRecord.findByPk(id, fields);
+};
 
 exports.patchRecordById = async (id, user, body) => {
   await checkDirectionRecordKeyAndOwner(id, user);
@@ -60,11 +63,9 @@ exports.sendRecordToCheckNotification = async () => {
           }).as("seconds");
           result = now <= dt && dt <= now.plus({ minutes: 5 });
           if (result) {
-            directionRecord.updateNotificationTimeOngoingById(
-              _id,
-              element._id,
-              false
-            );
+            directionRecord
+              .updateNotificationTimeOngoingById(_id, element._id, false)
+              .then();
           }
         } else if (type === "Schedule" && ongoing) {
           if (days.includes(now.weekdayLong)) {
