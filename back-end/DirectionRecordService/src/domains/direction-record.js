@@ -22,3 +22,22 @@ exports.updateOne = (filter, body, options) =>
 
 exports.deleteOne = (filter, options) =>
   DirectionRecord.deleteOne(filter, options);
+
+exports.updateNotificationTimeOngoingById = (
+  _id,
+  notificationTime_id,
+  value,
+  options
+) =>
+  DirectionRecord.updateOne(
+    {
+      _id: _id,
+      "notificationTime._id": notificationTime_id
+    },
+    {
+      $set: {
+        "notificationTime.$.ongoing": value
+      }
+    },
+    options
+  );

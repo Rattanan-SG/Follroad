@@ -43,20 +43,27 @@ exports.sendRecordToCheckNotification = async () => {
   let delaySecondsList = [];
   const notificationRecords = records
     .filter(record => {
-      const { notificationTime } = record;
+      const { _id, notificationTime } = record;
       const now = DateTime.local().toUTC();
       return notificationTime.some(element => {
-        const { time, type, days } = element;
+        const { time, type, days, ongoing } = element;
         const dt = DateTime.fromJSDate(time).toUTC();
         let delay = 0;
         let result = false;
-        if (type === "Onetime") {
+        if (type === "Onetime" && ongoing) {
           delay = Duration.fromObject({
             minutes: dt.minute - now.minute,
             seconds: dt.second - now.second
           }).as("seconds");
           result = now <= dt && dt <= now.plus({ minutes: 5 });
-        } else if (type === "Schedule") {
+          if (result) {
+            directionRecord.updateNotificationTimeOngoingById(
+              _id,
+              element._id,
+              false
+            );
+          }
+        } else if (type === "Schedule" && ongoing) {
           if (days.includes(now.weekdayLong)) {
             delay = Duration.fromObject({
               minutes: dt.minute - now.minute,
