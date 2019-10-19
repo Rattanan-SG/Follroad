@@ -72,8 +72,6 @@ exports.sendRecordToCheckNotification = async () => {
       });
     })
     .map((key, i) => ({ ...key, delaySeconds: delaySecondsList[i] }));
-  // console.log("length", notificationRecords.length);
-  // console.log("delay", delaySecondsList);
   if (notificationRecords.length > 0)
     sendRecordToMessageQueue(notificationRecords);
   return notificationRecords;

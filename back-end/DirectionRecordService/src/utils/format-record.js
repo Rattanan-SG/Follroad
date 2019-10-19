@@ -1,5 +1,3 @@
-const { Duration } = require("luxon");
-
 exports.formatRecordToSendMessageQueue = records =>
   records.map(
     ({ _id, uid, name, direction, notificationRoutes, delaySeconds }) => ({
