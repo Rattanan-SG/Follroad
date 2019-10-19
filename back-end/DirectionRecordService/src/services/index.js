@@ -1,4 +1,4 @@
-const { DateTime } = require("luxon");
+const { DateTime, Duration } = require("luxon");
 const directionRecord = require("../domains/direction-record");
 const CustomError = require("../utils/custom-error");
 const messageQueueApi = require("../clients/message-queue");
@@ -40,24 +40,40 @@ exports.sendRecordToCheckNotification = async () => {
     "notificationRoutes.0": { $exists: true },
     notificationTime: { $elemMatch: { ongoing: true } }
   });
-  const notificationRecords = records.filter(record => {
-    const { notificationTime } = record;
-    const now = DateTime.local().toUTC();
-    return notificationTime.some(element => {
-      const { time, type, days } = element;
-      const dt = DateTime.fromJSDate(time).toUTC();
-      if (type === "Onetime") {
-        // console.log(now <= dt && dt <= now.plus({ minutes: 5 }));
-        return now <= dt && dt <= now.plus({ minutes: 5 });
-      } else if (type === "Schedule") {
-        // console.log(now.weekdayLong);
-        if (days.includes(now.weekdayLong)) {
-          // console.log(now <= dt && dt <= now.plus({ minutes: 5 }));
-          return now <= dt && dt <= now.plus({ minutes: 5 });
+  let delaySecondsList = [];
+  const notificationRecords = records
+    .filter(record => {
+      const { notificationTime } = record;
+      const now = DateTime.local().toUTC();
+      return notificationTime.some(element => {
+        const { time, type, days } = element;
+        const dt = DateTime.fromJSDate(time).toUTC();
+        let delay = 0;
+        let result = false;
+        if (type === "Onetime") {
+          delay = Duration.fromObject({
+            minutes: dt.minute - now.minute,
+            seconds: dt.second - now.second
+          }).as("seconds");
+          result = now <= dt && dt <= now.plus({ minutes: 5 });
+        } else if (type === "Schedule") {
+          if (days.includes(now.weekdayLong)) {
+            delay = Duration.fromObject({
+              minutes: dt.minute - now.minute,
+              seconds: dt.second - now.second
+            }).as("seconds");
+            result =
+              now.toISOTime() <= dt.toISOTime() &&
+              dt.toISOTime() <= now.plus({ minutes: 5 }).toISOTime();
+          }
         }
-      }
-    });
-  });
+        if (result) delaySecondsList.push(delay < 0 ? 0 : delay);
+        return result;
+      });
+    })
+    .map((key, i) => ({ ...key, delaySeconds: delaySecondsList[i] }));
+  // console.log("length", notificationRecords.length);
+  // console.log("delay", delaySecondsList);
   if (notificationRecords.length > 0)
     sendRecordToMessageQueue(notificationRecords);
   return notificationRecords;

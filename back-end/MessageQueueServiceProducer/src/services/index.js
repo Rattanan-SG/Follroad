@@ -56,7 +56,7 @@ const getQueueUrlByName = async queueName => {
 };
 
 const parseBodyToEntriesItems = (body, index) => {
-  const { messageBody, messageAttributes, delaySeconds } = body;
+  const { messageBody, messageAttributes, delaySeconds = 0 } = body;
   const MessageBody = messageBody || "Not have name";
   const DelaySeconds = Number(delaySeconds);
   const MessageAttributes = mapValues(object => {
