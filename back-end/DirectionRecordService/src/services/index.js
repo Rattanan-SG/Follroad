@@ -36,10 +36,13 @@ exports.deleteRecordById = async (id, user) => {
 };
 
 exports.sendRecordToCheckNotification = async () => {
-  const records = await directionRecord.findAll({
-    "notificationRoutes.0": { $exists: true },
-    notificationTime: { $elemMatch: { ongoing: true } }
-  });
+  const records = await directionRecord.findAll(
+    {
+      "notificationRoutes.0": { $exists: true },
+      notificationTime: { $elemMatch: { ongoing: true } }
+    },
+    "id uid name notificationRoutes notificationTime"
+  );
   let delaySecondsList = [];
   const notificationRecords = records
     .filter(record => {
