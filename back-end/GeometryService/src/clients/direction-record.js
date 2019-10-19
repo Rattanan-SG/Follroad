@@ -12,3 +12,12 @@ exports.getRecordThatReceiveNotification = params => {
       throw err;
     });
 };
+
+exports.getRecordById = (id, params) => {
+  return directionRecordApi
+    .get(`/record/${id}`, { params })
+    .then(response => response.data)
+    .catch(err => {
+      throw err;
+    });
+};
