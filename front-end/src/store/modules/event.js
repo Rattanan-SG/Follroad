@@ -27,11 +27,10 @@ const getters = {
       },
       title: event.title,
       description: event.description,
-      eventCaption: {
-        startTime: event.start,
-        stopTime: event.stop,
-        contributor: event.contributor
-      },
+      startTime: event.start,
+      stopTime: event.stop,
+      contributor: event.contributor,
+      feedbacks: event.feedbacks,
       icon: eventConstant.selectIcon(event),
       type: "event"
     }));
@@ -52,7 +51,13 @@ const getters = {
 
 const actions = {
   fetchEvents: ({ commit }) => {
-    return eventApi.getEvents().then(data => commit("SET_EVENTS", data));
+    return eventApi
+      .getEvents({
+        fields:
+          "id title description latitude longitude start stop contributor type",
+        countFeedback: true
+      })
+      .then(data => commit("SET_EVENTS", data));
   },
   socket_event: ({ dispatch, commit }, data) => {
     const { action, event } = data;

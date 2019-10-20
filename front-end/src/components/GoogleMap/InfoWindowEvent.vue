@@ -23,7 +23,7 @@
           </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title class="blue--text">{{marker.title}}</v-list-tile-title>
-            <v-list-tile-sub-title>โดย {{marker.eventCaption.contributor}}</v-list-tile-sub-title>
+            <v-list-tile-sub-title>โดย {{marker.contributor}}</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -33,15 +33,16 @@
         <v-divider></v-divider>
       </v-card-text>
       <v-card-text class="px-0">
-        <div
-          class="body-1 red--text"
-        >เกิดขึ้น ณ {{marker.eventCaption.startTime | luxon:locale('short')}}</div>
-        <div
-          class="body-1 red--text"
-        >จะสิ้นสุดใน {{marker.eventCaption.stopTime | luxon:locale('short')}}</div>
+        <div class="body-1 red--text">เกิดขึ้น ณ {{marker.startTime | luxon:locale('short')}}</div>
+        <div class="body-1 red--text">จะสิ้นสุดใน {{marker.stopTime | luxon:locale('short')}}</div>
       </v-card-text>
       <v-card-actions class="px-0">
-        <LikeDislikeControl :key="marker.id" :eventId="marker.id" />
+        <LikeDislikeControl
+          :key="marker.id"
+          :eventId="marker.id"
+          :initialLike="marker.feedbacks[0] && marker.feedbacks[0].like"
+          :initialDislike="marker.feedbacks[0] && marker.feedbacks[0].dislike"
+        />
         <v-spacer></v-spacer>
         <v-btn outline color="blue" to="/details" @click="setRouterView(true)">ดูเพิ่มเติม</v-btn>
       </v-card-actions>
@@ -60,12 +61,6 @@ export default {
   props: {
     marker: Object,
     closeInfoWindow: Function
-  },
-  data() {
-    return {
-      countLike: 0,
-      countDislike: 0
-    };
   },
   methods: {
     ...mapActions("route", ["setRouterView"])
