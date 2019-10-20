@@ -1,8 +1,12 @@
 <template>
   <div>
+    <v-flex xs12 lg12 md12 sm12>
+      <v-card class="mx-auto" color="#26c6da" flat>
+        <div class="white--text pa-2">รายละเอียดและเหตุการณ์ที่เกี่ยวข้องกับเส้นทาง</div>
+      </v-card>
+    </v-flex>
     <v-card flat v-if="specificEvents">
-      <div >
-          <!-- <v-card-text>{{specificEvents.length}} เหตุการณ์ที่เกี่ยวข้องกับเส้นทางนี้</v-card-text> -->
+      <div>
         <v-list two-line>
           <template v-for="(event, index) in specificEvents">
             <HomeFeedItem :key="index" :event="event"></HomeFeedItem>
@@ -80,7 +84,7 @@ export default {
 <style scoped>
 .v-card {
   line-height: 30px;
-  max-height: 55vh;
+  max-height: 50vh;
   overflow: auto;
 }
 </style>
