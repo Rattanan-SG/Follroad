@@ -39,6 +39,12 @@ const deleteEventById = (id, config) => {
     .then(response => response.data);
 };
 
+const getFeedback = (params, config) => {
+  return eventService
+    .get("/feedback", { params, ...config })
+    .then(response => response.data);
+};
+
 const putFeedback = (data, config) => {
   return eventService
     .put("/feedback", data, config)
@@ -56,6 +62,7 @@ export default {
   postEvent,
   patchEventById,
   deleteEventById,
+  getFeedback,
   putFeedback,
   deleteFeedback
 };
