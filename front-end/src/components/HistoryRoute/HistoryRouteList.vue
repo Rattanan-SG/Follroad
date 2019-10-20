@@ -7,7 +7,7 @@
     <!-- ต้นฉบับ จะแสดงเมื่อ user เคยมีบันทึกเส้นทางไว้ -->
     <v-list v-if="!loading && !!directionRecords.length" three-line>
       <template v-for="(record, index) in directionRecords">
-        <v-list-tile class="mt-1" :key="index" avatar ripple @click="startHistoryRoute(record)">
+        <v-list-tile class="mt-1" :key="index" avatar ripple @click="startHistoryRoute(record._id)">
           <!-- <v-flex xs1 md1 lg1 sm1 class="hidden-sm-only">
             <v-card-actions>
               <v-btn flat icon color="red lighten-1">
@@ -75,7 +75,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("directionRecord", ["directionRecords"])
+    ...mapGetters("directionRecord", [
+      "directionRecords",
+      "directionRecordById"
+    ])
   },
   watch: {
     async uid(value) {
@@ -95,6 +98,7 @@ export default {
     ...mapActions("route", ["setRouterView"]),
     ...mapActions("directionRecord", [
       "fetchDirectionRecordsByUid",
+      "fetchDirectionByRecordId",
       "deleteDirectionRecordById",
       "setHistoryMode"
     ]),
@@ -106,15 +110,18 @@ export default {
     ]),
     ...mapActions("globalFeedback", ["openConfirmDialog"]),
 
-    startHistoryRoute: function(record) {
-      this.setHistoryMode({ recordId: record._id });
+    startHistoryRoute: async function(_id) {
+      this.loading = true;
+      await this.fetchDirectionByRecordId(_id);
+      this.setHistoryMode({ recordId: _id });
+      const { start, destination, direction } = this.directionRecordById(_id);
       this.$router.push("/search");
       this.$vuetify.breakpoint.xsOnly
         ? this.setRouterView(false)
         : this.setRouterView(true);
-      this.setStartLocation(record.start);
-      this.setDestinationLocation(record.destination);
-      this.setDirectionsResponse(record.direction);
+      this.setStartLocation(start);
+      this.setDestinationLocation(destination);
+      this.setDirectionsResponse(direction);
       this.startDirectionsRenderer();
     },
     deleteHistoryRoute: function(_id) {

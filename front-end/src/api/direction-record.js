@@ -21,6 +21,12 @@ const getRecords = (params, config) => {
     .then(response => response.data);
 };
 
+const getRecordById = (id, params, config) => {
+  return directionRecordService
+    .get(`/record/${id}`, { params, ...config })
+    .then(response => response.data);
+};
+
 const postRecord = (data, config) => {
   return directionRecordService
     .post("/record", data, config)
@@ -41,6 +47,7 @@ const deleteRecordById = (id, config) => {
 
 export default {
   getRecords,
+  getRecordById,
   postRecord,
   patchRecordById,
   deleteRecordById

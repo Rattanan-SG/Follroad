@@ -19,8 +19,19 @@ const getters = {
 const actions = {
   fetchDirectionRecordsByUid: ({ commit }, uid) => {
     return directionRecordApi
-      .getRecords({ uid })
+      .getRecords({
+        uid,
+        fields:
+          "id uid name start destination notificationRoutes notificationTime updatedAt"
+      })
       .then(data => commit("SET_DIRECTION_RECORDS", data));
+  },
+  fetchDirectionByRecordId: ({ commit }, _id) => {
+    return directionRecordApi
+      .getRecordById(_id, {
+        fields: "direction"
+      })
+      .then(data => commit("UPDATE_DIRECTION_RECORD_BY_ID", { _id, data }));
   },
   updateDirectionRecordById: ({ commit }, { _id, data, config }) => {
     return directionRecordApi
