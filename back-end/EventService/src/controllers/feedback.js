@@ -12,7 +12,8 @@ exports.putFeedback = asyncWrapper(async (req, res) => {
 });
 
 exports.getFeedback = asyncWrapper(async (req, res) => {
-  const result = await feedback.getFeedback(req.query);
+  const fields = req.query.fields && req.query.fields.split(" ");
+  const result = await feedback.getFeedback({ ...req.query, fields });
   res.send(result);
 });
 
@@ -25,7 +26,11 @@ exports.deleteFeedback = asyncWrapper(async (req, res) => {
 });
 
 exports.getFeedbackById = asyncWrapper(async (req, res) => {
-  const result = await feedback.getFeedbackById(req.params.id);
+  const fields = req.query.fields && req.query.fields.split(" ");
+  const result = await feedback.getFeedbackById(req.params.id, {
+    ...req.query,
+    fields
+  });
   res.send(result);
 });
 
@@ -44,6 +49,8 @@ exports.deleteFeedbackById = asyncWrapper(async (req, res) => {
 });
 
 exports.getCountFeedbackOfEventId = asyncWrapper(async (req, res) => {
-  const result = await feedback.countLikeAndDislikeOfEventId(req.params.eventId);
+  const result = await feedback.countLikeAndDislikeOfEventId(
+    req.params.eventId
+  );
   res.send(result);
 });

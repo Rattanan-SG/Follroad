@@ -11,14 +11,22 @@ exports.createOrUpdateFeedback = (user, body) => {
   return feedback.upsert({ ...body, deletedAt: null, uid });
 };
 
-exports.getFeedback = query => feedback.findAll(query);
+exports.getFeedback = query => {
+  const { fields, ...where } = query;
+  return feedback.findAll(where, { attributes: fields });
+};
 
 exports.deleteFeedbackByUniqueKey = async (user, eventId) => {
   const { sub: uid } = user;
   return feedback.delete({ uid, eventId });
 };
 
-exports.getFeedbackById = id => feedback.findByPk(id);
+exports.getFeedbackById = (id, query) => {
+  const { fields } = query;
+  return feedback.findByPk(id, {
+    attributes: fields
+  });
+};
 
 exports.patchFeedbackById = async (id, user, body) => {
   await checkFeedbackKeyAndOwner(id, user);

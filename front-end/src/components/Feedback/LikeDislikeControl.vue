@@ -36,6 +36,7 @@ export default {
   },
   methods: {
     ...mapActions("globalFeedback", ["setLoginDialog"]),
+    ...mapActions("event", ["updateEventById"]),
 
     handleClick: async function(value) {
       if (!this.$auth.isAuthenticated()) {
@@ -43,25 +44,42 @@ export default {
       } else if (this.active === null) {
         value ? this.countLike++ : this.countDislike++;
         this.active = value;
-        await eventApi.putFeedback({
-          eventId: this.eventId,
-          react: value
-        });
+        this.updateFeedbacks(value);
       } else if (this.active !== value) {
         this.active ? this.countLike-- : this.countDislike--;
         value ? this.countLike++ : this.countDislike++;
         this.active = value;
-        await eventApi.putFeedback({
-          eventId: this.eventId,
-          react: value
-        });
+        this.updateFeedbacks(value);
       } else if (this.active === value) {
         this.active ? this.countLike-- : this.countDislike--;
         this.active = null;
-        await eventApi.deleteFeedback({
-          data: { eventId: this.eventId }
-        });
+        this.deleteFeedbacks();
       }
+    },
+    updateFeedbacks: async function(value) {
+      const feedbacks = [
+        {
+          like: this.countLike,
+          dislike: this.countDislike
+        }
+      ];
+      this.updateEventById({ id: this.eventId, data: { feedbacks } });
+      await eventApi.putFeedback({
+        eventId: this.eventId,
+        react: value
+      });
+    },
+    deleteFeedbacks: async function() {
+      const feedbacks = [
+        {
+          like: this.countLike,
+          dislike: this.countDislike
+        }
+      ];
+      this.updateEventById({ id: this.eventId, data: { feedbacks } });
+      await eventApi.deleteFeedback({
+        data: { eventId: this.eventId }
+      });
     }
   }
 };
