@@ -1,3 +1,4 @@
+const sequelize = require("sequelize");
 const { feedback } = require("../domains");
 const CustomError = require("../utils/custom-error");
 
@@ -39,10 +40,49 @@ exports.deleteFeedbackById = async (id, user) => {
   return feedback.deleteByPk(id);
 };
 
-exports.countLikeAndDislikeOfEventId = async eventId => {
-  const countLike = await feedback.count({ eventId, react: true });
-  const countDislike = await feedback.count({ eventId, react: false });
-  return { countLike, countDislike };
+exports.getEventFeedbackSummary = async query => {
+  const { uid } = query;
+  let eventFeedback = await feedback.findAll(null, {
+    attributes: [
+      "eventId",
+      [
+        sequelize.fn(
+          "SUM",
+          sequelize.literal("CASE WHEN react = true THEN 1 ELSE 0 END")
+        ),
+        "like"
+      ],
+      [
+        sequelize.fn(
+          "SUM",
+          sequelize.literal("CASE WHEN react = false THEN 1 ELSE 0 END")
+        ),
+        "dislike"
+      ]
+    ],
+    group: ["eventId"]
+  });
+  if (uid) {
+    const userFeedback = await feedback.findAll(
+      { uid },
+      {
+        attributes: ["eventId", "react"],
+        raw: true
+      }
+    );
+    const eventFeedbackJson = JSON.parse(JSON.stringify(eventFeedback));
+    eventFeedback = eventFeedbackJson.map(data => ({
+      ...userFeedback.find(item => item.eventId === data.eventId && item),
+      ...data
+    }));
+  }
+  return eventFeedback;
+};
+
+exports.countLikeAndDislikeOfEventById = async eventId => {
+  const like = await feedback.count({ eventId, react: true });
+  const dislike = await feedback.count({ eventId, react: false });
+  return { eventId: Number(eventId), like, dislike };
 };
 
 const checkFeedbackKeyAndOwner = async (id, user) => {
