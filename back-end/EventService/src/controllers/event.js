@@ -13,7 +13,11 @@ exports.getEvent = asyncWrapper(async (req, res) => {
 });
 
 exports.getEventById = asyncWrapper(async (req, res) => {
-  const result = await event.getEventById(req.params.id);
+  const fields = req.query.fields && req.query.fields.split(" ");
+  const result = await event.getEventById(req.params.id, {
+    ...req.query,
+    fields
+  });
   res.send(result);
 });
 

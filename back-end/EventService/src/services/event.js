@@ -59,10 +59,13 @@ exports.getEvent = async query => {
   }
 };
 
-exports.getEventById = id =>
-  event.findByPk(id, {
+exports.getEventById = (id, query) => {
+  const { fields } = query;
+  return event.findByPk(id, {
+    attributes: fields,
     include: [picture, comment, getIncludeCountFeedbackObject()]
   });
+};
 
 exports.patchEventById = async (id, user, body) => {
   await checkEventKeyAndOwner(id, user);
