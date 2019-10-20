@@ -70,7 +70,7 @@ exports.getEventFeedbackSummary = async query => {
         raw: true
       }
     );
-    let eventFeedbackJson = JSON.parse(JSON.stringify(eventFeedback));
+    const eventFeedbackJson = JSON.parse(JSON.stringify(eventFeedback));
     eventFeedback = eventFeedbackJson.map(data => ({
       ...userFeedback.find(item => item.eventId === data.eventId && item),
       ...data

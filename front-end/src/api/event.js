@@ -57,6 +57,12 @@ const deleteFeedback = config => {
     .then(response => response.data);
 };
 
+const getFeedbackSummary = (params, config) => {
+  return eventService
+    .get("/feedback/summary", { params, ...config })
+    .then(response => response.data);
+};
+
 export default {
   getEvents,
   postEvent,
@@ -64,5 +70,6 @@ export default {
   deleteEventById,
   getFeedback,
   putFeedback,
-  deleteFeedback
+  deleteFeedback,
+  getFeedbackSummary
 };
