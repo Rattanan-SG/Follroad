@@ -48,8 +48,13 @@ exports.deleteFeedbackById = asyncWrapper(async (req, res) => {
   res.send(result);
 });
 
-exports.getCountFeedbackOfEventId = asyncWrapper(async (req, res) => {
-  const result = await feedback.countLikeAndDislikeOfEventId(
+exports.getEventFeedbackSummary = asyncWrapper(async (req, res) => {
+  const result = await feedback.getEventFeedbackSummary(req.query);
+  res.send(result);
+});
+
+exports.getCountFeedbackOfEventById = asyncWrapper(async (req, res) => {
+  const result = await feedback.countLikeAndDislikeOfEventById(
     req.params.eventId
   );
   res.send(result);
