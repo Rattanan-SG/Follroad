@@ -40,15 +40,14 @@
                     clearable
                   ></v-text-field>
                 </v-flex>
-
-                <v-flex xs12 sm12 md12>
+                <v-flex xs12>
                   <v-text-field
                     label="กรอกชื่อเส้นทางที่บันทึก *"
                     v-model="name"
                     :rules="[rules.required]"
+                    clearable
                   ></v-text-field>
                 </v-flex>
-
                 <v-flex xs12>
                   <div class="subheading">เลือกเส้นทางที่ต้องการรับแจ้งเตือน</div>
                   <v-checkbox
@@ -60,11 +59,15 @@
                   ></v-checkbox>
                 </v-flex>
 
-                <v-flex xs12 md12>
-                  <v-switch v-model="switch1" label="ต้องการตั้งเวลาตรวจสอบเส้นทางล่วงหน้าหรือไม่?"></v-switch>
+                <v-flex xs12>
+                  <v-switch
+                    v-model="openTimeField"
+                    label="ต้องการตั้งเวลาตรวจสอบเส้นทางล่วงหน้าหรือไม่?"
+                  ></v-switch>
                 </v-flex>
 
-                <v-flex xs12 md12 lg12>
+                <!-- -------------------Time Field-------------------- -->
+                <v-flex xs12 v-if="openTimeField">
                   <v-card>
                     <v-layout row>
                       <v-flex xs5 md5 lg5 ml-1>
@@ -74,7 +77,6 @@
                           label="เลือกวัน(จ-อา)"
                           multiple
                           chips
-                          v-if="switch1"
                         ></v-combobox>
                       </v-flex>
                       <v-flex xs1 md1 lg1></v-flex>
@@ -91,7 +93,6 @@
                           full-width
                           max-width="290px"
                           min-width="290px"
-                          v-if="switch1"
                         >
                           <template v-slot:activator="{ on }">
                             <v-text-field
@@ -111,14 +112,14 @@
                         </v-menu>
                       </v-flex>
                       <!-- <v-flex xs1 lg1 md1></v-flex> -->
-                      <v-flex lg1 md1 mt-3 v-if="switch1">
+                      <v-flex lg1 md1 mt-3>
                         <v-btn icon small>
                           <v-icon>add_circle_outline</v-icon>
                         </v-btn>
                       </v-flex>
                     </v-layout>
                     <v-layout>
-                      <v-flex xs5 md5 lg5 v-if="switch1">
+                      <v-flex xs5 md5 lg5>
                         <v-menu
                           v-model="menuDate"
                           :close-on-content-click="false"
@@ -149,7 +150,6 @@
                           full-width
                           max-width="290px"
                           min-width="290px"
-                          v-if="switch1"
                         >
                           <template v-slot:activator="{ on }">
                             <v-text-field
@@ -168,7 +168,7 @@
                           ></v-time-picker>
                         </v-menu>
                       </v-flex>
-                      <v-flex lg1 md1 mt-3 v-if="switch1">
+                      <v-flex lg1 md1 mt-3>
                         <v-btn icon small>
                           <v-icon>add_circle_outline</v-icon>
                         </v-btn>
@@ -176,8 +176,9 @@
                     </v-layout>
                   </v-card>
                 </v-flex>
-                <v-spacer></v-spacer>
+                <!-- -------------------Time Field-------------------- -->
               </v-layout>
+
               <div
                 class="subheading red--text"
               >* ตรวจสอบการรับแจ้งเตือนว่าเปิดหรือปิดอยู่ได้ที่หน้า โปรไฟล์ *</div>
@@ -221,11 +222,6 @@ export default {
       start: this.startLocation && this.startLocation.name,
       destination: this.destinationLocation && this.destinationLocation.name,
       name: null,
-      rules: {
-        required: value => !!value || "กรุณากรอกข้อมูล",
-        listAtLeastOne: value =>
-          value.length > 0 || "กรุณาเลือกอย่างน้อย 1 ตัวเลือก"
-      },
       notificationRoutes: [],
       loading: false,
       success: false,
@@ -236,9 +232,14 @@ export default {
       menu2: false,
       menuDate: false,
       modal2: false,
-      switch1: false,
+      openTimeField: false,
       date: new Date().toISOString().substr(0, 10),
       select: null,
+      rules: {
+        required: value => !!value || "กรุณากรอกข้อมูล",
+        listAtLeastOne: value =>
+          value.length > 0 || "กรุณาเลือกอย่างน้อย 1 ตัวเลือก"
+      },
       items: [
         "อาทิตย์",
         "จันทร์",
