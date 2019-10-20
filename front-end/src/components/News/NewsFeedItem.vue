@@ -24,9 +24,11 @@
       </v-layout>
 
       <v-flex xs12>
-        <!-- <div id="description">
-          {{event.description}}
-        </div>-->
+        <!---------ใส่รูปเวลามีคนเพิ่มรูปเข้ามา---------->
+        <!-- <v-carousel hide-delimiters width="50%" height="50%">
+          <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src"></v-carousel-item>
+        </v-carousel>-->
+        <!--------------------------------------->
         <v-card-text>{{event.description}}</v-card-text>
         <v-card-title>
           <span class="red--text">
@@ -125,7 +127,15 @@ export default {
       commentDetail:
         "รถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะ",
       author: "CEO Rattanan Nuan",
-      postTime: "แสดงความเห็นตอน 11.00"
+      postTime: "แสดงความเห็นตอน 11.00",
+      items: [
+        {
+          src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg"
+        },
+        {
+          src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg"
+        }
+      ]
     };
   },
   props: {

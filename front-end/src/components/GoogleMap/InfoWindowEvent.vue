@@ -27,7 +27,12 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-      <v-card-text class="pa-0">
+      <!---------ใส่รูปเวลามีคนเพิ่มรูปเข้ามา---------->
+      <!-- <v-carousel hide-delimiters width="50%" height="50%">
+        <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src"></v-carousel-item>
+      </v-carousel>-->
+      <!--------------------------------------->
+      <v-card-text class="pa-1">
         <div class="body-2">{{marker.description}}</div>
         <br />
         <v-divider></v-divider>
@@ -55,6 +60,18 @@ import { mapActions } from "vuex";
 import LikeDislikeControl from "../Feedback/LikeDislikeControl";
 export default {
   name: "InfoWindowEvent",
+  data() {
+    return {
+      items: [
+        {
+          src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg"
+        },
+        {
+          src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg"
+        }
+      ]
+    };
+  },
   components: {
     LikeDislikeControl
   },
@@ -68,7 +85,7 @@ export default {
 };
 </script>
 <style scoped>
->>> .my-tile .v-list__tile {
+.my-tile .v-list__tile {
   padding-left: 3px;
   padding-right: 0px;
 }
