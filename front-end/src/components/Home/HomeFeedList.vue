@@ -1,26 +1,32 @@
 <template>
-  <v-list two-line>
-    <template v-for="(event, index) in eventList">
-      <v-subheader v-if="index == 0" :key="`header-${index}`" inset>เหตุการณ์ปัจจุบัน</v-subheader>
-      <v-divider v-if="index == 0" :key="`divider-${index}`" inset></v-divider>
-      <HomeFeedItem :key="index" :event="event"></HomeFeedItem>
-    </template>
-    <infinite-loading spinner="spiral" :identifier="infiniteId" @infinite="getEvents"></infinite-loading>
-  </v-list>
+  <div>
+    <LoadingCircular :loading="loading" />
+    <v-list two-line>
+      <template v-for="(event, index) in eventList">
+        <v-subheader v-if="index == 0" :key="`header-${index}`" inset>เหตุการณ์ปัจจุบัน</v-subheader>
+        <v-divider v-if="index == 0" :key="`divider-${index}`" inset></v-divider>
+        <HomeFeedItem :key="index" :event="event"></HomeFeedItem>
+      </template>
+      <infinite-loading spinner="spiral" :identifier="infiniteId" @infinite="getEvents"></infinite-loading>
+    </v-list>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import HomeFeedItem from "./HomeFeedItem";
+import LoadingCircular from "../Feedback/LoadingCircular";
 import InfiniteLoading from "vue-infinite-loading";
 export default {
   name: "HomeFeedList",
   components: {
     HomeFeedItem,
+    LoadingCircular,
     InfiniteLoading
   },
   data() {
     return {
+      loading: true,
       eventList: [],
       pageSize: 10,
       pageNumber: 0,
@@ -41,6 +47,7 @@ export default {
     getEvents: function($state) {
       let events = this.pagingEvents(this.pageSize, this.pageNumber);
       if (events.length) {
+        this.loading = false;
         this.pageNumber++;
         this.eventList.push(...events);
         $state.loaded();
