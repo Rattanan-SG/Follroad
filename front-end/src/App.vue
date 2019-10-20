@@ -83,10 +83,14 @@ export default {
     ...mapGetters("route", ["routerView"])
   },
   async created() {
-    this.fetchEvents();
     this.$vuetify.breakpoint.xsOnly
       ? this.setRouterView(false)
       : this.setRouterView(true);
+    await this.fetchEvents();
+    if (this.$auth.isAuthenticated()) {
+      const { sub: uid } = this.$auth.profile;
+      await this.fetchUserFeedbacks(uid);
+    }
     try {
       await this.$auth.renewTokens();
     } catch (e) {
@@ -95,7 +99,7 @@ export default {
   },
   methods: {
     ...mapActions("route", ["setRouterView"]),
-    ...mapActions("event", ["fetchEvents"]),
+    ...mapActions("event", ["fetchEvents", "fetchUserFeedbacks"]),
     ...mapActions("googleMap", ["stopWatchMyLocation"])
   },
   beforeDestroy() {
