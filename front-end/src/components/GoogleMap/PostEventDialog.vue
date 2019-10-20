@@ -102,6 +102,35 @@
                   ></v-textarea>
                 </v-flex>
               </v-layout>
+              <!------------userเพิ่มรูป------------->
+              <v-flex xs12 lg12 md12 sm12>
+                <div class="wrapper">
+                  <div class="custom-file-container" data-upload-id="myFirstImage">
+                    <label>
+                      เพิ่มรูปภาพ
+                      <a
+                        href="javascript:void(0)"
+                        class="custom-file-container__image-clear"
+                        title="Clear Image"
+                      ></a>
+                    </label>
+                    <label class="custom-file-container__custom-file">
+                      ไฟล์
+                      <input
+                        type="file"
+                        class="custom-file-container__custom-file__custom-file-input"
+                        accept="*"
+                        multiple
+                        aria-label="File"
+                      />
+                      <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
+                      <span class="custom-file-container__custom-file__custom-file-control"></span>
+                    </label>
+                    <div class="custom-file-container__image-preview"></div>
+                  </div>
+                </div>
+              </v-flex>
+              <!------------------------->
               <v-alert :value="error" color="error" icon="warning" outline>แจ้งเหตุการณ์ไม่สำเร็จ</v-alert>
             </v-card-text>
 
@@ -127,6 +156,8 @@
 import { mapActions } from "vuex";
 import eventApi from "@/api/event";
 import eventConstant from "@/utilitys/eventConstant";
+import FileUploadWithPreview from "file-upload-with-preview";
+import "file-upload-with-preview/dist/file-upload-with-preview.min.css";
 export default {
   name: "PostEventDialog",
   props: {
@@ -158,7 +189,8 @@ export default {
           !value || value <= 24 || "ระยะเวลาไม่เกิน 24 ชั่วโมง"
       },
       loading: false,
-      error: false
+      error: false,
+      upload: null
     };
   },
   methods: {
@@ -260,6 +292,16 @@ export default {
         return false;
       } else return true;
     }
+  },
+  mounted() {
+    this.upload = new FileUploadWithPreview("myFirstImage");
   }
 };
 </script>
+<style>
+.wrapper {
+  max-width: 500px;
+  max-height: 500px;
+  margin: 0 auto;
+}
+</style>

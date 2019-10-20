@@ -41,6 +41,6 @@ export default {
   z-index: 1;
 }
 .v-snack--top {
-  top: 6%;
+  top: 1%;
 }
 </style>
