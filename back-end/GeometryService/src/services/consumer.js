@@ -100,15 +100,16 @@ exports.handleBatchCheckDirectionRecord = async messages => {
     //   relatedEvents
     // });
     const filterResult = relatedEvents.filter(item => item.result);
-    if (filterResult.length > 0) {
-      notificationApi.sendToSpecificUser({
-        message: {
-          title: `เส้นทาง ${name.StringValue} ของคุณ`,
-          body: `มีเหตุการณ์เกิดขึ้นอยู่ ${filterResult.length} เหตุการณ์`
-        },
-        uid: uid.StringValue
-      });
-    }
+    notificationApi.sendToSpecificUser({
+      message: {
+        title: `เส้นทาง ${name.StringValue} ของคุณ`,
+        body:
+          filterResult.length > 0
+            ? `มีเหตุการณ์เกิดขึ้นอยู่ ${filterResult.length} เหตุการณ์`
+            : "ไม่มีเหตุการณ์เกิดขึ้นบนเส้นทาง"
+      },
+      uid: uid.StringValue
+    });
     logInfo("Handle Message Batch Check Direction-Record", {
       directionRecord: name.StringValue,
       count: filterResult.length,
