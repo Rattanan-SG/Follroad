@@ -18,6 +18,9 @@ const getters = {
       return state.events;
     }
   },
+  eventById: state => id => {
+    return state.events.find(event => event.id == id);
+  },
   eventMarkers: (state, getters) => {
     return getters.events.map(event => ({
       id: event.id,
@@ -59,6 +62,9 @@ const actions = {
       })
       .then(data => commit("SET_EVENTS", data));
   },
+  updateEventById: ({ commit }, { id, data }) => {
+    commit("UPDATE_EVENT_BY_ID", { id, data });
+  },
   socket_event: ({ dispatch, commit }, data) => {
     const { action, event } = data;
     if (action === "create") {
@@ -85,6 +91,11 @@ const mutations = {
   },
   ADD_NEW_EVENT: (state, newEvent) => {
     state.events.unshift(newEvent);
+  },
+  UPDATE_EVENT_BY_ID: (state, { id, data }) => {
+    const index = state.events.findIndex(event => event.id == id);
+    const newEvent = { ...state.events[index], ...data };
+    state.events[index] = newEvent;
   },
   SET_EVENT_CATEGORY_SELECTED: (state, eventCategorySelected) => {
     state.eventCategorySelected = eventCategorySelected;

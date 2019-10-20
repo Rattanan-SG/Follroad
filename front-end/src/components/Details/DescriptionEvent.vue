@@ -10,7 +10,7 @@
             <v-card-title primary-title class="pt-0 pl-0">
               <div>
                 <h3 class="subheading blue--text">{{infoWindow.marker.title}}</h3>
-                <span>โดย {{infoWindow.marker.eventCaption.contributor}}</span>
+                <span>โดย {{infoWindow.marker.contributor}}</span>
               </div>
             </v-card-title>
           </v-flex>
@@ -25,13 +25,18 @@
     <v-card-text>
       <div
         class="body-1 red--text"
-      >เกิดขึ้น ณ {{infoWindow.marker.eventCaption.startTime | luxon:locale('short')}}</div>
+      >เกิดขึ้น ณ {{infoWindow.marker.startTime | luxon:locale('short')}}</div>
       <div
         class="body-1 red--text"
-      >จะสิ้นสุดใน {{infoWindow.marker.eventCaption.stopTime | luxon:locale('short')}}</div>
+      >จะสิ้นสุดใน {{infoWindow.marker.stopTime | luxon:locale('short')}}</div>
     </v-card-text>
     <v-card-actions>
-      <LikeDislikeControl />
+      <LikeDislikeControl
+        :key="infoWindow.marker.id"
+        :eventId="infoWindow.marker.id"
+        :initialLike="infoWindow.marker.feedbacks[0] && infoWindow.marker.feedbacks[0].like"
+        :initialDislike="infoWindow.marker.feedbacks[0] && infoWindow.marker.feedbacks[0].dislike"
+      />
     </v-card-actions>
     <v-layout v-if="!!infoWindow.marker" pt-3>
       <v-flex xs2 md2 lg2 pt-3 pl-3 mr-2>
@@ -63,7 +68,7 @@
 
     <v-layout>
       <v-flex lg1 mt-4 ml-2>
-        <img src="@/assets/logo.svg" alt="avatar" width="30px" height="30px"/>
+        <img src="@/assets/logo.svg" alt="avatar" width="30px" height="30px" />
       </v-flex>
       <v-flex xs11 md11 lg11>
         <v-card-text>
@@ -71,7 +76,7 @@
             <h3 class="blue--text">{{author}}</h3>
             <div>{{commentDetail}}</div>
             <div class="red--text">{{postTime}}</div>
-            </div>
+          </div>
         </v-card-text>
       </v-flex>
     </v-layout>
@@ -80,7 +85,7 @@
     </v-flex>
     <v-layout>
       <v-flex lg1 mt-4 ml-2>
-        <img src="@/assets/logo.svg" alt="avatar" width="30px" height="30px"/>
+        <img src="@/assets/logo.svg" alt="avatar" width="30px" height="30px" />
       </v-flex>
       <v-flex xs11 md11 lg11>
         <v-card-text>
@@ -112,7 +117,8 @@ export default {
       countLike: 0,
       countDislike: 0,
       comment: "",
-      commentDetail: "รถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะ",
+      commentDetail:
+        "รถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะ",
       author: "CEO Rattanan Nuan",
       postTime: "11.00"
     };

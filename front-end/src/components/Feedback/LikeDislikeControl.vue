@@ -12,7 +12,8 @@
 </template>
 
 <script>
-// import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
+import eventApi from "@/api/event";
 export default {
   name: "LikeDislikeControl",
   props: {
@@ -34,17 +35,32 @@ export default {
     };
   },
   methods: {
-    handleClick: function(value) {
-      if (this.active === null) {
+    ...mapActions("globalFeedback", ["setLoginDialog"]),
+
+    handleClick: async function(value) {
+      if (!this.$auth.isAuthenticated()) {
+        this.setLoginDialog(true);
+      } else if (this.active === null) {
         value ? this.countLike++ : this.countDislike++;
         this.active = value;
-      } else if (this.active === value) {
-        this.active ? this.countLike-- : this.countDislike--;
-        this.active = null;
+        await eventApi.putFeedback({
+          eventId: this.eventId,
+          react: value
+        });
       } else if (this.active !== value) {
         this.active ? this.countLike-- : this.countDislike--;
         value ? this.countLike++ : this.countDislike++;
         this.active = value;
+        await eventApi.putFeedback({
+          eventId: this.eventId,
+          react: value
+        });
+      } else if (this.active === value) {
+        this.active ? this.countLike-- : this.countDislike--;
+        this.active = null;
+        await eventApi.deleteFeedback({
+          data: { eventId: this.eventId }
+        });
       }
     }
   }
