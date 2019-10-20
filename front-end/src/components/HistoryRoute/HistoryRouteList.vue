@@ -12,7 +12,7 @@
               </v-btn>
             </v-card-actions>
           </v-flex>-->
-          <v-flex xs11 md10 lg11 sm10>
+          <v-flex xs11 md10 lg10 sm10>
             <v-list-tile-content>
               <v-list-tile-title class="font-weight-black">
                 <!-- <v-btn flat icon color="red lighten-1"> -->
@@ -20,13 +20,13 @@
                 <!-- </v-btn> -->
                 {{ record.name }}
               </v-list-tile-title>
-              <v-list-tile-sub-title class="text--primary">
+              <v-list-tile-sub-title class="caption black--text">
                 {{ record.start.name }}
                 <v-icon size="20px">arrow_right_alt</v-icon>
                 {{ record.destination.name }}
               </v-list-tile-sub-title>
               <v-list-tile-title
-                class="caption"
+                class="caption grey--text"
               >แก้ไขล่าสุด {{ record.updatedAt | luxon:locale('shortS') }}</v-list-tile-title>
             </v-list-tile-content>
           </v-flex>
