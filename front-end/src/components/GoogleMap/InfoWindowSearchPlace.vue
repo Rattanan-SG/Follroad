@@ -9,18 +9,17 @@
       height="40%"
       flat
     >
-    <!-- <v-icon>map</v-icon> -->
-    <v-toolbar-title>สถานที่</v-toolbar-title>
-    <v-spacer></v-spacer>
+      <v-toolbar-title>สถานที่</v-toolbar-title>
+      <v-spacer></v-spacer>
       <v-btn icon dark @click="closeInfoWindow">
         <v-icon>close</v-icon>
       </v-btn>
     </v-toolbar>
     <br />
-    <br/>
-    
-    <v-card flat max-width="100%" class="mx-auto white--text" color="blue-grey darken-2" >
-      <v-img :src="marker.searchPlaceCaption.photo" max-width="100%" max-height="10%"></v-img>
+    <br />
+
+    <v-card flat max-width="100%" class="mx-auto white--text" color="blue-grey darken-2">
+      <v-img v-if="marker.photos" :src="marker.photos" max-width="100%" max-height="10%"></v-img>
       <v-card-text>
         <h3 class="headline mb-0">{{marker.title}}</h3>
         <div>{{marker.description}}</div>
@@ -35,10 +34,6 @@ export default {
   props: {
     marker: Object,
     closeInfoWindow: Function
-  },
-  data() {
-    return {
-    };
   }
 };
 </script>

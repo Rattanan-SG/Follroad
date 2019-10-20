@@ -9,14 +9,13 @@ const getters = {
   searchPlaceMarker: state => {
     const { searchPlace } = state;
     if (searchPlace) {
+      const photos = searchPlace.photos ? searchPlace.photos[0].getUrl() : null;
       return {
         id: searchPlace.id,
         position: searchPlace.geometry.location,
         title: searchPlace.name,
         description: searchPlace.formatted_address,
-        searchPlaceCaption: {
-          photo: searchPlace.photos[0].getUrl()
-        },
+        photos: photos,
         type: "searchPlace"
       };
     }
