@@ -175,6 +175,7 @@ const getIncludeCountFeedbackObject = () => ({
       "dislike"
     ]
   ],
-  separate: true,
-  required: true
+  group: ["eventId"],
+  required: false,
+  separate: true
 });
