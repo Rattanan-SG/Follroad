@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div v-if="loading" class="text-xs-center">
-      <v-progress-circular :size="100" :width="7" color="primary" indeterminate></v-progress-circular>
-    </div>
-
+    <LoadingCircular :loading="loading" />
     <!-- ต้นฉบับ จะแสดงเมื่อ user เคยมีบันทึกเส้นทางไว้ -->
     <v-list v-if="!loading && !!directionRecords.length" three-line>
       <template v-for="(record, index) in directionRecords">
@@ -66,8 +63,12 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
+import LoadingCircular from "../Feedback/LoadingCircular";
 export default {
   name: "HistoryRouteList",
+  components: {
+    LoadingCircular
+  },
   data() {
     return {
       uid: null,
