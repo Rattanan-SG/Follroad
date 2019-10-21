@@ -43,20 +43,11 @@
       </v-flex>
 
       <!-- <v-card-actions> -->
-      <v-flex xs3 md5 lg3>
-        <v-btn flat icon color="blue lighten-2" v-on:click="countLike++">
-          <v-icon>thumb_up</v-icon>
-        </v-btn>
-        {{countLike}}
-      </v-flex>
-      <v-flex xs3 md5 lg3>
-        <v-btn flat icon color="red lighten-2" v-on:click="countDislike++">
-          <v-icon>thumb_down</v-icon>
-        </v-btn>
-        {{countDislike}}
+      <v-flex grow>
+        <LikeDislikeControl :key="event.id" :eventId="event.id" />
       </v-flex>
       <!-- <v-spacer></v-spacer> -->
-      <v-flex xs5 md8 lg6>
+      <v-flex xs2 md3 lg3>
         <v-btn flat icon color="grey" @click="show = !show">
           <v-icon>feedback</v-icon>
         </v-btn>
@@ -114,8 +105,12 @@
 <script>
 import { mapGetters } from "vuex";
 import eventConstant from "@/utilitys/eventConstant";
+import LikeDislikeControl from "../Feedback/LikeDislikeControl";
 export default {
   name: "NewsFeedItem",
+  components: {
+    LikeDislikeControl
+  },
   data() {
     return {
       show: false,
