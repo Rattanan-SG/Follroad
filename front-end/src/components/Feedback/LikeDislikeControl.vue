@@ -1,18 +1,28 @@
 <template>
   <div>
-    <v-btn flat icon :color="active === 1 ? 'blue lighten-2' : 'grey '" @click="handleClick(1)">
+    <v-btn
+      flat
+      icon
+      :color="feedback.react === 1 ? 'blue lighten-2' : 'grey '"
+      @click="handleClick(1)"
+    >
       <v-icon>thumb_up</v-icon>
     </v-btn>
-    <span class="subheading mr-3">{{countLike}}</span>
-    <v-btn flat icon :color="active === 0 ? 'red lighten-2' : 'grey '" @click="handleClick(0)">
+    <span class="subheading mr-3">{{feedback.like}}</span>
+    <v-btn
+      flat
+      icon
+      :color="feedback.react === 0 ? 'red lighten-2' : 'grey '"
+      @click="handleClick(0)"
+    >
       <v-icon>thumb_down</v-icon>
     </v-btn>
-    <span class="subheading mr-3">{{countDislike}}</span>
+    <span class="subheading mr-3">{{feedback.dislike}}</span>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
 import eventApi from "@/api/event";
 export default {
   name: "LikeDislikeControl",
@@ -27,24 +37,19 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("feedbace", ["feedbackByEventId"])
-  },
-  created() {
-    const { like, dislike, react } = this.feedbackByEventId(this.eventId);
-    this.countLike = like;
-    this.countDislike = dislike;
-    this.active = react;
-    this.$store.subscribe(mutation => {
-      if (mutation.type === "feedback/UPDATE_FEEDBACK_BY_EVENT_ID") {
-        console.log("Updating to ${state}", mutation.payload);
-      }
-    });
+    feedback() {
+      return this.$store.getters["feedback/feedbackByEventId"](this.eventId);
+    }
   },
   methods: {
     ...mapActions("globalFeedback", ["setLoginDialog"]),
     ...mapActions("feedback", ["updateFeedbackByEventId"]),
 
-    handleClick: async function(value) {
+    handleClick: function(value) {
+      const { like, dislike, react } = this.feedback;
+      this.countLike = like;
+      this.countDislike = dislike;
+      this.active = react;
       if (!this.$auth.isAuthenticated()) {
         this.setLoginDialog(true);
       } else if (this.active === null) {

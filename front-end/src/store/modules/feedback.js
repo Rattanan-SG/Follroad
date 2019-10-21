@@ -1,3 +1,4 @@
+import Vue from "vue";
 import eventApi from "@/api/event";
 
 const state = {
@@ -39,7 +40,7 @@ const mutations = {
       feedback => feedback.eventId == eventId
     );
     const newFeedback = { ...state.feedbacks[index], ...data };
-    state.feedbacks[index] = newFeedback;
+    Vue.set(state.feedbacks, index, newFeedback);
   }
 };
 
