@@ -9,7 +9,7 @@
       scroll-target="#scrolling-techniques"
       height="35%"
     >
-      <v-toolbar-title>แจ้งเหตุการณ์</v-toolbar-title>
+      <!-- <v-toolbar-title>แจ้งเหตุการณ์</v-toolbar-title> -->
       <v-spacer></v-spacer>
       <v-btn icon dark @click="closeInfoWindow">
         <v-icon>close</v-icon>
@@ -19,8 +19,8 @@
     <v-card flat max-width="400px" class="mx-auto pt-4">
       <v-card-title class="px-1">
         <div>
-          <!-- <v-icon medium>post_add</v-icon>
-          <span class="headline">แจ้งเหตุการณ์</span>-->
+          <v-icon medium>post_add</v-icon>
+          <span class="headline">แจ้งเหตุการณ์</span>
           <div
             class="pt-1 subheading grey--text text--darken-1"
           >คุณต้องการที่จะแจ้งเหตุการณ์ที่ตำแหน่งนี้หรือไม่?</div>
