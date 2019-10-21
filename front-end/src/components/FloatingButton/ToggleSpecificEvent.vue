@@ -1,7 +1,7 @@
 <template >
   <v-dialog v-model="dialog" scrollable max-width="80%" max-height="100%">
     <template v-slot:activator="{ on }">
-      <v-flex xs12 lg12 md12 class="hidden-sm-and-up">
+      <v-flex xs12 lg12 md12 class="hidden-sm-and-up ToggleSpecificEvent">
         <v-btn round color="blue" dark @click.stop="dialog = true">เหตุการณ์ที่เกี่ยวข้อง</v-btn>
       </v-flex>
     </template>
