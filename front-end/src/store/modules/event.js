@@ -3,8 +3,7 @@ import eventConstant from "@/utilitys/eventConstant";
 
 const state = {
   events: [],
-  eventCategorySelected: eventConstant.EVENT_CATEGORY,
-  userFeedbacks: []
+  eventCategorySelected: eventConstant.EVENT_CATEGORY
 };
 
 const getters = {
@@ -34,7 +33,6 @@ const getters = {
       startTime: event.start,
       stopTime: event.stop,
       contributor: event.contributor,
-      feedbacks: event.feedbacks,
       icon: eventConstant.selectIcon(event),
       type: "event"
     }));
@@ -50,12 +48,6 @@ const getters = {
   },
   eventCategorySelected: state => {
     return state.eventCategorySelected;
-  },
-  userFeedbacks: state => {
-    return state.userFeedbacks;
-  },
-  userFeedbacksByEventId: state => eventId => {
-    return state.userFeedbacks.find(feedback => feedback.eventId == eventId);
   }
 };
 
@@ -64,18 +56,9 @@ const actions = {
     return eventApi
       .getEvents({
         fields:
-          "id title description latitude longitude start stop contributor type",
-        countFeedback: true
+          "id title description latitude longitude start stop contributor type"
       })
       .then(data => commit("SET_EVENTS", data));
-  },
-  fetchUserFeedbacks: ({ commit }, uid) => {
-    return eventApi
-      .getFeedback({
-        fields: "eventId react",
-        uid
-      })
-      .then(data => commit("SET_USER_FEEDBACKS", data));
   },
   updateEventById: ({ commit }, { id, data }) => {
     commit("UPDATE_EVENT_BY_ID", { id, data });
@@ -114,9 +97,6 @@ const mutations = {
   },
   SET_EVENT_CATEGORY_SELECTED: (state, eventCategorySelected) => {
     state.eventCategorySelected = eventCategorySelected;
-  },
-  SET_USER_FEEDBACKS: (state, userFeedbacks) => {
-    state.userFeedbacks = userFeedbacks;
   }
 };
 

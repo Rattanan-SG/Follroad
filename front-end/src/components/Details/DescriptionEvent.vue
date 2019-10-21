@@ -34,8 +34,6 @@
       <LikeDislikeControl
         :key="infoWindow.marker.id"
         :eventId="infoWindow.marker.id"
-        :initialLike="infoWindow.marker.feedbacks[0] && infoWindow.marker.feedbacks[0].like"
-        :initialDislike="infoWindow.marker.feedbacks[0] && infoWindow.marker.feedbacks[0].dislike"
       />
     </v-card-actions>
     <v-layout v-if="!!infoWindow.marker" pt-3>

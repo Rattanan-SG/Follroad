@@ -71,10 +71,15 @@ exports.getEventFeedbackSummary = async query => {
       }
     );
     const eventFeedbackJson = JSON.parse(JSON.stringify(eventFeedback));
-    eventFeedback = eventFeedbackJson.map(data => ({
-      ...userFeedback.find(item => item.eventId === data.eventId && item),
-      ...data
-    }));
+    eventFeedback = eventFeedbackJson.map(data => {
+      const value = userFeedback.find(item => item.eventId === data.eventId);
+      let react = null;
+      if (value) react = value.react;
+      return {
+        ...data,
+        react
+      };
+    });
   }
   return eventFeedback;
 };

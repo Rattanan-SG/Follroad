@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import event from "./modules/event";
+import feedback from "./modules/feedback";
 import route from "./modules/route";
 import googleMap from "./modules/google-map";
 import infoWindow from "./modules/info-window";
@@ -15,6 +16,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   modules: {
     event,
+    feedback,
     route,
     search,
     googleMap,

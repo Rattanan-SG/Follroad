@@ -89,7 +89,9 @@ export default {
     await this.fetchEvents();
     if (this.$auth.isAuthenticated()) {
       const { sub: uid } = this.$auth.profile;
-      await this.fetchUserFeedbacks(uid);
+      await this.fetchFeedbackSummary(uid);
+    } else {
+      await this.fetchFeedbackSummary();
     }
     try {
       await this.$auth.renewTokens();
@@ -99,7 +101,8 @@ export default {
   },
   methods: {
     ...mapActions("route", ["setRouterView"]),
-    ...mapActions("event", ["fetchEvents", "fetchUserFeedbacks"]),
+    ...mapActions("event", ["fetchEvents"]),
+    ...mapActions("feedback", ["fetchFeedbackSummary"]),
     ...mapActions("googleMap", ["stopWatchMyLocation"])
   },
   beforeDestroy() {

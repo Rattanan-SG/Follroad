@@ -45,8 +45,6 @@
         <LikeDislikeControl
           :key="marker.id"
           :eventId="marker.id"
-          :initialLike="marker.feedbacks[0] && marker.feedbacks[0].like"
-          :initialDislike="marker.feedbacks[0] && marker.feedbacks[0].dislike"
         />
         <v-spacer></v-spacer>
         <v-btn outline color="blue" to="/details" @click="setRouterView(true)">ดูเพิ่มเติม</v-btn>
