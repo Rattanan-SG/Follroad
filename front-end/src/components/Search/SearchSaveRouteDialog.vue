@@ -68,26 +68,8 @@
 
                 <!-- -------------------Time Field-------------------- -->
                 <v-flex xs12 v-if="openTimeField">
-                  <!-----------Radio button เลือกประเภทแจ้งเตือน----------->
-                  <!-- <v-radio-group v-model="openDateRange" :mandatory="false">
-                    <v-radio label="เลือกช่วงวันในการรับแจ้งเตือน" value="radio-1"></v-radio>
-                  </v-radio-group>
-                  <v-radio-group v-model="openSpecificDate" :mandatory="false">
-                    <v-radio label="เลือกแบบระบุวันที่" value="radio-2"></v-radio>
-                  </v-radio-group>-->
-                  <v-btn color="info" v-on:click="openDateRange = !openDateRange">
-                    เลือกช่วงวันในการรับแจ้งเตือน
-                    <v-icon v-if="!openDateRange">keyboard_arrow_down</v-icon>
-                    <v-icon v-if="openDateRange">keyboard_arrow_up</v-icon>
-                  </v-btn>
-                  <v-btn color="info" v-on:click="openSpecificDate = !openSpecificDate">
-                    เลือกแบบระบุวันที่
-                    <v-icon v-if="!openDateRange">keyboard_arrow_down</v-icon>
-                    <v-icon v-if="openDateRange">keyboard_arrow_up</v-icon>
-                  </v-btn>
-                  <!------------------------------------------------>
                   <v-card>
-                    <v-layout row v-show="openDateRange">
+                    <v-layout row>
                       <v-flex xs5 md5 lg5 ml-1>
                         <v-combobox
                           v-model="select"
@@ -130,13 +112,13 @@
                         </v-menu>
                       </v-flex>
                       <!-- <v-flex xs1 lg1 md1></v-flex> -->
-                      <!-- <v-flex lg1 md1 mt-3>
+                      <v-flex lg1 md1 mt-3>
                         <v-btn icon small>
                           <v-icon>add_circle_outline</v-icon>
                         </v-btn>
-                      </v-flex>-->
+                      </v-flex>
                     </v-layout>
-                    <v-layout v-show="openSpecificDate">
+                    <v-layout>
                       <v-flex xs5 md5 lg5>
                         <v-menu
                           v-model="menuDate"
@@ -186,11 +168,11 @@
                           ></v-time-picker>
                         </v-menu>
                       </v-flex>
-                      <!-- <v-flex lg1 md1 mt-3>
+                      <v-flex lg1 md1 mt-3>
                         <v-btn icon small>
                           <v-icon>add_circle_outline</v-icon>
                         </v-btn>
-                      </v-flex>-->
+                      </v-flex>
                     </v-layout>
                   </v-card>
                 </v-flex>
@@ -235,10 +217,6 @@ export default {
   data() {
     return {
       dialog: false,
-      openDateRange: false,
-      openSpecificDate: false,
-      openTime: false,
-      row: null,
       valid: false,
       id: null,
       start: this.startLocation && this.startLocation.name,
