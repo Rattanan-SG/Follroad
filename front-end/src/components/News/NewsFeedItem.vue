@@ -72,7 +72,7 @@
             :disabled="!isAuthenticated"
           ></v-textarea>
         </v-flex>
-        <v-flex xs2 md2 lg2 pt-2 ml-4>
+        <v-flex xs2 md2 lg1 pt-2 ml-4>
           <v-btn icon class="ma-0">
             <v-icon color="primary" medium>send</v-icon>
           </v-btn>
@@ -92,7 +92,10 @@
             <div>
               <h3 class="blue--text">{{author}}</h3>
               <div>{{commentDetail}}</div>
-              <div class="red--text">{{postTime}}</div>
+              <div class="red--text">
+                <v-icon>access_time</v-icon>
+                {{postTime}}
+              </div>
             </div>
           </v-card-text>
         </v-flex>
@@ -122,7 +125,7 @@ export default {
       commentDetail:
         "รถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะ",
       author: "CEO Rattanan Nuan",
-      postTime: "แสดงความเห็นตอน 11.00",
+      postTime: "11.00",
       items: [
         {
           src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg"
