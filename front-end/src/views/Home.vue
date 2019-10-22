@@ -1,9 +1,13 @@
 <template>
   <div>
     <CloseViewToolBar title="เหตุการณ์" />
-
-    <v-layout justify-center mb-2>
-      <HomeFilterEventCategory />
+    <v-layout row wrap py-2>
+      <v-flex grow px-2>
+        <HomeFilterEventCategory />
+      </v-flex>
+      <v-flex shrink px-2>
+        <HomeRefreshButton />
+      </v-flex>
     </v-layout>
     <HomeFeedList />
   </div>
@@ -14,13 +18,15 @@ import CloseViewToolBar from "@/components/Navbar/CloseViewToolBar";
 const HomeFeedList = () => import("@/components/Home/HomeFeedList");
 const HomeFilterEventCategory = () =>
   import("@/components/Home/HomeFilterEventCategory");
+const HomeRefreshButton = () => import("@/components/Home/HomeRefreshButton");
 // const HomeSearchEvent = () => import("@/components/Home/HomeSearchEvent");
 export default {
   name: "Home",
   components: {
     CloseViewToolBar,
     HomeFeedList,
-    HomeFilterEventCategory
+    HomeFilterEventCategory,
+    HomeRefreshButton
     // HomeSearchEvent
   }
 };

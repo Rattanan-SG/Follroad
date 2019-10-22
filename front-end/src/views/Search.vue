@@ -15,21 +15,22 @@
       />
       <v-btn
         v-if="!directionsResponse"
+        round
         color="blue"
         class="white--text"
         @click="startDirections"
         :disabled="loading"
         :loading="loading"
       >ค้นหาเส้นทาง</v-btn>
-      <v-btn v-else color="red" class="white--text" @click="stopDirections" depressed>
+      <v-btn v-else round color="red" class="white--text" @click="stopDirections" depressed>
         ยกเลิกเส้นทาง
-        <v-icon>close</v-icon>
+        <v-icon class="ml-2">close</v-icon>
       </v-btn>
     </v-layout>
     <v-layout row wrap>
       <!-- <v-flex xs12 my-1>
         <SearchFeedPanel v-if="directionsResponse" />
-      </v-flex> -->
+      </v-flex>-->
       <v-flex xs12>
         <SearchRoutePanel v-if="directionsResponse" :directionsRenderer="directionsRenderer" />
       </v-flex>

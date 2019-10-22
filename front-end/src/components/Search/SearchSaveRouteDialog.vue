@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-btn
+      round
       color="success"
       class="white--text"
       @click.stop="openDialog"
@@ -9,7 +10,7 @@
       depressed
     >
       บันทึกเส้นทาง
-      <v-icon>save</v-icon>
+      <v-icon class="ml-2">save</v-icon>
     </v-btn>
     <v-layout row justify-center v-if="startLocation">
       <v-dialog v-model="dialog" persistent max-width="600px" scrollable>
@@ -85,7 +86,13 @@
                       </v-list-tile-content>
                       <v-list-tile-action>
                         <v-layout wrap row>
-                          <v-btn flat icon color="pink" class="mr-2">
+                          <v-btn
+                            flat
+                            icon
+                            color="grey"
+                            class="mr-2"
+                            @click.stop="deleteNotificationTime(index)"
+                          >
                             <v-icon>delete</v-icon>
                           </v-btn>
                           <v-switch v-model="item.ongoing"></v-switch>
@@ -344,6 +351,9 @@ export default {
         this.dialog = true;
       }
     },
+    deleteNotificationTime: function(index) {
+      this.notificationTime.splice(index, 1);
+    },
     submitNewNotificationTime: function() {
       if (this.$refs.form2.validate()) {
         this.loading = true;
@@ -429,7 +439,7 @@ export default {
 };
 </script>
 <style scoped>
->>> .my-tile .v-list__tile {
+::v-deep .my-tile .v-list__tile {
   padding-left: 3px;
   padding-right: 0px;
 }

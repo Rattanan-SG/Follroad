@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-flex xs12 lg12 md12 sm12>
-      <v-card class="mx-auto" color="#26c6da" flat>
-        <div class="white--text pa-2">รายละเอียดและเหตุการณ์ที่เกี่ยวข้องกับเส้นทาง</div>
+      <v-card flat class="mx-auto">
+        <div class="subheading px-3 pb-2">รายละเอียดและเหตุการณ์ที่เกี่ยวข้องกับเส้นทาง</div>
       </v-card>
     </v-flex>
     <v-card flat v-if="specificEvents">

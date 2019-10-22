@@ -80,7 +80,7 @@ export default {
 };
 </script>
 <style scoped>
->>> .my-tile .v-list__tile {
+::v-deep .my-tile .v-list__tile {
   padding-left: 3px;
   padding-right: 0px;
 }
