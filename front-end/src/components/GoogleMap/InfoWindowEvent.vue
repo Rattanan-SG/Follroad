@@ -42,10 +42,7 @@
         <div class="body-1 red--text">จะสิ้นสุดใน {{marker.stopTime | luxon:locale('short')}}</div>
       </v-card-text>
       <v-card-actions class="px-0">
-        <LikeDislikeControl
-          :key="marker.id"
-          :eventId="marker.id"
-        />
+        <LikeDislikeControl :key="marker.id" :eventId="marker.id" />
         <v-spacer></v-spacer>
         <v-btn outline color="blue" to="/details" @click="setRouterView(true)">ดูเพิ่มเติม</v-btn>
       </v-card-actions>
@@ -83,7 +80,7 @@ export default {
 };
 </script>
 <style scoped>
-.my-tile .v-list__tile {
+>>> .my-tile .v-list__tile {
   padding-left: 3px;
   padding-right: 0px;
 }

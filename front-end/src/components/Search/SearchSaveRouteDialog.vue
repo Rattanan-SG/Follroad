@@ -13,16 +13,16 @@
     </v-btn>
     <v-layout row justify-center v-if="startLocation">
       <v-dialog v-model="dialog" persistent max-width="600px" scrollable>
-        <v-form ref="form" v-model="valid">
-          <v-card>
-            <v-toolbar color="blue" dark flat>
-              <v-icon>save</v-icon>
-              <v-toolbar-title>บันทึกเส้นทาง</v-toolbar-title>
-              <v-spacer></v-spacer>
-            </v-toolbar>
-            <v-card-text>
+        <v-card>
+          <v-toolbar color="blue" dark flat>
+            <v-icon>save</v-icon>
+            <v-toolbar-title>บันทึกเส้นทาง</v-toolbar-title>
+            <v-spacer></v-spacer>
+          </v-toolbar>
+          <v-card-text>
+            <v-form ref="form" v-model="valid">
               <v-layout wrap>
-                <v-flex xs12 sm6 pr-1>
+                <v-flex xs12 sm6 px-1>
                   <v-text-field
                     v-model="start"
                     label="ชื่อจุดเริ่มต้น"
@@ -31,7 +31,7 @@
                     clearable
                   ></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm6 pl-1>
+                <v-flex xs12 sm6 px-1>
                   <v-text-field
                     v-model="destination"
                     label="ชื่อจุดหมาย"
@@ -40,7 +40,7 @@
                     clearable
                   ></v-text-field>
                 </v-flex>
-                <v-flex xs12>
+                <v-flex xs12 px-1>
                   <v-text-field
                     label="กรอกชื่อเส้นทางที่บันทึก *"
                     v-model="name"
@@ -48,8 +48,8 @@
                     clearable
                   ></v-text-field>
                 </v-flex>
-                <v-flex xs12>
-                  <div class="subheading">เลือกเส้นทางที่ต้องการรับแจ้งเตือน</div>
+                <v-flex xs12 px-1>
+                  <div class="subheading black--text px-3">เลือกเส้นทางที่ต้องการรับแจ้งเตือน</div>
                   <v-checkbox
                     v-for="(route, index) in directionsResponse.routes"
                     v-model="notificationRoutes"
@@ -59,145 +59,210 @@
                   ></v-checkbox>
                 </v-flex>
 
-                <v-flex xs12>
-                  <v-switch
-                    v-model="openTimeField"
-                    label="ต้องการตั้งเวลาตรวจสอบเส้นทางล่วงหน้าหรือไม่?"
-                  ></v-switch>
-                </v-flex>
-
                 <!-- -------------------Time Field-------------------- -->
-                <v-flex xs12 v-if="openTimeField">
-                  <v-card>
-                    <v-layout row>
-                      <v-flex xs5 md5 lg5 ml-1>
-                        <v-combobox
-                          v-model="select"
-                          :items="items"
-                          label="เลือกวัน(จ-อา)"
-                          multiple
-                          chips
-                        ></v-combobox>
-                      </v-flex>
-                      <v-flex xs1 md1 lg1></v-flex>
-                      <v-flex xs5 sm5 lg5>
-                        <v-menu
-                          ref="menu"
-                          v-model="menu2"
-                          :close-on-content-click="false"
-                          :nudge-right="40"
-                          :return-value.sync="time"
-                          lazy
-                          transition="scale-transition"
-                          offset-y
-                          full-width
-                          max-width="290px"
-                          min-width="290px"
-                        >
-                          <template v-slot:activator="{ on }">
-                            <v-text-field
-                              v-model="time"
-                              label="ตั้งเวลา"
-                              prepend-icon="access_time"
-                              readonly
-                              v-on="on"
-                            ></v-text-field>
-                          </template>
-                          <v-time-picker
-                            v-if="menu2"
-                            v-model="time"
-                            full-width
-                            @click:minute="$refs.menu.save(time)"
-                          ></v-time-picker>
-                        </v-menu>
-                      </v-flex>
-                      <!-- <v-flex xs1 lg1 md1></v-flex> -->
-                      <v-flex lg1 md1 mt-3>
-                        <v-btn icon small>
-                          <v-icon>add_circle_outline</v-icon>
-                        </v-btn>
-                      </v-flex>
-                    </v-layout>
-                    <v-layout>
-                      <v-flex xs5 md5 lg5>
-                        <v-menu
-                          v-model="menuDate"
-                          :close-on-content-click="false"
-                          :nudge-right="40"
-                          lazy
-                          transition="scale-transition"
-                          offset-y
-                          full-width
-                          min-width="290px"
-                        >
-                          <template v-slot:activator="{ on }">
-                            <v-text-field v-model="date" label="เลือกวัน" readonly v-on="on"></v-text-field>
-                          </template>
-                          <v-date-picker v-model="date" @input="menuDate = false"></v-date-picker>
-                        </v-menu>
-                      </v-flex>
-                      <v-flex xs1 md1 lg1></v-flex>
-                      <v-flex xs5 md5 lg5>
-                        <v-menu
-                          ref="menuSecond"
-                          v-model="menu"
-                          :close-on-content-click="false"
-                          :nudge-right="40"
-                          :return-value.sync="time2"
-                          lazy
-                          transition="scale-transition"
-                          offset-y
-                          full-width
-                          max-width="290px"
-                          min-width="290px"
-                        >
-                          <template v-slot:activator="{ on }">
-                            <v-text-field
-                              v-model="time2"
-                              label="ตั้งเวลา"
-                              prepend-icon="access_time"
-                              readonly
-                              v-on="on"
-                            ></v-text-field>
-                          </template>
-                          <v-time-picker
-                            v-if="menu"
-                            v-model="time2"
-                            full-width
-                            @click:minute="$refs.menuSecond.save(time2)"
-                          ></v-time-picker>
-                        </v-menu>
-                      </v-flex>
-                      <v-flex lg1 md1 mt-3>
-                        <v-btn icon small>
-                          <v-icon>add_circle_outline</v-icon>
-                        </v-btn>
-                      </v-flex>
-                    </v-layout>
-                  </v-card>
+                <v-flex xs12>
+                  <v-list two-line>
+                    <v-subheader class="subheading black--text">การตั้งเวลาตรวจสอบเส้นทางล่วงหน้า</v-subheader>
+                    <v-list-tile
+                      avatar
+                      class="my-tile"
+                      v-for="(item, index) in notificationTime"
+                      :key="index"
+                    >
+                      <v-list-tile-avatar tile>
+                        <v-icon>timer</v-icon>
+                      </v-list-tile-avatar>
+                      <v-list-tile-content>
+                        <v-list-tile-title
+                          class="title"
+                        >{{item.time | luxon:locale('time24simple')}}</v-list-tile-title>
+                        <v-list-tile-sub-title
+                          v-if="item.days && item.days.length > 0"
+                        >ทุกๆวัน {{item.days}}</v-list-tile-sub-title>
+                        <v-list-tile-sub-title
+                          v-else
+                        >ณ วันที่ {{item.time | luxon:locale('dateShort')}}</v-list-tile-sub-title>
+                      </v-list-tile-content>
+                      <v-list-tile-action>
+                        <v-layout wrap row>
+                          <v-btn flat icon color="pink" class="mr-2">
+                            <v-icon>delete</v-icon>
+                          </v-btn>
+                          <v-switch v-model="item.ongoing"></v-switch>
+                        </v-layout>
+                      </v-list-tile-action>
+                    </v-list-tile>
+
+                    <div class="text-xs-center">
+                      <v-dialog v-model="dialog2" width="500">
+                        <template v-slot:activator="{ on }">
+                          <v-btn block color="indigo" dark v-on="on">เพิ่มการตั้งเวลา</v-btn>
+                        </template>
+                        <v-card>
+                          <v-toolbar color="indigo" dark flat>
+                            <v-icon>timer</v-icon>
+                            <v-toolbar-title>เพิ่มการตั้งเวลา</v-toolbar-title>
+                            <v-spacer></v-spacer>
+                          </v-toolbar>
+                          <v-card-text>
+                            <v-form ref="form2" v-model="valid2">
+                              <v-layout wrap row>
+                                <v-radio-group v-model="notifiactionTimeType" row class="px-1">
+                                  <v-radio label="เจาะจงวันที่" value="onetime"></v-radio>
+                                  <v-radio label="รายสัปดาห์" value="schedule"></v-radio>
+                                </v-radio-group>
+                                <template v-if="notifiactionTimeType === 'onetime'">
+                                  <v-flex xs12 px-1>
+                                    <v-menu
+                                      v-model="onetimeDatePicker"
+                                      :close-on-content-click="false"
+                                      :nudge-right="40"
+                                      lazy
+                                      transition="scale-transition"
+                                      offset-y
+                                      full-width
+                                      min-width="290px"
+                                    >
+                                      <template v-slot:activator="{ on }">
+                                        <v-text-field
+                                          v-model="onetimeDate"
+                                          label="เลือกวันที่"
+                                          prepend-icon="event"
+                                          readonly
+                                          v-on="on"
+                                          clearable
+                                          :rules="[rules.required]"
+                                        ></v-text-field>
+                                      </template>
+                                      <v-date-picker
+                                        v-model="onetimeDate"
+                                        @input="onetimeDatePicker = false"
+                                      ></v-date-picker>
+                                    </v-menu>
+                                  </v-flex>
+                                  <v-flex xs12 px-1>
+                                    <v-menu
+                                      ref="onetimeTimePicker"
+                                      v-model="onetimeTimePicker"
+                                      :close-on-content-click="false"
+                                      :nudge-right="40"
+                                      :return-value.sync="time"
+                                      lazy
+                                      transition="scale-transition"
+                                      offset-y
+                                      full-width
+                                      max-width="290px"
+                                      min-width="290px"
+                                    >
+                                      <template v-slot:activator="{ on }">
+                                        <v-text-field
+                                          v-model="time"
+                                          label="ตั้งเวลา"
+                                          prepend-icon="access_time"
+                                          readonly
+                                          v-on="on"
+                                          clearable
+                                          :rules="[rules.required]"
+                                        ></v-text-field>
+                                      </template>
+                                      <v-time-picker
+                                        v-if="onetimeTimePicker"
+                                        v-model="time"
+                                        full-width
+                                        format="24hr"
+                                        @click:minute="$refs.onetimeTimePicker.save(time)"
+                                      ></v-time-picker>
+                                    </v-menu>
+                                  </v-flex>
+                                </template>
+                                <template v-if="notifiactionTimeType === 'schedule'">
+                                  <v-flex xs12 px-1>
+                                    <v-combobox
+                                      v-model="scheduleDays"
+                                      :items="days"
+                                      :return-object="false"
+                                      label="เลือกวัน (วันจันทร์-วันอาทิตย์)"
+                                      prepend-icon="date_range"
+                                      multiple
+                                      chips
+                                      :rules="[rules.listAtLeastOne]"
+                                    ></v-combobox>
+                                  </v-flex>
+                                  <v-flex xs12 px-1>
+                                    <v-menu
+                                      ref="scheduleTimePicker"
+                                      v-model="scheduleTimePicker"
+                                      :close-on-content-click="false"
+                                      :nudge-right="40"
+                                      :return-value.sync="time"
+                                      lazy
+                                      transition="scale-transition"
+                                      offset-y
+                                      full-width
+                                      max-width="290px"
+                                      min-width="290px"
+                                    >
+                                      <template v-slot:activator="{ on }">
+                                        <v-text-field
+                                          v-model="time"
+                                          label="ตั้งเวลา"
+                                          prepend-icon="access_time"
+                                          readonly
+                                          v-on="on"
+                                          clearable
+                                          :rules="[rules.required]"
+                                        ></v-text-field>
+                                      </template>
+                                      <v-time-picker
+                                        v-if="scheduleTimePicker"
+                                        v-model="time"
+                                        full-width
+                                        format="24hr"
+                                        @click:minute="$refs.scheduleTimePicker.save(time)"
+                                      ></v-time-picker>
+                                    </v-menu>
+                                  </v-flex>
+                                </template>
+                              </v-layout>
+                            </v-form>
+                          </v-card-text>
+                          <v-divider></v-divider>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="red darken-1" flat @click="dialog2 = false">ยกเลิก</v-btn>
+                            <v-btn
+                              color="blue darken-1"
+                              flat
+                              :loading="loading"
+                              @click="submitNewNotificationTime"
+                            >เพิ่ม</v-btn>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+                    </div>
+                  </v-list>
                 </v-flex>
                 <!-- -------------------Time Field-------------------- -->
               </v-layout>
-
-              <div
-                class="subheading red--text"
-              >* ตรวจสอบการรับแจ้งเตือนว่าเปิดหรือปิดอยู่ได้ที่หน้า โปรไฟล์ *</div>
-              <v-alert
-                :value="success"
-                color="success"
-                icon="check_circle"
-                outline
-              >บันทึกเส้นทางสำเร็จ</v-alert>
-              <v-alert :value="error" color="error" icon="warning" outline>บันทึกเส้นทางไม่สำเร็จ</v-alert>
-            </v-card-text>
-            <v-divider></v-divider>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="red darken-1" flat @click="dialog = false">ยกเลิก</v-btn>
-              <v-btn color="blue darken-1" flat :loading="loading" @click="submit">บันทึก</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-form>
+            </v-form>
+            <v-alert
+              :value="success"
+              color="success"
+              icon="check_circle"
+              outline
+            >บันทึกเส้นทางสำเร็จ</v-alert>
+            <v-alert :value="error" color="error" icon="warning" outline>บันทึกเส้นทางไม่สำเร็จ</v-alert>
+            <div
+              class="subheading red--text --text-accent-4 text-xs-center pt-2"
+            >* ตรวจสอบการรับแจ้งเตือนว่าเปิดหรือปิดอยู่ได้ที่หน้าโปรไฟล์ *</div>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="red darken-1" flat @click="dialog = false">ยกเลิก</v-btn>
+            <v-btn color="blue darken-1" flat :loading="loading" @click="submit">บันทึก</v-btn>
+          </v-card-actions>
+        </v-card>
       </v-dialog>
     </v-layout>
   </div>
@@ -217,37 +282,38 @@ export default {
   data() {
     return {
       dialog: false,
+      dialog2: false,
       valid: false,
+      valid2: false,
+      onetimeDatePicker: false,
+      onetimeTimePicker: false,
+      scheduleTimePicker: false,
+      loading: false,
+      success: false,
+      error: false,
       id: null,
       start: this.startLocation && this.startLocation.name,
       destination: this.destinationLocation && this.destinationLocation.name,
       name: null,
       notificationRoutes: [],
-      loading: false,
-      success: false,
-      error: false,
+      notificationTime: [],
+      notifiactionTimeType: "onetime",
+      onetimeDate: new Date().toISOString().substr(0, 10),
+      scheduleDays: [],
       time: null,
-      time2: null,
-      menu: false,
-      menu2: false,
-      menuDate: false,
-      modal2: false,
-      openTimeField: false,
-      date: new Date().toISOString().substr(0, 10),
-      select: null,
       rules: {
         required: value => !!value || "กรุณากรอกข้อมูล",
         listAtLeastOne: value =>
           value.length > 0 || "กรุณาเลือกอย่างน้อย 1 ตัวเลือก"
       },
-      items: [
-        "อาทิตย์",
-        "จันทร์",
-        "อังคาร",
-        "พุธ",
-        "พฤหัสบดี",
-        "ศุกร์",
-        "เสาร์"
+      days: [
+        { value: "Monday", text: "วันจันทร์" },
+        { value: "Tuesday", text: "วันอังคาร" },
+        { value: "Wednesday", text: "วันพุธ" },
+        { value: "Thursday", text: "วันพฤหัสบดี" },
+        { value: "Friday", text: "วันศุกร์" },
+        { value: "Saturday", text: "วันเสาร์" },
+        { value: "Sunday", text: "วันอาทิตย์" }
       ]
     };
   },
@@ -261,6 +327,7 @@ export default {
       const record = this.directionRecordById(this.id);
       this.name = record.name;
       this.notificationRoutes = record.notificationRoutes;
+      this.notificationTime = record.notificationTime;
     }
   },
   methods: {
@@ -271,6 +338,33 @@ export default {
         this.setLoginDialog(true);
       } else {
         this.dialog = true;
+      }
+    },
+    submitNewNotificationTime: function() {
+      if (this.$refs.form2.validate()) {
+        this.loading = true;
+        let time = null;
+        let days = [];
+        if (this.notifiactionTimeType === "onetime") {
+          time = this.getDateFromDateAndTimeString(this.onetimeDate, this.time);
+        } else if (this.notifiactionTimeType === "schedule") {
+          time = this.getDateFromDateAndTimeString(
+            this.scheduleDays,
+            this.time
+          );
+          days = this.scheduleDays;
+        }
+        this.notificationTime.push({
+          time,
+          days,
+          type: this.notifiactionTimeType,
+          ongoing: true
+        });
+        this.loading = false;
+        this.dialog2 = false;
+        this.onetimeDate = new Date().toISOString().substr(0, 10);
+        this.scheduleDays = [];
+        this.time = null;
       }
     },
     submit: async function() {
@@ -311,10 +405,28 @@ export default {
         name: this.name,
         start,
         destination,
+        direction: this.directionsResponse,
         notificationRoutes: this.notificationRoutes,
-        direction: this.directionsResponse
+        notificationTime: this.notificationTime
       };
+    },
+    getDateFromDateAndTimeString: function(dateString, timeString) {
+      const date =
+        typeof dateString === "string" ? new Date(dateString) : new Date();
+      if (typeof timeString === "string") {
+        const hours = timeString.match(/^(\d+)/)[1];
+        const minutes = timeString.match(/:(\d+)/)[1];
+        date.setHours(hours);
+        date.setMinutes(minutes);
+      }
+      return date.toISOString();
     }
   }
 };
 </script>
+<style scoped>
+>>> .my-tile .v-list__tile {
+  padding-left: 3px;
+  padding-right: 0px;
+}
+</style>

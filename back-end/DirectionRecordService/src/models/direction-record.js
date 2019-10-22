@@ -49,7 +49,7 @@ const directionRecordSchema = new mongoose.Schema(
         ],
         type: {
           type: String,
-          enum: ["Onetime", "Schedule"],
+          enum: ["onetime", "schedule"],
           required: true
         },
         ongoing: {
@@ -63,7 +63,7 @@ const directionRecordSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// TODO: check not same time and day and if type Onetime time must more than now and if type Schedule must have days
+// TODO: check not same time and day and if type onetime time must more than now and if type schedule must have days
 // directionRecordSchema.pre("validate", function(next) {
 //   console.log(111, this.notificationTime);
 //   if (this.startDate > this.endDate) {
