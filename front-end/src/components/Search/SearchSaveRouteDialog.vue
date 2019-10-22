@@ -326,8 +326,12 @@ export default {
       this.id = this.historyMode.recordId;
       const record = this.directionRecordById(this.id);
       this.name = record.name;
-      this.notificationRoutes = record.notificationRoutes;
-      this.notificationTime = record.notificationTime;
+      this.notificationRoutes = record.notificationRoutes
+        ? record.notificationRoutes
+        : [];
+      this.notificationTime = record.notificationTime
+        ? record.notificationTime
+        : [];
     }
   },
   methods: {
