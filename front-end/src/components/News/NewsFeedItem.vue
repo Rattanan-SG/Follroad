@@ -47,9 +47,9 @@
         <LikeDislikeControl :key="event.id" :eventId="event.id" />
       </v-flex>
       <!-- <v-spacer></v-spacer> -->
-      <v-flex xs2 md3 lg3>
+      <v-flex xs3 md3 lg3 sm3>
         <v-btn flat icon color="grey" @click="show = !show">
-          <v-icon>feedback</v-icon>
+          <v-icon>comment</v-icon>
         </v-btn>
       </v-flex>
       <!-- </v-card-actions> -->
