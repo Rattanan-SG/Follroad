@@ -39,8 +39,12 @@ const mutations = {
     const index = state.feedbacks.findIndex(
       feedback => feedback.eventId == eventId
     );
-    const newFeedback = { ...state.feedbacks[index], ...data };
-    Vue.set(state.feedbacks, index, newFeedback);
+    if (index === -1) {
+      state.feedbacks.unshift(data);
+    } else {
+      const newFeedback = { ...state.feedbacks[index], ...data };
+      Vue.set(state.feedbacks, index, newFeedback);
+    }
   }
 };
 

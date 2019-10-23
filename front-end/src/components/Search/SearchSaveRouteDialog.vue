@@ -79,7 +79,7 @@
                         >{{item.time | luxon:locale('time24simple')}}</v-list-tile-title>
                         <v-list-tile-sub-title
                           v-if="item.days && item.days.length > 0"
-                        >ทุกๆวัน {{item.days}}</v-list-tile-sub-title>
+                        >ทุกๆวัน {{item.days.join(", ")}}</v-list-tile-sub-title>
                         <v-list-tile-sub-title
                           v-else
                         >ณ วันที่ {{item.time | luxon:locale('dateShort')}}</v-list-tile-sub-title>
