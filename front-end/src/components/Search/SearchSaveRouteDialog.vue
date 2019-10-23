@@ -169,7 +169,7 @@
                                           readonly
                                           v-on="on"
                                           clearable
-                                          :rules="[rules.required]"
+                                          :rules="[rules.required, rules.minTime]"
                                         ></v-text-field>
                                       </template>
                                       <v-time-picker
@@ -228,6 +228,9 @@
                                         @click:minute="$refs.scheduleTimePicker.save(time)"
                                       ></v-time-picker>
                                     </v-menu>
+                                  </v-flex>
+                                  <v-flex xs12 px-1 pt-2>
+                                    <div>* ถ้าบันทึกเวลาน้อยกว่า 5 นาทีจากเวลาปัจจุบัน จะไม่ได้รับการแจ้งเตือนครั้งแรก</div>
                                   </v-flex>
                                 </template>
                               </v-layout>
@@ -311,7 +314,8 @@ export default {
       rules: {
         required: value => !!value || "กรุณากรอกข้อมูล",
         listAtLeastOne: value =>
-          value.length > 0 || "กรุณาเลือกอย่างน้อย 1 ตัวเลือก"
+          value.length > 0 || "กรุณาเลือกอย่างน้อย 1 ตัวเลือก",
+        minTime: value => this.timeMustMoreThanNowFiveMinutes(value)
       },
       days: [
         { value: "Monday", text: "วันจันทร์" },
@@ -434,6 +438,23 @@ export default {
         date.setMinutes(minutes);
       }
       return date.toISOString();
+    },
+    timeMustMoreThanNowFiveMinutes: function(value) {
+      if (typeof value === "string") {
+        const hours = Number(value.match(/^(\d+)/)[1]);
+        const minutes = Number(value.match(/:(\d+)/)[1]);
+        const now = new Date();
+        const nowHours = now.getHours();
+        const nowMinutes = now.getMinutes();
+        return (
+          !value ||
+          hours > nowHours ||
+          (hours === nowHours && minutes - nowMinutes >= 5) ||
+          "้ตั้งเวลาให้มากกว่าเวลาปัจจุบันอย่างน้อย 5 นาที"
+        );
+      } else {
+        return "กรุณากรอกข้อมูล";
+      }
     }
   }
 };
