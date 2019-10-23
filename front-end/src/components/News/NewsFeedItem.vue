@@ -30,7 +30,7 @@
         </v-carousel>-->
         <!--------------------------------------->
         <v-card-text>{{event.description}}</v-card-text>
-        <v-divider light></v-divider>
+        <!-- <v-divider light></v-divider> -->
         <v-card-title>
           <span class="red--text">
             เกิดขึ้น ณ
@@ -59,12 +59,10 @@
       <!-- </v-card-actions> -->
 
       <!-- <v-slide-y-transition> -->
-
+      <v-flex lg12 md12 sm12 xs12>
+        <v-divider v-if="show"></v-divider>
+      </v-flex>
       <v-layout v-show="show">
-        <v-flex lg12 xs12 md12 ml-5>
-          <v-divider></v-divider>
-        </v-flex>
-
         <v-flex xs2 md2 lg2 pt-3 pl-3 mr-2>
           <v-avatar size="30px">
             <img v-if="isAuthenticated" :src="profile.picture" alt="avatar" />
@@ -89,24 +87,21 @@
         <v-divider></v-divider>
       </v-layout>
 
-      <!-- <v-flex lg12>
-        <v-divider></v-divider>
-      </v-flex>-->
       <v-layout v-show="show">
-        <v-flex lg1 mt-4 ml-2>
+        <v-flex lg1 xs1 md1 sm1 ml-3>
           <img src="@/assets/logo.svg" alt="avatar" width="30px" height="30px" />
         </v-flex>
-        <v-flex xs11 md11 lg11>
-          <v-card-text>
-            <div>
-              <h3 class="blue--text">{{author}}</h3>
-              <div>{{commentDetail}}</div>
-              <div class="red--text">
-                <v-icon>access_time</v-icon>
-                {{postTime}}
-              </div>
+        <v-flex xs10 md10 lg10 sm10 pl-3>
+          <!-- <v-card-text> -->
+          <div>
+            <h3 class="blue--text">{{author}}</h3>
+            <div>{{commentDetail}}</div>
+            <div class="red--text">
+              <v-icon>access_time</v-icon>
+              {{postTime}}
             </div>
-          </v-card-text>
+          </div>
+          <!-- </v-card-text> -->
         </v-flex>
       </v-layout>
       <!-- </v-slide-y-transition> -->
