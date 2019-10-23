@@ -60,7 +60,6 @@
                   ></v-checkbox>
                 </v-flex>
 
-                <!-- -------------------Time Field-------------------- -->
                 <v-flex xs12>
                   <v-list two-line>
                     <v-subheader class="subheading black--text">การตั้งเวลาตรวจสอบเส้นทางล่วงหน้า</v-subheader>
@@ -79,7 +78,7 @@
                         >{{item.time | luxon:locale('time24simple')}}</v-list-tile-title>
                         <v-list-tile-sub-title
                           v-if="item.days && item.days.length > 0"
-                        >ทุกๆวัน {{item.days.join(", ")}}</v-list-tile-sub-title>
+                        >{{item.days | daysTH}}</v-list-tile-sub-title>
                         <v-list-tile-sub-title
                           v-else
                         >ณ วันที่ {{item.time | luxon:locale('dateShort')}}</v-list-tile-sub-title>
@@ -99,7 +98,7 @@
                         </v-layout>
                       </v-list-tile-action>
                     </v-list-tile>
-
+                    <!-- -------------------Time Field-------------------- -->
                     <div class="text-xs-center">
                       <v-dialog v-model="dialog2" width="500">
                         <template v-slot:activator="{ on }">
@@ -455,6 +454,25 @@ export default {
       } else {
         return "กรุณากรอกข้อมูล";
       }
+    }
+  },
+  filters: {
+    daysTH: function(value) {
+      if (!value) return "";
+      if (value.length === 7) return "ทุกวัน จันทร์ - อาทิตย์";
+      let days = [
+        { value: "Monday", text: "จันทร์" },
+        { value: "Tuesday", text: "อังคาร" },
+        { value: "Wednesday", text: "พุธ" },
+        { value: "Thursday", text: "พฤหัสบดี" },
+        { value: "Friday", text: "ศุกร์" },
+        { value: "Saturday", text: "เสาร์" },
+        { value: "Sunday", text: "อาทิตย์" }
+      ];
+      const result = value
+        .map(item => days.find(day => day.value === item).text)
+        .join(" ");
+      return "วัน " + result;
     }
   }
 };
