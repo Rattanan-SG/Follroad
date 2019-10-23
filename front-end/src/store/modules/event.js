@@ -56,7 +56,7 @@ const actions = {
     return eventApi
       .getEvents({
         fields:
-          "id title description latitude longitude start stop contributor type"
+          "id title description latitude longitude start stop contributor type icon"
       })
       .then(data => commit("SET_EVENTS", data));
   },
