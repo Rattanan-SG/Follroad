@@ -30,6 +30,7 @@
         </v-carousel>-->
         <!--------------------------------------->
         <v-card-text>{{event.description}}</v-card-text>
+        <v-divider light></v-divider>
         <v-card-title>
           <span class="red--text">
             เกิดขึ้น ณ
@@ -52,10 +53,18 @@
           <v-icon>comment</v-icon>
         </v-btn>
       </v-flex>
+      <!-- <v-flex md12 lg12 xs12>
+        <v-divider></v-divider>
+      </v-flex>-->
       <!-- </v-card-actions> -->
 
       <!-- <v-slide-y-transition> -->
+
       <v-layout v-show="show">
+        <v-flex lg12 xs12 md12 ml-5>
+          <v-divider></v-divider>
+        </v-flex>
+
         <v-flex xs2 md2 lg2 pt-3 pl-3 mr-2>
           <v-avatar size="30px">
             <img v-if="isAuthenticated" :src="profile.picture" alt="avatar" />
@@ -77,12 +86,12 @@
             <v-icon color="primary" medium>send</v-icon>
           </v-btn>
         </v-flex>
-
-        <v-flex ml-3 mr-3>
-          <v-divider></v-divider>
-        </v-flex>
+        <v-divider></v-divider>
       </v-layout>
 
+      <!-- <v-flex lg12>
+        <v-divider></v-divider>
+      </v-flex>-->
       <v-layout v-show="show">
         <v-flex lg1 mt-4 ml-2>
           <img src="@/assets/logo.svg" alt="avatar" width="30px" height="30px" />
@@ -125,7 +134,7 @@ export default {
       commentDetail:
         "รถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะ",
       author: "CEO Rattanan Nuan",
-      postTime: "11.00",
+      postTime: "แสดงความเห็นเมื่อ 11.00 23/10/2019",
       items: [
         {
           src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg"
