@@ -1,11 +1,10 @@
 <template >
-  <v-dialog v-model="dialog" scrollable max-width="80%" max-height="100%">
+  <v-dialog v-model="dialog" scrollable max-width="500px">
     <template v-slot:activator="{ on }">
       <v-flex xs12 lg12 md12 class="hidden-sm-and-up ToggleSpecificEvent">
         <v-btn round color="blue" dark @click.stop="dialog = true">เหตุการณ์ที่เกี่ยวข้อง</v-btn>
       </v-flex>
     </template>
-
     <v-card>
       <v-toolbar color="blue" dark flat>
         <v-icon>event</v-icon>
@@ -57,7 +56,7 @@ export default {
   z-index: 1;
 }
 .v-list {
-  height: 60vh;
+  height: 50vh;
   overflow: auto;
 }
 </style>

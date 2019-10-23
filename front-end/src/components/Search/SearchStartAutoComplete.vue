@@ -1,5 +1,5 @@
 <template>
-  <v-layout row mb-3>
+  <v-layout row my-3>
     <v-flex xs1 ml-3>
       <v-btn
         icon

@@ -1,20 +1,14 @@
 <template>
-  <div>
-    <v-expansion-panel v-if="specificEvents">
-      <v-expansion-panel-content>
-        <template v-slot:header>
-          <div>จำนวนเหตุการณ์ที่เกี่ยวข้องกับเส้นทางนี้ ({{specificEvents.length}})</div>
-        </template>
-        <!-- <v-card v-if="specificEvents"> -->
-        <!-- <v-card-text>จำนวนเหตุการณ์ที่เกี่ยวข้องกับเส้นทางนี้ ({{specificEvents.length}})</v-card-text> -->
-        <v-list two-line>
-          <template v-for="(event, index) in specificEvents">
-            <HomeFeedItem :key="index" :event="event"></HomeFeedItem>
-          </template>
-        </v-list>
-        <!-- </v-card> -->
-      </v-expansion-panel-content>
-    </v-expansion-panel>
+  <div class="border">
+    <v-list two-line v-if="specificEvents.length > 0">
+      <template v-for="(event, index) in specificEvents">
+        <HomeFeedItem :key="index" :event="event"></HomeFeedItem>
+      </template>
+    </v-list>
+    <div
+      v-else
+      class="subheading py-3 text-xs-center indigo--text text--darken-4"
+    >ไม่มีเหตุการณ์ที่เกี่ยวข้องกับเส้นทางนี้</div>
   </div>
 </template>
 
@@ -31,10 +25,8 @@ export default {
   }
 };
 </script>
-
 <style scoped>
-.v-list {
-  overflow: auto;
-  max-height: 14vh;
+.border {
+  border: 1px solid #cdcdcd;
 }
 </style>

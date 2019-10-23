@@ -1,21 +1,5 @@
 <template>
-  <div>
-    <v-flex xs12 lg12 md12 sm12>
-      <v-card flat class="mx-auto">
-        <div class="subheading px-3 pb-2">รายละเอียดและเหตุการณ์ที่เกี่ยวข้องกับเส้นทาง</div>
-      </v-card>
-    </v-flex>
-    <v-card flat v-if="specificEvents">
-      <div>
-        <v-list two-line>
-          <template v-for="(event, index) in specificEvents">
-            <HomeFeedItem :key="index" :event="event"></HomeFeedItem>
-          </template>
-        </v-list>
-      </div>
-      <div id="panel" ref="panel"></div>
-    </v-card>
-  </div>
+  <div id="panel" ref="panel"></div>
 </template>
 
 <script>
@@ -82,9 +66,7 @@ export default {
 };
 </script>
 <style scoped>
-.v-card {
+#panel {
   line-height: 30px;
-  max-height: 50vh;
-  overflow: auto;
 }
 </style>
