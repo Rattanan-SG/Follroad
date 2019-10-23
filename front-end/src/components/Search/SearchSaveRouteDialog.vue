@@ -60,7 +60,6 @@
                   ></v-checkbox>
                 </v-flex>
 
-                <!-- -------------------Time Field-------------------- -->
                 <v-flex xs12>
                   <v-list two-line>
                     <v-subheader class="subheading black--text">การตั้งเวลาตรวจสอบเส้นทางล่วงหน้า</v-subheader>
@@ -79,7 +78,7 @@
                         >{{item.time | luxon:locale('time24simple')}}</v-list-tile-title>
                         <v-list-tile-sub-title
                           v-if="item.days && item.days.length > 0"
-                        >ทุกๆวัน {{item.days.join(", ")}}</v-list-tile-sub-title>
+                        >{{item.days | daysTH}}</v-list-tile-sub-title>
                         <v-list-tile-sub-title
                           v-else
                         >ณ วันที่ {{item.time | luxon:locale('dateShort')}}</v-list-tile-sub-title>
@@ -99,7 +98,7 @@
                         </v-layout>
                       </v-list-tile-action>
                     </v-list-tile>
-
+                    <!-- -------------------Time Field-------------------- -->
                     <div class="text-xs-center">
                       <v-dialog v-model="dialog2" width="500">
                         <template v-slot:activator="{ on }">
@@ -169,7 +168,7 @@
                                           readonly
                                           v-on="on"
                                           clearable
-                                          :rules="[rules.required]"
+                                          :rules="[rules.required, rules.minTime]"
                                         ></v-text-field>
                                       </template>
                                       <v-time-picker
@@ -228,6 +227,9 @@
                                         @click:minute="$refs.scheduleTimePicker.save(time)"
                                       ></v-time-picker>
                                     </v-menu>
+                                  </v-flex>
+                                  <v-flex xs12 px-1 pt-2>
+                                    <div>* ถ้าบันทึกเวลาน้อยกว่า 5 นาทีจากเวลาปัจจุบัน จะไม่ได้รับการแจ้งเตือนครั้งแรก</div>
                                   </v-flex>
                                 </template>
                               </v-layout>
@@ -311,7 +313,8 @@ export default {
       rules: {
         required: value => !!value || "กรุณากรอกข้อมูล",
         listAtLeastOne: value =>
-          value.length > 0 || "กรุณาเลือกอย่างน้อย 1 ตัวเลือก"
+          value.length > 0 || "กรุณาเลือกอย่างน้อย 1 ตัวเลือก",
+        minTime: value => this.timeMustMoreThanNowFiveMinutes(value)
       },
       days: [
         { value: "Monday", text: "วันจันทร์" },
@@ -434,6 +437,42 @@ export default {
         date.setMinutes(minutes);
       }
       return date.toISOString();
+    },
+    timeMustMoreThanNowFiveMinutes: function(value) {
+      if (typeof value === "string") {
+        const hours = Number(value.match(/^(\d+)/)[1]);
+        const minutes = Number(value.match(/:(\d+)/)[1]);
+        const now = new Date();
+        const nowHours = now.getHours();
+        const nowMinutes = now.getMinutes();
+        return (
+          !value ||
+          hours > nowHours ||
+          (hours === nowHours && minutes - nowMinutes >= 5) ||
+          "้ตั้งเวลาให้มากกว่าเวลาปัจจุบันอย่างน้อย 5 นาที"
+        );
+      } else {
+        return "กรุณากรอกข้อมูล";
+      }
+    }
+  },
+  filters: {
+    daysTH: function(value) {
+      if (!value) return "";
+      if (value.length === 7) return "ทุกวัน จันทร์ - อาทิตย์";
+      let days = [
+        { value: "Monday", text: "จันทร์" },
+        { value: "Tuesday", text: "อังคาร" },
+        { value: "Wednesday", text: "พุธ" },
+        { value: "Thursday", text: "พฤหัสบดี" },
+        { value: "Friday", text: "ศุกร์" },
+        { value: "Saturday", text: "เสาร์" },
+        { value: "Sunday", text: "อาทิตย์" }
+      ];
+      const result = value
+        .map(item => days.find(day => day.value === item).text)
+        .join(" ");
+      return "วัน " + result;
     }
   }
 };
