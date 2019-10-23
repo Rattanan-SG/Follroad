@@ -4,12 +4,8 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import HomeFeedItem from "../Home/HomeFeedItem";
 export default {
   name: "SearchRoutePanel",
-  components: {
-    HomeFeedItem
-  },
   props: { directionsRenderer: Object },
   data() {
     return {

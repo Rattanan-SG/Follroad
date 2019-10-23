@@ -56,7 +56,7 @@ export default {
   z-index: 1;
 }
 .v-list {
-  height: 50vh;
+  height: 40vh;
   overflow: auto;
 }
 </style>

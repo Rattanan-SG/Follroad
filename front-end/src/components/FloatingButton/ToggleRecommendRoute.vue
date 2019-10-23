@@ -3,7 +3,7 @@
     <v-flex xs12 lg12 md12 class="ToggleRecommendRoute">
       <v-btn round color="green" dark @click.stop="dialog = true">ดูเส้นทางที่แนะนำอื่นๆ</v-btn>
     </v-flex>
-    <v-dialog v-model="dialog" persistent max-width="300">
+    <v-dialog v-model="dialog" persistent max-width="350px">
       <v-card>
         <v-toolbar color="blue" dark flat>
           <v-icon>directions</v-icon>
