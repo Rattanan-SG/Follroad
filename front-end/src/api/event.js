@@ -21,6 +21,12 @@ const getEvents = (params, config) => {
     .then(response => response.data);
 };
 
+const getEventById = (id, params, config) => {
+  return eventService
+    .get(`/event/${id}`, { params, ...config })
+    .then(response => response.data);
+};
+
 const postEvent = (data, config) => {
   return eventService
     .post("/event", data, config)
@@ -65,6 +71,7 @@ const getFeedbackSummary = (params, config) => {
 
 export default {
   getEvents,
+  getEventById,
   postEvent,
   patchEventById,
   deleteEventById,

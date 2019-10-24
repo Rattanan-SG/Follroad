@@ -1,119 +1,105 @@
 <template>
-  <v-card flat max-width="100%" class="mx-auto">
-    <v-layout v-if="!!infoWindow.marker">
-      <v-flex xs12 md12 lg12>
-        <v-layout pt-3>
-          <v-flex xs2 md2 lg2 pl-3 pt-2>
-            <v-img :src="infoWindow.marker.icon" max-width="25" max-height="25"></v-img>
-          </v-flex>
-          <v-flex xs12 md10 lg10>
-            <v-card-title primary-title class="pt-0 pl-0">
-              <div>
-                <h3 class="subheading blue--text">{{infoWindow.marker.title}}</h3>
-                <span>โดย {{infoWindow.marker.contributor}}</span>
-              </div>
-            </v-card-title>
-          </v-flex>
-        </v-layout>
-      </v-flex>
-    </v-layout>
-    <v-card-text class="py-0">
-      <div class="body-2">{{infoWindow.marker.description}}</div>
-      <br />
-      <v-divider></v-divider>
-    </v-card-text>
-    <v-card-text>
-      <div
-        class="body-1 red--text"
-      >เกิดขึ้น ณ {{infoWindow.marker.startTime | luxon:locale('short')}}</div>
-      <div
-        class="body-1 red--text"
-      >จะสิ้นสุดใน {{infoWindow.marker.stopTime | luxon:locale('short')}}</div>
-    </v-card-text>
-    <v-card-actions>
-      <LikeDislikeControl
-        :key="infoWindow.marker.id"
-        :eventId="infoWindow.marker.id"
-      />
-    </v-card-actions>
-    <v-layout v-if="!!infoWindow.marker" pt-3>
-      <v-flex xs2 md2 lg2 xl2 pt-3 pl-3 mr-2>
-        <v-avatar size="30px">
-          <img v-if="isAuthenticated" :src="profile.picture" alt="avatar" />
+  <div class="description">
+    <LoadingCircular :loading="loading" />
+    <template v-if="!loading && event">
+      <v-layout row wrap mt-3>
+        <v-flex xs2 pl-3 pt-1>
+          <v-img :src="getEventIcon()" max-width="25" max-height="25"></v-img>
+        </v-flex>
+        <v-flex xs10 pl-1>
+          <v-card-title primary-title class="pt-0 pl-0">
+            <div>
+              <h3 class="subheading blue--text">{{event.title}}</h3>
+              <span>โดย {{event.contributor}}</span>
+            </div>
+          </v-card-title>
+        </v-flex>
+      </v-layout>
+      <v-card-text class="py-0">
+        <div class="body-2">{{event.description}}</div>
+        <br />
+        <v-divider></v-divider>
+      </v-card-text>
+      <v-card-text>
+        <div class="body-1 red--text">เกิดขึ้น ณ {{event.start | luxon:locale('short')}}</div>
+        <div class="body-1 red--text">จะสิ้นสุดใน {{event.stop | luxon:locale('short')}}</div>
+      </v-card-text>
+      <v-card-actions class="py-0">
+        <LikeDislikeControl :key="event.id" :eventId="event.id" />
+      </v-card-actions>
+
+      <v-layout row wrap pt-2 align-center justify-space-between>
+        <v-flex xs1 pl-2 pt-1>
+          <v-avatar size="25px" v-if="isAuthenticated">
+            <img :src="profile.picture" alt="avatar" />
+          </v-avatar>
           <v-icon v-else color="primary" medium>person</v-icon>
-        </v-avatar>
-      </v-flex>
-      <v-flex xs10 md10 lg10 xl10>
-        <v-textarea
-          v-model="comment"
-          label="แสดงความคิดเห็น"
-          rows="1"
-          clearable
-          auto-grow
-          :disabled="!isAuthenticated"
-        ></v-textarea>
-      </v-flex>
-      <v-flex xs2 md2 lg2 xl2 pt-2 ml-3>
-        <v-btn icon class="ma-0">
-          <v-icon color="primary" medium>send</v-icon>
-        </v-btn>
-      </v-flex>
-    </v-layout>
+        </v-flex>
+        <v-flex xs11 pl-3>
+          <v-textarea
+            v-model="comment"
+            label="แสดงความคิดเห็น"
+            rows="2"
+            clearable
+            append-outer-icon="send"
+            @click:append-outer="sendMessage"
+          ></v-textarea>
+        </v-flex>
+      </v-layout>
 
-    <v-flex ml-3 mr-3>
-      <v-divider></v-divider>
-    </v-flex>
-
-    <v-layout>
-      <v-flex lg1 mt-4 ml-2>
-        <img src="@/assets/logo.svg" alt="avatar" width="30px" height="30px" />
+      <v-layout>
+        <v-flex lg1 mt-4 ml-2>
+          <img src="@/assets/logo.svg" alt="avatar" width="30px" height="30px" />
+        </v-flex>
+        <v-flex xs11 md11 lg11>
+          <v-card-text>
+            <div>
+              <h3 class="blue--text">{{author}}</h3>
+              <div>{{commentDetail}}</div>
+              <div class="red--text">{{postTime}}</div>
+            </div>
+          </v-card-text>
+        </v-flex>
+      </v-layout>
+      <v-flex>
+        <v-divider></v-divider>
       </v-flex>
-      <v-flex xs11 md11 lg11>
-        <v-card-text>
-          <div>
-            <h3 class="blue--text">{{author}}</h3>
-            <div>{{commentDetail}}</div>
-            <div class="red--text">{{postTime}}</div>
-          </div>
-        </v-card-text>
-      </v-flex>
-    </v-layout>
-    <v-flex>
-      <v-divider></v-divider>
-    </v-flex>
-    <v-layout>
-      <v-flex lg1 mt-4 ml-2>
-        <img src="@/assets/logo.svg" alt="avatar" width="30px" height="30px" />
-      </v-flex>
-      <v-flex xs11 md11 lg11>
-        <v-card-text>
-          <div>
-            <h3 class="blue--text">{{author}}</h3>
-            <div>{{commentDetail}}</div>
-            <div class="red--text">{{postTime}}</div>
-          </div>
-        </v-card-text>
-      </v-flex>
-    </v-layout>
-  </v-card>
+      <v-layout>
+        <v-flex lg1 mt-4 ml-2>
+          <img src="@/assets/logo.svg" alt="avatar" width="30px" height="30px" />
+        </v-flex>
+        <v-flex xs11 md11 lg11>
+          <v-card-text>
+            <div>
+              <h3 class="blue--text">{{author}}</h3>
+              <div>{{commentDetail}}</div>
+              <div class="red--text">{{postTime}}</div>
+            </div>
+          </v-card-text>
+        </v-flex>
+      </v-layout>
+    </template>
+  </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
+import eventApi from "@/api/event";
+import eventConstant from "@/utilitys/eventConstant";
+import LoadingCircular from "../Feedback/LoadingCircular";
 import LikeDislikeControl from "../Feedback/LikeDislikeControl";
 export default {
   name: "DescriptionEvent",
   components: {
+    LoadingCircular,
     LikeDislikeControl
   },
   data() {
     return {
+      loading: false,
       profile: this.$auth.profile,
       isAuthenticated: this.$auth.isAuthenticated(),
-      dialog: false,
-      show: false,
-      countLike: 0,
-      countDislike: 0,
+      event: null,
       comment: "",
       commentDetail:
         "รถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะ",
@@ -121,17 +107,40 @@ export default {
       postTime: "11.00"
     };
   },
-  computed: {
-    ...mapGetters("infoWindow", ["infoWindow"])
+  created() {
+    this.fetchEvent(this.$route.params.eventId);
+  },
+  watch: {
+    $route(to) {
+      this.fetchEvent(to.params.eventId);
+    }
   },
   methods: {
-    ...mapActions("infoWindow", ["closeInfoWindow"])
+    ...mapActions("feedback", ["fetchFeedbackSummary"]),
+
+    fetchEvent: async function(eventId) {
+      this.loading = true;
+      this.event = await eventApi.getEventById(eventId);
+      this.loading = false;
+      if (this.$auth.isAuthenticated()) {
+        const { sub: uid } = this.$auth.profile;
+        await this.fetchFeedbackSummary(uid);
+      } else {
+        await this.fetchFeedbackSummary();
+      }
+    },
+    getEventIcon: function() {
+      return eventConstant.selectIcon(this.event);
+    },
+    sendMessage() {
+      this.comment = "";
+    }
   }
 };
 </script>
 <style scoped>
-.v-card {
-  height: 70vh;
+.description {
+  height: 78vh;
   overflow: auto;
 }
 </style>
