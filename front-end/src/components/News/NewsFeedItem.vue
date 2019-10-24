@@ -63,13 +63,13 @@
         <v-divider v-if="show"></v-divider>
       </v-flex>
       <v-layout v-show="show">
-        <v-flex xs2 md2 lg2 pt-3 pl-3 mr-2>
+        <v-flex xs1 md1 lg1 pt-3 pl-3 mr-2>
           <v-avatar size="30px">
             <img v-if="isAuthenticated" :src="profile.picture" alt="avatar" />
             <v-icon v-else color="primary" medium>person</v-icon>
           </v-avatar>
         </v-flex>
-        <v-flex xs10 md10 lg10>
+        <v-flex xs10 md10 lg8 ml-4>
           <v-textarea
             v-model="comment"
             label="แสดงความคิดเห็น"
@@ -79,7 +79,7 @@
             :disabled="!isAuthenticated"
           ></v-textarea>
         </v-flex>
-        <v-flex xs2 md2 lg1 pt-2 ml-4>
+        <v-flex xs2 md3 lg1 pt-2>
           <v-btn icon class="ma-0">
             <v-icon color="primary" medium>send</v-icon>
           </v-btn>
@@ -97,7 +97,8 @@
             <h3 class="blue--text">{{author}}</h3>
             <div>{{commentDetail}}</div>
             <div class="red--text">
-              <v-icon>access_time</v-icon>
+              <!-- <v-icon>access_time</v-icon> -->
+              วันที่ และเวลา
               {{postTime}}
             </div>
           </div>
@@ -129,7 +130,7 @@ export default {
       commentDetail:
         "รถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะ",
       author: "CEO Rattanan Nuan",
-      postTime: "แสดงความเห็นเมื่อ 11.00 23/10/2019",
+      postTime: "23/10/2019 11.00 ",
       items: [
         {
           src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg"
