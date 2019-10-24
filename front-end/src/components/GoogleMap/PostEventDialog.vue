@@ -11,8 +11,8 @@
       <v-dialog v-model="dialog" persistent max-width="600px" scrollable>
         <v-form ref="form" v-model="valid" style="width:100%">
           <v-card>
-            <v-toolbar color="blue" dark flat>
-              <v-icon>post_add</v-icon>
+            <v-toolbar color="red darken-3" dark flat>
+              <v-icon>report</v-icon>
               <v-toolbar-title>แจ้งเหตุการณ์</v-toolbar-title>
             </v-toolbar>
 
