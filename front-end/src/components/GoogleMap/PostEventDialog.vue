@@ -122,7 +122,7 @@
                         multiple
                         aria-label="File"
                       />
-                      <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
+                      <input type="hidden" name="MAX_FILE_SIZE" value="50000" />
                       <span class="custom-file-container__custom-file__custom-file-control"></span>
                     </label>
                     <div class="custom-file-container__image-preview"></div>
@@ -309,7 +309,7 @@ export default {
 </script>
 <style>
 .wrapper {
-  max-width: 500px;
+  max-width: 600px;
   max-height: 500px;
   margin: 0 auto;
 }
