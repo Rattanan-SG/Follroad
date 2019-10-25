@@ -4,6 +4,7 @@
     :position="postEventMarker.position"
     :title="postEventMarker.title"
     :animation="2"
+    :icon="postEventMarker.icon"
     @click="setInfoWindow(postEventMarker)"
   ></gmap-marker>
 </template>

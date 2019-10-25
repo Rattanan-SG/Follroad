@@ -14,6 +14,8 @@ const getters = {
         id: JSON.stringify(postEventLocation.location.lat),
         position: postEventLocation.location,
         title: postEventLocation.title,
+        icon:
+          "https://follroad-bucket.s3-ap-southeast-1.amazonaws.com/report.png",
         type: "postEvent"
       };
     } else return null;
