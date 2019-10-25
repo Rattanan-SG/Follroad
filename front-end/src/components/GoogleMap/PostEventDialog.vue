@@ -157,6 +157,7 @@ import { mapActions } from "vuex";
 import eventApi from "@/api/event";
 import eventConstant from "@/utilitys/eventConstant";
 import FileUploadWithPreview from "file-upload-with-preview";
+import importedBaseImage from "file-upload-with-preview";
 import "file-upload-with-preview/dist/file-upload-with-preview.min.css";
 export default {
   name: "PostEventDialog",
@@ -294,7 +295,15 @@ export default {
     }
   },
   mounted() {
-    this.upload = new FileUploadWithPreview("myFirstImage");
+    this.upload = new FileUploadWithPreview("myFirstImage", {
+      text: {
+        browse: "เลือกรูปภาพ",
+        chooseFile: "เลือกรูปภาพที่ต้องการแสดง"
+      },
+      images: {
+        baseImage: importedBaseImage
+      }
+    });
   }
 };
 </script>
