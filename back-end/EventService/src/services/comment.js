@@ -2,8 +2,12 @@ const { comment } = require("../domains");
 const CustomError = require("../utils/custom-error");
 
 exports.createComment = (user, body) => {
-  const { sub: uid } = user;
-  return comment.create({ ...body, uid });
+  const {
+    sub: uid,
+    "https://follroad.tk/name": authorName = body.authorName,
+    "https://follroad.tk/picture": authorPictureUrl = body.authorPictureUrl
+  } = user;
+  return comment.create({ ...body, uid, authorName, authorPictureUrl });
 };
 
 exports.getComment = query => comment.findAll(query);

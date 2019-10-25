@@ -63,7 +63,8 @@ exports.getEventById = (id, query) => {
   const { fields } = query;
   return event.findByPk(id, {
     attributes: fields,
-    include: [picture, comment, getIncludeCountFeedbackObject()]
+    include: [picture, comment, getIncludeCountFeedbackObject()],
+    order: [[{ model: comment }, "createdAt", "DESC"]]
   });
 };
 

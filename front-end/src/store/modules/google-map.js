@@ -78,7 +78,7 @@ const actions = {
               // user said no
             }
           },
-          { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+          { enableHighAccuracy: false, timeout: 5000, maximumAge: 0 }
         );
         dispatch("startWatchMyLocation");
       });
@@ -100,7 +100,7 @@ const actions = {
           error => {
             console.warn("ERROR(" + error.code + "): " + error.message);
           },
-          { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+          { enableHighAccuracy: false, timeout: 5000, maximumAge: 0 }
         );
         commit("SET_WATCH_ID", watchId);
       });
