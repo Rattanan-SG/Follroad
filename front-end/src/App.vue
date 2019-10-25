@@ -5,7 +5,8 @@
       <v-layout row wrap fill-height>
         <v-flex
           v-if="routerView || this.$route.path == '/callback'"
-          md3
+          lg3
+          md4
           sm5
           xs12
           style="z-index: 2"
