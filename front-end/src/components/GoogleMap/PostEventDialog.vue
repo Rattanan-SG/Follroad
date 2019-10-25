@@ -125,7 +125,7 @@
                       <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
                       <span class="custom-file-container__custom-file__custom-file-control"></span>
                     </label>
-                    <div class="custom-file-container__image-preview__"></div>
+                    <div class="custom-file-container__image-preview"></div>
                   </div>
                 </div>
               </v-flex>
@@ -302,11 +302,7 @@ export default {
       },
       images: {
         baseImage: importedBaseImage
-      },
-      presetFiles: [
-        "../public/logo-promosis.png",
-        "https://images.unsplash.com/photo-1557090495-fc9312e77b28?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
-      ]
+      }
     });
   }
 };
