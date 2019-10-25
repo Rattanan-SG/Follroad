@@ -40,7 +40,7 @@
 
       <v-slide-y-transition>
         <v-card-text v-show="show" class="pt-0">
-          <v-layout row wrap align-center>
+          <v-layout row wrap align-center v-if="this.$vuetify.breakpoint.smAndUp">
             <div class="mr-3">
               <v-avatar size="25px" v-if="isAuthenticated">
                 <v-img :src="profile.picture" max-width="25" max-height="25" />
@@ -53,14 +53,47 @@
               :label="isAuthenticated ? 'แสดงความคิดเห็น' : 'เข้าสู่ระบบเพื่อแสดงความคิดเห็น'"
               rows="2"
               clearable
+              no-resize
               append-outer-icon="send"
               @click:append-outer="sendMessage"
             ></v-textarea>
           </v-layout>
 
-          <template v-for="comment in event.comments">
-            <v-layout row wrap mb-3 :key="`avatar-${comment.id}`">
-              <div class="mr-3" :key="`divider-${comment.id}`">
+          <v-bottom-sheet v-model="sheet" full-width lazy v-else>
+            <template v-slot:activator>
+              <v-layout row wrap align-center>
+                <div class="mr-3">
+                  <v-avatar size="25px" v-if="isAuthenticated">
+                    <v-img :src="profile.picture" max-width="25" max-height="25" />
+                  </v-avatar>
+                  <v-icon v-else color="primary" medium>person</v-icon>
+                </div>
+                <v-text-field
+                  :disabled="!isAuthenticated"
+                  :label="isAuthenticated ? 'แสดงความคิดเห็น' : 'เข้าสู่ระบบเพื่อแสดงความคิดเห็น'"
+                  single-line
+                  clearable
+                ></v-text-field>
+              </v-layout>
+            </template>
+            <v-list>
+              <v-list-tile>
+                <v-list-tile-avatar>
+                  <v-avatar size="32px" tile>
+                    <img
+                      :src="`https://cdn.vuetifyjs.com/images/bottom-sheets/keep.png`"
+                      alt="hjkhjk"
+                    />
+                  </v-avatar>
+                </v-list-tile-avatar>
+                <v-text-field placeholder="แสดงความคิดเห็น" single-line autofocus clearable></v-text-field>
+              </v-list-tile>
+            </v-list>
+          </v-bottom-sheet>
+
+          <template v-for="(comment, index) in event.comments">
+            <v-layout row wrap mb-3 :key="index">
+              <div class="mr-3">
                 <v-avatar size="25px">
                   <v-img :src="profile.picture" max-width="25" max-height="25" />
                 </v-avatar>
@@ -73,7 +106,7 @@
                 <span class="red--text">{{postTime}}</span>
               </v-flex>
             </v-layout>
-            <v-flex xs12 mb-3 :key="`divider-${comment.id}`">
+            <v-flex xs12 mb-3 :key="`divider-${index}`">
               <v-divider />
             </v-flex>
           </template>
@@ -101,6 +134,7 @@ export default {
       isAuthenticated: false,
       profile: this.$auth.profile,
       show: false,
+      sheet: false,
       event: null,
       comment: "",
       commentDetail:
@@ -136,9 +170,9 @@ export default {
         const { sub: uid } = this.$auth.profile;
         this.isAuthenticated = true;
         this.profile = this.$auth.profile;
-        await this.fetchFeedbackSummary(uid);
+        this.fetchFeedbackSummary(uid);
       } else {
-        await this.fetchFeedbackSummary();
+        this.fetchFeedbackSummary();
       }
     },
     getEventIcon: function() {

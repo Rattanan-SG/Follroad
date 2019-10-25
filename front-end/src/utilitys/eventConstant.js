@@ -16,7 +16,8 @@ const EVENT_CATEGORY = [
   "complaint"
 ];
 
-const EVENT_CATEGORY_OBJECT = [{
+const EVENT_CATEGORY_OBJECT = [
+  {
     value: "carbreakdown",
     label: "รถเสีย",
     type: 1
