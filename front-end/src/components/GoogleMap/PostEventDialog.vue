@@ -112,7 +112,7 @@
                         href="javascript:void(0)"
                         class="custom-file-container__image-clear"
                         title="Clear Image"
-                      >&times;</a>
+                      ></a>
                     </label>
                     <label class="custom-file-container__custom-file">
                       <input
