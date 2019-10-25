@@ -9,17 +9,17 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER
       },
-      uid: {
-        unique: "composite_index",
-        allowNull: false,
-        type: DataTypes.STRING
-      },
       eventId: {
         unique: "composite_index",
         allowNull: false,
         field: "event_id",
         references: { model: "event", key: "id" },
         type: DataTypes.INTEGER
+      },
+      uid: {
+        unique: "composite_index",
+        allowNull: false,
+        type: DataTypes.STRING
       },
       react: {
         allowNull: false,

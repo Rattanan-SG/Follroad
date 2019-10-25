@@ -1,22 +1,32 @@
-'use strict';
+"use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('comment', {
+    return queryInterface.createTable("comment", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      uid: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
       eventId: {
         allowNull: false,
         field: "event_id",
         references: { model: "event", key: "id" },
         type: Sequelize.INTEGER
+      },
+      uid: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      authorName: {
+        allowNull: false,
+        field: "author_name",
+        type: Sequelize.STRING
+      },
+      authorPictureUrl: {
+        allowNull: false,
+        field: "author_picture_url",
+        type: Sequelize.TEXT
       },
       detail: {
         allowNull: false,
@@ -38,6 +48,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('comment');
+    return queryInterface.dropTable("comment");
   }
 };
