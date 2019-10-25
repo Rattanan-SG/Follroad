@@ -69,6 +69,24 @@ const getFeedbackSummary = (params, config) => {
     .then(response => response.data);
 };
 
+const postComment = (data, config) => {
+  return eventService
+    .post("/comment", data, config)
+    .then(response => response.data);
+};
+
+const patchCommentById = (id, data, config) => {
+  return eventService
+    .patch(`/comment/${id}`, data, config)
+    .then(response => response.data);
+};
+
+const deleteCommentById = (id, config) => {
+  return eventService
+    .delete(`/comment/${id}`, config)
+    .then(response => response.data);
+};
+
 export default {
   getEvents,
   getEventById,
@@ -78,5 +96,8 @@ export default {
   getFeedback,
   putFeedback,
   deleteFeedback,
-  getFeedbackSummary
+  getFeedbackSummary,
+  postComment,
+  patchCommentById,
+  deleteCommentById
 };
