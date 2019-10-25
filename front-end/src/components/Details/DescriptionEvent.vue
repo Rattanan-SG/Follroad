@@ -6,16 +6,23 @@
         <v-flex xs2 pl-3 pt-1>
           <v-img :src="getEventIcon()" max-width="25" max-height="25"></v-img>
         </v-flex>
-        <v-flex xs10 pl-1>
-          <v-card-title primary-title class="pt-0 pl-0">
-            <div>
-              <h3 class="subheading blue--text">{{event.title}}</h3>
-              <span>โดย {{event.contributor}}</span>
-            </div>
-          </v-card-title>
+        <v-flex xs9 lg10 md9 sm9 pl-2>
+          <!-- <v-card-title primary-title class="pt-0 pl-0"> -->
+          <div>
+            <h3 class="subheading blue--text">{{event.title}}</h3>
+            <span>โดย {{event.contributor}}</span>
+          </div>
+          <!-- </v-card-title> -->
         </v-flex>
       </v-layout>
-      <v-card-text class="py-0">
+      <!---------ใส่รูปเวลามีคนเพิ่มรูปเข้ามา---------->
+      <v-flex xs12 md12 lg12 pa-2>
+        <v-carousel hide-controls width="200px" height="300px">
+          <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src"></v-carousel-item>
+        </v-carousel>
+      </v-flex>
+      <!--------------------------------------->
+      <v-card-text class="py-0 pt-2">
         <div class="body-2">{{event.description}}</div>
         <br />
         <v-divider></v-divider>
@@ -56,7 +63,7 @@
             <div>
               <h3 class="blue--text">{{author}}</h3>
               <div>{{commentDetail}}</div>
-              <div class="red--text">{{postTime}}</div>
+              <div class="grey--text">{{postTime}}</div>
             </div>
           </v-card-text>
         </v-flex>
@@ -73,7 +80,7 @@
             <div>
               <h3 class="blue--text">{{author}}</h3>
               <div>{{commentDetail}}</div>
-              <div class="red--text">{{postTime}}</div>
+              <div class="grey--text">{{postTime}}</div>
             </div>
           </v-card-text>
         </v-flex>
@@ -104,7 +111,15 @@ export default {
       commentDetail:
         "รถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะ",
       author: "CEO Rattanan Nuan",
-      postTime: "11.00"
+      postTime: "23/10/2019 11.00",
+      items: [
+        {
+          src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg"
+        },
+        {
+          src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg"
+        }
+      ]
     };
   },
   created() {

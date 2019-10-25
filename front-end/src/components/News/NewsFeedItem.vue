@@ -2,10 +2,10 @@
   <v-card flat class="mb-2">
     <v-layout row wrap align-start justify-center fill-height>
       <v-layout>
-        <v-flex xs1 md1 lg1 mt-4 ml-3>
+        <v-flex xs1 md1 lg1 mt-3 ml-3>
           <v-img :src="getIcon()" max-width="40" max-height="40" left></v-img>
         </v-flex>
-        <v-flex xs11 md11 lg11 mt-1 mr-3>
+        <v-flex xs11 md11 lg11 mt-1 ml-3 mr-1>
           <!-- <v-list-tile>
             <v-list-tile-avatar>
               <v-img :src="getIcon()" max-width="40" max-height="40" left></v-img>
@@ -14,24 +14,24 @@
               <span class="font-weight-light">{{event.title}}</span>
             </v-list-tile-content>
           </v-list-tile>-->
-          <v-card-title primary-title>
-            <div>
-              <h3 class="blue--text">{{event.title}}</h3>
-              <div>โดย {{event.contributor}}</div>
-            </div>
-          </v-card-title>
+          <!-- <v-card-title primary-title> -->
+          <div>
+            <h3 class="blue--text">{{event.title}}</h3>
+            <div>โดย {{event.contributor}}</div>
+          </div>
+          <!-- </v-card-title> -->
         </v-flex>
       </v-layout>
 
-      <v-flex xs12>
+      <v-flex xs12 pa-2>
         <!---------ใส่รูปเวลามีคนเพิ่มรูปเข้ามา---------->
-        <!-- <v-carousel hide-delimiters width="50%" height="50%">
+        <v-carousel hide-controls width="200px" height="250px">
           <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src"></v-carousel-item>
-        </v-carousel>-->
+        </v-carousel>
         <!--------------------------------------->
-        <v-card-text>{{event.description}}</v-card-text>
+        <v-card-text class="pa-0 pt-2">{{event.description}}</v-card-text>
         <!-- <v-divider light></v-divider> -->
-        <v-card-title>
+        <v-card-title class="pa-0 pt-2">
           <span class="red--text">
             เกิดขึ้น ณ
             : {{ event.start | luxon:locale('short') }}
@@ -96,9 +96,8 @@
           <div>
             <h3 class="blue--text">{{author}}</h3>
             <div>{{commentDetail}}</div>
-            <div class="red--text">
+            <div class="grey--text">
               <!-- <v-icon>access_time</v-icon> -->
-              วันที่ และเวลา
               {{postTime}}
             </div>
           </div>
