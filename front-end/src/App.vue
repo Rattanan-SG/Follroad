@@ -87,12 +87,12 @@ export default {
     this.$vuetify.breakpoint.xsOnly
       ? this.setRouterView(false)
       : this.setRouterView(true);
-    await this.fetchEvents();
+    this.fetchEvents();
     if (this.$auth.isAuthenticated()) {
       const { sub: uid } = this.$auth.profile;
-      await this.fetchFeedbackSummary(uid);
+      this.fetchFeedbackSummary(uid);
     } else {
-      await this.fetchFeedbackSummary();
+      this.fetchFeedbackSummary();
     }
     try {
       await this.$auth.renewTokens();
