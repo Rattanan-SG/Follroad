@@ -3796,11 +3796,6 @@ file-loader@^3.0.1:
     loader-utils "^1.0.2"
     schema-utils "^1.0.0"
 
-file-upload-with-preview@^4.0.5:
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/file-upload-with-preview/-/file-upload-with-preview-4.0.5.tgz#a4390874dd56a6fa79a84ee57402c8b64ab6a6f7"
-  integrity sha512-cBUXoQsT/HftwM3lBAGCc4e2RwfrvE5H0+bT7ZoT6H1C+MnaHXJ7e9LGz1YyAoj4ELBgwX+DADHRRdL+vVnXgA==
-
 filesize@^3.6.1:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/filesize/-/filesize-3.6.1.tgz#090bb3ee01b6f801a8a8be99d31710b3422bb317"

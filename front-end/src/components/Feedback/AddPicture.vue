@@ -51,7 +51,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 #my-strictly-unique-vue-upload-multiple-image {
   font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
