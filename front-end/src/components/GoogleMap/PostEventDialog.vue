@@ -104,7 +104,7 @@
               </v-layout>
               <!------------userเพิ่มรูป------------->
               <v-flex xs12 lg12 md12 sm12>
-                <div class="wrapper">
+                <!-- <div class="wrapper">
                   <div class="custom-file-container" data-upload-id="myFirstImage">
                     <label>
                       เพิ่มรูปภาพ
@@ -127,7 +127,8 @@
                     </label>
                     <div class="custom-file-container__image-preview"></div>
                   </div>
-                </div>
+                </div>-->
+                <addpicture />
               </v-flex>
               <!------------------------->
               <v-alert :value="error" color="error" icon="warning" outline>แจ้งเหตุการณ์ไม่สำเร็จ</v-alert>
@@ -154,16 +155,20 @@
 <script>
 import { mapActions } from "vuex";
 import eventApi from "@/api/event";
+import addpicture from "../Feedback/AddPicture";
 import eventConstant from "@/utilitys/eventConstant";
-import FileUploadWithPreview from "file-upload-with-preview";
-import importedBaseImage from "file-upload-with-preview";
-import "file-upload-with-preview/dist/file-upload-with-preview.min.css";
+// import FileUploadWithPreview from "file-upload-with-preview";
+// import importedBaseImage from "file-upload-with-preview";
+// import "file-upload-with-preview/dist/file-upload-with-preview.min.css";
 export default {
   name: "PostEventDialog",
   props: {
     marker: Object,
     closeInfoWindow: Function,
     completePostEvent: Function
+  },
+  components: {
+    addpicture
   },
   data() {
     return {
@@ -203,23 +208,6 @@ export default {
         this.dialog = true;
       }
     },
-    // onFileChange(e) {
-    //   var files = e.target.files || e.data.Transfer.files;
-    //   if (!files.length) return;
-    //   this.createImage(files[0]);
-    // },
-    // createImage(file) {
-    //   var image = new Image();
-    //   var reader = new FileReader();
-    //   var vm = this;
-    //   reader.onload = e => {
-    //     vm.image = e.target.result;
-    //   };
-    //   reader.readAsDataURL(file);
-    // },
-    // removeImage: function(e) {
-    //   this.image = "";
-    // }
     cancel: function() {
       this.$refs.form.reset();
       this.dialog = false;
@@ -292,18 +280,6 @@ export default {
         return false;
       } else return true;
     }
-  },
-  mounted() {
-    this.upload = new FileUploadWithPreview("myFirstImage", {
-      showDeleteButtonOnImages: true,
-      text: {
-        browse: "เลือกรูปภาพ",
-        chooseFile: "เลือกรูปภาพที่ต้องการแสดง"
-      },
-      images: {
-        baseImage: importedBaseImage
-      }
-    });
   }
 };
 </script>

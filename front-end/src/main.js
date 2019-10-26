@@ -9,12 +9,20 @@ import AuthPlugin from "./plugins/auth";
 import * as VueGoogleMaps from "vue2-google-maps";
 import "./plugins/vuetify";
 import "./registerServiceWorker";
+import VueLazyload from 'vue-lazyload'
+
 Vue.config.productionTip = false;
 
 const socket = io(process.env.VUE_APP_SOCKET_URL);
 Vue.use(AuthPlugin);
-Vue.use(VueSocketIOExt, socket, { store });
-Vue.use(VueLuxon, { clientZone: "Asia/Bangkok", localeLang: "th" });
+Vue.use(VueLazyload);
+Vue.use(VueSocketIOExt, socket, {
+  store
+});
+Vue.use(VueLuxon, {
+  clientZone: "Asia/Bangkok",
+  localeLang: "th"
+});
 Vue.use(VueGoogleMaps, {
   load: {
     libraries: "places,geometry,directions",
@@ -26,10 +34,13 @@ Vue.use(VueGoogleMaps, {
 
 export const eventBus = new Vue({
   methods: {
-    startDirections: function(startLocation, stopLocation) {
-      this.$emit("startDirections", { startLocation, stopLocation });
+    startDirections: function (startLocation, stopLocation) {
+      this.$emit("startDirections", {
+        startLocation,
+        stopLocation
+      });
     },
-    stopDirections: function() {
+    stopDirections: function () {
       this.$emit("stopDirections");
     }
   }
