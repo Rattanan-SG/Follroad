@@ -7,17 +7,15 @@
           <v-img :src="getEventIcon()" max-width="25" max-height="25" />
         </v-flex>
         <v-flex xs9 lg10 md9 sm9 pl-2>
-          <!-- <v-card-title primary-title class="pt-0 pl-0"> -->
           <div>
             <h3 class="subheading blue--text">{{event.title}}</h3>
             <span>โดย {{event.contributor}}</span>
           </div>
-          <!-- </v-card-title> -->
         </v-flex>
       </v-layout>
       <!---------ใส่รูปเวลามีคนเพิ่มรูปเข้ามา---------->
       <v-flex xs12 md12 lg12 pa-2>
-        <v-carousel hide-delimiters width="100%" height="250">
+        <v-carousel hide-delimiters width="100%" height="230">
           <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src"></v-carousel-item>
         </v-carousel>
       </v-flex>
@@ -32,10 +30,15 @@
         <div class="body-1 red--text">จะสิ้นสุดใน {{event.stop | luxon:locale('short')}}</div>
       </v-card-text>
       <v-card-actions class="py-0">
-        <LikeDislikeControl :key="event.id" :eventId="event.id" />
-        <v-btn flat icon color="grey" @click="show = !show">
-          <v-icon>comment</v-icon>
-        </v-btn>
+        <v-flex grow>
+          <LikeDislikeControl :key="event.id" :eventId="event.id" />
+        </v-flex>
+        <v-flex shrink pr-2>
+          <v-btn flat icon color="grey" @click="show = !show">
+            <v-icon>comment</v-icon>
+          </v-btn>
+          <span class="subheading ml-1">{{event.comments.length}}</span>
+        </v-flex>
       </v-card-actions>
 
       <v-slide-y-transition>
@@ -54,6 +57,7 @@
               rows="2"
               clearable
               no-resize
+              :loading="commentLoading"
               append-outer-icon="send"
               @click:append-outer="sendMessage"
             ></v-textarea>
@@ -72,38 +76,46 @@
                   :disabled="!isAuthenticated"
                   :label="isAuthenticated ? 'แสดงความคิดเห็น' : 'เข้าสู่ระบบเพื่อแสดงความคิดเห็น'"
                   single-line
-                  clearable
                 ></v-text-field>
               </v-layout>
             </template>
-            <v-list>
+            <v-list two-line>
               <v-list-tile>
                 <v-list-tile-avatar>
-                  <v-avatar size="32px" tile>
-                    <img
-                      :src="`https://cdn.vuetifyjs.com/images/bottom-sheets/keep.png`"
-                      alt="hjkhjk"
-                    />
+                  <v-avatar size="35">
+                    <v-img :src="profile.picture" max-width="35" max-height="35" />
                   </v-avatar>
                 </v-list-tile-avatar>
-                <v-text-field placeholder="แสดงความคิดเห็น" single-line autofocus clearable></v-text-field>
+                <v-textarea
+                  v-model="comment"
+                  autofocus
+                  no-resize
+                  rows="2"
+                  single-line
+                  clearable
+                  :loading="commentLoading"
+                  append-outer-icon="send"
+                  @click:append-outer="sendMessage"
+                ></v-textarea>
               </v-list-tile>
             </v-list>
           </v-bottom-sheet>
 
           <template v-for="(comment, index) in event.comments">
             <v-layout row wrap mb-3 :key="index">
-              <div class="mr-3">
+              <div class="mr-3 pt-1">
                 <v-avatar size="25px">
-                  <v-img :src="profile.picture" max-width="25" max-height="25" />
+                  <v-img :src="comment.authorPictureUrl" max-width="25" max-height="25" />
                 </v-avatar>
               </div>
               <v-flex xs10>
-                <span class="blue--text">{{author}}</span>
+                <span class="subheading font-weight-medium indigo--text">{{comment.authorName}}</span>
                 <br />
-                <span>{{commentDetail}}</span>
+                <span class="subheading">{{comment.detail}}</span>
                 <br />
-                <span class="red--text">{{postTime}}</span>
+                <span
+                  class="caption grey--text text--darken-1"
+                >ความเห็นเมื่อเวลา {{comment.updatedAt | luxon:locale('short')}}</span>
               </v-flex>
             </v-layout>
             <v-flex xs12 mb-3 :key="`divider-${index}`">
@@ -131,16 +143,13 @@ export default {
   data() {
     return {
       loading: false,
+      commentLoading: false,
       isAuthenticated: false,
       profile: this.$auth.profile,
       show: false,
       sheet: false,
       event: null,
       comment: "",
-      commentDetail:
-        "รถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะ",
-      author: "CEO Rattanan Nuan",
-      postTime: "23/10/2019 11.00",
       items: [
         {
           src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg"
@@ -178,10 +187,17 @@ export default {
     getEventIcon: function() {
       return eventConstant.selectIcon(this.event);
     },
-    sendMessage() {
-      console.log(this.profile);
-      this.event.comments.push(this.comment);
+    sendMessage: async function() {
+      this.commentLoading = true;
+      const data = {
+        eventId: this.event.id,
+        detail: this.comment
+      };
+      const result = await eventApi.postComment(data);
+      this.event.comments.unshift(result);
       this.comment = "";
+      this.commentLoading = false;
+      this.sheet = false;
     },
     handleLoginEvent(data) {
       this.isAuthenticated = data.loggedIn;
@@ -192,7 +208,7 @@ export default {
 </script>
 <style scoped>
 .description {
-  height: 78vh;
+  height: 80vh;
   overflow: auto;
 }
 </style>
