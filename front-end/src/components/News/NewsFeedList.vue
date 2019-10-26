@@ -1,7 +1,12 @@
 <template>
   <v-list class="pa-0">
     <template v-for="(event, index) in eventList">
-      <NewsFeedItem :key="index" :event="event"></NewsFeedItem>
+      <NewsFeedItem
+        :key="index"
+        :initEvent="event"
+        :isAuthenticated="isAuthenticated"
+        :profile="profile"
+      ></NewsFeedItem>
       <v-divider :key="'divider'+index"></v-divider>
     </template>
 
@@ -20,6 +25,8 @@ export default {
   },
   data() {
     return {
+      isAuthenticated: false,
+      profile: this.$auth.profile,
       eventList: [],
       limit: 10,
       startFrom: null,
@@ -27,12 +34,19 @@ export default {
       infiniteId: new Date()
     };
   },
+  created() {
+    if (this.$auth.isAuthenticated()) {
+      this.isAuthenticated = true;
+      this.profile = this.$auth.profile;
+    }
+  },
   methods: {
     getEvents: async function($state) {
       const events = await eventApi.getEvents({
         limit: this.limit,
         startFrom: this.startFrom,
-        lastId: this.lastId
+        lastId: this.lastId,
+        countComment: true
       });
       if (events.length) {
         const lastEvent = events[events.length - 1];
@@ -43,6 +57,10 @@ export default {
       } else {
         if ($state) $state.complete();
       }
+    },
+    handleLoginEvent(data) {
+      this.isAuthenticated = data.loggedIn;
+      this.profile = data.profile;
     }
   }
 };
