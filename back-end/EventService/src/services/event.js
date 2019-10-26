@@ -27,11 +27,19 @@ exports.createEvent = async (user, body) => {
 };
 
 exports.getEvent = async query => {
-  const { fields, limit, startFrom, lastId, countFeedback, ...where } = query;
-  let include;
-  countFeedback
-    ? (include = [getIncludeCountFeedbackObject()])
-    : (include = null);
+  const {
+    fields,
+    limit,
+    startFrom,
+    lastId,
+    countFeedback,
+    countComment,
+    ...where
+  } = query;
+  let include = [];
+  if (countFeedback) include.push(getIncludeCountFeedbackObject());
+  if (countComment) include.push(getIncludeCountCommentObject());
+  if (include.length < 0) include = null;
   if (limit) {
     let start, id;
     startFrom
@@ -179,6 +187,14 @@ const getIncludeCountFeedbackObject = () => ({
       "dislike"
     ]
   ],
+  group: ["eventId"],
+  required: false,
+  separate: true
+});
+
+const getIncludeCountCommentObject = () => ({
+  model: comment,
+  attributes: [[sequelize.fn("COUNT", sequelize.col("id")), "count"]],
   group: ["eventId"],
   required: false,
   separate: true
