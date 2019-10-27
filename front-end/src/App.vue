@@ -99,7 +99,7 @@ export default {
     ...mapActions("event", ["fetchEvents"]),
     ...mapActions("feedback", ["fetchFeedbackSummary"]),
     ...mapActions("googleMap", ["stopWatchMyLocation"]),
-    async handleLoginEvent(data) {
+    async handleLoginEvent() {
       if (this.$auth.isAuthenticated()) {
         const { sub: uid } = this.$auth.profile;
         await this.fetchFeedbackSummary(uid);

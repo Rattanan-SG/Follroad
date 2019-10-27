@@ -46,7 +46,7 @@ export default {
     ...mapActions("feedback", ["updateFeedbackByEventId"]),
 
     handleClick: function(value) {
-      const { like, dislike, react } = this.feedback;
+      const { like = 0, dislike = 0, react = null } = this.feedback;
       this.countLike = like;
       this.countDislike = dislike;
       this.active = react;
