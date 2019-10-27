@@ -20,7 +20,7 @@
       ></v-textarea>
     </v-layout>
 
-    <v-bottom-sheet v-model="sheet" full-width lazy v-else>
+    <v-bottom-sheet v-model="sheet" full-width lazy :disabled="!isAuthenticated" v-else>
       <template v-slot:activator>
         <v-layout row wrap align-center>
           <div class="mr-3">
@@ -39,9 +39,10 @@
       <v-list two-line>
         <v-list-tile>
           <v-list-tile-avatar>
-            <v-avatar size="35">
+            <v-avatar size="35px" v-if="isAuthenticated">
               <v-img :src="profile.picture" max-width="35" max-height="35" />
             </v-avatar>
+            <v-icon v-else color="primary" medium>person</v-icon>
           </v-list-tile-avatar>
           <v-textarea
             v-model="comment"
@@ -66,7 +67,7 @@
               <v-img :src="comment.authorPictureUrl" max-width="25" max-height="25" />
             </v-avatar>
             <v-btn
-              v-if="comment.uid === profile.sub"
+              v-if="profile && profile.sub === comment.uid "
               flat
               icon
               small

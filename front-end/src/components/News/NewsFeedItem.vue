@@ -12,7 +12,6 @@
           </div>
         </v-flex>
       </v-layout>
-
       <v-flex xs12>
         <v-flex xs12 md12 lg12 pa-2 v-if="event.pictures.length > 0">
           <v-carousel hide-delimiters width="100%" height="230">
@@ -23,8 +22,8 @@
             ></v-carousel-item>
           </v-carousel>
         </v-flex>
-        <v-card-text class="px-2 pt-3 pb-0">{{event.description}}</v-card-text>
-        <v-card-title class="pa-2 py-3">
+        <v-card-text class="px-3 pt-3 pb-0">{{event.description}}</v-card-text>
+        <v-card-title class="px-3 py-3">
           <span class="red--text">
             เกิดขึ้น ณ
             : {{ event.start | luxon:locale('short') }}
@@ -35,16 +34,16 @@
           </span>
         </v-card-title>
       </v-flex>
-
-      <v-flex grow>
+      <v-flex grow pl-1>
         <LikeDislikeControl :key="event.id" :eventId="event.id" />
       </v-flex>
-      <v-flex shrink pr-4>
+      <v-flex shrink pr-3>
         <v-btn flat icon color="grey" :loading="loading" @click="toggleCommentControl">
           <v-icon>comment</v-icon>
         </v-btn>
         <span class="subheading ml-1">{{commentCount}}</span>
       </v-flex>
+
       <v-slide-y-transition>
         <v-card-text v-show="show" class="pt-0">
           <CommentControl

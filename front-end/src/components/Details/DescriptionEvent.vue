@@ -31,7 +31,7 @@
         <div class="body-1 red--text">จะสิ้นสุดใน {{event.stop | luxon:locale('short')}}</div>
       </v-card-text>
       <v-card-actions class="py-0">
-        <v-flex grow>
+        <v-flex grow pl-1>
           <LikeDislikeControl :key="event.id" :eventId="event.id" />
         </v-flex>
         <v-flex shrink pr-2>
