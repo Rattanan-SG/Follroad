@@ -88,23 +88,23 @@ export default {
       ? this.setRouterView(false)
       : this.setRouterView(true);
     this.fetchEvents();
-    if (this.$auth.isAuthenticated()) {
-      const { sub: uid } = this.$auth.profile;
-      this.fetchFeedbackSummary(uid);
-    } else {
-      this.fetchFeedbackSummary();
-    }
     try {
       await this.$auth.renewTokens();
     } catch (e) {
-      console.warn(e);
+      this.fetchFeedbackSummary();
     }
   },
   methods: {
     ...mapActions("route", ["setRouterView"]),
     ...mapActions("event", ["fetchEvents"]),
     ...mapActions("feedback", ["fetchFeedbackSummary"]),
-    ...mapActions("googleMap", ["stopWatchMyLocation"])
+    ...mapActions("googleMap", ["stopWatchMyLocation"]),
+    async handleLoginEvent(data) {
+      if (this.$auth.isAuthenticated()) {
+        const { sub: uid } = this.$auth.profile;
+        await this.fetchFeedbackSummary(uid);
+      }
+    }
   },
   beforeDestroy() {
     this.stopWatchMyLocation();
