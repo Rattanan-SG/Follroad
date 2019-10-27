@@ -58,13 +58,26 @@
       </v-list>
     </v-bottom-sheet>
 
-    <template v-for="(comment, index) in comments">
+    <template v-for="(comment, index) in value">
       <v-layout row wrap mb-3 :key="index">
-        <div class="mr-3 pt-1">
-          <v-avatar size="25px">
-            <v-img :src="comment.authorPictureUrl" max-width="25" max-height="25" />
-          </v-avatar>
-        </div>
+        <v-flex xs1 class="mr-3 pt-1">
+          <v-layout column align-center justify-start>
+            <v-avatar size="25px">
+              <v-img :src="comment.authorPictureUrl" max-width="25" max-height="25" />
+            </v-avatar>
+            <v-btn
+              v-if="comment.uid === profile.sub"
+              flat
+              icon
+              small
+              color="blue-grey darken-1"
+              class="my-1"
+              @click.stop="deleteComment(index, comment.id)"
+            >
+              <v-icon>delete_forever</v-icon>
+            </v-btn>
+          </v-layout>
+        </v-flex>
         <v-flex xs10>
           <span class="subheading font-weight-medium indigo--text">{{comment.authorName}}</span>
           <br />
@@ -83,17 +96,13 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import eventApi from "@/api/event";
 export default {
   name: "CommentControl",
   props: {
+    value: Array,
     eventId: Number,
-    comments: {
-      type: Array,
-      default: function() {
-        return [];
-      }
-    },
     isAuthenticated: Boolean,
     profile: Object
   },
@@ -101,10 +110,18 @@ export default {
     return {
       loading: false,
       sheet: false,
-      comment: null
+      comment: null,
+      comments: this.value
     };
   },
+  watch: {
+    value(value) {
+      this.comments = value;
+    }
+  },
   methods: {
+    ...mapActions("globalFeedback", ["openConfirmDialog"]),
+
     sendMessage: async function() {
       if (this.comment) {
         this.loading = true;
@@ -113,11 +130,23 @@ export default {
           detail: this.comment
         };
         const result = await eventApi.postComment(data);
-        this.$emit("new-comment", result);
+        this.comments.unshift(result);
+        this.$emit("input", this.comments);
         this.comment = null;
         this.loading = false;
         this.sheet = false;
       }
+    },
+    deleteComment: function(index, commentId) {
+      this.openConfirmDialog({
+        text: `ลบความคิดเห็นนี้ของคุณ`,
+        submitActions: () => this.handleDeleteComment(index, commentId)
+      });
+    },
+    handleDeleteComment: async function(index, commentId) {
+      this.comments.splice(index, 1);
+      this.$emit("input", this.comments);
+      return eventApi.deleteCommentById(commentId);
     }
   }
 };

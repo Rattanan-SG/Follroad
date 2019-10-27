@@ -10,7 +10,13 @@ exports.createComment = (user, body) => {
   return comment.create({ ...body, uid, authorName, authorPictureUrl });
 };
 
-exports.getComment = query => comment.findAll(query);
+exports.getComment = query => {
+  const { orderByNew, ...where } = query;
+  let order = orderByNew ? [["updatedAt", "DESC"]] : null;
+  return comment.findAll(where, {
+    order
+  });
+};
 
 exports.getCommentById = id => comment.findByPk(id);
 

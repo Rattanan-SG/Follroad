@@ -119,7 +119,7 @@ export default {
     deleteHistoryRoute: function(_id) {
       this.openConfirmDialog({
         _id,
-        text: `ลบบันทึกเส้นทางนี้`,
+        text: `ลบเส้นทางที่บันทึกนี้`,
         submitActions: () => this.handleDeleteHistoryRoute(_id)
       });
     },

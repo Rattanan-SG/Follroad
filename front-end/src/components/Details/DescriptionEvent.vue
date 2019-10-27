@@ -13,7 +13,6 @@
           </div>
         </v-flex>
       </v-layout>
-      <!---------ใส่รูปเวลามีคนเพิ่มรูปเข้ามา---------->
       <v-flex xs12 md12 lg12 pa-2 v-if="event.pictures.length > 0">
         <v-carousel hide-delimiters width="100%" height="230">
           <v-carousel-item
@@ -23,7 +22,6 @@
           ></v-carousel-item>
         </v-carousel>
       </v-flex>
-      <!--------------------------------------->
       <v-card-text class="py-3">
         <div class="body-2">{{event.description}}</div>
       </v-card-text>
@@ -47,11 +45,10 @@
       <v-slide-y-transition>
         <v-card-text v-show="show" class="pt-0">
           <CommentControl
+            v-model="event.comments"
             :eventId="event.id"
-            :comments="event.comments"
             :isAuthenticated="isAuthenticated"
             :profile="profile"
-            @new-comment="addNewComment"
           />
         </v-card-text>
       </v-slide-y-transition>

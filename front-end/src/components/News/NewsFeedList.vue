@@ -9,7 +9,6 @@
       ></NewsFeedItem>
       <v-divider :key="'divider'+index"></v-divider>
     </template>
-
     <infinite-loading spinner="spiral" :identifier="infiniteId" @infinite="getEvents"></infinite-loading>
   </v-list>
 </template>
@@ -46,7 +45,8 @@ export default {
         limit: this.limit,
         startFrom: this.startFrom,
         lastId: this.lastId,
-        countComment: true
+        countComment: true,
+        withPictures: true
       });
       if (events.length) {
         const lastEvent = events[events.length - 1];

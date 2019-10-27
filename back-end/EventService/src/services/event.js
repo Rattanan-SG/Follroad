@@ -34,11 +34,13 @@ exports.getEvent = async query => {
     lastId,
     countFeedback,
     countComment,
+    withPictures,
     ...where
   } = query;
   let include = [];
   if (countFeedback) include.push(getIncludeCountFeedbackObject());
   if (countComment) include.push(getIncludeCountCommentObject());
+  if (withPictures) include.push(picture);
   if (include.length < 0) include = null;
   if (limit) {
     let start, id;
@@ -72,7 +74,7 @@ exports.getEventById = (id, query) => {
   return event.findByPk(id, {
     attributes: fields,
     include: [picture, comment, getIncludeCountFeedbackObject()],
-    order: [[{ model: comment }, "createdAt", "DESC"]]
+    order: [[{ model: comment }, "updatedAt", "DESC"]]
   });
 };
 

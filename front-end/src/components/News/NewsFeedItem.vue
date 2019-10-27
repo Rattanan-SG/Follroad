@@ -1,37 +1,30 @@
 <template>
   <v-card flat class="mb-2">
     <v-layout row wrap align-start justify-center fill-height>
-      <v-layout>
+      <v-layout row pt-2>
         <v-flex xs1 md1 lg1 mt-3 ml-3>
           <v-img :src="getEventIcon()" max-width="40" max-height="40" left></v-img>
         </v-flex>
         <v-flex xs11 md11 lg11 mt-1 ml-3 mr-1>
-          <!-- <v-list-tile>
-            <v-list-tile-avatar>
-              <v-img :src="getEventIcon()" max-width="40" max-height="40" left></v-img>
-            </v-list-tile-avatar>
-            <v-list-tile-content>
-              <span class="font-weight-light">{{event.title}}</span>
-            </v-list-tile-content>
-          </v-list-tile>-->
-          <!-- <v-card-title primary-title> -->
           <div>
             <h3 class="blue--text">{{event.title}}</h3>
             <div>โดย {{event.contributor}}</div>
           </div>
-          <!-- </v-card-title> -->
         </v-flex>
       </v-layout>
 
-      <v-flex xs12 pa-2>
-        <!---------ใส่รูปเวลามีคนเพิ่มรูปเข้ามา---------->
-        <v-carousel hide-controls width="200px" height="250px">
-          <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src"></v-carousel-item>
-        </v-carousel>
-        <!--------------------------------------->
-        <v-card-text class="pa-0 pt-2">{{event.description}}</v-card-text>
-        <!-- <v-divider light></v-divider> -->
-        <v-card-title class="pa-0 pt-2">
+      <v-flex xs12>
+        <v-flex xs12 md12 lg12 pa-2 v-if="event.pictures.length > 0">
+          <v-carousel hide-delimiters width="100%" height="230">
+            <v-carousel-item
+              v-for="(picture,index) in event.pictures"
+              :key="index"
+              :src="picture.url"
+            ></v-carousel-item>
+          </v-carousel>
+        </v-flex>
+        <v-card-text class="px-2 pt-3 pb-0">{{event.description}}</v-card-text>
+        <v-card-title class="pa-2 py-3">
           <span class="red--text">
             เกิดขึ้น ณ
             : {{ event.start | luxon:locale('short') }}
@@ -55,11 +48,10 @@
       <v-slide-y-transition>
         <v-card-text v-show="show" class="pt-0">
           <CommentControl
+            v-model="event.comments"
             :eventId="event.id"
-            :comments="event.comments"
             :isAuthenticated="isAuthenticated"
             :profile="profile"
-            @new-comment="addNewComment"
           />
         </v-card-text>
       </v-slide-y-transition>
@@ -87,15 +79,7 @@ export default {
     return {
       loading: false,
       show: false,
-      event: this.initEvent,
-      items: [
-        {
-          src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg"
-        },
-        {
-          src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg"
-        }
-      ]
+      event: this.initEvent
     };
   },
   computed: {
@@ -113,15 +97,13 @@ export default {
       if (!this.show) {
         this.loading = true;
         const comments = await eventApi.getComments({
-          eventId: this.event.id
+          eventId: this.event.id,
+          orderByNew: true
         });
         this.event.comments = comments;
         this.loading = false;
       }
       this.show = !this.show;
-    },
-    addNewComment: function(comment) {
-      this.event.comments.unshift(comment);
     }
   }
 };
