@@ -7,5 +7,6 @@ const router = express.Router();
 router.get("/queue", controller.getQueue);
 // router.delete("/queue/:name", controller.deleteQueueByName); Not available now.
 router.post("/queue/:name/sendMessage", controller.sendMessageToQueueByName);
+router.post("/getSignedUrl", controller.getSignedUrl);
 
 module.exports = router;
