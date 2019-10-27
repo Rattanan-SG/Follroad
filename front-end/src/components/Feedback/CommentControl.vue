@@ -2,8 +2,8 @@
   <div>
     <v-layout row wrap align-center v-if="this.$vuetify.breakpoint.smAndUp">
       <div class="mr-3">
-        <v-avatar size="25px" v-if="isAuthenticated">
-          <v-img :src="profile.picture" max-width="25" max-height="25" />
+        <v-avatar size="30px" v-if="isAuthenticated">
+          <v-img :src="profile.picture" max-width="30" max-height="30" />
         </v-avatar>
         <v-icon v-else color="primary" medium>person</v-icon>
       </div>
@@ -24,8 +24,8 @@
       <template v-slot:activator>
         <v-layout row wrap align-center>
           <div class="mr-3">
-            <v-avatar size="25px" v-if="isAuthenticated">
-              <v-img :src="profile.picture" max-width="25" max-height="25" />
+            <v-avatar size="30px" v-if="isAuthenticated">
+              <v-img :src="profile.picture" max-width="30" max-height="30" />
             </v-avatar>
             <v-icon v-else color="primary" medium>person</v-icon>
           </div>
@@ -62,9 +62,9 @@
     <template v-for="(comment, index) in value">
       <v-layout row wrap mb-3 :key="index">
         <v-flex xs1 class="mr-3 pt-1">
-          <v-layout column align-center justify-start>
-            <v-avatar size="25px">
-              <v-img :src="comment.authorPictureUrl" max-width="25" max-height="25" />
+          <v-layout column align-center justify-center>
+            <v-avatar size="30px">
+              <v-img :src="comment.authorPictureUrl" max-width="30" max-height="30" />
             </v-avatar>
             <v-btn
               v-if="profile && profile.sub === comment.uid "
