@@ -18,7 +18,33 @@ exports.getSignedUrl = async body => {
       if (err) {
         reject(err);
       } else {
-        resolve(data);
+        const postEndpoint =
+          data.substring(0, data.lastIndexOf("/")).replace(/^https?\:/i, "") +
+          "/follroad-picture";
+        const queryParams = data
+          .substring(data.indexOf("?") + 1)
+          .split("&")
+          .reduce(
+            (memo, param) => ({
+              ...memo,
+              [param.split("=")[0]]: param.split("=")[1]
+            }),
+            {}
+          );
+        const result = {
+          signature: {
+            "Content-Type": contentType,
+            acl: "public-read",
+            success_action_status: "201",
+            "X-amz-credential": queryParams["X-Amz-Credential"],
+            "X-amz-algorithm": queryParams["X-Amz-Algorithm"],
+            "X-amz-date": queryParams["X-Amz-Date"],
+            "X-amz-signature": queryParams["X-Amz-Signature"],
+            key
+          },
+          postEndpoint
+        };
+        resolve(result);
       }
     });
   });
