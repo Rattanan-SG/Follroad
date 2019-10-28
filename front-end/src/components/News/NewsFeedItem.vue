@@ -44,26 +44,6 @@
         <span class="subheading ml-1">{{commentCount}}</span>
       </v-flex>
 
-<<<<<<< HEAD
-      <v-layout v-show="show">
-        <v-flex lg1 mt-4 ml-2>
-          <img src="@/assets/logo.svg" alt="avatar" width="30px" height="30px" />
-        </v-flex>
-        <v-flex xs11 md11 lg11>
-          <v-card-text>
-            <div>
-              <h3 class="blue--text">{{author}}</h3>
-              <div>{{commentDetail}}</div>
-              <div class="red--text">
-                <v-icon>access_time</v-icon>
-                {{postTime}}
-              </div>
-            </div>
-          </v-card-text>
-        </v-flex>
-      </v-layout>
-      <!-- </v-slide-y-transition> -->
-=======
       <v-slide-y-transition>
         <v-card-text v-show="show" class="pt-0">
           <CommentControl
@@ -74,7 +54,6 @@
           />
         </v-card-text>
       </v-slide-y-transition>
->>>>>>> 3b49208440f56752b2ef4379adfc9e73b38ff2a4
     </v-layout>
   </v-card>
 </template>
