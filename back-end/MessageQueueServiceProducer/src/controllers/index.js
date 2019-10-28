@@ -26,6 +26,6 @@ exports.sendMessageToQueueByName = asyncWrapper(async (req, res) => {
 });
 
 exports.getSignedUrl = asyncWrapper(async (req, res) => {
-  const result = await s3.getSignedUrl(req.body);
+  const result = await s3.getSignedUrl(req.query);
   res.send(result);
 });
