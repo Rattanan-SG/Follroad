@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" scrollable max-width="500px">
     <template v-slot:activator="{ on }">
-      <v-btn round color="primary" dark v-on="on">
+      <v-btn round depressed color="primary" dark v-on="on">
         <v-icon class="mr-2">category</v-icon>หมวดหมู่
       </v-btn>
     </template>

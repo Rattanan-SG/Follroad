@@ -14,6 +14,7 @@
       <v-btn
         v-if="!directionsResponse"
         round
+        depressed
         color="blue"
         class="white--text"
         @click="startDirections"
