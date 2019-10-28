@@ -1,18 +1,18 @@
 <template>
-  <v-dialog v-model="dialog" scrollable max-width="60%" max-height="100%">
+  <v-dialog v-model="dialog" scrollable max-width="500px">
     <template v-slot:activator="{ on }">
       <v-btn round color="primary" dark v-on="on">
         <v-icon class="mr-2">category</v-icon>หมวดหมู่
       </v-btn>
     </template>
-    <v-card>
+    <v-card height="500px">
       <v-toolbar color="blue" dark flat>
         <v-icon>category</v-icon>
         <v-toolbar-title>เลือกหมวดหมู่ที่ต้องการแสดง</v-toolbar-title>
         <v-spacer></v-spacer>
       </v-toolbar>
       <v-divider></v-divider>
-      <v-card-text style="height: 500px;">
+      <v-card-text>
         <v-layout row wrap>
           <v-flex xl6 lg6 md6 sm12 xs12 v-for="(item, index) in checkbox" :key="index.type">
             <v-checkbox v-model="selected" :value="item.value" :label="item.label" color="orange"></v-checkbox>

@@ -11,8 +11,8 @@
       <v-dialog v-model="dialog" persistent max-width="600px" scrollable>
         <v-form ref="form" v-model="valid" style="width:100%">
           <v-card>
-            <v-toolbar color="blue" dark flat>
-              <v-icon>post_add</v-icon>
+            <v-toolbar color="red darken-3" dark flat>
+              <v-icon>report</v-icon>
               <v-toolbar-title>แจ้งเหตุการณ์</v-toolbar-title>
             </v-toolbar>
 
@@ -104,7 +104,7 @@
               </v-layout>
               <!------------userเพิ่มรูป------------->
               <v-flex xs12 lg12 md12 sm12>
-                <div class="wrapper">
+                <!-- <div class="wrapper">
                   <div class="custom-file-container" data-upload-id="myFirstImage">
                     <label>
                       เพิ่มรูปภาพ
@@ -115,7 +115,6 @@
                       ></a>
                     </label>
                     <label class="custom-file-container__custom-file">
-                      ไฟล์
                       <input
                         type="file"
                         class="custom-file-container__custom-file__custom-file-input"
@@ -123,12 +122,13 @@
                         multiple
                         aria-label="File"
                       />
-                      <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
+                      <input type="hidden" name="MAX_FILE_SIZE" value="50000" />
                       <span class="custom-file-container__custom-file__custom-file-control"></span>
                     </label>
                     <div class="custom-file-container__image-preview"></div>
                   </div>
-                </div>
+                </div>-->
+                <addpicture />
               </v-flex>
               <!------------------------->
               <v-alert :value="error" color="error" icon="warning" outline>แจ้งเหตุการณ์ไม่สำเร็จ</v-alert>
@@ -155,15 +155,20 @@
 <script>
 import { mapActions } from "vuex";
 import eventApi from "@/api/event";
+import addpicture from "../Feedback/AddPicture";
 import eventConstant from "@/utilitys/eventConstant";
-import FileUploadWithPreview from "file-upload-with-preview";
-import "file-upload-with-preview/dist/file-upload-with-preview.min.css";
+// import FileUploadWithPreview from "file-upload-with-preview";
+// import importedBaseImage from "file-upload-with-preview";
+// import "file-upload-with-preview/dist/file-upload-with-preview.min.css";
 export default {
   name: "PostEventDialog",
   props: {
     marker: Object,
     closeInfoWindow: Function,
     completePostEvent: Function
+  },
+  components: {
+    addpicture
   },
   data() {
     return {
@@ -203,23 +208,6 @@ export default {
         this.dialog = true;
       }
     },
-    // onFileChange(e) {
-    //   var files = e.target.files || e.data.Transfer.files;
-    //   if (!files.length) return;
-    //   this.createImage(files[0]);
-    // },
-    // createImage(file) {
-    //   var image = new Image();
-    //   var reader = new FileReader();
-    //   var vm = this;
-    //   reader.onload = e => {
-    //     vm.image = e.target.result;
-    //   };
-    //   reader.readAsDataURL(file);
-    // },
-    // removeImage: function(e) {
-    //   this.image = "";
-    // }
     cancel: function() {
       this.$refs.form.reset();
       this.dialog = false;
@@ -292,15 +280,12 @@ export default {
         return false;
       } else return true;
     }
-  },
-  mounted() {
-    this.upload = new FileUploadWithPreview("myFirstImage");
   }
 };
 </script>
-<style>
+<style scoped>
 .wrapper {
-  max-width: 500px;
+  max-width: 600px;
   max-height: 500px;
   margin: 0 auto;
 }

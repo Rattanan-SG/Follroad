@@ -9,8 +9,8 @@
     <MarkerSearchPlace />
     <CurrentPositionButton slot="visible" />
     <EnablePostEventButton slot="visible" />
-    <ToggleRecommendRoute v-if="directionsResponse" slot="visible" />
-    <ToggleSpecificEvent v-if="directionsResponse" slot="visible" />
+    <ToggleRecommendRoute v-if="!routerView && directionsResponse" slot="visible" />
+    <ToggleSpecificEvent v-if="!routerView && directionsResponse" slot="visible" />
   </gmap-map>
 </template>
 
@@ -63,6 +63,7 @@ export default {
     ...mapGetters("googleMap", ["center", "zoomLevel", "myLocation"]),
     ...mapGetters("direction", ["directionsRenderer", "directionsResponse"]),
     ...mapGetters("postEvent", ["activePostEvent"]),
+    ...mapGetters("route", ["routerView"]),
     google: gmapApi
   },
   created() {

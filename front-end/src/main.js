@@ -3,16 +3,19 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import io from "socket.io-client";
+import VueLazyload from "vue-lazyload";
 import VueSocketIOExt from "vue-socket.io-extended";
 import VueLuxon from "vue-luxon";
 import AuthPlugin from "./plugins/auth";
 import * as VueGoogleMaps from "vue2-google-maps";
 import "./plugins/vuetify";
 import "./registerServiceWorker";
+
 Vue.config.productionTip = false;
 
 const socket = io(process.env.VUE_APP_SOCKET_URL);
 Vue.use(AuthPlugin);
+Vue.use(VueLazyload);
 Vue.use(VueSocketIOExt, socket, { store });
 Vue.use(VueLuxon, { clientZone: "Asia/Bangkok", localeLang: "th" });
 Vue.use(VueGoogleMaps, {
@@ -27,7 +30,10 @@ Vue.use(VueGoogleMaps, {
 export const eventBus = new Vue({
   methods: {
     startDirections: function(startLocation, stopLocation) {
-      this.$emit("startDirections", { startLocation, stopLocation });
+      this.$emit("startDirections", {
+        startLocation,
+        stopLocation
+      });
     },
     stopDirections: function() {
       this.$emit("stopDirections");

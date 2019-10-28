@@ -9,15 +9,25 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER
       },
-      uid: {
-        allowNull: false,
-        type: DataTypes.STRING
-      },
       eventId: {
         allowNull: false,
         field: "event_id",
         references: { model: "event", key: "id" },
         type: DataTypes.INTEGER
+      },
+      uid: {
+        allowNull: false,
+        type: DataTypes.STRING
+      },
+      authorName: {
+        allowNull: false,
+        field: "author_name",
+        type: DataTypes.STRING
+      },
+      authorPictureUrl: {
+        allowNull: false,
+        field: "author_picture_url",
+        type: DataTypes.TEXT
       },
       detail: {
         allowNull: false,

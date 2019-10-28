@@ -1,8 +1,6 @@
 <template>
   <div>
     <CloseViewToolBar title="เดินทาง" />
-
-    <v-card flat height="20px"></v-card>
     <SearchStartAutoComplete :historyMode="historyMode" />
     <SearchDestinationAutoComplete :historyMode="historyMode" />
     <v-layout row wrap my-3 justify-center>
@@ -27,12 +25,15 @@
         <v-icon class="ml-2">close</v-icon>
       </v-btn>
     </v-layout>
-    <v-layout row wrap>
-      <!-- <v-flex xs12 my-1>
-        <SearchFeedPanel v-if="directionsResponse" />
-      </v-flex>-->
-      <v-flex xs12>
-        <SearchRoutePanel v-if="directionsResponse" :directionsRenderer="directionsRenderer" />
+    <v-layout row wrap v-if="directionsResponse">
+      <v-flex xs12 sm12 md12 lg12 xl12>
+        <div class="subheading px-3 pb-3 blue--text text--darken-3">
+          <v-icon class="mr-2" color="primary">info</v-icon>รายละเอียดการเดินทางและเหตุการณ์ที่เกี่ยวข้อง
+        </div>
+      </v-flex>
+      <v-flex xs12 sm12 md12 lg12 xl12 class="panel">
+        <SearchFeedPanel />
+        <SearchRoutePanel :directionsRenderer="directionsRenderer" />
       </v-flex>
     </v-layout>
   </div>
@@ -48,7 +49,7 @@ const SearchDestinationAutoComplete = () =>
   import("@/components/Search/SearchDestinationAutoComplete");
 const SearchSaveRouteDialog = () =>
   import("@/components/Search/SearchSaveRouteDialog");
-// const SearchFeedPanel = () => import("@/components/Search/SearchFeedPanel");
+const SearchFeedPanel = () => import("@/components/Search/SearchFeedPanel");
 const SearchRoutePanel = () => import("@/components/Search/SearchRoutePanel");
 export default {
   name: "Search",
@@ -62,7 +63,7 @@ export default {
     SearchStartAutoComplete,
     SearchDestinationAutoComplete,
     SearchSaveRouteDialog,
-    // SearchFeedPanel,
+    SearchFeedPanel,
     SearchRoutePanel
   },
   computed: {
@@ -105,4 +106,8 @@ export default {
 };
 </script>
 <style scoped>
+.panel {
+  max-height: 45vh;
+  overflow: auto;
+}
 </style>

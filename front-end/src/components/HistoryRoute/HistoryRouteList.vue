@@ -71,7 +71,6 @@ export default {
   },
   data() {
     return {
-      uid: null,
       loading: true
     };
   },
@@ -80,14 +79,6 @@ export default {
       "directionRecords",
       "directionRecordById"
     ])
-  },
-  watch: {
-    async uid(value) {
-      if (value) {
-        await this.fetchDirectionRecordsByUid(this.uid);
-        this.loading = false;
-      }
-    }
   },
   async created() {
     if (this.$auth.profile) {
@@ -128,15 +119,12 @@ export default {
     deleteHistoryRoute: function(_id) {
       this.openConfirmDialog({
         _id,
-        text: `ลบบันทึกเส้นทางนี้`,
+        text: `ลบเส้นทางที่บันทึกนี้`,
         submitActions: () => this.handleDeleteHistoryRoute(_id)
       });
     },
     handleDeleteHistoryRoute: async function(_id) {
       return this.deleteDirectionRecordById({ _id });
-    },
-    handleLoginEvent: function(data) {
-      this.uid = data.profile.sub;
     }
   }
 };

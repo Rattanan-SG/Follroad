@@ -5,7 +5,8 @@
       <v-layout row wrap fill-height>
         <v-flex
           v-if="routerView || this.$route.path == '/callback'"
-          md3
+          lg3
+          md4
           sm5
           xs12
           style="z-index: 2"
@@ -86,24 +87,24 @@ export default {
     this.$vuetify.breakpoint.xsOnly
       ? this.setRouterView(false)
       : this.setRouterView(true);
-    await this.fetchEvents();
-    if (this.$auth.isAuthenticated()) {
-      const { sub: uid } = this.$auth.profile;
-      await this.fetchFeedbackSummary(uid);
-    } else {
-      await this.fetchFeedbackSummary();
-    }
+    this.fetchEvents();
     try {
       await this.$auth.renewTokens();
     } catch (e) {
-      console.error(e);
+      this.fetchFeedbackSummary();
     }
   },
   methods: {
     ...mapActions("route", ["setRouterView"]),
     ...mapActions("event", ["fetchEvents"]),
     ...mapActions("feedback", ["fetchFeedbackSummary"]),
-    ...mapActions("googleMap", ["stopWatchMyLocation"])
+    ...mapActions("googleMap", ["stopWatchMyLocation"]),
+    async handleLoginEvent() {
+      if (this.$auth.isAuthenticated()) {
+        const { sub: uid } = this.$auth.profile;
+        await this.fetchFeedbackSummary(uid);
+      }
+    }
   },
   beforeDestroy() {
     this.stopWatchMyLocation();

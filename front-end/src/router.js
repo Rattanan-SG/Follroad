@@ -16,7 +16,7 @@ const router = new Router({
       component: Home
     },
     {
-      path: "/details",
+      path: "/details/:eventId",
       name: "details",
       component: () =>
         import(/* webpackChunkName: "details" */ "./views/Details.vue")
@@ -45,7 +45,8 @@ const router = new Router({
       component: () =>
         import(
           /* webpackChunkName: "historyroute" */ "./views/HistoryRoute.vue"
-        )
+        ),
+      meta: { requiresAuth: true }
     },
     {
       path: "/callback",

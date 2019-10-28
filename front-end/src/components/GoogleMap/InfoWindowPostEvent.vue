@@ -5,11 +5,12 @@
       flat
       dark
       scroll-off-screen
-      color="blue darken-3"
+      color="red darken-3"
       scroll-target="#scrolling-techniques"
-      height="35%"
+      height="50%"
     >
-      <!-- <v-toolbar-title>แจ้งเหตุการณ์</v-toolbar-title> -->
+      <v-icon medium>report</v-icon>
+      <v-toolbar-title>แจ้งเหตุการณ์</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon dark @click="closeInfoWindow">
         <v-icon>close</v-icon>
@@ -19,14 +20,13 @@
     <v-card flat max-width="400px" class="mx-auto pt-4">
       <v-card-title class="px-1">
         <div>
-          <v-icon medium>post_add</v-icon>
-          <span class="headline">แจ้งเหตุการณ์</span>
+          <!-- <span class="headline">แจ้งเหตุการณ์</span> -->
           <div
-            class="pt-1 subheading grey--text text--darken-1"
+            class="pt-4 subheading text--darken-1"
           >คุณต้องการที่จะแจ้งเหตุการณ์ที่ตำแหน่งนี้หรือไม่?</div>
         </div>
       </v-card-title>
-      <v-card-text class="px-1 pt-1 body-2">{{marker.title}}</v-card-text>
+      <v-card-text class="px-1 pt-1 body-2 grey--text">{{marker.title}}</v-card-text>
       <v-card-actions class="px-0 pt-0">
         <v-spacer></v-spacer>
         <v-btn outline color="red white--text" @click="cancel" class="mx-2">ยกเลิก</v-btn>

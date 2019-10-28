@@ -57,11 +57,13 @@ exports.sendRecordToCheckNotification = async () => {
         let delay = 0;
         let result = false;
         if (type === "onetime" && ongoing) {
+          result =
+            now.set({ second: 0, millisecond: 0 }) <= dt &&
+            dt <= now.set({ second: 0, millisecond: 0 }).plus({ minutes: 5 });
           delay = Duration.fromObject({
             minutes: dt.minute - now.minute,
             seconds: dt.second - now.second
           }).as("seconds");
-          result = now <= dt && dt <= now.plus({ minutes: 5 });
           if (result) {
             directionRecord
               .updateNotificationTimeOngoingById(_id, element._id, false)
@@ -69,13 +71,18 @@ exports.sendRecordToCheckNotification = async () => {
           }
         } else if (type === "schedule" && ongoing) {
           if (days.includes(now.weekdayLong)) {
+            result =
+              now.set({ second: 0, millisecond: 0 }).toISOTime() <=
+                dt.toISOTime() &&
+              dt.toISOTime() <=
+                now
+                  .set({ second: 0, millisecond: 0 })
+                  .plus({ minutes: 5 })
+                  .toISOTime();
             delay = Duration.fromObject({
               minutes: dt.minute - now.minute,
               seconds: dt.second - now.second
             }).as("seconds");
-            result =
-              now.toISOTime() <= dt.toISOTime() &&
-              dt.toISOTime() <= now.plus({ minutes: 5 }).toISOTime();
           }
         }
         if (result) delaySecondsList.push(delay < 0 ? 0 : delay);

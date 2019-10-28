@@ -12,17 +12,17 @@ module.exports = {
               primaryKey: true,
               type: Sequelize.INTEGER
             },
-            uid: {
-              unique: "composite_index",
-              allowNull: false,
-              type: Sequelize.STRING
-            },
             eventId: {
               unique: "composite_index",
               allowNull: false,
               field: "event_id",
               references: { model: "event", key: "id" },
               type: Sequelize.INTEGER
+            },
+            uid: {
+              unique: "composite_index",
+              allowNull: false,
+              type: Sequelize.STRING
             },
             react: {
               allowNull: false,
@@ -47,7 +47,7 @@ module.exports = {
         .then(() => {
           return queryInterface.addConstraint(
             "feedback",
-            ["uid", "event_id"],
+            ["event_id", "uid"],
             {
               type: "unique",
               name: "composite_index"

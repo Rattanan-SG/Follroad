@@ -114,7 +114,7 @@ export default {
         this.updateNoti();
       } catch (err) {
         this.unsubscribeUser();
-        console.log("Failed to subscribe");
+        console.warn("Failed to subscribe");
       }
     },
     async unsubscribeUser() {
@@ -128,7 +128,7 @@ export default {
           this.updateNoti();
         }
       } catch (err) {
-        console.log("Failed to unsubscribe");
+        console.warn("Failed to unsubscribe");
       }
     }
   }

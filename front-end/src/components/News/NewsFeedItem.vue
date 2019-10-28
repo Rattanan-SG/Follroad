@@ -1,36 +1,29 @@
 <template>
   <v-card flat class="mb-2">
     <v-layout row wrap align-start justify-center fill-height>
-      <v-layout>
-        <v-flex xs1 md1 lg1 mt-4 ml-3>
-          <v-img :src="getIcon()" max-width="40" max-height="40" left></v-img>
+      <v-layout row pt-2>
+        <v-flex xs1 md1 lg1 mt-3 ml-3>
+          <v-img :src="getEventIcon()" max-width="40" max-height="40" left></v-img>
         </v-flex>
-        <v-flex xs11 md11 lg11 mt-1 mr-3>
-          <!-- <v-list-tile>
-            <v-list-tile-avatar>
-              <v-img :src="getIcon()" max-width="40" max-height="40" left></v-img>
-            </v-list-tile-avatar>
-            <v-list-tile-content>
-              <span class="font-weight-light">{{event.title}}</span>
-            </v-list-tile-content>
-          </v-list-tile>-->
-          <v-card-title primary-title>
-            <div>
-              <h3 class="blue--text">{{event.title}}</h3>
-              <div>โดย {{event.contributor}}</div>
-            </div>
-          </v-card-title>
+        <v-flex xs11 md11 lg11 mt-1 ml-3 mr-1>
+          <div>
+            <h3 class="blue--text">{{event.title}}</h3>
+            <div>โดย {{event.contributor}}</div>
+          </div>
         </v-flex>
       </v-layout>
-
       <v-flex xs12>
-        <!---------ใส่รูปเวลามีคนเพิ่มรูปเข้ามา---------->
-        <!-- <v-carousel hide-delimiters width="50%" height="50%">
-          <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src"></v-carousel-item>
-        </v-carousel>-->
-        <!--------------------------------------->
-        <v-card-text>{{event.description}}</v-card-text>
-        <v-card-title>
+        <v-flex xs12 md12 lg12 pa-2 v-if="event.pictures.length > 0">
+          <v-carousel hide-delimiters width="100%" height="230">
+            <v-carousel-item
+              v-for="(picture,index) in event.pictures"
+              :key="index"
+              :src="picture.url"
+            ></v-carousel-item>
+          </v-carousel>
+        </v-flex>
+        <v-card-text class="px-3 pt-3 pb-0">{{event.description}}</v-card-text>
+        <v-card-title class="px-3 py-3">
           <span class="red--text">
             เกิดขึ้น ณ
             : {{ event.start | luxon:locale('short') }}
@@ -41,48 +34,17 @@
           </span>
         </v-card-title>
       </v-flex>
-
-      <!-- <v-card-actions> -->
-      <v-flex grow>
+      <v-flex grow pl-1>
         <LikeDislikeControl :key="event.id" :eventId="event.id" />
       </v-flex>
-      <!-- <v-spacer></v-spacer> -->
-      <v-flex xs3 md3 lg3 sm3>
-        <v-btn flat icon color="grey" @click="show = !show">
+      <v-flex shrink pr-3>
+        <v-btn flat icon color="grey" :loading="loading" @click="toggleCommentControl">
           <v-icon>comment</v-icon>
         </v-btn>
+        <span class="subheading ml-1">{{commentCount}}</span>
       </v-flex>
-      <!-- </v-card-actions> -->
 
-      <!-- <v-slide-y-transition> -->
-      <v-layout v-show="show">
-        <v-flex xs2 md2 lg2 pt-3 pl-3 mr-2>
-          <v-avatar size="30px">
-            <img v-if="isAuthenticated" :src="profile.picture" alt="avatar" />
-            <v-icon v-else color="primary" medium>person</v-icon>
-          </v-avatar>
-        </v-flex>
-        <v-flex xs10 md10 lg10>
-          <v-textarea
-            v-model="comment"
-            label="แสดงความคิดเห็น"
-            rows="1"
-            clearable
-            auto-grow
-            :disabled="!isAuthenticated"
-          ></v-textarea>
-        </v-flex>
-        <v-flex xs2 md2 lg1 pt-2 ml-4>
-          <v-btn icon class="ma-0">
-            <v-icon color="primary" medium>send</v-icon>
-          </v-btn>
-        </v-flex>
-
-        <v-flex ml-3 mr-3>
-          <v-divider></v-divider>
-        </v-flex>
-      </v-layout>
-
+<<<<<<< HEAD
       <v-layout v-show="show">
         <v-flex lg1 mt-4 ml-2>
           <img src="@/assets/logo.svg" alt="avatar" width="30px" height="30px" />
@@ -119,50 +81,67 @@
         </v-flex>
       </v-layout>
       <!-- </v-slide-y-transition> -->
+=======
+      <v-slide-y-transition>
+        <v-card-text v-show="show" class="pt-0">
+          <CommentControl
+            v-model="event.comments"
+            :eventId="event.id"
+            :isAuthenticated="isAuthenticated"
+            :profile="profile"
+          />
+        </v-card-text>
+      </v-slide-y-transition>
+>>>>>>> 3b49208440f56752b2ef4379adfc9e73b38ff2a4
     </v-layout>
   </v-card>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import eventApi from "@/api/event";
 import eventConstant from "@/utilitys/eventConstant";
 import LikeDislikeControl from "../Feedback/LikeDislikeControl";
+import CommentControl from "../Feedback/CommentControl";
 export default {
   name: "NewsFeedItem",
+  props: {
+    initEvent: Object,
+    isAuthenticated: Boolean,
+    profile: Object
+  },
   components: {
-    LikeDislikeControl
+    LikeDislikeControl,
+    CommentControl
   },
   data() {
     return {
+      loading: false,
       show: false,
-      countLike: 0,
-      countDislike: 0,
-      comment: "",
-      profile: this.$auth.profile,
-      isAuthenticated: this.$auth.isAuthenticated(),
-      commentDetail:
-        "รถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะ",
-      author: "CEO Rattanan Nuan",
-      postTime: "11.00",
-      items: [
-        {
-          src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg"
-        },
-        {
-          src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg"
-        }
-      ]
+      event: this.initEvent
     };
   },
-  props: {
-    event: Object
-  },
   computed: {
-    ...mapGetters("event", ["eventMarkerByEventId"])
+    commentCount() {
+      const { comments } = this.event;
+      if (comments[0] && comments[0].count) return comments[0].count || 0;
+      else return comments.length;
+    }
   },
   methods: {
-    getIcon: function() {
+    getEventIcon: function() {
       return eventConstant.selectIcon(this.event);
+    },
+    toggleCommentControl: async function() {
+      if (!this.show) {
+        this.loading = true;
+        const comments = await eventApi.getComments({
+          eventId: this.event.id,
+          orderByNew: true
+        });
+        this.event.comments = comments;
+        this.loading = false;
+      }
+      this.show = !this.show;
     }
   }
 };

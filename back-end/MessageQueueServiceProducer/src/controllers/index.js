@@ -1,5 +1,6 @@
 const asyncWrapper = require("../middleware/async-wrapper");
 const service = require("../services");
+const s3 = require("../services/s3");
 
 exports.createQueue = asyncWrapper(async (req, res) => {
   const result = await service.createQueue(req.body);
@@ -21,5 +22,10 @@ exports.sendMessageToQueueByName = asyncWrapper(async (req, res) => {
     req.params.name,
     req.body
   );
+  res.send(result);
+});
+
+exports.getSignedUrl = asyncWrapper(async (req, res) => {
+  const result = await s3.getSignedUrl(req.body);
   res.send(result);
 });

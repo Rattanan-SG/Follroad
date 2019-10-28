@@ -1,137 +1,124 @@
 <template>
-  <v-card flat max-width="100%" class="mx-auto">
-    <v-layout v-if="!!infoWindow.marker">
-      <v-flex xs12 md12 lg12>
-        <v-layout pt-3>
-          <v-flex xs2 md2 lg2 pl-3 pt-2>
-            <v-img :src="infoWindow.marker.icon" max-width="25" max-height="25"></v-img>
-          </v-flex>
-          <v-flex xs12 md10 lg10>
-            <v-card-title primary-title class="pt-0 pl-0">
-              <div>
-                <h3 class="subheading blue--text">{{infoWindow.marker.title}}</h3>
-                <span>โดย {{infoWindow.marker.contributor}}</span>
-              </div>
-            </v-card-title>
-          </v-flex>
-        </v-layout>
-      </v-flex>
-    </v-layout>
-    <v-card-text class="py-0">
-      <div class="body-2">{{infoWindow.marker.description}}</div>
-      <br />
-      <v-divider></v-divider>
-    </v-card-text>
-    <v-card-text>
-      <div
-        class="body-1 red--text"
-      >เกิดขึ้น ณ {{infoWindow.marker.startTime | luxon:locale('short')}}</div>
-      <div
-        class="body-1 red--text"
-      >จะสิ้นสุดใน {{infoWindow.marker.stopTime | luxon:locale('short')}}</div>
-    </v-card-text>
-    <v-card-actions>
-      <LikeDislikeControl
-        :key="infoWindow.marker.id"
-        :eventId="infoWindow.marker.id"
-      />
-    </v-card-actions>
-    <v-layout v-if="!!infoWindow.marker" pt-3>
-      <v-flex xs2 md2 lg2 xl2 pt-3 pl-3 mr-2>
-        <v-avatar size="30px">
-          <img v-if="isAuthenticated" :src="profile.picture" alt="avatar" />
-          <v-icon v-else color="primary" medium>person</v-icon>
-        </v-avatar>
-      </v-flex>
-      <v-flex xs10 md10 lg10 xl10>
-        <v-textarea
-          v-model="comment"
-          label="แสดงความคิดเห็น"
-          rows="1"
-          clearable
-          auto-grow
-          :disabled="!isAuthenticated"
-        ></v-textarea>
-      </v-flex>
-      <v-flex xs2 md2 lg2 xl2 pt-2 ml-3>
-        <v-btn icon class="ma-0">
-          <v-icon color="primary" medium>send</v-icon>
-        </v-btn>
-      </v-flex>
-    </v-layout>
-
-    <v-flex ml-3 mr-3>
-      <v-divider></v-divider>
-    </v-flex>
-
-    <v-layout>
-      <v-flex lg1 mt-4 ml-2>
-        <img src="@/assets/logo.svg" alt="avatar" width="30px" height="30px" />
-      </v-flex>
-      <v-flex xs11 md11 lg11>
-        <v-card-text>
+  <div class="description">
+    <LoadingCircular :loading="loading" />
+    <template v-if="!loading && event">
+      <v-layout row wrap mt-3>
+        <v-flex xs2 pl-3 pt-1>
+          <v-img :src="getEventIcon()" max-width="25" max-height="25" />
+        </v-flex>
+        <v-flex xs9 lg10 md9 sm9 pl-2>
           <div>
-            <h3 class="blue--text">{{author}}</h3>
-            <div>{{commentDetail}}</div>
-            <div class="red--text">{{postTime}}</div>
+            <h3 class="subheading blue--text">{{event.title}}</h3>
+            <span>โดย {{event.contributor}}</span>
           </div>
+        </v-flex>
+      </v-layout>
+      <v-flex xs12 md12 lg12 pa-2 v-if="event.pictures.length > 0">
+        <v-carousel hide-delimiters width="100%" height="230">
+          <v-carousel-item
+            v-for="(picture,index) in event.pictures"
+            :key="index"
+            :src="picture.url"
+          ></v-carousel-item>
+        </v-carousel>
+      </v-flex>
+      <v-card-text class="py-3">
+        <div class="body-2">{{event.description}}</div>
+      </v-card-text>
+      <v-divider />
+      <v-card-text>
+        <div class="body-1 red--text">เกิดขึ้น ณ {{event.start | luxon:locale('short')}}</div>
+        <div class="body-1 red--text">จะสิ้นสุดใน {{event.stop | luxon:locale('short')}}</div>
+      </v-card-text>
+      <v-card-actions class="py-0">
+        <v-flex grow pl-1>
+          <LikeDislikeControl :key="event.id" :eventId="event.id" />
+        </v-flex>
+        <v-flex shrink pr-2>
+          <v-btn flat icon color="grey" @click="show = !show">
+            <v-icon>comment</v-icon>
+          </v-btn>
+          <span class="subheading ml-1">{{event.comments.length}}</span>
+        </v-flex>
+      </v-card-actions>
+
+      <v-slide-y-transition>
+        <v-card-text v-show="show" class="pt-0">
+          <CommentControl
+            v-model="event.comments"
+            :eventId="event.id"
+            :isAuthenticated="isAuthenticated"
+            :profile="profile"
+          />
         </v-card-text>
-      </v-flex>
-    </v-layout>
-    <v-flex>
-      <v-divider></v-divider>
-    </v-flex>
-    <v-layout>
-      <v-flex lg1 mt-4 ml-2>
-        <img src="@/assets/logo.svg" alt="avatar" width="30px" height="30px" />
-      </v-flex>
-      <v-flex xs11 md11 lg11>
-        <v-card-text>
-          <div>
-            <h3 class="blue--text">{{author}}</h3>
-            <div>{{commentDetail}}</div>
-            <div class="red--text">{{postTime}}</div>
-          </div>
-        </v-card-text>
-      </v-flex>
-    </v-layout>
-  </v-card>
+      </v-slide-y-transition>
+    </template>
+  </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
+import eventApi from "@/api/event";
+import eventConstant from "@/utilitys/eventConstant";
+import LoadingCircular from "../Feedback/LoadingCircular";
 import LikeDislikeControl from "../Feedback/LikeDislikeControl";
+import CommentControl from "../Feedback/CommentControl";
 export default {
   name: "DescriptionEvent",
   components: {
-    LikeDislikeControl
+    LoadingCircular,
+    LikeDislikeControl,
+    CommentControl
   },
   data() {
     return {
+      loading: false,
+      isAuthenticated: false,
       profile: this.$auth.profile,
-      isAuthenticated: this.$auth.isAuthenticated(),
-      dialog: false,
       show: false,
-      countLike: 0,
-      countDislike: 0,
-      comment: "",
-      commentDetail:
-        "รถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะรถติดขนาดนี้นอนอยู่บ้านเหอะ",
-      author: "CEO Rattanan Nuan",
-      postTime: "11.00"
+      event: null
     };
   },
-  computed: {
-    ...mapGetters("infoWindow", ["infoWindow"])
+  created() {
+    this.fetchEvent(this.$route.params.eventId);
+  },
+  watch: {
+    $route(to) {
+      this.fetchEvent(to.params.eventId);
+    }
   },
   methods: {
-    ...mapActions("infoWindow", ["closeInfoWindow"])
+    ...mapActions("feedback", ["fetchFeedbackSummary"]),
+
+    fetchEvent: async function(eventId) {
+      this.loading = true;
+      this.event = await eventApi.getEventById(eventId);
+      this.loading = false;
+      if (this.$auth.isAuthenticated()) {
+        const { sub: uid } = this.$auth.profile;
+        this.isAuthenticated = true;
+        this.profile = this.$auth.profile;
+        this.fetchFeedbackSummary(uid);
+      } else {
+        this.fetchFeedbackSummary();
+      }
+    },
+    getEventIcon: function() {
+      return eventConstant.selectIcon(this.event);
+    },
+    addNewComment: function(comment) {
+      this.event.comments.unshift(comment);
+    },
+    handleLoginEvent(data) {
+      this.isAuthenticated = data.loggedIn;
+      this.profile = data.profile;
+    }
   }
 };
 </script>
 <style scoped>
-.v-card {
-  height: 70vh;
+.description {
+  height: 80vh;
   overflow: auto;
 }
 </style>

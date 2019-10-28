@@ -44,7 +44,7 @@
       <v-card-actions class="px-0">
         <LikeDislikeControl :key="marker.id" :eventId="marker.id" />
         <v-spacer></v-spacer>
-        <v-btn outline color="blue" to="/details" @click="setRouterView(true)">ดูเพิ่มเติม</v-btn>
+        <v-btn outline color="blue" :to="{path: `/details/${marker.id}`}" @click="setRouterView(true)">ดูเพิ่มเติม</v-btn>
       </v-card-actions>
     </v-card>
   </div>

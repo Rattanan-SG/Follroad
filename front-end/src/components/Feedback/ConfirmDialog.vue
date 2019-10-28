@@ -2,7 +2,7 @@
   <v-layout row justify-center>
     <v-dialog v-model="confirmDialog" max-width="400">
       <v-card>
-        <v-toolbar color="blue" dark flat>
+        <v-toolbar color="orange darken-4" dark flat>
           <v-icon>info</v-icon>
           <v-toolbar-title>{{confirmDialogOption.text}}</v-toolbar-title>
           <v-spacer></v-spacer>
@@ -46,9 +46,12 @@ export default {
     submit: async function() {
       this.confirmLoading = true;
       const { submitActions } = this.confirmDialogOption;
-      if (submitActions) await submitActions();
-      this.confirmLoading = false;
-      this.confirmDialog = false;
+      try {
+        if (submitActions) await submitActions();
+      } finally {
+        this.confirmLoading = false;
+        this.confirmDialog = false;
+      }
     }
   }
 };
