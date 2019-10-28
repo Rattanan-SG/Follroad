@@ -62,24 +62,6 @@
           </v-card-text>
         </v-flex>
       </v-layout>
-
-      <v-layout v-show="show">
-        <v-flex lg1 mt-4 ml-2>
-          <img src="@/assets/logo.svg" alt="avatar" width="30px" height="30px" />
-        </v-flex>
-        <v-flex xs11 md11 lg11>
-          <v-card-text>
-            <div>
-              <h3 class="blue--text">{{author}}</h3>
-              <div>{{commentDetail}}</div>
-              <div class="red--text">
-                <v-icon>access_time</v-icon>
-                {{postTime}}
-              </div>
-            </div>
-          </v-card-text>
-        </v-flex>
-      </v-layout>
       <!-- </v-slide-y-transition> -->
 =======
       <v-slide-y-transition>
