@@ -51,26 +51,36 @@ exports.getSignedUrl = async query => {
   });
 };
 
-// exports.getSignedUrl = async query => {
-//   const { key = "", contentType = "image/jpeg" } = query;
-//   const params = {
-//     Bucket: "follroad-picture",
-//     Key: key,
-//     Expires: 30 * 60, // 30 minutes
-//     ContentType: contentType,
-//     ACL: "public-read"
-//   };
-//   const options = {
-//     signatureVersion: "v4"
-//   };
-//   const client = new AWS.S3(options);
-//   return new Promise((resolve, reject) => {
-//     client.getSignedUrl("putObject", params, (err, data) => {
-//       if (err) {
-//         reject(err);
-//       } else {
-//         resolve(data);
-//       }
-//     });
-//   });
-// };
+exports.createPresignedPost = async query => {
+  const { key = "", contentType = "image/jpeg" } = query;
+  const params = {
+    Bucket: "follroad-picture",
+    Expires: 30 * 60, // 30 minutes
+    Fields: {
+      "Content-Type": contentType,
+      key,
+      acl: "public-read",
+      success_action_status: "201"
+    }
+  };
+  const options = {
+    signatureVersion: "v4"
+  };
+  const client = new AWS.S3(options);
+  return new Promise((resolve, reject) => {
+    client.createPresignedPost(params, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        const { url, fields } = data;
+        const postEndpoint = url.replace(/^https?\:/i, "");
+        const result = {
+          signature: { ...fields },
+          postEndpoint
+        };
+        resolve(result);
+        // resolve(data);
+      }
+    });
+  });
+};

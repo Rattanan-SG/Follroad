@@ -29,3 +29,8 @@ exports.getSignedUrl = asyncWrapper(async (req, res) => {
   const result = await s3.getSignedUrl(req.query);
   res.send(result);
 });
+
+exports.createPresignedPost = asyncWrapper(async (req, res) => {
+  const result = await s3.createPresignedPost(req.query);
+  res.send(result);
+});
