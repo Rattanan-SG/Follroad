@@ -103,32 +103,8 @@
                 </v-flex>
               </v-layout>
               <!------------userเพิ่มรูป------------->
-              <v-flex xs12 lg12 md12 sm12>
-                <!-- <div class="wrapper">
-                  <div class="custom-file-container" data-upload-id="myFirstImage">
-                    <label>
-                      เพิ่มรูปภาพ
-                      <a
-                        href="javascript:void(0)"
-                        class="custom-file-container__image-clear"
-                        title="Clear Image"
-                      ></a>
-                    </label>
-                    <label class="custom-file-container__custom-file">
-                      <input
-                        type="file"
-                        class="custom-file-container__custom-file__custom-file-input"
-                        accept="*"
-                        multiple
-                        aria-label="File"
-                      />
-                      <input type="hidden" name="MAX_FILE_SIZE" value="50000" />
-                      <span class="custom-file-container__custom-file__custom-file-control"></span>
-                    </label>
-                    <div class="custom-file-container__image-preview"></div>
-                  </div>
-                </div>-->
-                <addpicture />
+              <v-flex xs12>
+                <PictureUploadAndPreview />
               </v-flex>
               <!------------------------->
               <v-alert :value="error" color="error" icon="warning" outline>แจ้งเหตุการณ์ไม่สำเร็จ</v-alert>
@@ -155,11 +131,8 @@
 <script>
 import { mapActions } from "vuex";
 import eventApi from "@/api/event";
-import addpicture from "../Feedback/AddPicture";
 import eventConstant from "@/utilitys/eventConstant";
-// import FileUploadWithPreview from "file-upload-with-preview";
-// import importedBaseImage from "file-upload-with-preview";
-// import "file-upload-with-preview/dist/file-upload-with-preview.min.css";
+import PictureUploadAndPreview from "../Feedback/PictureUploadAndPreview";
 export default {
   name: "PostEventDialog",
   props: {
@@ -168,7 +141,7 @@ export default {
     completePostEvent: Function
   },
   components: {
-    addpicture
+    PictureUploadAndPreview
   },
   data() {
     return {

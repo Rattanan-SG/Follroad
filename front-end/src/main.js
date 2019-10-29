@@ -3,7 +3,6 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import io from "socket.io-client";
-import VueLazyload from "vue-lazyload";
 import VueSocketIOExt from "vue-socket.io-extended";
 import VueLuxon from "vue-luxon";
 import AuthPlugin from "./plugins/auth";
@@ -15,7 +14,6 @@ Vue.config.productionTip = false;
 
 const socket = io(process.env.VUE_APP_SOCKET_URL);
 Vue.use(AuthPlugin);
-Vue.use(VueLazyload);
 Vue.use(VueSocketIOExt, socket, { store });
 Vue.use(VueLuxon, { clientZone: "Asia/Bangkok", localeLang: "th" });
 Vue.use(VueGoogleMaps, {
