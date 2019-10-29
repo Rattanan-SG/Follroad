@@ -2,7 +2,7 @@ const sequelize = require("sequelize");
 const { Op } = sequelize;
 const { DateTime } = require("luxon");
 const { event } = require("../domains");
-const { picture, comment, feedback } = require("../models");
+const { picture, comment, feedback, sequelize: seq } = require("../models");
 const { EVENT_SOURCE, EVENT_MAPPING } = require("../utils/constant");
 const { formatEventToSendMessageQueue } = require("../utils/format-event");
 const { logInfo, logDebug } = require("../utils/logger");
@@ -17,13 +17,26 @@ exports.createEvent = async (user, body) => {
   if (!stop) {
     stop = calculateDefaultStopFromType(body);
   }
-  const result = await event.create({ ...body, uid, stop });
-  logInfo("Create event complete", result.dataValues);
-  if (new Date(result.stop) > new Date()) {
-    sendEventToMessageQueue([result]);
-    io.getIO().emit("event", { action: "create", event: result });
+  const transaction = await seq.transaction({
+    autoCommit: false,
+    isolationLevel: sequelize.Transaction.ISOLATION_LEVELS.READ_UNCOMMITTED
+  });
+  try {
+    const result = await event.create(
+      { ...body, uid, stop },
+      { include: [picture], transaction }
+    );
+    logInfo("Create event complete", result.dataValues);
+    if (new Date(result.stop) > new Date()) {
+      sendEventToMessageQueue([result]);
+      io.getIO().emit("event", { action: "create", event: result });
+    }
+    await transaction.commit();
+    return result;
+  } catch (err) {
+    await transaction.rollback();
+    throw err;
   }
-  return result;
 };
 
 exports.getEvent = async query => {
