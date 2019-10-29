@@ -104,7 +104,11 @@
               </v-layout>
               <!------------userเพิ่มรูป------------->
               <v-flex xs12>
-                <PictureUploadAndPreview />
+                <PictureUploadAndPreview
+                  ref="upload"
+                  @upload-error="error = true"
+                  @upload-complete="handleUploadComplete"
+                />
               </v-flex>
               <!------------------------->
               <v-alert :value="error" color="error" icon="warning" outline>แจ้งเหตุการณ์ไม่สำเร็จ</v-alert>
@@ -154,7 +158,7 @@ export default {
       startTime: null,
       stopHours: null,
       description: null,
-      image: "",
+      picture: [],
       rules: {
         required: value => !!value || "กรุณากรอกข้อมูล",
         notMoreThanNow: value => {
@@ -189,22 +193,31 @@ export default {
       if (!this.$auth.isAuthenticated()) {
         this.setLoginDialog(true);
       } else if (this.$refs.form.validate()) {
-        this.loading = true;
+        // this.loading = true;
         this.error = false;
-        const data = this.getEventData();
-        try {
-          const responseEvent = await eventApi.postEvent(data);
-          this.checkEventStatus(responseEvent);
-          this.completePostEvent();
-          this.closeInfoWindow();
-        } catch (error) {
-          this.error = true;
-        } finally {
-          this.$refs.form.reset();
-          this.loading = false;
-          this.dialog = false;
+        const isUploading = this.$refs.upload.uploadFiles();
+        if (!isUploading) {
+          try {
+            await this.postEvent();
+          } catch (error) {
+            this.error = true;
+          } finally {
+            this.$refs.form.reset();
+            this.loading = false;
+            this.dialog = false;
+          }
         }
       }
+    },
+    handleUploadComplete: async function(eventValue) {
+      console.log(eventValue);
+    },
+    postEvent: async function() {
+      const data = this.getEventData();
+      const responseEvent = await eventApi.postEvent(data);
+      this.checkEventStatus(responseEvent);
+      this.completePostEvent();
+      this.closeInfoWindow();
     },
     getEventData: function() {
       const { name, sub } = this.$auth.profile;

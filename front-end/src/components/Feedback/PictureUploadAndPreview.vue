@@ -1,13 +1,13 @@
 <template>
-  <vue-dropzone
+  <vue2Dropzone
     ref="myVueDropzone"
     id="dropzone"
     :options="dropzoneOptions"
     :awss3="awss3"
-    @vdropzone-file-added="addFile"
+    :duplicateCheck="true"
     @vdropzone-s3-upload-error="s3UploadError"
     @vdropzone-s3-upload-success="s3UploadSuccess"
-  ></vue-dropzone>
+  ></vue2Dropzone>
 </template>
 <script>
 import vue2Dropzone from "vue2-dropzone";
@@ -15,24 +15,24 @@ import "vue2-dropzone/dist/vue2Dropzone.min.css";
 export default {
   name: "PictureUploadAndPreview",
   components: {
-    vueDropzone
+    vue2Dropzone
   },
   data() {
     return {
       dropzoneOptions: {
-        url: "https://httpbin.org/post",
-        thumbnailWidth: 150,
-        maxFilesize: 0.5,
-        headers: { "My-Awesome-Header": "header value" }
+        url: "http://localhost:3001/message-queue/api/attachment",
+        method: "POST",
+        acceptedFiles: "image/*",
+        thumbnailWidth: 220,
+        addRemoveLinks: true,
+        autoProcessQueue: false
       },
       awss3: {
         signingURL: f => {
-          return "http://aws-direct-s3.dev/" + f.name;
+          return `http://localhost:3001/message-queue/api/createPresignedPost?key=${f.name}&contentType=${f.type}`;
         },
         headers: {},
-        params: {},
-        sendFileToServer: true,
-        withCredentials: false
+        params: {}
       },
       images: []
     };
@@ -40,22 +40,32 @@ export default {
   methods: {
     getSigningURL: function() {},
     uploadFiles: function() {
-      if (this.signurl) {
-        this.$refs.myVueDropzone.setAWSSigningURL(this.signurl);
+      if (this.$refs.myVueDropzone.getQueuedFiles().length > 0) {
         this.$refs.myVueDropzone.processQueue();
-      } else {
-        this.$refs.urlsigner.focus();
-        alert("Enter your signing URL");
+        return true;
       }
-    },
-    addFile: function(file) {
-      console.log(file);
+      return false;
     },
     s3UploadError: function(error) {
-      console.log(error);
+      this.$emit("upload-error", error);
     },
     s3UploadSuccess: function(location) {
-      console.log(location);
+      this.images.push(location);
+      const fileNumber = this.$refs.myVueDropzone.getAcceptedFiles().length;
+      const remainQueueNumber = this.$refs.myVueDropzone.getQueuedFiles()
+        .length;
+      const uploadingNumber = this.$refs.myVueDropzone.getUploadingFiles()
+        .length;
+      // console.log(fileNumber, remainQueueNumber, uploadingNumber);
+      if (
+        fileNumber === 1 ||
+        (remainQueueNumber === 0 && uploadingNumber === 0)
+      ) {
+        this.uploadComplete();
+      }
+    },
+    uploadComplete: function() {
+      this.$emit("upload-complete", this.images);
     }
   }
 };
