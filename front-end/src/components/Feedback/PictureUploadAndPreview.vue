@@ -20,21 +20,25 @@ export default {
   data() {
     return {
       dropzoneOptions: {
-        url: "http://localhost:3001/message-queue/api/attachment",
+        url: `${process.env.VUE_APP_UPLOAD_FILE_URL}/attachment`,
         method: "POST",
         acceptedFiles: "image/*",
         thumbnailWidth: 220,
+        maxFiles: 5,
+        parallelUploads: 5,
+        uploadMultiple: true,
         addRemoveLinks: true,
         autoProcessQueue: false
       },
       awss3: {
         signingURL: f => {
-          return `http://localhost:3001/message-queue/api/createPresignedPost?key=${f.name}&contentType=${f.type}`;
+          return `${process.env.VUE_APP_UPLOAD_FILE_URL}/createPresignedPost?key=${f.upload.uuid}_${f.name}&contentType=${f.type}`;
         },
         headers: {},
         params: {}
       },
-      images: []
+      images: [],
+      count: 0
     };
   },
   methods: {
@@ -50,22 +54,19 @@ export default {
       this.$emit("upload-error", error);
     },
     s3UploadSuccess: function(location) {
-      this.images.push(location);
+      this.images.push({ url: location });
+      this.count++;
       const fileNumber = this.$refs.myVueDropzone.getAcceptedFiles().length;
-      const remainQueueNumber = this.$refs.myVueDropzone.getQueuedFiles()
-        .length;
-      const uploadingNumber = this.$refs.myVueDropzone.getUploadingFiles()
-        .length;
-      // console.log(fileNumber, remainQueueNumber, uploadingNumber);
-      if (
-        fileNumber === 1 ||
-        (remainQueueNumber === 0 && uploadingNumber === 0)
-      ) {
+      if (this.count === fileNumber) {
         this.uploadComplete();
       }
     },
     uploadComplete: function() {
-      this.$emit("upload-complete", this.images);
+      const value = this.images;
+      this.$refs.myVueDropzone.removeAllFiles();
+      this.images = [];
+      this.count = 0;
+      this.$emit("upload-complete", value);
     }
   }
 };

@@ -102,15 +102,14 @@
                   ></v-textarea>
                 </v-flex>
               </v-layout>
-              <!------------userเพิ่มรูป------------->
               <v-flex xs12>
                 <PictureUploadAndPreview
                   ref="upload"
+                  :destroyDropzone="true"
                   @upload-error="error = true"
                   @upload-complete="handleUploadComplete"
                 />
               </v-flex>
-              <!------------------------->
               <v-alert :value="error" color="error" icon="warning" outline>แจ้งเหตุการณ์ไม่สำเร็จ</v-alert>
             </v-card-text>
 
@@ -158,7 +157,7 @@ export default {
       startTime: null,
       stopHours: null,
       description: null,
-      picture: [],
+      pictures: [],
       rules: {
         required: value => !!value || "กรุณากรอกข้อมูล",
         notMoreThanNow: value => {
@@ -193,7 +192,7 @@ export default {
       if (!this.$auth.isAuthenticated()) {
         this.setLoginDialog(true);
       } else if (this.$refs.form.validate()) {
-        // this.loading = true;
+        this.loading = true;
         this.error = false;
         const isUploading = this.$refs.upload.uploadFiles();
         if (!isUploading) {
@@ -210,7 +209,17 @@ export default {
       }
     },
     handleUploadComplete: async function(eventValue) {
-      console.log(eventValue);
+      this.pictures = eventValue;
+      try {
+        await this.postEvent();
+      } catch (error) {
+        this.error = true;
+      } finally {
+        this.pictures = [];
+        this.$refs.form.reset();
+        this.loading = false;
+        this.dialog = false;
+      }
     },
     postEvent: async function() {
       const data = this.getEventData();
@@ -237,7 +246,8 @@ export default {
         uid: sub,
         icon,
         type,
-        source: "follroad"
+        source: "follroad",
+        pictures: this.pictures
       };
     },
     getDateFromTimeString: function(timeString) {
