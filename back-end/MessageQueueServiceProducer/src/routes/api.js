@@ -9,5 +9,6 @@ router.get("/queue", controller.getQueue);
 router.post("/queue/:name/sendMessage", controller.sendMessageToQueueByName);
 router.post("/getSignedUrl", controller.getSignedUrl);
 router.post("/createPresignedPost", controller.createPresignedPost);
+router.post("/attachment", controller.attachment);
 
 module.exports = router;

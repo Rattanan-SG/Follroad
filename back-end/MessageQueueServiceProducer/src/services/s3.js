@@ -84,3 +84,7 @@ exports.createPresignedPost = async query => {
     });
   });
 };
+
+exports.attachment = () => {
+  return "Success";
+};

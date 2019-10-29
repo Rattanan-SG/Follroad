@@ -34,3 +34,8 @@ exports.createPresignedPost = asyncWrapper(async (req, res) => {
   const result = await s3.createPresignedPost(req.query);
   res.send(result);
 });
+
+exports.attachment = asyncWrapper(async (req, res) => {
+  const result = await s3.attachment();
+  res.send(result);
+});

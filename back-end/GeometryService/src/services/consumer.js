@@ -39,9 +39,13 @@ exports.handleBatchCheckNewEvents = async messages => {
     //   event: title.StringValue,
     //   relatedRecords
     // });
+    let relatedRecordName = [];
     const listUidToSendNotification = relatedRecords
       .filter(item => item.result)
-      .map(key => key.uid);
+      .map(key => {
+        relatedRecordName.push(key.name);
+        return key.uid;
+      });
     if (listUidToSendNotification.length > 0) {
       notificationApi.sendToSpecificUser({
         message: {
@@ -55,7 +59,7 @@ exports.handleBatchCheckNewEvents = async messages => {
       event: title.StringValue,
       latitude: latitude.StringValue,
       longitude: longitude.StringValue,
-      related: listUidToSendNotification
+      relatedRecordName
     });
   });
   logInfo("Handle Message Batch Check Events", {
