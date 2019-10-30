@@ -13,7 +13,7 @@
       <div v-if="!!specificEvents.length" class="px-2">
         <v-list two-line>
           <template v-for="(event, index) in specificEvents">
-            <HomeFeedItem :key="index" :event="event"></HomeFeedItem>
+            <HomeFeedItem :key="index" :event="event" @toggle-info-window="dialog = false"></HomeFeedItem>
           </template>
         </v-list>
       </div>

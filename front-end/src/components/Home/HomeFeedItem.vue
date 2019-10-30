@@ -29,6 +29,7 @@ export default {
       if (this.$vuetify.breakpoint.xsOnly) {
         this.setRouterView(false);
       }
+      this.$emit("toggle-info-window");
     },
     getIcon: function() {
       return eventConstant.selectIcon(this.event);

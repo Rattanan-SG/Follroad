@@ -3,6 +3,8 @@ var mongoose = require("mongoose");
 var isConnectedBefore = false;
 var connect = () =>
   mongoose.connect(global.gConfig.mongo_url, {
+    useFindAndModify: false,
+    useUnifiedTopology: true,
     useNewUrlParser: true,
     useCreateIndex: true
   });
