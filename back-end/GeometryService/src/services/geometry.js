@@ -1,4 +1,54 @@
 const geolib = require("geolib");
+const eventApi = require("../clients/event");
+const directionRecordApi = require("../clients/direction-record");
+
+exports.isLocationOnRoute = async body => {
+  const { latLng, route, toleranceInMeters } = body;
+  return checkLatLngAndRoute(latLng, route, toleranceInMeters);
+};
+
+exports.checkAllEventWithDirectionRecordById = async body => {
+  const { directionRecordId, routes, toleranceInMeters } = body;
+  const {
+    name,
+    direction,
+    notificationRoutes
+  } = await directionRecordApi.getRecordById(directionRecordId, {
+    fields: "name direction notificationRoutes"
+  });
+  const events = await eventApi.getEvent({
+    fields: "id title latitude longitude"
+  });
+
+  let relatedEvents;
+  if (!routes) {
+    relatedEvents = events.map(({ id, title, latitude, longitude }) => {
+      const eventLatLng = {
+        latitude: Number(latitude),
+        longitude: Number(longitude)
+      };
+      const result = this.checkEventIsRelatedToThisRoutes(
+        eventLatLng,
+        direction.routes,
+        notificationRoutes,
+        toleranceInMeters
+      );
+      return {
+        id,
+        title,
+        result
+      };
+    });
+  }
+  const filterResult = relatedEvents.filter(item => item.result);
+  return {
+    directionRecordId,
+    directionRecordName: name,
+    directionRecordRoutes: notificationRoutes,
+    toleranceInMeters,
+    relatedEvent: filterResult
+  };
+};
 
 exports.checkEventIsRelatedToThisRoutes = (
   eventLatLng,
@@ -13,11 +63,6 @@ exports.checkEventIsRelatedToThisRoutes = (
     )
   );
   return result;
-};
-
-exports.isLocationOnRoute = async body => {
-  const { latLng, route, toleranceInMeters } = body;
-  return checkLatLngAndRoute(latLng, route, toleranceInMeters);
 };
 
 const checkDistanceIsWithinMeters = (start, end, toleranceInMeters = 100) => {
