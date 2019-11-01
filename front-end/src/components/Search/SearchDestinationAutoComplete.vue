@@ -51,11 +51,6 @@ export default {
     searchPlace(value) {
       if (value) this.syncDestinationPlace();
       else this.$refs.destinationAutoComplete.$el.value = null;
-    },
-    destinationLocation(value) {
-      if (!value) {
-        this.$refs.destinationAutoComplete.$el.value = null;
-      }
     }
   },
   methods: {

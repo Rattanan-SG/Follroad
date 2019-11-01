@@ -190,6 +190,8 @@ export default {
           this.searchPlace.geometry.location
         );
         this.goToThisPage("/search");
+      }else{
+        this.setRouterView(true);
       }
     },
     goToThisPage: function(path) {

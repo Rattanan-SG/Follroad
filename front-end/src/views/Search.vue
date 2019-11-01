@@ -1,8 +1,8 @@
 <template>
   <div>
     <CloseViewToolBar title="เดินทาง" />
-    <SearchStartAutoComplete :historyMode="historyMode" />
-    <SearchDestinationAutoComplete :historyMode="historyMode" />
+    <SearchStartAutoComplete ref="startAutoComplete" :historyMode="historyMode" />
+    <SearchDestinationAutoComplete ref="destinationAutoComplete" :historyMode="historyMode" />
     <v-layout row wrap my-3 justify-center>
       <SearchSaveRouteDialog
         v-if="directionsResponse"
@@ -26,6 +26,14 @@
         <v-icon class="ml-2">close</v-icon>
       </v-btn>
     </v-layout>
+    <v-alert
+      :value="warning"
+      outline
+      color="warning"
+      icon="priority_high"
+      class="mx-3"
+    >กรุณากรอกจุดเริ่มต้นและจุดหมาย เพื่อค้นหาเส้นทาง</v-alert>
+
     <v-layout row wrap v-if="directionsResponse">
       <v-flex xs12 sm12 md12 lg12 xl12>
         <div class="subheading px-3 pb-3 blue--text text--darken-3">
@@ -56,7 +64,8 @@ export default {
   name: "Search",
   data() {
     return {
-      loading: false
+      loading: false,
+      warning: false
     };
   },
   components: {
@@ -78,12 +87,12 @@ export default {
   },
   methods: {
     ...mapActions("search", ["setSearchPlace"]),
-    ...mapActions("direction", ["setStartLocation", "setDestinationLocation"]),
     ...mapActions("route", ["setRouterView"]),
     ...mapActions("directionRecord", ["setHistoryMode"]),
 
     startDirections: function() {
       if (this.startLocation && this.destinationLocation) {
+        this.warning = false;
         eventBus.startDirections(
           this.startLocation.location,
           this.destinationLocation.location
@@ -91,6 +100,8 @@ export default {
         this.$vuetify.breakpoint.xsOnly
           ? this.setRouterView(false)
           : this.setRouterView(true);
+      } else {
+        this.warning = true;
       }
     },
     stopDirections: function() {
@@ -99,8 +110,8 @@ export default {
         this.setHistoryMode(null);
       }
       this.setSearchPlace(null);
-      this.setStartLocation(null);
-      this.setDestinationLocation(null);
+      this.$refs.startAutoComplete.setStartToMyLocation();
+      this.$refs.destinationAutoComplete.resetDestinationPlace();
       eventBus.stopDirections();
     }
   }

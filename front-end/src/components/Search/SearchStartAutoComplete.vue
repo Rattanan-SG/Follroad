@@ -83,6 +83,8 @@ export default {
         this.isMyLocationActive = true;
         this.$refs.startAutoComplete.$el.value = this.myLocation.name;
         this.setStartLocation(this.myLocation);
+      } else {
+        this.resetStartLocation();
       }
     },
     setStartPlace: function(place) {
