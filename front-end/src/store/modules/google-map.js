@@ -57,10 +57,10 @@ const actions = {
           async position => {
             let lat = parseFloat(position.coords.latitude);
             let lng = parseFloat(position.coords.longitude);
-            dispatch("setCenter", { lat: lat, lng: lng });
+            dispatch("setCenter", { lat, lng });
             commit("SET_MY_LOCATION", {
               name: "ตำแหน่งปัจจุบัน",
-              location: { lat: lat, lng: lng }
+              location: { lat, lng }
             });
             resolve();
           },
@@ -93,7 +93,7 @@ const actions = {
             let lng = parseFloat(position.coords.longitude);
             commit("SET_MY_LOCATION", {
               name: "ตำแหน่งปัจจุบัน",
-              location: { lat: lat, lng: lng }
+              location: { lat, lng }
             });
             resolve();
           },

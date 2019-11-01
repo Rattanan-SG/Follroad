@@ -38,6 +38,7 @@
         <LikeDislikeControl :key="event.id" :eventId="event.id" />
       </v-flex>
       <v-flex shrink pr-3>
+        <GoToEventButton :latitude="event.latitude" :longitude="event.longitude" />
         <v-btn flat icon color="grey" :loading="loading" @click="toggleCommentControl">
           <v-icon>comment</v-icon>
         </v-btn>
@@ -63,6 +64,7 @@ import eventApi from "@/api/event";
 import eventConstant from "@/utilitys/eventConstant";
 import LikeDislikeControl from "../Feedback/LikeDislikeControl";
 import CommentControl from "../Feedback/CommentControl";
+import GoToEventButton from "../Details/GoToEventButton";
 export default {
   name: "NewsFeedItem",
   props: {
@@ -72,7 +74,8 @@ export default {
   },
   components: {
     LikeDislikeControl,
-    CommentControl
+    CommentControl,
+    GoToEventButton
   },
   data() {
     return {

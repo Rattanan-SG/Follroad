@@ -35,6 +35,7 @@
           <LikeDislikeControl :key="event.id" :eventId="event.id" />
         </v-flex>
         <v-flex shrink pr-2>
+          <GoToEventButton :latitude="event.latitude" :longitude="event.longitude" />
           <v-btn flat icon color="grey" @click="show = !show">
             <v-icon>comment</v-icon>
           </v-btn>
@@ -63,12 +64,14 @@ import eventConstant from "@/utilitys/eventConstant";
 import LoadingCircular from "../Feedback/LoadingCircular";
 import LikeDislikeControl from "../Feedback/LikeDislikeControl";
 import CommentControl from "../Feedback/CommentControl";
+import GoToEventButton from "./GoToEventButton";
 export default {
   name: "DescriptionEvent",
   components: {
     LoadingCircular,
     LikeDislikeControl,
-    CommentControl
+    CommentControl,
+    GoToEventButton
   },
   data() {
     return {
