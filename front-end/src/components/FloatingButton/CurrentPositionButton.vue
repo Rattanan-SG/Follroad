@@ -6,6 +6,7 @@
     color="blue"
     class="currentPositionButton"
     @click="resetCenterToMyLocation()"
+    id="currentPositionbtn"
   >
     <v-icon>gps_fixed</v-icon>
   </v-btn>

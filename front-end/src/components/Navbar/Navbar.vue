@@ -70,10 +70,10 @@
       <v-spacer></v-spacer>
 
       <template v-if="!showSearchInput || this.$vuetify.breakpoint.smAndUp">
-        <v-btn icon @click="showSearchInput=true" class="hidden-sm-and-up">
+        <v-btn icon @click="showSearchInput=true" class="hidden-sm-and-up" id="searchbtn">
           <v-icon>search</v-icon>
         </v-btn>
-        <v-btn v-if="installBtn" icon @click="installer()">
+        <v-btn v-if="installBtn" icon @click="installer()" id="installbtn">
           <v-icon>system_update</v-icon>
         </v-btn>
         <v-btn v-if="!isAuthenticated" outline @click.prevent="login" :loading="loginLoading">Log in</v-btn>
