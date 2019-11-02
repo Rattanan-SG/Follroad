@@ -5,9 +5,10 @@
       fab
       small
       class="enablePostEventButton"
+      id="enablePostEventbtn"
+      aria-label="enablePostEventbtn"
       :color="activePostEvent ? 'red' : 'green'"
       @click="toggleActivePostEvent"
-      id="enablePostEventbtn"
     >
       <v-icon>add_comment</v-icon>
     </v-btn>

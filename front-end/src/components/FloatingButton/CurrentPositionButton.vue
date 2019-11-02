@@ -3,10 +3,11 @@
     dark
     fab
     small
-    color="blue"
     class="currentPositionButton"
-    @click="resetCenterToMyLocation()"
     id="currentPositionbtn"
+    aria-label="currentPositionbtn"
+    color="blue"
+    @click="resetCenterToMyLocation()"
   >
     <v-icon>gps_fixed</v-icon>
   </v-btn>
