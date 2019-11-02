@@ -19,7 +19,6 @@ const HomeFeedList = () => import("@/components/Home/HomeFeedList");
 const HomeFilterEventCategory = () =>
   import("@/components/Home/HomeFilterEventCategory");
 const HomeRefreshButton = () => import("@/components/Home/HomeRefreshButton");
-// const HomeSearchEvent = () => import("@/components/Home/HomeSearchEvent");
 export default {
   name: "Home",
   components: {
@@ -27,7 +26,6 @@ export default {
     HomeFeedList,
     HomeFilterEventCategory,
     HomeRefreshButton
-    // HomeSearchEvent
   }
 };
 </script>

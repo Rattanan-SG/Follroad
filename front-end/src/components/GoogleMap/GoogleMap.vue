@@ -18,17 +18,21 @@
 import { mapGetters, mapActions } from "vuex";
 import { eventBus } from "@/main";
 import { gmapApi } from "vue2-google-maps";
-import GmapCluster from "vue2-google-maps/dist/components/cluster";
-import checkPermission from "@/utilitys/checkPermission";
-import GoogleMapInfoWindow from "./GoogleMapInfoWindow";
-import MarkerEvent from "./MarkerEvent";
-import MarkerMyLocation from "./MarkerMyLocation";
-import MarkerPostEvent from "./MarkerPostEvent";
-import MarkerSearchPlace from "./MarkerSearchPlace";
-import CurrentPositionButton from "@/components/FloatingButton/CurrentPositionButton";
-import EnablePostEventButton from "@/components/FloatingButton/EnablePostEventButton";
-import ToggleRecommendRoute from "@/components/FloatingButton/ToggleRecommendRoute";
-import ToggleSpecificEvent from "@/components/FloatingButton/ToggleSpecificEvent";
+const GmapCluster = () => import("vue2-google-maps/dist/components/cluster");
+const checkPermission = () => import("@/utilitys/checkPermission");
+const GoogleMapInfoWindow = () => import("./GoogleMapInfoWindow");
+const MarkerEvent = () => import("./MarkerEvent");
+const MarkerMyLocation = () => import("./MarkerMyLocation");
+const MarkerPostEvent = () => import("./MarkerPostEvent");
+const MarkerSearchPlace = () => import("./MarkerSearchPlace");
+const CurrentPositionButton = () =>
+  import("@/components/FloatingButton/CurrentPositionButton");
+const EnablePostEventButton = () =>
+  import("@/components/FloatingButton/EnablePostEventButton");
+const ToggleRecommendRoute = () =>
+  import("@/components/FloatingButton/ToggleRecommendRoute");
+const ToggleSpecificEvent = () =>
+  import("@/components/FloatingButton/ToggleSpecificEvent");
 export default {
   name: "GoogleMap",
   components: {
