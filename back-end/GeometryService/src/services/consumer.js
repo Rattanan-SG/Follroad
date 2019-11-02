@@ -6,7 +6,7 @@ const { logInfo, logDebug } = require("../utils/logger");
 
 exports.handleBatchCheckNewEvents = async messages => {
   const records = await directionRecordApi.getRecordThatReceiveNotification({
-    fields: "id uid name direction notificationRoutes"
+    fields: "id uid name notificationRoutes"
   });
   let trueCount = 0,
     faultCount = 0,
@@ -18,7 +18,13 @@ exports.handleBatchCheckNewEvents = async messages => {
       longitude: Number(longitude.StringValue)
     };
     const relatedRecords = records.map(
-      ({ _id, uid, name, direction, notificationRoutes }) => {
+      ({ _id, uid, name, notificationRoutes }) => {
+        const { direction } = await directionRecordApi.getRecordById(
+          _id,
+          {
+            fields: "direction"
+          }
+        );
         const result = geometryService.checkEventIsRelatedToThisRoutes(
           eventLatLng,
           direction.routes,
