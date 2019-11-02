@@ -439,10 +439,16 @@ export default {
       return date.toISOString();
     },
     timeMustMoreThanNowFiveMinutes: function(value) {
-      if (typeof value === "string") {
+      let now = new Date();
+      const date =
+        typeof this.onetimeDate === "string"
+          ? new Date(this.onetimeDate).getDate()
+          : new Date().getDate();
+      if (date > now.getDate()) {
+        return true;
+      } else if (typeof value === "string") {
         const hours = Number(value.match(/^(\d+)/)[1]);
         const minutes = Number(value.match(/:(\d+)/)[1]);
-        const now = new Date();
         const nowHours = now.getHours();
         const nowMinutes = now.getMinutes();
         return (
