@@ -6,11 +6,11 @@ workbox.clientsClaim();
 
 self.addEventListener("push", event => {
   console.log("[Service Worker] Push Received.");
-  const data = event.data ? event.data.json() : "no payload";
-  const title = data.title ? data.title : "Follroad";
-  const body = data.body ? data.body : data;
+  const payload = event.data ? event.data.json() : "no payload";
+  const { title = "Follroad", body = payload, data } = payload;
   const options = {
     body,
+    data,
     icon: "img/icons/icon-512x512.png",
     badge: "img/icons/icon-128x128.png"
   };
@@ -19,8 +19,13 @@ self.addEventListener("push", event => {
 
 self.addEventListener("notificationclick", event => {
   console.log("[Service Worker] Notification click Received.");
+  const { eventId } = event.notification.data;
   event.notification.close();
-  event.waitUntil(clients.openWindow("https://follroad.netlify.com"));
+  if (eventId) {
+    event.waitUntil(
+      clients.openWindow(`https://follroad.netlify.com/details/${eventId}`)
+    );
+  } else event.waitUntil(clients.openWindow("https://follroad.netlify.com"));
 });
 
 self.addEventListener("pushsubscriptionchange", event => {

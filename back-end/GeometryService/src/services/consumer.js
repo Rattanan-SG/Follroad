@@ -12,7 +12,7 @@ exports.handleBatchCheckNewEvents = async messages => {
     faultCount = 0,
     summary = [];
   messages.forEach(({ MessageAttributes: event }) => {
-    const { title, description, latitude, longitude } = event;
+    const { id, title, description, latitude, longitude } = event;
     const eventLatLng = {
       latitude: Number(latitude.StringValue),
       longitude: Number(longitude.StringValue)
@@ -50,13 +50,15 @@ exports.handleBatchCheckNewEvents = async messages => {
       notificationApi.sendToSpecificUser({
         message: {
           title: title.StringValue,
-          body: description.StringValue
+          body: description.StringValue,
+          data: { eventId: Number(id.StringValue) }
         },
         uid: listUidToSendNotification
       });
     }
     summary.push({
-      event: title.StringValue,
+      id: Number(id.StringValue),
+      title: title.StringValue,
       latitude: latitude.StringValue,
       longitude: longitude.StringValue,
       relatedRecordName
