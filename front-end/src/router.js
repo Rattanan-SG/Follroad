@@ -19,7 +19,8 @@ const router = new Router({
       path: "/details/:eventId",
       name: "details",
       component: () =>
-        import(/* webpackChunkName: "details" */ "./views/Details.vue")
+        import(/* webpackChunkName: "details" */ "./views/Details.vue"),
+      meta: { initRouterView: true }
     },
     {
       path: "/search",

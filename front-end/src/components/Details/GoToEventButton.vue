@@ -13,9 +13,13 @@ export default {
     longitude: Number
   },
   methods: {
+    ...mapActions("route", ["setRouterView"]),
     ...mapActions("googleMap", ["setCenter", "setZoomLevel"]),
 
     goToEventMarker: function() {
+      this.$vuetify.breakpoint.xsOnly
+        ? this.setRouterView(false)
+        : this.setRouterView(true);
       this.setCenter({ lat: this.latitude, lng: this.longitude });
       this.setZoomLevel(15);
     }

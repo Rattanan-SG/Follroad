@@ -84,15 +84,13 @@ export default {
     ...mapGetters("route", ["routerView"])
   },
   async created() {
-    this.$vuetify.breakpoint.xsOnly
-      ? this.setRouterView(false)
-      : this.setRouterView(true);
     this.fetchEvents();
     try {
       await this.$auth.renewTokens();
     } catch (e) {
       this.fetchFeedbackSummary();
     }
+    this.initRouterView();
   },
   methods: {
     ...mapActions("route", ["setRouterView"]),
@@ -103,6 +101,15 @@ export default {
       if (this.$auth.isAuthenticated()) {
         const { sub: uid } = this.$auth.profile;
         await this.fetchFeedbackSummary(uid);
+      }
+    },
+    initRouterView() {
+      if (this.$route.meta.initRouterView) {
+        this.setRouterView(true);
+      } else {
+        this.$vuetify.breakpoint.xsOnly
+          ? this.setRouterView(false)
+          : this.setRouterView(true);
       }
     }
   },
