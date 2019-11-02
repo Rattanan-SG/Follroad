@@ -2,37 +2,34 @@ const geometryService = require("./geometry");
 const eventApi = require("../clients/event");
 const notificationApi = require("../clients/notification");
 const directionRecordApi = require("../clients/direction-record");
-const { logInfo, logDebug } = require("../utils/logger");
+const { logInfo } = require("../utils/logger");
 
 exports.handleBatchCheckNewEvents = async messages => {
-  const records = await directionRecordApi.getRecordThatReceiveNotification({
+  let records = await directionRecordApi.getRecordThatReceiveNotification({
     fields: "id uid name notificationRoutes"
   });
-  let trueCount = 0,
-    faultCount = 0,
-    summary = [];
-  messages.forEach(({ MessageAttributes: event }) => {
+  records = await Promise.all(
+    records.map(async ({ _id, uid, name, notificationRoutes }) => {
+      const { direction } = await directionRecordApi.getRecordById(_id, {
+        fields: "direction"
+      });
+      return { _id, uid, name, notificationRoutes, direction };
+    })
+  );
+  messages.forEach(async ({ MessageAttributes: event }) => {
     const { id, title, description, latitude, longitude } = event;
     const eventLatLng = {
       latitude: Number(latitude.StringValue),
       longitude: Number(longitude.StringValue)
     };
     const relatedRecords = records.map(
-      ({ _id, uid, name, notificationRoutes }) => {
-        const { direction } = await directionRecordApi.getRecordById(
-          _id,
-          {
-            fields: "direction"
-          }
-        );
+      ({ _id, uid, name, direction, notificationRoutes }) => {
         const result = geometryService.checkEventIsRelatedToThisRoutes(
           eventLatLng,
           direction.routes,
           notificationRoutes,
           200
         );
-        if (result) trueCount++;
-        else faultCount++;
         return {
           _id,
           uid,
@@ -41,16 +38,12 @@ exports.handleBatchCheckNewEvents = async messages => {
         };
       }
     );
-    // logDebug("Check event is related with records", {
-    //   event: title.StringValue,
-    //   relatedRecords
-    // });
-    let relatedRecordName = [];
+    let relatedDirectionRecord = [];
     const listUidToSendNotification = relatedRecords
       .filter(item => item.result)
-      .map(key => {
-        relatedRecordName.push(key.name);
-        return key.uid;
+      .map(({ _id, uid, name }) => {
+        relatedDirectionRecord.push({ _id, name });
+        return uid;
       });
     if (listUidToSendNotification.length > 0) {
       notificationApi.sendToSpecificUser({
@@ -62,20 +55,15 @@ exports.handleBatchCheckNewEvents = async messages => {
         uid: listUidToSendNotification
       });
     }
-    summary.push({
+    logInfo("Handle Message Batch Check New Event", {
       id: Number(id.StringValue),
       title: title.StringValue,
       latitude: latitude.StringValue,
       longitude: longitude.StringValue,
-      relatedRecordName
+      relatedDirectionRecord
     });
   });
-  logInfo("Handle Message Batch Check Events", {
-    trueCount,
-    faultCount,
-    summary
-  });
-  return summary;
+  return;
 };
 
 exports.handleBatchCheckDirectionRecord = async messages => {
@@ -107,10 +95,6 @@ exports.handleBatchCheckDirectionRecord = async messages => {
         result
       };
     });
-    // logDebug("Check records have related event", {
-    //   directionRecord: name.StringValue,
-    //   relatedEvents
-    // });
     const filterResult = relatedEvents.filter(item => item.result);
     notificationApi.sendToSpecificUser({
       message: {

@@ -144,7 +144,7 @@ exports.syncIticEvent = async () => {
       ]
     });
     logInfo("Update event complete", { affectedRows: result.length });
-    sendEventToMessageQueue(dataList);
+    sendEventToMessageQueue(result);
     io.getIO().emit("event", { action: "sync", event: result.length });
     return result;
   } else {
