@@ -39,7 +39,7 @@
       </v-card-text>
       <v-card-text class="px-0">
         <div class="body-1 red--text">เกิดขึ้น ณ {{marker.startTime | luxon:locale('short')}}</div>
-        <div class="body-1 red--text">จะสิ้นสุดใน {{marker.stopTime | luxon:locale('short')}}</div>
+        <div class="body-1 red--text">สิ้นสุดใน {{marker.stopTime | luxon:locale('short')}}</div>
       </v-card-text>
       <v-card-actions class="px-0">
         <LikeDislikeControl :key="marker.id" :eventId="marker.id" />
