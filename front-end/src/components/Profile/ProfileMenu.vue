@@ -69,9 +69,6 @@ export default {
     }
   },
   methods: {
-    logout() {
-      this.$auth.logout();
-    },
     handleSubscribe() {
       this.notificationDisabled = true;
       if (this.isSubscribed) {
@@ -129,6 +126,12 @@ export default {
       } catch (err) {
         console.warn("Failed to unsubscribe");
       }
+    },
+    logout() {
+      this.unsubscribeUser();
+      this.$auth.logout({
+        returnTo: window.location.origin
+      });
     }
   }
 };
