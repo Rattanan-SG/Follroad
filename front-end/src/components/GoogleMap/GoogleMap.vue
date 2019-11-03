@@ -18,8 +18,8 @@
 import { mapGetters, mapActions } from "vuex";
 import { eventBus } from "@/main";
 import { gmapApi } from "vue2-google-maps";
+import checkPermission from "@/utilitys/checkPermission";
 const GmapCluster = () => import("vue2-google-maps/dist/components/cluster");
-const checkPermission = () => import("@/utilitys/checkPermission");
 const GoogleMapInfoWindow = () => import("./GoogleMapInfoWindow");
 const MarkerEvent = () => import("./MarkerEvent");
 const MarkerMyLocation = () => import("./MarkerMyLocation");
