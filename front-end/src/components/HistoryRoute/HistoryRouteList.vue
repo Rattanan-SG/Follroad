@@ -1,23 +1,13 @@
 <template>
   <div>
     <LoadingCircular :loading="loading" />
-    <!-- ต้นฉบับ จะแสดงเมื่อ user เคยมีบันทึกเส้นทางไว้ -->
     <v-list v-if="!loading && !!directionRecords.length" three-line>
       <template v-for="(record, index) in directionRecords">
         <v-list-tile class="mt-1" :key="index" avatar ripple @click="startHistoryRoute(record._id)">
-          <!-- <v-flex xs1 md1 lg1 sm1 class="hidden-sm-only">
-            <v-card-actions>
-              <v-btn flat icon color="red lighten-1">
-                <v-icon size="35px">place</v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-flex>-->
           <v-flex xs11 md10 lg10 sm10>
             <v-list-tile-content>
               <v-list-tile-title class="font-weight-black">
-                <!-- <v-btn flat icon color="red lighten-1"> -->
                 <v-icon size="20px" color="red">place</v-icon>
-                <!-- </v-btn> -->
                 {{ record.name }}
               </v-list-tile-title>
               <v-list-tile-sub-title class="caption black--text">
@@ -30,21 +20,16 @@
               >แก้ไขล่าสุด {{ record.updatedAt | luxon:locale('shortS') }}</v-list-tile-title>
             </v-list-tile-content>
           </v-flex>
-
           <v-flex xs1 md1 lg1 sm1>
-            <!-- <v-card-actions> -->
             <v-btn flat icon color="grey" @click.stop="deleteHistoryRoute(record._id)">
               <v-icon size="30px">delete</v-icon>
             </v-btn>
-            <!-- </v-card-actions> -->
           </v-flex>
         </v-list-tile>
-
         <v-divider :key="`d${index}`"></v-divider>
       </template>
     </v-list>
 
-    <!-- ตรงนี้จะแสดงเมื่อ user ไม่มีเส้นทางที่บันทึก -->
     <div v-if="!loading && !directionRecords.length">
       <v-flex xs12 lg12 md12 pa-2>
         <v-card class="mx-auto" color="#26c6da" dark flat>

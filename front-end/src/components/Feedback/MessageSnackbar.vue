@@ -29,8 +29,4 @@ export default {
   }
 };
 </script>
-<style scoped>
-/* .v-snack--top {
-  top: 8%;
-} */
-</style>
+<style scoped></style>

@@ -22,18 +22,13 @@
             <v-img :src="marker.icon" max-width="25" max-height="25"></v-img>
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title class="blue--text">{{marker.title}}</v-list-tile-title>
-            <v-list-tile-sub-title>โดย {{marker.contributor}}</v-list-tile-sub-title>
+            <v-list-tile-title class="blue--text">{{marker.title }}</v-list-tile-title>
+            <v-list-tile-sub-title>โดย {{ marker.contributor }}</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-      <!---------ใส่รูปเวลามีคนเพิ่มรูปเข้ามา---------->
-      <!-- <v-carousel hide-delimiters width="50%" height="50%">
-        <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src"></v-carousel-item>
-      </v-carousel>-->
-      <!--------------------------------------->
       <v-card-text class="pa-1">
-        <div class="body-2">{{marker.description}}</div>
+        <div class="body-2">{{ marker.description }}</div>
         <br />
         <v-divider></v-divider>
       </v-card-text>
@@ -44,7 +39,12 @@
       <v-card-actions class="px-0">
         <LikeDislikeControl :key="marker.id" :eventId="marker.id" />
         <v-spacer></v-spacer>
-        <v-btn outline color="blue" :to="{path: `/details/${marker.id}`}" @click="setRouterView(true)">ดูเพิ่มเติม</v-btn>
+        <v-btn
+          outline
+          color="blue"
+          :to="{ path: `/details/${marker.id}` }"
+          @click="setRouterView(true)"
+        >ดูเพิ่มเติม</v-btn>
       </v-card-actions>
     </v-card>
   </div>
@@ -55,18 +55,6 @@ import { mapActions } from "vuex";
 import LikeDislikeControl from "../Feedback/LikeDislikeControl";
 export default {
   name: "InfoWindowEvent",
-  data() {
-    return {
-      items: [
-        {
-          src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg"
-        },
-        {
-          src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg"
-        }
-      ]
-    };
-  },
   components: {
     LikeDislikeControl
   },

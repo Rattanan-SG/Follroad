@@ -4,14 +4,10 @@
       <v-card>
         <v-toolbar color="orange darken-4" dark flat>
           <v-icon>info</v-icon>
-          <v-toolbar-title>{{confirmDialogOption.text}}</v-toolbar-title>
+          <v-toolbar-title>{{ confirmDialogOption.text }}</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
-        <v-card-text>
-          <!-- <v-icon color="blue">info</v-icon> -->
-          คุณต้องการ{{confirmDialogOption.text}}ใช่หรือไม่ ?
-        </v-card-text>
-        <!-- <v-divider></v-divider> -->
+        <v-card-text>คุณต้องการ{{ confirmDialogOption.text }}ใช่หรือไม่ ?</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="red" flat @click="confirmDialog = false">ยกเลิก</v-btn>

@@ -3,15 +3,7 @@
     <Navbar />
     <v-content>
       <v-layout row wrap fill-height>
-        <v-flex
-          v-if="routerView"
-          lg3
-          md4
-          sm5
-          xs12
-          style="z-index: 2"
-          fill-height
-        >
+        <v-flex v-if="routerView" lg3 md4 sm5 xs12 style="z-index: 2" fill-height>
           <v-card flat tile height="100%">
             <router-view></router-view>
           </v-card>

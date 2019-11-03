@@ -137,27 +137,9 @@ export default {
           destination: stopLocation,
           travelMode: "DRIVING",
           provideRouteAlternatives: true
-          // drivingOptions: {
-          //   departureTime: new Date()
-          // }
         },
         async (response, status) => {
           if (status === "OK") {
-            // console.log(response);
-            // console.log(JSON.stringify(response));
-            // const { data } = await axios.get(
-            //   `${process.env.VUE_APP_DIRECTION_RECORD_URL}/record/5d5d295cd6927600422718d1`
-            // );
-            // console.log(data.direction);
-
-            // console.log(
-            //   response.routes[0].overview_path.map(a => {
-            //     return a.lat() + ", " + a.lng();
-            //   })
-            // );
-            // this.path = this.google.maps.geometry.encoding.decodePath(
-            //   response.routes[0].overview_polyline
-            // );
             this.setDirectionsResponse(response);
             this.startDirectionsRenderer();
             this.isDirections = true;

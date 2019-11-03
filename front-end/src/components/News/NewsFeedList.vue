@@ -1,10 +1,7 @@
 <template>
   <v-list class="pa-0">
     <template v-for="(event, index) in eventList">
-      <NewsFeedItem
-        :key="index"
-        :initEvent="event"
-      ></NewsFeedItem>
+      <NewsFeedItem :key="index" :initEvent="event"></NewsFeedItem>
       <v-divider :key="'divider'+index"></v-divider>
     </template>
     <infinite-loading spinner="spiral" :identifier="infiniteId" @infinite="getEvents"></infinite-loading>
@@ -47,7 +44,7 @@ export default {
       } else {
         if ($state) $state.complete();
       }
-    },
+    }
   }
 };
 </script>

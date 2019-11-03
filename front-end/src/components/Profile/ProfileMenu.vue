@@ -15,12 +15,7 @@
       </v-flex>
 
       <v-flex xs12 lg12 md12>
-        <v-list-tile
-          avatar
-          ripple
-          :disabled="notificationDisabled"
-          @click="handleSubscribe"
-        >
+        <v-list-tile avatar ripple :disabled="notificationDisabled" @click="handleSubscribe">
           <v-list-tile-avatar>
             <v-icon size="25px" class="blue white--text">settings</v-icon>
           </v-list-tile-avatar>
@@ -138,4 +133,3 @@ export default {
   }
 };
 </script>
-<style scoped></style>

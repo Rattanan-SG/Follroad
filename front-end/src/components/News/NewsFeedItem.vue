@@ -47,10 +47,7 @@
 
       <v-slide-y-transition>
         <v-card-text v-show="show" class="pt-0">
-          <CommentControl
-            v-model="event.comments"
-            :eventId="event.id"
-          />
+          <CommentControl v-model="event.comments" :eventId="event.id" />
         </v-card-text>
       </v-slide-y-transition>
     </v-layout>
@@ -66,7 +63,7 @@ import GoToEventButton from "../Details/GoToEventButton";
 export default {
   name: "NewsFeedItem",
   props: {
-    initEvent: Object,
+    initEvent: Object
   },
   components: {
     LikeDislikeControl,

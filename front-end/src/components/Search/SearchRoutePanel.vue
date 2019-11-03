@@ -47,13 +47,6 @@ export default {
         return element.tagName == "TD";
       });
       this.selectRoute(found.attributes[0].value);
-      // this.directionsRenderer.setOptions({
-      //   polylineOptions: { strokeColor: "#8b0013" }
-      // });
-      // if (this.$vuetify.breakpoint.xsOnly) {
-      //   this.setRouterView(false);
-      // }
-      // console.log(found.attributes[0].value);
     }
   },
   beforeDestroy() {

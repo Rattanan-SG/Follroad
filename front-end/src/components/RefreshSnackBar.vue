@@ -22,9 +22,7 @@ export default {
     };
   },
   created() {
-    // Listen for swUpdated event and display refresh snackbar as required.
     document.addEventListener("swUpdated", this.showRefreshUI, { once: true });
-    // Refresh all open app tabs when a new service worker is installed.
     navigator.serviceWorker.addEventListener("controllerchange", () => {
       if (this.refreshing) return;
       this.refreshing = true;
@@ -33,8 +31,6 @@ export default {
   },
   methods: {
     showRefreshUI(event) {
-      // Display a snackbar inviting the user to refresh/reload the app due
-      // Store the ServiceWorkerRegistration instance for later use.
       this.registration = event.detail;
       this.snackBtnText = "Refresh";
       this.snackWithBtnText = "New version available!";
@@ -42,7 +38,6 @@ export default {
     },
     refreshApp() {
       this.snackWithButtons = false;
-      // Protect against missing registration.waiting.
       if (!this.registration || !this.registration.waiting) {
         return;
       }

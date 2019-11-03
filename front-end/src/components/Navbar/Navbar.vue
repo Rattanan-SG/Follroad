@@ -82,7 +82,12 @@
         <v-btn v-if="installBtn" icon id="installbtn" aria-label="installbtn" @click="installer()">
           <v-icon>system_update</v-icon>
         </v-btn>
-        <v-btn v-if="!$auth.isAuthenticated" outline :loading="loginLoading" @click.prevent="login">Log in</v-btn>
+        <v-btn
+          v-if="!$auth.isAuthenticated"
+          outline
+          :loading="loginLoading"
+          @click.prevent="login"
+        >Log in</v-btn>
         <v-btn v-if="$auth.isAuthenticated" icon to="/profile" @click="setRouterView(true)">
           <v-avatar size="36px">
             <img :src="$auth.user.picture" alt="avatar" />

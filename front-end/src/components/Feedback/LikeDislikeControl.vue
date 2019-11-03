@@ -8,7 +8,7 @@
     >
       <v-icon>thumb_up</v-icon>
     </v-btn>
-    <span class="subheading mr-2">{{feedback.like}}</span>
+    <span class="subheading mr-2">{{ feedback.like }}</span>
     <v-btn
       flat
       icon
@@ -17,7 +17,7 @@
     >
       <v-icon>thumb_down</v-icon>
     </v-btn>
-    <span class="subheading mr-2">{{feedback.dislike}}</span>
+    <span class="subheading mr-2">{{ feedback.dislike }}</span>
   </div>
 </template>
 
