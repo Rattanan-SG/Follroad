@@ -50,7 +50,7 @@ export default {
       this.countLike = like;
       this.countDislike = dislike;
       this.active = react;
-      if (!this.$auth.isAuthenticated()) {
+      if (!this.$auth.isAuthenticated) {
         this.setLoginDialog(true);
       } else if (this.active === null) {
         value ? this.countLike++ : this.countDislike++;

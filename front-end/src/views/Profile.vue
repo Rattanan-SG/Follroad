@@ -18,7 +18,7 @@ export default {
   },
   data() {
     return {
-      profile: this.$auth.profile
+      profile: this.$auth.user
     };
   }
 };

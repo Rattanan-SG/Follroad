@@ -1,8 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
-import auth from "./auth/authService";
 import Home from "./views/Home.vue";
-import Callback from "./components/Callback";
+import { authGuard } from "./auth";
 
 Vue.use(Router);
 
@@ -38,7 +37,7 @@ const router = new Router({
       name: "profile",
       component: () =>
         import(/* webpackChunkName: "profile" */ "./views/Profile.vue"),
-      meta: { requiresAuth: true }
+      beforeEnter: authGuard
     },
     {
       path: "/historyroute",
@@ -47,26 +46,13 @@ const router = new Router({
         import(
           /* webpackChunkName: "historyroute" */ "./views/HistoryRoute.vue"
         ),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: "/callback",
-      name: "callback",
-      component: Callback
+      beforeEnter: authGuard
     },
     {
       path: "*",
       redirect: "/"
     }
   ]
-});
-
-router.beforeEach((to, from, next) => {
-  if (to.path === "/" || to.path === "/callback" || auth.isAuthenticated()) {
-    return next();
-  } else if (to.matched.some(record => record.meta.requiresAuth)) {
-    auth.login({ target: to.path });
-  } else next();
 });
 
 export default router;

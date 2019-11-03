@@ -15,11 +15,16 @@
       </v-flex>
 
       <v-flex xs12 lg12 md12>
-        <v-list-tile avatar ripple :disabled="notificationDisabled" @click="handleSubscribe">
+        <v-list-tile
+          avatar
+          ripple
+          :disabled="notificationDisabled"
+          @click="handleSubscribe"
+        >
           <v-list-tile-avatar>
             <v-icon size="25px" class="blue white--text">settings</v-icon>
           </v-list-tile-avatar>
-          <v-list-tile-content>{{notificationText}}</v-list-tile-content>
+          <v-list-tile-content>{{ notificationText }}</v-list-tile-content>
           <v-list-tile-action style="margin-right: -15px;">
             <v-switch :value="isSubscribed"></v-switch>
           </v-list-tile-action>
@@ -48,7 +53,6 @@ export default {
   name: "ProfileMenu",
   data() {
     return {
-      profile: this.$auth.profile,
       registration: null,
       notificationDisabled: true,
       notificationText: "อุปกรณ์ไม่รองรับการแจ้งเตือน",
@@ -71,7 +75,7 @@ export default {
   },
   methods: {
     logout() {
-      this.$auth.logOut();
+      this.$auth.logout();
     },
     handleSubscribe() {
       this.notificationDisabled = true;
@@ -92,7 +96,7 @@ export default {
       }
     },
     async syncSubscription(subscription) {
-      const uid = this.profile && this.profile.sub;
+      const { sub: uid } = this.$auth.user;
       const subscribe = subscription.toJSON();
       const body = { ...subscribe, uid };
       await notificationApi.putSubscription(body);
@@ -106,7 +110,7 @@ export default {
           userVisibleOnly: true,
           applicationServerKey: applicationServerKey
         });
-        const uid = this.profile && this.profile.sub;
+        const { sub: uid } = this.$auth.user;
         const subscribe = subscription.toJSON();
         const body = { ...subscribe, uid };
         await notificationApi.postSubscription(body);
@@ -134,5 +138,4 @@ export default {
   }
 };
 </script>
-<style scoped>
-</style>
+<style scoped></style>

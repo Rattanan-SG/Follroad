@@ -2,18 +2,30 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import { Auth0Plugin } from "./auth";
 import io from "socket.io-client";
 import VueSocketIOExt from "vue-socket.io-extended";
 import VueLuxon from "vue-luxon";
-import AuthPlugin from "./plugins/auth";
 import * as VueGoogleMaps from "vue2-google-maps";
 import "./plugins/vuetify";
 import "./registerServiceWorker";
 
+const socket = io(process.env.VUE_APP_SOCKET_URL);
+
 Vue.config.productionTip = false;
 
-const socket = io(process.env.VUE_APP_SOCKET_URL);
-Vue.use(AuthPlugin);
+Vue.use(Auth0Plugin, {
+  domain: process.env.VUE_APP_AUTH0_DOMAIN,
+  clientId: process.env.VUE_APP_AUTH0_CLIENTID,
+  audience: process.env.VUE_APP_AUTH0_AUDIENCE,
+  onRedirectCallback: appState => {
+    router.push(
+      appState && appState.targetUrl
+        ? appState.targetUrl
+        : window.location.pathname
+    );
+  }
+});
 Vue.use(VueSocketIOExt, socket, { store });
 Vue.use(VueLuxon, { clientZone: "Asia/Bangkok", localeLang: "th" });
 Vue.use(VueGoogleMaps, {

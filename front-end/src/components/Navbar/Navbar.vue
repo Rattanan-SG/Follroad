@@ -82,10 +82,10 @@
         <v-btn v-if="installBtn" icon id="installbtn" aria-label="installbtn" @click="installer()">
           <v-icon>system_update</v-icon>
         </v-btn>
-        <v-btn v-if="!isAuthenticated" outline @click.prevent="login" :loading="loginLoading">Log in</v-btn>
-        <v-btn v-if="isAuthenticated" icon to="/profile" @click="setRouterView(true)">
+        <v-btn v-if="!$auth.isAuthenticated" outline :loading="loginLoading" @click.prevent="login">Log in</v-btn>
+        <v-btn v-if="$auth.isAuthenticated" icon to="/profile" @click="setRouterView(true)">
           <v-avatar size="36px">
-            <img :src="profile.picture" alt="avatar" />
+            <img :src="$auth.user.picture" alt="avatar" />
           </v-avatar>
         </v-btn>
       </template>
@@ -118,8 +118,6 @@ export default {
       ],
       installBtn: false,
       installer: null,
-      isAuthenticated: false,
-      profile: this.$auth.profile,
       loginLoading: false,
       showSearchInput: false
     };
@@ -210,11 +208,7 @@ export default {
     },
     login() {
       this.loginLoading = true;
-      this.$auth.login();
-    },
-    handleLoginEvent(data) {
-      this.isAuthenticated = data.loggedIn;
-      this.profile = data.profile;
+      this.$auth.loginWithRedirect();
     }
   }
 };

@@ -4,8 +4,6 @@
       <NewsFeedItem
         :key="index"
         :initEvent="event"
-        :isAuthenticated="isAuthenticated"
-        :profile="profile"
       ></NewsFeedItem>
       <v-divider :key="'divider'+index"></v-divider>
     </template>
@@ -24,20 +22,12 @@ export default {
   },
   data() {
     return {
-      isAuthenticated: false,
-      profile: this.$auth.profile,
       eventList: [],
       limit: 10,
       startFrom: null,
       lastId: 0,
       infiniteId: new Date()
     };
-  },
-  created() {
-    if (this.$auth.isAuthenticated()) {
-      this.isAuthenticated = true;
-      this.profile = this.$auth.profile;
-    }
   },
   methods: {
     getEvents: async function($state) {
@@ -58,10 +48,6 @@ export default {
         if ($state) $state.complete();
       }
     },
-    handleLoginEvent(data) {
-      this.isAuthenticated = data.loggedIn;
-      this.profile = data.profile;
-    }
   }
 };
 </script>

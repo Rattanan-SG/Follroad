@@ -178,7 +178,7 @@ export default {
     ...mapActions("globalFeedback", ["setLoginDialog", "openMessageSnackbar"]),
 
     openDialog: function() {
-      if (!this.$auth.isAuthenticated()) {
+      if (!this.$auth.isAuthenticated) {
         this.setLoginDialog(true);
       } else {
         this.dialog = true;
@@ -189,7 +189,7 @@ export default {
       this.dialog = false;
     },
     submit: async function() {
-      if (!this.$auth.isAuthenticated()) {
+      if (!this.$auth.isAuthenticated) {
         this.setLoginDialog(true);
       } else if (this.$refs.form.validate()) {
         this.loading = true;
@@ -229,7 +229,7 @@ export default {
       this.closeInfoWindow();
     },
     getEventData: function() {
-      const { name, sub } = this.$auth.profile;
+      const { name, sub } = this.$auth.user;
       const { lat: latitude, lng: longitude } = this.marker.position;
       const { value: icon, type } = eventConstant.EVENT_CATEGORY_OBJECT.find(
         element => element.value === this.eventType

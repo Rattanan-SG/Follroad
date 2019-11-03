@@ -4,7 +4,7 @@
     <v-content>
       <v-layout row wrap fill-height>
         <v-flex
-          v-if="routerView || this.$route.path == '/callback'"
+          v-if="routerView"
           lg3
           md4
           sm5
@@ -80,43 +80,38 @@ export default {
     ConfirmDialog,
     MessageSnackbar
   },
-  computed: {
-    ...mapGetters("route", ["routerView"])
-  },
   async created() {
     this.fetchEvents();
-    try {
-      await this.$auth.renewTokens();
-    } catch (e) {
-      this.fetchFeedbackSummary();
+    this.$vuetify.breakpoint.xsOnly
+      ? this.setRouterView(false)
+      : this.setRouterView(true);
+  },
+  watch: {
+    async "$auth.user"(value) {
+      if (value) {
+        const { sub: uid } = value;
+        await this.fetchFeedbackSummary(uid);
+      } else {
+        this.fetchFeedbackSummary();
+      }
+    },
+    $route(value) {
+      if (value.meta.initRouterView) {
+        this.setRouterView(true);
+      }
     }
-    this.initRouterView();
+  },
+  computed: {
+    ...mapGetters("route", ["routerView"])
   },
   methods: {
     ...mapActions("route", ["setRouterView"]),
     ...mapActions("event", ["fetchEvents"]),
     ...mapActions("feedback", ["fetchFeedbackSummary"]),
-    ...mapActions("googleMap", ["stopWatchMyLocation"]),
-    async handleLoginEvent() {
-      if (this.$auth.isAuthenticated()) {
-        const { sub: uid } = this.$auth.profile;
-        await this.fetchFeedbackSummary(uid);
-      }
-    },
-    initRouterView() {
-      if (this.$route.meta.initRouterView) {
-        this.setRouterView(true);
-      } else {
-        this.$vuetify.breakpoint.xsOnly
-          ? this.setRouterView(false)
-          : this.setRouterView(true);
-      }
-    }
+    ...mapActions("googleMap", ["stopWatchMyLocation"])
   },
   beforeDestroy() {
     this.stopWatchMyLocation();
   }
 };
 </script>
-<style scoped>
-</style>

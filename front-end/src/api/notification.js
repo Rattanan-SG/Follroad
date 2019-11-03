@@ -1,5 +1,5 @@
 import axios from "axios";
-import authService from "@/auth/authService";
+import { getInstance } from "@/auth";
 
 const notificationService = axios.create({
   baseURL: process.env.VUE_APP_NOTIFICATION_URL
@@ -7,8 +7,11 @@ const notificationService = axios.create({
 
 notificationService.interceptors.request.use(async config => {
   try {
-    const accessToken = await authService.getAccessToken();
-    config.headers.common["Authorization"] = `Bearer ${accessToken}`;
+    const authService = getInstance();
+    if (authService.isAuthenticated) {
+      const accessToken = await authService.getTokenSilently();
+      config.headers.common["Authorization"] = `Bearer ${accessToken}`;
+    }
     return config;
   } catch (error) {
     return config;

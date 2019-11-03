@@ -14,7 +14,12 @@
             <!-- <v-icon>close</v-icon>ยกเลิก -->
             ยกเลิก
           </v-btn>
-          <v-btn color="green darken-1" flat @click="login" :loading="loginLoading">
+          <v-btn
+            color="green darken-1"
+            flat
+            @click="login"
+            :loading="loginLoading"
+          >
             <!-- <v-icon>check</v-icon>เข้าสู่ระบบ -->
             เข้าสู่ระบบ
           </v-btn>
@@ -45,9 +50,7 @@ export default {
   methods: {
     login() {
       this.loginLoading = true;
-      this.$auth.login({
-        target: this.$route.path
-      });
+      this.$auth.loginWithRedirect();
     }
   }
 };

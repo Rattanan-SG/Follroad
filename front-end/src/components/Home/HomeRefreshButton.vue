@@ -13,8 +13,8 @@ export default {
     ...mapActions("feedback", ["fetchFeedbackSummary"]),
     refreshEventAndFeedback: async function() {
       await this.fetchEvents();
-      if (this.$auth.isAuthenticated()) {
-        const { sub: uid } = this.$auth.profile;
+      if (this.$auth.isAuthenticated) {
+        const { sub: uid } = this.$auth.user;
         await this.fetchFeedbackSummary(uid);
       } else {
         await this.fetchFeedbackSummary();

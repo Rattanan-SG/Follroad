@@ -2,15 +2,15 @@
   <div>
     <v-layout row wrap align-center v-if="this.$vuetify.breakpoint.smAndUp">
       <div class="mr-3">
-        <v-avatar size="30px" v-if="isAuthenticated">
-          <v-img :src="profile.picture" max-width="30" max-height="30" />
+        <v-avatar size="30px" v-if="$auth.isAuthenticated">
+          <img :src="$auth.user.picture" alt="avatar" />
         </v-avatar>
         <v-icon v-else color="primary" medium>person</v-icon>
       </div>
       <v-textarea
         v-model="comment"
-        :disabled="!isAuthenticated"
-        :label="isAuthenticated ? 'แสดงความคิดเห็น' : 'เข้าสู่ระบบเพื่อแสดงความคิดเห็น'"
+        :disabled="!$auth.isAuthenticated"
+        :label="$auth.isAuthenticated ? 'แสดงความคิดเห็น' : 'เข้าสู่ระบบเพื่อแสดงความคิดเห็น'"
         rows="2"
         clearable
         no-resize
@@ -20,18 +20,18 @@
       ></v-textarea>
     </v-layout>
 
-    <v-bottom-sheet v-model="sheet" full-width lazy :disabled="!isAuthenticated" v-else>
+    <v-bottom-sheet v-model="sheet" full-width lazy :disabled="!$auth.isAuthenticated" v-else>
       <template v-slot:activator>
         <v-layout row wrap align-center>
           <div class="mr-3">
-            <v-avatar size="30px" v-if="isAuthenticated">
-              <v-img :src="profile.picture" max-width="30" max-height="30" />
+            <v-avatar size="30px" v-if="$auth.isAuthenticated">
+              <img :src="$auth.user.picture" alt="avatar" />
             </v-avatar>
             <v-icon v-else color="primary" medium>person</v-icon>
           </div>
           <v-text-field
-            :disabled="!isAuthenticated"
-            :label="isAuthenticated ? 'แสดงความคิดเห็น' : 'เข้าสู่ระบบเพื่อแสดงความคิดเห็น'"
+            :disabled="!$auth.isAuthenticated"
+            :label="$auth.isAuthenticated ? 'แสดงความคิดเห็น' : 'เข้าสู่ระบบเพื่อแสดงความคิดเห็น'"
             single-line
           ></v-text-field>
         </v-layout>
@@ -39,8 +39,8 @@
       <v-list two-line>
         <v-list-tile>
           <v-list-tile-avatar>
-            <v-avatar size="35px" v-if="isAuthenticated">
-              <v-img :src="profile.picture" max-width="35" max-height="35" />
+            <v-avatar size="35px" v-if="$auth.isAuthenticated">
+              <img :src="$auth.user.picture" alt="avatar" />
             </v-avatar>
             <v-icon v-else color="primary" medium>person</v-icon>
           </v-list-tile-avatar>
@@ -64,10 +64,10 @@
         <v-flex xs1 class="mr-3 pt-1">
           <v-layout column align-center justify-center>
             <v-avatar size="30px">
-              <v-img :src="comment.authorPictureUrl" max-width="30" max-height="30" />
+              <img :src="comment.authorPictureUrl" alt="avatar" />
             </v-avatar>
             <v-btn
-              v-if="profile && profile.sub === comment.uid "
+              v-if="$auth.user && $auth.user.sub === comment.uid "
               flat
               icon
               small
@@ -103,9 +103,7 @@ export default {
   name: "CommentControl",
   props: {
     value: Array,
-    eventId: Number,
-    isAuthenticated: Boolean,
-    profile: Object
+    eventId: Number
   },
   data() {
     return {

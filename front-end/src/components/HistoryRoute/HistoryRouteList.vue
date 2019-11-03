@@ -81,8 +81,8 @@ export default {
     ])
   },
   async created() {
-    if (this.$auth.profile) {
-      await this.fetchDirectionRecordsByUid(this.$auth.profile.sub);
+    if (this.$auth.user) {
+      await this.fetchDirectionRecordsByUid(this.$auth.user.sub);
       this.loading = false;
     }
   },

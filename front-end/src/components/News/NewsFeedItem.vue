@@ -50,8 +50,6 @@
           <CommentControl
             v-model="event.comments"
             :eventId="event.id"
-            :isAuthenticated="isAuthenticated"
-            :profile="profile"
           />
         </v-card-text>
       </v-slide-y-transition>
@@ -69,8 +67,6 @@ export default {
   name: "NewsFeedItem",
   props: {
     initEvent: Object,
-    isAuthenticated: Boolean,
-    profile: Object
   },
   components: {
     LikeDislikeControl,
