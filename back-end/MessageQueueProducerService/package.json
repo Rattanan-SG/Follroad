@@ -1,7 +1,7 @@
 {
-  "name": "message-queue-service-producer",
+  "name": "message-queue-producer-service",
   "version": "1.0.0",
-  "description": "message-queue-service-producer",
+  "description": "message-queue-producer-service",
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",

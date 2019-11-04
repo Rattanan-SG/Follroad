@@ -5,7 +5,7 @@ services:
 
 before_install:
   - docker build -t $DOCKER_HUB_USER/follroad-event ./back-end/EventService
-  - docker build -t $DOCKER_HUB_USER/follroad-message-queue ./back-end/MessageQueueServiceProducer
+  - docker build -t $DOCKER_HUB_USER/follroad-message-queue ./back-end/MessageQueueProducerService
   - docker build -t $DOCKER_HUB_USER/follroad-notification ./back-end/NotificationService
   - docker build -t $DOCKER_HUB_USER/follroad-direction-record ./back-end/DirectionRecordService
   - docker build -t $DOCKER_HUB_USER/follroad-geometry ./back-end/GeometryService

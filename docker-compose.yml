@@ -11,12 +11,12 @@ services:
       - ./back-end/EventService:/app
       - /app/node_modules
   message-queue:
-    build: ./back-end/MessageQueueServiceProducer
+    build: ./back-end/MessageQueueProducerService
     command: ["npm", "run", "dev"]
     ports:
       - "3001:3001"
     volumes:
-      - ./back-end/MessageQueueServiceProducer:/app
+      - ./back-end/MessageQueueProducerService:/app
       - /app/node_modules
   notification:
     build: ./back-end/NotificationService
