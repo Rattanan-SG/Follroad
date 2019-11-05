@@ -14,7 +14,8 @@ export default {
   },
   methods: {
     goBack: function() {
-      this.$router.back();
+      if (window.history.length > 2) this.$router.back();
+      else this.$router.push("/");
     }
   }
 };
