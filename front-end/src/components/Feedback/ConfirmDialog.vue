@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "ConfirmDialog",
   data() {
@@ -39,11 +39,17 @@ export default {
     ...mapGetters("globalFeedback", ["confirmDialogOption"])
   },
   methods: {
+    ...mapActions("globalFeedback", ["openMessageSnackbar"]),
     submit: async function() {
       this.confirmLoading = true;
       const { submitActions } = this.confirmDialogOption;
       try {
         if (submitActions) await submitActions();
+      } catch {
+        this.openMessageSnackbar({
+          text: `ดำเนินการไม่สำเร็จ โปรดลองใหม่อีกครั้งในภายหลัง`,
+          color: "error"
+        });
       } finally {
         this.confirmLoading = false;
         this.confirmDialog = false;

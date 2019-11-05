@@ -3,7 +3,7 @@
     <LoadingCircular :loading="loading" />
     <v-list v-if="!loading && !!directionRecords.length" three-line>
       <template v-for="(record, index) in directionRecords">
-        <v-list-tile class="mt-1" :key="index" avatar ripple @click="startHistoryRoute(record._id)">
+        <v-list-tile :key="index" avatar ripple @click="startHistoryRoute(record._id)">
           <v-flex xs11 md10 lg10 sm10>
             <v-list-tile-content>
               <v-list-tile-title class="font-weight-black">
@@ -21,7 +21,7 @@
             </v-list-tile-content>
           </v-flex>
           <v-flex xs1 md1 lg1 sm1>
-            <v-btn flat icon color="grey" @click.stop="deleteHistoryRoute(record._id)">
+            <v-btn flat icon color="grey" @click.stop="deleteHistoryRouteById(record._id)">
               <v-icon size="30px">delete</v-icon>
             </v-btn>
           </v-flex>
@@ -32,7 +32,7 @@
 
     <div v-if="!loading && !directionRecords.length">
       <v-flex xs12 lg12 md12 pa-2>
-        <v-card class="mx-auto" color="#26c6da" dark flat>
+        <v-card class="mx-auto" color="cyan darken-3" dark flat>
           <v-card-title>
             <v-flex xs2 lg2 md2>
               <v-icon medium left>info</v-icon>
@@ -101,14 +101,13 @@ export default {
       this.setDirectionsResponse(direction);
       this.startDirectionsRenderer();
     },
-    deleteHistoryRoute: function(_id) {
+    deleteHistoryRouteById: function(_id) {
       this.openConfirmDialog({
-        _id,
         text: `ลบเส้นทางที่บันทึกนี้`,
-        submitActions: () => this.handleDeleteHistoryRoute(_id)
+        submitActions: () => this.handleDeleteHistoryRouteById(_id)
       });
     },
-    handleDeleteHistoryRoute: async function(_id) {
+    handleDeleteHistoryRouteById: function(_id) {
       return this.deleteDirectionRecordById({ _id });
     }
   }

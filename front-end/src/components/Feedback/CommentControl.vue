@@ -143,9 +143,9 @@ export default {
       });
     },
     handleDeleteComment: async function(index, commentId) {
+      await eventApi.deleteCommentById(commentId);
       this.comments.splice(index, 1);
       this.$emit("input", this.comments);
-      return eventApi.deleteCommentById(commentId);
     }
   }
 };
