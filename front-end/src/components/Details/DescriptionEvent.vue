@@ -8,8 +8,8 @@
         </v-flex>
         <v-flex xs9 lg10 md9 sm9 pl-2>
           <div>
-            <h3 class="subheading blue--text">{{ event.title }}</h3>
-            <span>โดย {{ event.contributor }}</span>
+            <h3 class="subheading blue--text text--darken-2 font-weight-bold">{{ event.title }}</h3>
+            <span class="grey--text text--darken-1">โดย {{ event.contributor }}</span>
           </div>
         </v-flex>
       </v-layout>
@@ -27,22 +27,15 @@
       </v-card-text>
       <v-divider />
       <v-card-text>
-        <div class="body-1 red--text">
-          เกิดขึ้น ณ {{event.start | luxon:locale('short')}}
-        </div>
-        <div class="body-1 red--text">
-          สิ้นสุดใน {{event.stop | luxon:locale('short')}}
-        </div>
+        <div class="body-1 red--text">เกิดขึ้น ณ {{event.start | luxon:locale('short')}}</div>
+        <div class="body-1 red--text">สิ้นสุดใน {{event.stop | luxon:locale('short')}}</div>
       </v-card-text>
       <v-card-actions class="py-0">
         <v-flex grow pl-1>
           <LikeDislikeControl :key="event.id" :eventId="event.id" />
         </v-flex>
         <v-flex shrink pr-2>
-          <GoToEventButton
-            :latitude="event.latitude"
-            :longitude="event.longitude"
-          />
+          <GoToEventButton :latitude="event.latitude" :longitude="event.longitude" />
           <v-btn flat icon color="grey" @click="show = !show">
             <v-icon>comment</v-icon>
           </v-btn>

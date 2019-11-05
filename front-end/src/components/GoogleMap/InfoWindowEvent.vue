@@ -22,7 +22,7 @@
             <v-img :src="marker.icon" max-width="25" max-height="25"></v-img>
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title class="blue--text">{{marker.title }}</v-list-tile-title>
+            <v-list-tile-title class="blue--text text--darken-2 font-weight-bold">{{marker.title }}</v-list-tile-title>
             <v-list-tile-sub-title>โดย {{ marker.contributor }}</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>

@@ -7,8 +7,8 @@
         </v-flex>
         <v-flex xs11 md11 lg11 mt-1 ml-3 mr-1>
           <div>
-            <h3 class="blue--text">{{event.title}}</h3>
-            <div>โดย {{event.contributor}}</div>
+            <h3 class="subheading blue--text text--darken-2 font-weight-bold">{{event.title}}</h3>
+            <div class="grey--text text--darken-1">โดย {{event.contributor}}</div>
           </div>
         </v-flex>
       </v-layout>
