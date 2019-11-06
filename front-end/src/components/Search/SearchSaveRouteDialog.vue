@@ -50,7 +50,9 @@
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 px-1>
-                  <div class="subheading black--text px-3">เลือกเส้นทางที่ต้องการรับแจ้งเตือน</div>
+                  <div
+                    class="px-3 subheading blue--text text--darken-4"
+                  >เลือกเส้นทางที่ต้องการรับแจ้งเตือน</div>
                   <v-checkbox
                     v-for="(route, index) in directionsResponse.routes"
                     v-model="notificationRoutes"
@@ -64,7 +66,9 @@
 
                 <v-flex xs12>
                   <v-list two-line>
-                    <v-subheader class="subheading black--text">การตั้งเวลาตรวจสอบเส้นทางล่วงหน้า</v-subheader>
+                    <v-subheader
+                      class="subheading blue--text text--darken-4"
+                    >การตั้งเวลาตรวจสอบเส้นทางล่วงหน้า</v-subheader>
                     <v-list-tile
                       avatar
                       class="my-tile"

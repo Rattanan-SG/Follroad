@@ -28,7 +28,7 @@
             เกิดขึ้น ณ
             : {{ event.start | luxon:locale('short') }}
             <br />
-            สิ้นสุดใน
+            เวลาสิ้นสุด
             : {{ event.stop | luxon:locale('short') }}
             <br />
           </span>

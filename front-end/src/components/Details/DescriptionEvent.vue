@@ -28,7 +28,7 @@
       <v-divider />
       <v-card-text>
         <div class="body-1 red--text">เกิดขึ้น ณ {{event.start | luxon:locale('short')}}</div>
-        <div class="body-1 red--text">สิ้นสุดใน {{event.stop | luxon:locale('short')}}</div>
+        <div class="body-1 red--text">เวลาสิ้นสุด {{event.stop | luxon:locale('short')}}</div>
       </v-card-text>
       <v-card-actions class="py-0">
         <v-flex grow pl-1>
