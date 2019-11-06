@@ -71,10 +71,12 @@ export default {
       this.registration = registration;
       const subscription = await registration.pushManager.getSubscription();
       this.isSubscribed = !(subscription === null);
+      this.updateNoti();
       if (this.isSubscribed) {
         await this.syncSubscription(subscription);
+      } else if (Notification.permission === "granted") {
+        await this.subscribeUser();
       }
-      this.updateNoti();
     } catch (err) {
       console.log("Service Worker not ready");
     }

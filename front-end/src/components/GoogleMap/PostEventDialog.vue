@@ -17,7 +17,7 @@
             </v-toolbar>
 
             <v-card-text>
-              <v-layout wrap>
+              <v-layout row wrap>
                 <v-flex xs12 sm6 pr-1>
                   <v-text-field
                     label="ชื่อเหตุการณ์"
@@ -104,7 +104,8 @@
               </v-layout>
               <v-flex xs12>
                 <PictureUploadAndPreview
-                  ref="upload"
+                  id="postEventUpload"
+                  ref="postEventUpload"
                   :destroyDropzone="true"
                   @upload-error="error = true"
                   @upload-complete="handleUploadComplete"
@@ -194,7 +195,7 @@ export default {
       } else if (this.$refs.form.validate()) {
         this.loading = true;
         this.error = false;
-        const isUploading = this.$refs.upload.uploadFiles();
+        const isUploading = this.$refs.postEventUpload.uploadFiles();
         if (!isUploading) {
           try {
             await this.postEvent();
@@ -279,10 +280,3 @@ export default {
   }
 };
 </script>
-<style scoped>
-.wrapper {
-  max-width: 600px;
-  max-height: 500px;
-  margin: 0 auto;
-}
-</style>
