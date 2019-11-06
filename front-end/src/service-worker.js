@@ -19,13 +19,13 @@ self.addEventListener("push", event => {
 
 self.addEventListener("notificationclick", event => {
   console.log("[Service Worker] Notification click Received.");
-  const { eventId } = event.notification.data;
+  const { data } = event.notification;
+  let eventId = null;
+  if (data && data.eventId) eventId = data.eventId;
   event.notification.close();
   if (eventId) {
-    event.waitUntil(
-      clients.openWindow(`https://follroad.netlify.com/details/${eventId}`)
-    );
-  } else event.waitUntil(clients.openWindow("https://follroad.netlify.com"));
+    event.waitUntil(clients.openWindow(`/details/${eventId}`));
+  } else event.waitUntil(clients.openWindow("/"));
 });
 
 self.addEventListener("pushsubscriptionchange", event => {
