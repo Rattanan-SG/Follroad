@@ -3,11 +3,22 @@
     <v-subheader>เมนู</v-subheader>
     <v-layout row wrap>
       <v-flex xs12 lg12 md12>
+        <v-list-tile avatar ripple to="/myevent">
+          <v-list-tile-avatar>
+            <v-icon size="25px" class="green white--text">room</v-icon>
+          </v-list-tile-avatar>
+          <v-list-tile-content>เหตุการณ์ของฉัน</v-list-tile-content>
+          <v-list-tile-action>
+            <v-icon>navigate_next</v-icon>
+          </v-list-tile-action>
+        </v-list-tile>
+      </v-flex>
+      <v-flex xs12 lg12 md12>
         <v-list-tile avatar ripple to="/historyroute">
           <v-list-tile-avatar>
             <v-icon size="25px" class="orange white--text">save</v-icon>
           </v-list-tile-avatar>
-          <v-list-tile-content>เส้นทางที่บันทึก</v-list-tile-content>
+          <v-list-tile-content>เส้นทางที่บันทึกของฉัน</v-list-tile-content>
           <v-list-tile-action>
             <v-icon>navigate_next</v-icon>
           </v-list-tile-action>

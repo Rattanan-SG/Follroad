@@ -63,6 +63,9 @@ const actions = {
   updateEventById: ({ commit }, { id, data }) => {
     commit("UPDATE_EVENT_BY_ID", { id, data });
   },
+  deleteEventById: ({ commit }, id) => {
+    commit("DELETE_EVENT_BY_ID", id);
+  },
   socket_event: ({ dispatch, commit }, data) => {
     const { action, event } = data;
     if (action === "create") {
@@ -94,6 +97,10 @@ const mutations = {
     const index = state.events.findIndex(event => event.id == id);
     const newEvent = { ...state.events[index], ...data };
     state.events[index] = newEvent;
+  },
+  DELETE_EVENT_BY_ID: (state, id) => {
+    const index = state.events.findIndex(event => event.id == id);
+    state.events.splice(index, 1);
   },
   SET_EVENT_CATEGORY_SELECTED: (state, eventCategorySelected) => {
     state.eventCategorySelected = eventCategorySelected;

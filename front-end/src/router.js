@@ -49,6 +49,15 @@ const router = new Router({
       beforeEnter: authGuard
     },
     {
+      path: "/myevent",
+      name: "myevent",
+      component: () =>
+        import(
+          /* webpackChunkName: "myevent" */ "./views/MyEvent.vue"
+        ),
+      beforeEnter: authGuard
+    },
+    {
       path: "*",
       redirect: "/"
     }
