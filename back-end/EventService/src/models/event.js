@@ -118,7 +118,11 @@ module.exports = (sequelize, DataTypes) => {
   event.associate = models => {
     event.hasMany(models.comment, { foreignKey: "eventId" });
     event.hasMany(models.feedback, { foreignKey: "eventId" });
-    event.hasMany(models.picture, { foreignKey: "eventId" });
+    event.hasMany(models.picture, {
+      foreignKey: "eventId",
+      onDelete: "CASCADE",
+      hooks: true
+    });
   };
   return event;
 };

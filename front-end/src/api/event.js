@@ -30,6 +30,12 @@ const getEventById = (id, params, config) => {
     .then(response => response.data);
 };
 
+const getUserEventByUid = (uid, params, config) => {
+  return eventService
+    .get(`/event/user/${uid}`, { params, ...config })
+    .then(response => response.data);
+};
+
 const postEvent = (data, config) => {
   return eventService
     .post("/event", data, config)
@@ -99,6 +105,7 @@ const deleteCommentById = (id, config) => {
 export default {
   getEvents,
   getEventById,
+  getUserEventByUid,
   postEvent,
   patchEventById,
   deleteEventById,

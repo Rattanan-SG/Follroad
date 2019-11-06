@@ -21,6 +21,15 @@ exports.getEventById = asyncWrapper(async (req, res) => {
   res.send(result);
 });
 
+exports.getUserEventByUid = asyncWrapper(async (req, res) => {
+  const fields = req.query.fields && req.query.fields.split(" ");
+  const result = await event.getUserEventByUid(req.params.uid, {
+    ...req.query,
+    fields
+  });
+  res.send(result);
+});
+
 exports.patchEventById = asyncWrapper(async (req, res) => {
   const result = await event.patchEventById(req.params.id, req.user, req.body);
   res.send(result);

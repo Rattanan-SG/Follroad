@@ -91,6 +91,16 @@ exports.getEventById = (id, query) => {
   });
 };
 
+exports.getUserEventByUid = (uid, query) => {
+  const { fields } = query;
+  return event.findAll(
+    { uid },
+    {
+      attributes: fields
+    }
+  );
+};
+
 exports.patchEventById = async (id, user, body) => {
   await checkEventKeyAndOwner(id, user);
   delete body.eid;

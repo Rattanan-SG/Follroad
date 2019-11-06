@@ -10,5 +10,6 @@ router.get("/event/:id", event.getEventById);
 router.patch("/event/:id", checkJwt, event.patchEventById);
 router.delete("/event/:id", checkJwt, event.deleteEventById);
 router.post("/event/sync", event.syncIticEvent);
+router.get("/event/user/:uid", event.getUserEventByUid);
 
 module.exports = router;

@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('picture', {
+    return queryInterface.createTable("picture", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,6 +12,7 @@ module.exports = {
         allowNull: false,
         field: "event_id",
         references: { model: "event", key: "id" },
+        onDelete: "CASCADE",
         type: Sequelize.INTEGER
       },
       url: {
@@ -34,6 +35,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('picture');
+    return queryInterface.dropTable("picture");
   }
 };

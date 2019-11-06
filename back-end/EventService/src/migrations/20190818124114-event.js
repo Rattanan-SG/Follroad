@@ -11,6 +11,11 @@ module.exports = {
       },
       eid: {
         unique: true,
+        allowNull: true,
+        type: Sequelize.STRING
+      },
+      uid: {
+        allowNull: true,
         type: Sequelize.STRING
       },
       title: {
