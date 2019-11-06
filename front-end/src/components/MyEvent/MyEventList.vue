@@ -58,6 +58,8 @@
         </v-card>
       </v-flex>
     </div>
+
+    <EditEventDialog v-model="showEditEventDialog" :eventId="editEventId" />
   </div>
 </template>
 <script>
@@ -65,23 +67,31 @@ import { mapGetters, mapActions } from "vuex";
 import eventApi from "@/api/event";
 import eventConstant from "@/utilitys/eventConstant";
 import LoadingCircular from "../Feedback/LoadingCircular";
+import EditEventDialog from "./EditEventDialog";
 export default {
   name: "MyEventList",
   components: {
-    LoadingCircular
+    LoadingCircular,
+    EditEventDialog
   },
   data() {
     return {
       loading: true,
       myEvents: null,
       menus: [
-        { title: "แก้ไข", icon: "edit", click: this.a },
+        {
+          title: "แก้ไข",
+          icon: "edit",
+          click: (index, eventId) => this.openEditEventDialog(eventId)
+        },
         {
           title: "ลบ",
           icon: "delete",
           click: (index, eventId) => this.deleteMyEventById(index, eventId)
         }
-      ]
+      ],
+      showEditEventDialog: false,
+      editEventId: null
     };
   },
   computed: {
@@ -101,13 +111,9 @@ export default {
     ...mapActions("globalFeedback", ["openConfirmDialog"]),
     ...mapActions("event", ["deleteEventById"]),
 
-    startHistoryRoute: async function() {
-      this.loading = true;
-
-      this.$router.push("/search");
-      this.$vuetify.breakpoint.xsOnly
-        ? this.setRouterView(false)
-        : this.setRouterView(true);
+    openEditEventDialog: function(eventId) {
+      this.showEditEventDialog = true;
+      this.editEventId = eventId;
     },
     deleteMyEventById: function(index, eventId) {
       this.openConfirmDialog({
@@ -127,9 +133,6 @@ export default {
       const now = new Date();
       const stopDate = new Date(stop);
       return stopDate < now;
-    },
-    a: function() {
-      console.log(555);
     }
   }
 };
