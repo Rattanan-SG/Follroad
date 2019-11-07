@@ -77,7 +77,7 @@ const actions = {
           return rootState.googleMap.googleClass.maps.geometry.poly.isLocationOnEdge(
             latLng,
             routePolyline,
-            0.002
+            0.00015
           );
         });
         commit("SET_SPECIFIC_EVENTS", result);
