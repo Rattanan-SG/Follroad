@@ -92,11 +92,15 @@ exports.getEventById = (id, query) => {
 };
 
 exports.getUserEventByUid = (uid, query) => {
-  const { fields } = query;
+  const { fields, withPictures } = query;
+  let include = [];
+  if (withPictures) include.push(picture);
+  if (include.length < 0) include = null;
   return event.findAll(
     { uid },
     {
-      attributes: fields
+      attributes: fields,
+      include
     }
   );
 };

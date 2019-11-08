@@ -173,10 +173,6 @@ export default {
       }
     }
   },
-  mounted() {
-    console.log(1111111111111);
-    console.log(this.eventId);
-  },
   methods: {
     ...mapActions("globalFeedback", ["setLoginDialog", "openMessageSnackbar"]),
 

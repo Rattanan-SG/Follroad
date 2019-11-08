@@ -101,7 +101,8 @@ export default {
     if (this.$auth.user) {
       this.loading = true;
       this.myEvents = await eventApi.getUserEventByUid(this.$auth.user.sub, {
-        fields: "id title stop type"
+        fields: "id title description start stop type",
+        withPictures: true
       });
       this.loading = false;
     }
