@@ -59,7 +59,7 @@
       </v-list>
     </v-bottom-sheet>
 
-    <template v-for="(comment, index) in value">
+    <template v-for="(comment, index) in comments">
       <v-layout row wrap mb-3 :key="index">
         <v-flex xs1 class="mr-3 pt-1">
           <v-layout column align-center justify-center>
@@ -109,13 +109,17 @@ export default {
     return {
       loading: false,
       sheet: false,
-      comment: null,
-      comments: this.value
+      comment: null
     };
   },
-  watch: {
-    value(value) {
-      this.comments = value;
+  computed: {
+    comments: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.$emit("input", value);
+      }
     }
   },
   methods: {
@@ -130,7 +134,6 @@ export default {
         };
         const result = await eventApi.postComment(data);
         this.comments.unshift(result);
-        this.$emit("input", this.comments);
         this.comment = null;
         this.loading = false;
         this.sheet = false;
@@ -145,7 +148,6 @@ export default {
     handleDeleteComment: async function(index, commentId) {
       await eventApi.deleteCommentById(commentId);
       this.comments.splice(index, 1);
-      this.$emit("input", this.comments);
     }
   }
 };

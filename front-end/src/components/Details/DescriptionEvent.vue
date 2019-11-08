@@ -99,9 +99,6 @@ export default {
     },
     getEventIcon: function() {
       return eventConstant.selectIcon(this.event);
-    },
-    addNewComment: function(comment) {
-      this.event.comments.unshift(comment);
     }
   }
 };
