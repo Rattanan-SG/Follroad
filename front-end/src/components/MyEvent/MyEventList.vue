@@ -59,7 +59,11 @@
       </v-flex>
     </div>
 
-    <EditEventDialog v-model="showEditEventDialog" :eventId="editEventId" />
+    <EditEventDialog
+      v-if="editIndex !== null"
+      v-model="showEditEventDialog"
+      :event="myEvents[editIndex]"
+    />
   </div>
 </template>
 <script>
@@ -82,7 +86,7 @@ export default {
         {
           title: "แก้ไข",
           icon: "edit",
-          click: (index, eventId) => this.openEditEventDialog(eventId)
+          click: (index, eventId) => this.openEditEventDialog(index, eventId)
         },
         {
           title: "ลบ",
@@ -91,7 +95,7 @@ export default {
         }
       ],
       showEditEventDialog: false,
-      editEventId: null
+      editIndex: null
     };
   },
   computed: {
@@ -112,9 +116,9 @@ export default {
     ...mapActions("globalFeedback", ["openConfirmDialog"]),
     ...mapActions("event", ["deleteEventById"]),
 
-    openEditEventDialog: function(eventId) {
+    openEditEventDialog: function(index) {
       this.showEditEventDialog = true;
-      this.editEventId = eventId;
+      this.editIndex = index;
     },
     deleteMyEventById: function(index, eventId) {
       this.openConfirmDialog({

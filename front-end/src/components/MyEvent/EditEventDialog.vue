@@ -103,7 +103,7 @@
             />
           </v-flex>
           <v-alert :value="error" color="error" icon="warning" outline>แจ้งเหตุการณ์ไม่สำเร็จ</v-alert>
-          {{eventId}}
+          {{event}}
         </v-card-text>
 
         <v-card-actions>
@@ -134,7 +134,7 @@ export default {
   },
   props: {
     value: Boolean,
-    eventId: Number
+    event: Object
   },
   data() {
     return {
