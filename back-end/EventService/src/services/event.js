@@ -127,7 +127,7 @@ exports.patchEventById = async (id, user, body) => {
         { transaction }
       );
     if (newPictures) {
-      const dataList = newPictures.map(item => ({ eventId: id, url: item }));
+      const dataList = newPictures.map(({ url }) => ({ eventId: id, url }));
       await pictureDomain.bulkCreate(dataList, { transaction });
     }
     await transaction.commit();

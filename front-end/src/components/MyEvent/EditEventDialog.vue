@@ -30,57 +30,21 @@
               ></v-select>
             </v-flex>
           </v-layout>
-
           <v-layout row wrap>
-            <v-flex xs12 sm6 pr-1>
-              <v-menu
-                ref="startMenu"
-                v-model="startMenu"
-                :close-on-content-click="false"
-                :nudge-right="40"
-                :return-value.sync="startTime"
-                lazy
-                transition="scale-transition"
-                offset-y
-                full-width
-                max-width="230px"
-                min-width="230px"
-              >
-                <template v-slot:activator="{ on }">
-                  <v-text-field
-                    v-model="startTime"
-                    label="เวลาที่เกิดเหตุการณ์"
-                    prepend-icon="access_time"
-                    placeholder="ค่าเริ่มต้นคือเวลาปัจจุบัน"
-                    readonly
-                    :rules="[rules.notMoreThanNow]"
-                    clearable
-                    v-on="on"
-                  ></v-text-field>
-                </template>
-                <v-time-picker
-                  v-if="startMenu"
-                  v-model="startTime"
-                  full-width
-                  format="24hr"
-                  @click:minute="$refs.startMenu.save(startTime)"
-                ></v-time-picker>
-              </v-menu>
-            </v-flex>
-            <v-flex xs12 sm6 pr-1>
+            <v-flex xs12 pr-1>
               <v-text-field
                 v-model="stopHours"
                 type="number"
                 prepend-icon="timelapse"
-                label="สิ้นสุดในอีกกี่ชั่วโมง"
-                placeholder="ถ้า 0 ระบบจะคำนวนให้"
+                label="ระยะเวลาสิ้นสุดของเหตุการณ์ นับจากเวลาปัจุบัน"
+                placeholder="ถ้าไม่กรอกหรือใส่ 0 ระบบจะไม่แก้ไขเวลาสิ้นสุด"
                 suffix="ชั่วโมง"
+                hint="สามารถใส่ค่าได้แค่ 0-24 ชั่วโมง"
                 :rules="[rules.minDuration, rules.maxDuration]"
                 clearable
               />
             </v-flex>
           </v-layout>
-
           <v-layout row wrap>
             <v-flex xs12 pr-1>
               <v-textarea
@@ -93,6 +57,33 @@
               ></v-textarea>
             </v-flex>
           </v-layout>
+          <div
+            v-if="pictures.length > 0"
+            class="px-3 pb-2 subheading blue--text text--darken-4"
+          >รูปภาพที่มีของเหตุการณ์นี้</div>
+          <v-layout row wrap pb-2>
+            <v-flex v-for="(picture, index) in pictures" :key="index" xs3 d-flex pa-1>
+              <v-badge rigth overlap color="deep-orange ">
+                <template v-slot:badge>
+                  <v-icon dark small @click="deletePicture(index)">close</v-icon>
+                </template>
+                <v-card flat tile class="d-flex">
+                  <v-img
+                    :src="picture.url"
+                    :lazy-src="`https://picsum.photos/10/6?image=${index * 5 + 10}`"
+                    aspect-ratio="1"
+                    class="grey lighten-2"
+                  >
+                    <template v-slot:placeholder>
+                      <v-layout fill-height align-center justify-center ma-0>
+                        <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                      </v-layout>
+                    </template>
+                  </v-img>
+                </v-card>
+              </v-badge>
+            </v-flex>
+          </v-layout>
           <v-flex xs12>
             <PictureUploadAndPreview
               id="editEventUpload"
@@ -102,13 +93,12 @@
               @upload-complete="handleUploadComplete"
             />
           </v-flex>
-          <v-alert :value="error" color="error" icon="warning" outline>แจ้งเหตุการณ์ไม่สำเร็จ</v-alert>
-          {{event}}
+          <v-alert :value="error" color="error" icon="warning" outline>แก้ไขเหตุการณ์ไม่สำเร็จ</v-alert>
         </v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red darken-1" flat @click="cancel">ยกเลิก</v-btn>
+          <v-btn color="red darken-1" flat @click="dialog = false">ยกเลิก</v-btn>
           <v-btn
             color="blue darken-1"
             flat
@@ -134,25 +124,21 @@ export default {
   },
   props: {
     value: Boolean,
-    event: Object
+    editEvent: Object
   },
   data() {
     return {
       valid: false,
       items: eventConstant.EVENT_CATEGORY_OBJECT,
-      title: null,
-      eventType: null,
-      startMenu: false,
-      startTime: null,
+      title: this.editEvent.title,
+      eventType: this.editEvent.icon,
       stopHours: null,
-      description: null,
-      pictures: [],
+      description: this.editEvent.description,
+      pictures: [...this.editEvent.pictures],
+      deletePictures: [],
+      newPictures: [],
       rules: {
         required: value => !!value || "กรุณากรอกข้อมูล",
-        notMoreThanNow: value => {
-          const date = this.getDateFromTimeString(value);
-          return +date <= +new Date() || "เวลาต้องไม่เกินเวลาปัจจุบัน";
-        },
         minDuration: value =>
           !value || value >= 0 || "ระยะเวลาน้อยกว่า 0 ไม่ได้",
         maxDuration: value =>
@@ -175,10 +161,9 @@ export default {
   },
   methods: {
     ...mapActions("globalFeedback", ["setLoginDialog", "openMessageSnackbar"]),
-
-    cancel: function() {
-      this.$refs.form.reset();
-      this.dialog = false;
+    deletePicture: function(index) {
+      const removePicture = this.pictures.splice(index, 1);
+      this.deletePictures.push(removePicture[0].id);
     },
     submit: async function() {
       if (!this.$auth.isAuthenticated) {
@@ -189,11 +174,10 @@ export default {
         const isUploading = this.$refs.editEventUpload.uploadFiles();
         if (!isUploading) {
           try {
-            await this.postEvent();
+            await this.patchEvent();
           } catch (error) {
             this.error = true;
           } finally {
-            this.$refs.form.reset();
             this.loading = false;
             this.dialog = false;
           }
@@ -201,67 +185,48 @@ export default {
       }
     },
     handleUploadComplete: async function(eventValue) {
-      this.pictures = eventValue;
+      this.newPictures = eventValue;
       try {
-        await this.postEvent();
+        await this.patchEvent();
       } catch (error) {
         this.error = true;
       } finally {
-        this.pictures = [];
-        this.$refs.form.reset();
+        this.newPictures = [];
         this.loading = false;
         this.dialog = false;
       }
     },
-    postEvent: async function() {
-      const data = this.getEventData();
-      const responseEvent = await eventApi.postEvent(data);
-      this.checkEventStatus(responseEvent);
+    patchEvent: async function() {
+      const data = this.getEditEventData();
+      await eventApi.patchEventById(this.editEvent.id, data);
+      data.pictures = [...this.pictures, ...this.newPictures];
+      console.log(data);
+
+      this.$emit("edit-event-success", data);
     },
-    getEventData: function() {
-      const { name, sub } = this.$auth.user;
+    getEditEventData: function() {
       const { value: icon, type } = eventConstant.EVENT_CATEGORY_OBJECT.find(
         element => element.value === this.eventType
       );
-      const { start, stop } = this.calculateStartAndStopFromData();
+      const stop = this.calculateStop();
       return {
         title: this.title,
         description: this.description,
-        start,
         stop,
-        contributor: name,
-        uid: sub,
         icon,
         type,
-        source: "follroad",
-        pictures: this.pictures
+        deletePictures: this.deletePictures,
+        newPictures: this.newPictures
       };
     },
-    getDateFromTimeString: function(timeString) {
-      const date = new Date();
-      if (typeof timeString === "string") {
-        const hours = timeString.match(/^(\d+)/)[1];
-        const minutes = timeString.match(/:(\d+)/)[1];
-        date.setHours(hours);
-        date.setMinutes(minutes);
+    calculateStop: function() {
+      let stop = new Date();
+      if (!Number(this.stopHours)) stop = this.editEvent.stop;
+      else {
+        stop.setHours(stop.getHours() + Number(this.stopHours));
+        stop = stop.toISOString();
       }
-      return date;
-    },
-    calculateStartAndStopFromData: function() {
-      const start = this.getDateFromTimeString(this.startTime);
-      let stop = new Date(start);
-      if (!Number(this.stopHours)) stop = null;
-      else stop.setHours(stop.getHours() + Number(this.stopHours));
-      return { start, stop };
-    },
-    checkEventStatus: function(event) {
-      if (new Date() > new Date(event.stop)) {
-        this.openMessageSnackbar({
-          text: `แจ้งเหตุสำเร็จแต่ ${event.title} นั้นสิ้นสุดเหตุการณ์แล้ว`,
-          color: "cyan darken-2"
-        });
-        return false;
-      } else return true;
+      return stop;
     }
   }
 };

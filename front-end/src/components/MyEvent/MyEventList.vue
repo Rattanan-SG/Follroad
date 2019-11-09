@@ -61,8 +61,10 @@
 
     <EditEventDialog
       v-if="editIndex !== null"
+      :key="new Date()+editIndex"
       v-model="showEditEventDialog"
-      :event="myEvents[editIndex]"
+      :editEvent="myEvents[editIndex]"
+      @edit-event-success="updateEvent"
     />
   </div>
 </template>
@@ -105,7 +107,7 @@ export default {
     if (this.$auth.user) {
       this.loading = true;
       this.myEvents = await eventApi.getUserEventByUid(this.$auth.user.sub, {
-        fields: "id title description start stop type",
+        fields: "id title description start stop icon type",
         withPictures: true
       });
       this.loading = false;
@@ -119,6 +121,10 @@ export default {
     openEditEventDialog: function(index) {
       this.showEditEventDialog = true;
       this.editIndex = index;
+    },
+    updateEvent: function(newEvent) {
+      const oldEvent = this.myEvents[this.editIndex];
+      this.myEvents[this.editIndex] = { ...oldEvent, ...newEvent };
     },
     deleteMyEventById: function(index, eventId) {
       this.openConfirmDialog({
