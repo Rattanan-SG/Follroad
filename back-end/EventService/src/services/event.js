@@ -1,7 +1,7 @@
 const sequelize = require("sequelize");
 const { Op } = sequelize;
 const { DateTime } = require("luxon");
-const { event } = require("../domains");
+const { event, picture: pictureDomain } = require("../domains");
 const { picture, comment, feedback, sequelize: seq } = require("../models");
 const { EVENT_SOURCE, EVENT_MAPPING } = require("../utils/constant");
 const { formatEventToSendMessageQueue } = require("../utils/format-event");
@@ -107,9 +107,35 @@ exports.getUserEventByUid = (uid, query) => {
 
 exports.patchEventById = async (id, user, body) => {
   await checkEventKeyAndOwner(id, user);
-  delete body.eid;
-  delete body.uid;
-  return event.updateByPk(id, body);
+  const { deletePictures, newPictures, ...data } = body;
+  const transaction = await seq.transaction({
+    autoCommit: false,
+    isolationLevel: sequelize.Transaction.ISOLATION_LEVELS.READ_UNCOMMITTED
+  });
+  try {
+    const excludeList = ["id", "eid", "uid", "latitude", "longitude", "start"];
+    const updateFields = Object.keys(data).filter(
+      key => !excludeList.includes(key)
+    );
+    const result = await event.updateByPk(id, data, {
+      fields: updateFields,
+      transaction
+    });
+    if (deletePictures)
+      await pictureDomain.delete(
+        { id: { [Op.in]: deletePictures } },
+        { transaction }
+      );
+    if (newPictures) {
+      const dataList = newPictures.map(item => ({ eventId: id, url: item }));
+      await pictureDomain.bulkCreate(dataList, { transaction });
+    }
+    await transaction.commit();
+    return result;
+  } catch (err) {
+    await transaction.rollback();
+    throw err;
+  }
 };
 
 exports.deleteEventById = async (id, user) => {

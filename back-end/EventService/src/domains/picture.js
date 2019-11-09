@@ -5,6 +5,11 @@ exports.create = (data, options) =>
     ...options
   });
 
+exports.bulkCreate = (dataList, options) =>
+  picture.bulkCreate(dataList, {
+    ...options
+  });
+
 exports.findAll = (where, options) =>
   picture.findAll({
     where,
@@ -26,6 +31,16 @@ exports.deleteByPk = (id, options) =>
   picture
     .destroy({
       where: { id },
+      ...options
+    })
+    .then(response => ({
+      response
+    }));
+
+exports.delete = (where, options) =>
+  picture
+    .destroy({
+      where,
       ...options
     })
     .then(response => ({
