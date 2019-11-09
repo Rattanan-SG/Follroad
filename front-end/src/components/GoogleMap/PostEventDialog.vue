@@ -81,9 +81,10 @@
                     v-model="stopHours"
                     type="number"
                     prepend-icon="timelapse"
-                    label="สิ้นสุดในอีกกี่ชั่วโมง"
+                    label="จะสิ้นสุดในอีกกี่ชั่วโมง"
                     placeholder="ถ้า 0 ระบบจะคำนวนให้"
                     suffix="ชั่วโมง"
+                    hint="สามารถใส่ค่าได้แค่ 0-24 ชั่วโมง"
                     :rules="[rules.minDuration, rules.maxDuration]"
                     clearable
                   />
@@ -139,13 +140,13 @@ import eventConstant from "@/utilitys/eventConstant";
 import PictureUploadAndPreview from "../Feedback/PictureUploadAndPreview";
 export default {
   name: "PostEventDialog",
+  components: {
+    PictureUploadAndPreview
+  },
   props: {
     marker: Object,
     closeInfoWindow: Function,
     completePostEvent: Function
-  },
-  components: {
-    PictureUploadAndPreview
   },
   data() {
     return {

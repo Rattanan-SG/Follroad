@@ -132,6 +132,18 @@ export default {
     ...mapGetters("search", ["searchPlace"]),
     ...mapGetters("direction", ["directionsResponse"])
   },
+  watch: {
+    searchPlace(newValue, oldValue) {
+      if (newValue && newValue != oldValue) {
+        this.showSearchInput = true;
+        this.$refs.gmapAutoComplete.$el.value = newValue.name;
+        if (oldValue) this.search(newValue);
+      } else {
+        this.$refs.gmapAutoComplete.$el.value = null;
+        this.showSearchInput = false;
+      }
+    }
+  },
   async created() {
     let installPrompt;
     window.addEventListener("beforeinstallprompt", e => {
@@ -146,18 +158,6 @@ export default {
         this.installBtn = false;
       });
     };
-  },
-  watch: {
-    searchPlace(newValue, oldValue) {
-      if (newValue && newValue != oldValue) {
-        this.showSearchInput = true;
-        this.$refs.gmapAutoComplete.$el.value = newValue.name;
-        if (oldValue) this.search(newValue);
-      } else {
-        this.$refs.gmapAutoComplete.$el.value = null;
-        this.showSearchInput = false;
-      }
-    }
   },
   methods: {
     ...mapActions("search", ["setSearchPlace"]),

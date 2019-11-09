@@ -42,16 +42,16 @@ export default {
     ...mapGetters("search", ["searchPlace"]),
     ...mapGetters("direction", ["destinationLocation"])
   },
-  mounted() {
-    if (this.historyMode && this.destinationLocation) {
-      this.$refs.destinationAutoComplete.$el.value = this.destinationLocation.name;
-    } else this.syncDestinationPlace();
-  },
   watch: {
     searchPlace(value) {
       if (value) this.syncDestinationPlace();
       else this.$refs.destinationAutoComplete.$el.value = null;
     }
+  },
+  mounted() {
+    if (this.historyMode && this.destinationLocation) {
+      this.$refs.destinationAutoComplete.$el.value = this.destinationLocation.name;
+    } else this.syncDestinationPlace();
   },
   methods: {
     ...mapActions("search", ["setSearchPlace"]),

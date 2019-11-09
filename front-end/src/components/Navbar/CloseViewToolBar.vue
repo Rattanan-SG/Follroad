@@ -29,7 +29,6 @@ export default {
     leftIcon: String,
     leftAction: Function
   },
-  computed: {},
   methods: {
     ...mapActions("route", ["setRouterView"])
   }

@@ -54,6 +54,14 @@ export default {
     ...mapGetters("googleMap", ["myLocation"]),
     ...mapGetters("direction", ["startLocation"])
   },
+  watch: {
+    startLocation(value) {
+      if (!value) {
+        this.isMyLocationActive = false;
+        this.$refs.startAutoComplete.$el.value = null;
+      }
+    }
+  },
   mounted() {
     if (this.historyMode || this.startLocation) {
       this.$refs.startAutoComplete.$el.value = this.startLocation.name;
@@ -64,14 +72,6 @@ export default {
         this.setMyLocation().then(() => {
           this.setStartToMyLocation();
         });
-      }
-    }
-  },
-  watch: {
-    startLocation(value) {
-      if (!value) {
-        this.isMyLocationActive = false;
-        this.$refs.startAutoComplete.$el.value = null;
       }
     }
   },

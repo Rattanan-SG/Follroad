@@ -62,13 +62,13 @@ import CommentControl from "../Feedback/CommentControl";
 import GoToEventButton from "../Details/GoToEventButton";
 export default {
   name: "NewsFeedItem",
-  props: {
-    initEvent: Object
-  },
   components: {
     LikeDislikeControl,
     CommentControl,
     GoToEventButton
+  },
+  props: {
+    initEvent: Object
   },
   data() {
     return {

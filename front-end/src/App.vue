@@ -72,11 +72,8 @@ export default {
     ConfirmDialog,
     MessageSnackbar
   },
-  async created() {
-    this.fetchEvents();
-    this.$vuetify.breakpoint.xsOnly
-      ? this.setRouterView(false)
-      : this.setRouterView(true);
+  computed: {
+    ...mapGetters("route", ["routerView"])
   },
   watch: {
     async "$auth.user"(value) {
@@ -93,8 +90,11 @@ export default {
       }
     }
   },
-  computed: {
-    ...mapGetters("route", ["routerView"])
+  async created() {
+    this.fetchEvents();
+    this.$vuetify.breakpoint.xsOnly
+      ? this.setRouterView(false)
+      : this.setRouterView(true);
   },
   methods: {
     ...mapActions("route", ["setRouterView"]),

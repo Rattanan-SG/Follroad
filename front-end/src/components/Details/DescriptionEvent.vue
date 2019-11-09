@@ -75,13 +75,13 @@ export default {
       event: null
     };
   },
-  created() {
-    this.fetchEvent(this.$route.params.eventId);
-  },
   watch: {
     $route(to) {
       this.fetchEvent(to.params.eventId);
     }
+  },
+  created() {
+    this.fetchEvent(this.$route.params.eventId);
   },
   methods: {
     ...mapActions("feedback", ["fetchFeedbackSummary"]),
