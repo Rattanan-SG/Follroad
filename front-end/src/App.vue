@@ -24,39 +24,36 @@
 <script>
 const Navbar = () =>
   import(
-    /* webpackPrefetch: true */
+    /* webpackPreload: true */
     /* webpackChunkName: "navbar" */ "./components/Navbar/Navbar"
   );
 const GoogleMap = () =>
   import(
-    /* webpackPrefetch: true */
+    /* webpackPreload: true */
     /* webpackChunkName: "googlemap" */ "./components/GoogleMap/GoogleMap"
   );
 const BottomMenuBar = () =>
   import(
-    /* webpackPrefetch: true */
+    /* webpackPreload: true */
     /* webpackChunkName: "bottommenubar" */ "./components/Navbar/BottomMenuBar"
   );
 const RefreshSnackBar = () =>
   import(
-    /* webpackPrefetch: true */
+    /* webpackPreload: true */
     /* webpackChunkName: "refreshsnackbar" */ "./components/RefreshSnackBar.vue"
   );
 const LoginDialog = () =>
   import(
-    /* webpackPrefetch: true */
     /* webpackChunkName: "logindialog" */
     "./components/Feedback/LoginDialog"
   );
 const ConfirmDialog = () =>
   import(
-    /* webpackPrefetch: true */
     /* webpackChunkName: "confirmdialog" */
     "./components/Feedback/ConfirmDialog"
   );
 const MessageSnackbar = () =>
   import(
-    /* webpackPrefetch: true */
     /* webpackChunkName: "messagesnackbar" */
     "./components/Feedback/MessageSnackbar"
   );
