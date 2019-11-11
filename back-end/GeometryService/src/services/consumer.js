@@ -28,7 +28,8 @@ exports.handleBatchCheckNewEvents = async messages => {
           eventLatLng,
           direction.routes,
           notificationRoutes,
-          50
+          100,
+          100
         );
         return {
           _id,
@@ -88,7 +89,8 @@ exports.handleBatchCheckDirectionRecord = async messages => {
         eventLatLng,
         direction.routes,
         routeIndexs,
-        50
+        100,
+        100
       );
       return {
         title,
