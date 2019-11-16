@@ -74,8 +74,6 @@ export default {
       this.updateNoti();
       if (this.isSubscribed) {
         await this.syncSubscription(subscription);
-      } else if (Notification.permission === "granted") {
-        await this.subscribeUser();
       }
     } catch (err) {
       console.log("Service Worker not ready");
