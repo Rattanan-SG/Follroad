@@ -22,7 +22,7 @@
             ></v-carousel-item>
           </v-carousel>
         </v-flex>
-        <v-card-text class="px-3 pt-3 pb-0 word-space">{{event.description}}</v-card-text>
+        <v-card-text class="px-3 pt-3 pb-0 word-wrap">{{event.description}}</v-card-text>
         <v-card-title class="px-3 py-3">
           <span class="red--text">
             เกิดขึ้น ณ
@@ -110,7 +110,8 @@ export default {
   color: white;
   font-size: 17px;
 }
-.word-space {
+.word-wrap {
+  word-wrap: break-word;
   white-space: pre-wrap;
 }
 </style>

@@ -23,7 +23,7 @@
         </v-carousel>
       </v-flex>
       <v-card-text class="py-3">
-        <div class="body-2 word-space">{{ event.description }}</div>
+        <div class="body-2 word-wrap">{{ event.description }}</div>
       </v-card-text>
       <v-divider />
       <v-card-text>
@@ -108,7 +108,8 @@ export default {
   height: 80vh;
   overflow: auto;
 }
-.word-space {
+.word-wrap {
+  word-wrap: break-word;
   white-space: pre-wrap;
 }
 </style>

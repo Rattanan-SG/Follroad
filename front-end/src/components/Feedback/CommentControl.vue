@@ -82,7 +82,7 @@
         <v-flex xs10>
           <span class="subheading font-weight-medium indigo--text">{{comment.authorName}}</span>
           <br />
-          <div class="subheading word-wrap word-space">{{comment.detail}}</div>
+          <div class="subheading word-wrap">{{comment.detail}}</div>
           <span
             class="caption grey--text text--darken-1"
           >ความเห็นเมื่อเวลา {{comment.updatedAt | luxon:locale('short')}}</span>
@@ -154,8 +154,6 @@ export default {
 <style scoped>
 .word-wrap {
   word-wrap: break-word;
-}
-.word-space {
   white-space: pre-wrap;
 }
 </style>

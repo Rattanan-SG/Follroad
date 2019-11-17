@@ -28,7 +28,7 @@
         </v-list-tile>
       </v-list>
       <v-card-text class="pa-1">
-        <div class="body-2 word-space">{{ marker.description }}</div>
+        <div class="body-2 word-wrap">{{ marker.description }}</div>
         <br />
         <v-divider></v-divider>
       </v-card-text>
@@ -72,7 +72,8 @@ export default {
   padding-left: 3px;
   padding-right: 0px;
 }
-.word-space {
+.word-wrap {
+  word-wrap: break-word;
   white-space: pre-wrap;
 }
 </style>
