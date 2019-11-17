@@ -3,10 +3,10 @@
     <LoadingCircular :loading="loading" />
     <template v-if="!loading && event">
       <v-layout row wrap mt-3>
-        <v-flex xs2 pl-3 pt-1>
+        <v-flex xs2 xl1 pl-3 pt-1>
           <v-img :src="getEventIcon()" max-width="25" max-height="25" />
         </v-flex>
-        <v-flex xs9 lg10 md9 sm9 pl-2>
+        <v-flex xs9 md9 sm9 lg10 xl10 pl-2>
           <div>
             <h3 class="subheading blue--text text--darken-2 font-weight-bold">{{ event.title }}</h3>
             <span class="grey--text text--darken-1">โดย {{ event.contributor }}</span>
@@ -23,7 +23,7 @@
         </v-carousel>
       </v-flex>
       <v-card-text class="py-3">
-        <div class="body-2">{{ event.description }}</div>
+        <div class="body-2 word-space">{{ event.description }}</div>
       </v-card-text>
       <v-divider />
       <v-card-text>
@@ -107,5 +107,8 @@ export default {
 .description {
   height: 80vh;
   overflow: auto;
+}
+.word-space {
+  white-space: pre-wrap;
 }
 </style>
