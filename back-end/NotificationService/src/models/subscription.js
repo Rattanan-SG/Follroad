@@ -4,7 +4,8 @@ const subscriptionSchema = new mongoose.Schema(
   {
     uid: {
       type: String,
-      index: true
+      index: true,
+      required: true
     },
     endpoint: {
       type: String,
