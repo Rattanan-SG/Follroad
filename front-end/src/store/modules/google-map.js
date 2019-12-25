@@ -93,9 +93,7 @@ const actions = {
             });
             resolve();
           },
-          error => {
-            console.warn("ERROR(" + error.code + "): " + error.message);
-          },
+          null,
           { enableHighAccuracy: false, timeout: 5000, maximumAge: 0 }
         );
         commit("SET_WATCH_ID", watchId);
