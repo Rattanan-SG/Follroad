@@ -200,8 +200,6 @@ export default {
       const data = this.getEditEventData();
       await eventApi.patchEventById(this.editEvent.id, data);
       data.pictures = [...this.pictures, ...this.newPictures];
-      console.log(data);
-
       this.$emit("edit-event-success", data);
     },
     getEditEventData: function() {

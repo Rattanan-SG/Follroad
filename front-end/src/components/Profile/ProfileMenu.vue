@@ -76,7 +76,7 @@ export default {
         await this.syncSubscription(subscription);
       }
     } catch (err) {
-      console.log("Service Worker not ready");
+      return;
     }
   },
   methods: {
@@ -121,7 +121,6 @@ export default {
         this.updateNoti();
       } catch (err) {
         this.unsubscribeUser();
-        console.warn("Failed to subscribe");
       }
     },
     async unsubscribeUser() {
@@ -135,7 +134,7 @@ export default {
           this.updateNoti();
         }
       } catch (err) {
-        console.warn("Failed to unsubscribe");
+        return;
       }
     },
     logout() {
