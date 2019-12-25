@@ -42,7 +42,6 @@ export default {
     };
   },
   methods: {
-    getSigningURL: function() {},
     uploadFiles: function() {
       if (this.$refs.myVueDropzone.getQueuedFiles().length > 0) {
         this.$refs.myVueDropzone.processQueue();

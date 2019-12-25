@@ -108,7 +108,7 @@
                   id="postEventUpload"
                   ref="postEventUpload"
                   :destroyDropzone="true"
-                  @upload-error="error = true"
+                  @upload-error="handleUploadError"
                   @upload-complete="handleUploadComplete"
                 />
               </v-flex>
@@ -209,6 +209,10 @@ export default {
           }
         }
       }
+    },
+    handleUploadError: function() {
+      this.error = true;
+      this.loading = false;
     },
     handleUploadComplete: async function(eventValue) {
       this.pictures = eventValue;
