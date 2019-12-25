@@ -65,17 +65,13 @@ const actions = {
             resolve();
           },
           async error => {
-            // console.log(error);
             switch (error.code) {
               case 3:
-                // deal with timeout
                 await dispatch("setMyLocation");
                 break;
               case 2:
-                // device can't get data
                 break;
               case 1:
-              // user said no
             }
           },
           { enableHighAccuracy: false, timeout: 5000, maximumAge: 0 }
