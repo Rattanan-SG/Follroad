@@ -3,7 +3,7 @@ const AWS = require("../config/aws");
 exports.getSignedUrl = async query => {
   const { key = "", contentType = "image/jpeg" } = query;
   const params = {
-    Bucket: "follroad-picture",
+    Bucket: global.gConfig.aws_s3_bucket_name,
     Key: key,
     Expires: 30 * 60, // 30 minutes
     ContentType: contentType,
@@ -54,7 +54,7 @@ exports.getSignedUrl = async query => {
 exports.createPresignedPost = async query => {
   const { key = "", contentType = "image/jpeg" } = query;
   const params = {
-    Bucket: "follroad-picture",
+    Bucket: global.gConfig.aws_s3_bucket_name,
     Expires: 30 * 60, // 30 minutes
     Fields: {
       "Content-Type": contentType,
@@ -79,7 +79,6 @@ exports.createPresignedPost = async query => {
           postEndpoint
         };
         resolve(result);
-        // resolve(data);
       }
     });
   });

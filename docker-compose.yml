@@ -2,11 +2,11 @@ version: "3"
 services:
   event:
     build: ./back-end/EventService
-    command: ["npm", "run", "dev"]
+    command: [sh, -c, "npm run db:migrate && npm run dev"]
     ports:
       - "3000:3000"
     links:
-      - mariadb:database
+      - mariadb
     volumes:
       - ./back-end/EventService:/app
       - /app/node_modules

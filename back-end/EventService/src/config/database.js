@@ -9,7 +9,7 @@ module.exports = {
     username: env.DATABASE_USERNAME || "admin",
     password: env.DATABASE_PASSWORD || "dev",
     database: env.DATABASE_NAME || "dev",
-    host: env.DATABASE_HOST || "database",
+    host: env.DATABASE_HOST || "mariadb",
     maxConnectionPool: env.MAX_CONNECTION_POOL || 10,
     port: dbPort,
     dialect

@@ -8,8 +8,11 @@ const config = {
     config_id: "development",
     node_port: env.NODE_PORT || 3002,
     mongo_url: env.MONGO_URL || "mongodb://mongodb/test",
-    vapid_public_key: env.VAPID_PUBLIC_KEY,
-    vapid_private_Key: env.VAPID_PRIVATE_KEY
+    vapid_public_key:
+      env.VAPID_PUBLIC_KEY ||
+      "BPv9dLtGAEzGDoR8mIDTZGjPa1nYt_CnU3hkQpLzRyRD62F-CeWrp9AEUfzZ7mB6T_mrbrYktByJQW5djr5q2Hk",
+    vapid_private_Key:
+      env.VAPID_PRIVATE_KEY || "_KcE9A_s1P0lhsaaLAnsr5Z2pqrSTXhtbLDlY_PMwKI"
   },
   testing: {
     config_id: "testing"
