@@ -7,19 +7,19 @@
 ## System Flow Diagram
 ![screenshot10 IT59-BU07](https://user-images.githubusercontent.com/24937923/71518749-e0f58f80-28e6-11ea-90cd-a1668563d0f1.jpeg)
 
-## Development Tools โปรแกรมที่ใช้ในการพัฒนา
+## Development Tools
 
 * Visual Studio Code version 1.41.1
 * Google Chrome version 79.0.3945.88
 
-## System Requirements ความต้องการของระบบ
+## System Requirements
 
 * Node.js version 12.14.0
 * Yarn version 1.17.3
 * Docker version 19.03.5
 * Git version 2.22.0
 
-## Credentials Keys คีย์รับรองการใช้งานบริการต่างๆ
+## Credentials Keys
 
 #### 1. Amazon Web Services Account สำหรับใช้บริการ AWS S3, AWS SQS และอื่นๆ
 * IAM User with AmazonS3FullAccess and AmazonSQSFullAccess permissions
@@ -55,7 +55,7 @@
  - VAPID_PRIVATE_KEY
 ```
  
-## Installation วิธีการติดตั้งระบบให้สามารถทำงานได้
+## Installation
 
 ### 1. Download source code or use git
 ```sh
@@ -104,7 +104,7 @@ npm run db:migrate
 npm run db:seed:all
 ```
 
-## Run System วิธีการเปิดใช้งานระบบ
+## Run System
 
 ### Back-end
 ถ้าสามารถใช้งาน Docker ได้ให้เข้าไปที่  folder **/Follroad** แล้วใช้คำสั่ง
@@ -133,7 +133,7 @@ yarn
 yarn serve
 ```
 
-## Deployment วิธีการนำโปรแกรมไป deploy 
+## Deployment
 
 ### Back-end
 ทำได้ 2 วิธี
@@ -163,7 +163,7 @@ yarn build
 ## Tools & Services
 ![screenshot8 IT59-BU07](https://user-images.githubusercontent.com/24937923/71519674-1bf9c200-28eb-11ea-9646-c4888bfd2a64.jpeg)
 
-## Members สมาชิกผู้จัดทำ
+## Members
 - 59130500016 ชลชาติ โรจสิทธิวัชร 0819005506
 - 59130500075 รัชฐนัน ศรีพรประเสริฐ 0851560425
 - 59130500116 กันตพัฒณ์ นาควิโรจน์ 0893016915
