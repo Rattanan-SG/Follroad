@@ -4,22 +4,22 @@
 
 แอปพลิเคชันที่ช่วยให้ข้อมูลสำหรับการตัดสินใจในการเดินทางบนท้องถนน โดยแสดงข้อมูลจราจร และเหตุการณ์ในตำแหน่งที่เกิดขึ้นบนท้องถนนในประเทศไทย ซึ่งผู้ใช้จะได้รับข่าวสารเกี่ยวกับการจราจรได้อย่างรวดเร็วผ่านการแสดงบนแผนที่ และการแจ้งเตือนเมื่อมีเหตุการณ์เกิดขึ้นบนเส้นทางที่ผู้ใช้สนใจ เมื่อผู้ใช้พบเจอเหตุการณ์ที่เกิดขึ้นบนท้องถนนหรือส่งผลกับการจราจร ผู้ใช้สามารถแจ้งเหตุการณ์ที่เกิดขึ้นที่ตำแหน่งนั้นๆ ได้ด้วยตนเอง
 
-## System Flow Diagram
-![screenshot10 IT59-BU07](https://user-images.githubusercontent.com/24937923/71518749-e0f58f80-28e6-11ea-90cd-a1668563d0f1.jpeg)
+## System Flow Diagram แผนภาพการทำงานของระบบ
+![screenshot10 IT59-BU07](https://user-images.githubusercontent.com/24937923/71538000-d1ae2a80-2956-11ea-8863-efe0dfa8850f.jpeg)
 
-## Development Tools
+## Development Tools โปรแกรมที่ใช้ในการพัฒนา
 
 * Visual Studio Code version 1.41.1
 * Google Chrome version 79.0.3945.88
 
-## System Requirements
+## System Requirements ความต้องการของระบบ
 
 * Node.js version 12.14.0
 * Yarn version 1.17.3
 * Docker version 19.03.5
 * Git version 2.22.0
 
-## Credentials Keys
+## Credentials Keys คีย์รับรองการใช้งานบริการต่างๆ
 
 #### 1. Amazon Web Services Account สำหรับใช้บริการ AWS S3, AWS SQS และอื่นๆ
 * IAM User with AmazonS3FullAccess and AmazonSQSFullAccess permissions
@@ -55,7 +55,7 @@
  - VAPID_PRIVATE_KEY
 ```
  
-## Installation
+## Installation วิธีการติดตั้งระบบ
 
 ### 1. Download source code or use git
 ```sh
@@ -104,7 +104,7 @@ npm run db:migrate
 npm run db:seed:all
 ```
 
-## Run System
+## Run System วิธีการเปิดใช้งานระบบ
 
 ### Back-end
 ถ้าสามารถใช้งาน Docker ได้ให้เข้าไปที่  folder **/Follroad** แล้วใช้คำสั่ง
@@ -133,7 +133,7 @@ yarn
 yarn serve
 ```
 
-## Deployment
+## Deployment วิธีการนำโปรแกรมไป deploy
 
 ### Back-end
 ทำได้ 2 วิธี
@@ -160,8 +160,11 @@ yarn build
 
 ซึ่งจะสร้าง web server ขึ้นมาเอง หรือใช้บริการ cloud web hosting อื่นๆ เช่น Netlify, Firebase, Heroku เป็นต้น
 
-## Tools & Services
+## Tools & Services เครื่องมือและบริการที่ใช้
 ![screenshot8 IT59-BU07](https://user-images.githubusercontent.com/24937923/71519674-1bf9c200-28eb-11ea-9646-c4888bfd2a64.jpeg)
+
+## System Architecture สถาปัตยกรรมของระบบ
+![screenshot9 IT59-BU07](https://user-images.githubusercontent.com/24937923/71538010-10dc7b80-2957-11ea-8293-3f5906c37da6.png)
 
 ## Members
 - 59130500016 ชลชาติ โรจสิทธิวัชร 0819005506
