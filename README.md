@@ -45,7 +45,7 @@
  - Google OAuth Key สำหรับเปิดให้บริการเข้าสู่ระบบผ่าน Google
 ```
 
-#### 4. VAPID-KEYS สำหรับการส่ง web-push notification
+#### 4. VAPID-KEYS สำหรับการส่ง Web-Push Notification
  สร้าง Keys ได้จากคำสั่ง
 ```
  npx web-push generate-vapid-keys
@@ -82,10 +82,10 @@ file **.env** จะมีข้อมูลดังนี้
  AUTH0_AUDIENCE=https://follroad.tk
 ```
  - NODE_ENV คือ  สถานะของ environment มีค่าได้เช่น development, production
- - NODE_PORT คือ port ที่ใช้ของโปรแกรมนี้ 
- - MONGO_URL คือ url ในการเชื่อมต่อ MongoDB
- - MESSAGE_QUEUE_API คือ url api ของ MessageQueueProducerService 
- - MESSAGE_QUEUE_NAME คือ ชื่อ queue ของ AWS SQS ที่ใช้ในการส่งข้อมูลเมื่อมีเส้นทางที่ต้องส่งแจ้งเตือน
+ - NODE_PORT คือ Port ที่ใช้ของโปรแกรมนี้ 
+ - MONGO_URL คือ URL ในการเชื่อมต่อ MongoDB
+ - MESSAGE_QUEUE_API คือ URL API ของ MessageQueueProducerService 
+ - MESSAGE_QUEUE_NAME คือ ชื่อ Queue ของ AWS SQS ที่ใช้ในการส่งข้อมูลเมื่อมีเส้นทางที่ต้องส่งแจ้งเตือน
  - AUTH0_DOMAIN คือ ชื่อ Domain ของ Applications ใน Auth0
  - AUTH0_AUDIENCE คือ ค่าที่ใช้ในการตรวจสอบว่า JSON Web Token (JWT) ที่ส่งมานั้นต้องมี audience นี้อยู่
 
@@ -95,7 +95,7 @@ file **.env** จะมีข้อมูลดังนี้
 ให้ทำการสร้าง file ชื่อ **.env.development.local** สำหรับการ **development** แล้ว copy ค่าใน **.env.example** ไปใส่ และทำการแก้ไขข้อมูลให้เป็นค่าที่ต้องการ
 
 ### 3. Setup SQL Database
-**EventService** นั้นใช้ Mariadb สามารถทำการ **Initialize Database** ได้โดยการเข้าไปใน folder **/Follroad/back-end/EventService** และใช้คำสั่ง  
+**EventService** นั้นใช้ **Sequelize** ในการจัดการติดต่อกับ Mariadb ซึ่งสามารถทำการ **Initialize Database** ได้ เพื่อสร้าง Table ให้เป็นไปตามโครงสร้างที่กำหนดไว้ โดยการเข้าไปใน folder **/Follroad/back-end/EventService** และใช้คำสั่ง  
 ```
 npm run db:migrate
 ```
@@ -133,7 +133,7 @@ yarn
 yarn serve
 ```
 
-## Deployment วิธีการนำโปรแกรมไป deploy
+## Deployment วิธีการติดตั้งลงบนเครื่องเซิร์ฟเวอร์
 
 ### Back-end
 ทำได้ 2 วิธี
@@ -145,20 +145,22 @@ yarn serve
 
 จากนั้นก็นำไปเก็บไว้ที่ **Container Repository** เช่น **Docker Hub** ด้วยคำสั่ง `docker push`
 
-และทำการใช้คำสั่ง `docker pull` ลงมาที่เครื่อง **Server** แล้วใช้คำสั่ง `docker run` เพื่อให้ image นั้นทำงาน
+และทำการใช้คำสั่ง `docker pull` Image เหล่านั้นลงมาที่เครื่อง **Server** 
 
-หรือจะใช้ **Container Orchestration** เช่น **AWS ECS, Kubernetes** เพื่อมาจัดการ container หลายๆตัวให้ทำงานได้อย่างมีประสิทธิภาพ
+แล้วใช้คำสั่ง `docker run` กับ Image แต่ละตัวเพื่อสร้าง Container และสั่งให้เริ่มทำงาน
 
-2. ติดตั้ง **Node.js** ที่เครื่อง **Server** เพื่อให้สามารถ run ตัว back-end ได้
+หรือจะใช้ **Container Orchestration** เช่น **AWS ECS, Kubernetes** เพื่อมาจัดการ Container หลายๆตัวให้ทำงานได้อย่างมีประสิทธิภาพ
+
+2. ติดตั้ง **Node.js** ที่เครื่อง **Server** เพื่อให้สามารถ run ตัว back-end ที่เป็น Node.js Application ได้
 
 ### Front-end
 เข้าไปที่ folder **/Follroad/front-end** แล้วใช้คำสั่ง 
 ```
 yarn build 
 ```
-จะได้ folder ใหม่ที่ชื่อ dist ซึ่งเก็บ file static web พร้อมนำไป deploy ที่ web hosting ได้เลย
+จะได้ folder ใหม่ที่ชื่อ dist ซึ่งเก็บ file bundle website พร้อมนำไป Deploy ที่ Web Hosting ได้เลย
 
-ซึ่งจะสร้าง web server ขึ้นมาเอง หรือใช้บริการ cloud web hosting อื่นๆ เช่น Netlify, Firebase, Heroku เป็นต้น
+ซึ่งจะสร้าง Web Server ขึ้นมาเอง หรือใช้บริการ Cloud Web Hosting อื่นๆ เช่น Netlify, Firebase, Heroku เป็นต้น
 
 ## Tools & Services เครื่องมือและบริการที่ใช้
 ![screenshot8 IT59-BU07](https://user-images.githubusercontent.com/24937923/71519674-1bf9c200-28eb-11ea-9646-c4888bfd2a64.jpeg)
