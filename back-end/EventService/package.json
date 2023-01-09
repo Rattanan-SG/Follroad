@@ -28,7 +28,7 @@
     "express-jwt": "^5.3.1",
     "helmet": "^3.18.0",
     "jwks-rsa": "^1.6.0",
-    "luxon": "^1.17.3",
+    "luxon": "^1.28.1",
     "mariadb": "^2.1.0",
     "morgan": "^1.9.1",
     "sequelize": "^5.15.1",
